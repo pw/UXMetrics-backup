@@ -1,0 +1,117 @@
+
+
+
+<div class="mt-16 max-w-xl mx-auto">
+  <header class="flex justify-between">
+    <h1 class="text-3xl mb-4">Results</h1>
+      <p>
+        Groups created:
+        <%= @resultgroups.count %>
+      </p>
+      <p>
+        Results:
+        <%= @results.count %>
+      </p>
+      <p>
+        Time to complete:
+        <%= @mediantime %>
+      </p>
+    <div>
+
+    </div>
+  </header>
+
+
+
+
+  <table class="table hidden">
+    <thead>
+      <tr>
+
+
+
+
+            <th>Name</th>
+            <th>Data</th>
+            <th>ID</th>
+            <th>Cardtest ID</th>
+
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <% dataCompiled = [] %>
+      <% @results.each do |result| %>
+
+              <tr>
+
+
+                      <td><%= result.name %></td>
+                      <td><%= result.data %></td>
+                      <td><%= result.id %></td>
+                      <td><%= result.cardtest_id %></td>
+
+
+
+              </tr>
+              <% dataCompiled.push(result.data.to_json)%>
+      <% end %>
+
+<%= javascript_tag do %>
+
+  window.dataCompiled = <%=raw dataCompiled %>;
+  window.resultGroups = <%=raw @resultgroups.to_json %>;
+  window.groupsPerResult = <%=raw @groupsperresult %>;
+  window.cardsByGroups = <%=raw @cardsByGroups %>;
+<% end %>
+
+    </tbody>
+  </table>
+
+
+
+  <div class="overview">
+
+
+    <div class="">
+      <%# <%= @groupsperresult %>
+      Most people created <%= @mediangroups.to_i %> group(s).
+    </div>
+
+
+
+    <div class="bar-container"></div>
+
+    <div class="">
+      <ul id='cards'>
+        <% @cardtest.cards.sort_by(&:order).each do |card| %>
+          <li class="max-w-sm rounded overflow-hidden shadow-lg p-5"><%= card.name %>
+
+            <ul class="titles">
+              <% @cardsByGroups.each do |cardIdRow| %>
+                <% if card.id == JSON.parse(cardIdRow)['id'] %>
+
+
+                  <% titlesGrouped = JSON.parse(cardIdRow)['titles'].group_by{|i| i}.map{|k,v| [k, v.count] } %>
+
+                  <% titlesGrouped.sort_by{|k|k[1]}.reverse.each do |element| %>
+
+                    <li><%= element[0] %> <%= element[1] %></li>
+                  <% end %>
+
+
+                <% end %>
+
+              <% end %>
+            </ul>
+
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+  </div>
+
+
+</div>

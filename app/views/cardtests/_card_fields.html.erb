@@ -1,0 +1,19 @@
+<%= content_tag :li, class:"nested-field", data: {new_record: form.object.new_record?} do %>
+
+    <div class="drag-handle">DRAG <%=  %></div>
+
+
+      <div class="field">
+        <%= form.text_field :name, class: "input" %>
+        <small><%= link_to "Remove", "#", data: { action: "click->nested-form#remove_association"} %></small>
+
+      </div>
+
+
+      <%= form.text_field :order %>
+      <%= form.hidden_field :_destroy %>
+
+
+</li>
+
+<% end %>

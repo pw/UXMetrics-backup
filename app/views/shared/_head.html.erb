@@ -7,6 +7,18 @@
   <script src="https://js.stripe.com/v3/"></script><%= render "shared/social_media_meta_tags" %>
 
 <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
+
+<% if controller.controller_name == "results" && controller.action_name == "index" %>
+  <%= javascript_pack_tag "report", "data-turbolinks-track": "reload" %>
+<% end %>
+
+<% if controller.controller_name == "results" && controller.action_name == "new" %>
+  <%= javascript_pack_tag "result", "data-turbolinks-track": "reload" %>
+<% end %>
+
+<% if controller.controller_name == "cardtest" && controller.action_name == "edit" %>
+  <%= javascript_pack_tag "edit", "data-turbolinks-track": "reload" %>
+<% end %>
+
 <%= stylesheet_pack_tag "application", "data-turbolinks-track": "reload" %>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-

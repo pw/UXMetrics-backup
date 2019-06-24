@@ -1,0 +1,17 @@
+<%= form_for [@cardtest, @cardtest.results.new], url: ""+@cardtest.auth_token+"/results" do |result| %>
+
+  <div class="form"
+
+      <%= result.label :name %>
+      <%= result.text_field :name, class: "input", :value => @cardtest.name %>
+      <%= result.label :data %>
+      <%= result.text_field :data, class: "input", :value => "Default" %>
+
+
+      <% @cardtest.cards.sort_by(&:order).each do |card| %>
+
+      <% end %>
+
+      <%= result.submit class: "btn btn--primary" %>
+  </div>
+<% end %>

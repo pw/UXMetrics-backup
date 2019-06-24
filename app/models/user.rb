@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true
 
+  has_many :cardtests
 
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later

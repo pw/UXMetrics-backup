@@ -4,6 +4,13 @@
   "dependencies": {
     "@rails/ujs": "6.0.0-beta2",
     "@rails/webpacker": "3.5",
+    "britecharts": "^2.12.0",
+    "d3": "^5.9.2",
+    "font-awesome": "^4.7.0",
+    "hammerjs": "^2.0.8",
+    "jquery": "^3.4.1",
+    "jquery-ui": "^1.12.1",
+    "muuri": "^0.7.1",
     "postcss-nested": "4.1.2",
     "postcss-preset-env": "6.6.0",
     "stimulus": "^1.1.1",

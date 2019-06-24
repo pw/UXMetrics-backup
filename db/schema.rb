@@ -15,6 +15,28 @@ ActiveRecord::Schema.define(version: 2019_06_19_123437) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "cards", force: :cascade do |t|
+    t.text "name"
+    t.bigint "cardtest_id"
+    t.integer "order"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cardtest_id"], name: "index_cards_on_cardtest_id"
+  end
+
+  create_table "cardtests", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "name"
+    t.string "auth_token"
+    t.boolean "status"
+    t.string "uid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["auth_token"], name: "index_cardtests_on_auth_token", unique: true
+    t.index ["uid"], name: "index_cardtests_on_uid", unique: true
+    t.index ["user_id"], name: "index_cardtests_on_user_id"
+  end
+
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
     t.integer "sluggable_id", null: false
@@ -24,6 +46,15 @@ ActiveRecord::Schema.define(version: 2019_06_19_123437) do
     t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "results", force: :cascade do |t|
+    t.string "name"
+    t.text "data"
+    t.bigint "cardtest_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cardtest_id"], name: "index_results_on_cardtest_id"
   end
 
   create_table "sjabloon_charges", force: :cascade do |t|
@@ -125,4 +156,7 @@ ActiveRecord::Schema.define(version: 2019_06_19_123437) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "cards", "cardtests"
+  add_foreign_key "cardtests", "users"
+  add_foreign_key "results", "cardtests"
 end

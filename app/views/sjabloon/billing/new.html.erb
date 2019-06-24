@@ -52,9 +52,9 @@
           <div data-target="sjabloon--stripe.errors" role="alert"></div>
         </div>
 
-        <%= render "sjabloon/billing/coupon_form", form: form if @any_active_coupons_available %>
+        <%# <%= render "sjabloon/billing/coupon_form", form: form if @any_active_coupons_available %>
+        <%= render "sjabloon/billing/coupon_form", form: form %>
       </div>
     </div>
   <% end %>
 </div>
-

@@ -1,0 +1,24 @@
+<%= form_with(model: cardtest, local: true, class: "card p-4", id:"publish-form") do |form| %>
+<%= render "shared/flash", flash: cardtest.errors %>
+
+<div class="field">
+  <%= form.hidden_field :status, id:"status-field", class: "input"%>
+  <%# <%= form.hidden_field :uid %>
+</div>
+
+  <% begin %>
+    <% if cardtest.status == "0"%>
+      <h1 class="mt-2 mb-6 text-xl font-semibold">Your cardtest is not published yet.</h1>
+      <%= form.submit class: "btn btn--primary", value:"Publish", id:"publish-test"%>
+    <% else %>
+
+      <h1 class="mt-2 mb-6 text-xl font-semibold">Your cardtest is published.</h1>
+      <%= form.submit class: "btn btn--secondary", value:"Unpublish", id:"publish-test"%>
+    <% end %>
+  <% rescue => ex %>
+
+  <% end %>
+
+
+</div>
+<% end %>

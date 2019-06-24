@@ -1,0 +1,29 @@
+  <%= form_with(model: result, local: true, class: "card p-4") do |form| %>
+  <%= render "shared/flash", flash: result.errors %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "input" %>
+  </div>
+  <div class="field">
+    <%= form.label :order %>
+    <%= form.text_field :order, class: "input" %>
+  </div>
+  <div class="field">
+    <%= form.label :column %>
+    <%= form.text_area :column, class: "input" %>
+  </div>
+  <div class="field">
+    <%= form.label :cardtest_id %>
+    <%= form.text_field :cardtest_id, class: "input" %>
+  </div>
+
+  <div class="field flex justify-between items-center mb-0">
+    <%= form.submit class: "btn btn--primary" %>
+
+    <% if result.persisted? %>
+      <%= link_to "Destroy", result, method: :delete, class: "text-red-600", data: { confirm: "Are you sure?" } %>
+    <% end %>
+  </div>
+<% end %>
+
