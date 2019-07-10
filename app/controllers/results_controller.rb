@@ -2,6 +2,8 @@ class ResultsController < ApplicationController
   before_action :set_result, only: [:show, :edit, :update, :destroy]
   before_action :set_cardtest, except: [:new]
 
+
+  layout "collect"
   # GET /results
   def index
 

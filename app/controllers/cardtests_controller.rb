@@ -25,6 +25,7 @@ class CardtestsController < ApplicationController
   def new
     @cardtest = Cardtest.new
     @cardtest.cards.new
+    @cardtest.status = false
   end
 
   # GET /cardtests/1/edit
@@ -38,6 +39,7 @@ class CardtestsController < ApplicationController
   # POST /cardtests
   def create
     @cardtest = current_user.cardtests.new(cardtest_params)
+    @cardtest.status = ActiveModel::Type::Boolean.new.cast(@cardtest.status)
     # name = @cardtest.name
     # puts name
     # slug = to_slug(name)
@@ -58,9 +60,11 @@ class CardtestsController < ApplicationController
   def update
     #@cardtest = Cardtest.find_by(slug: params[:id])
     @cardtest = Cardtest.find_by(uid: params[:uid])
-
+    @cardtest.status = ActiveModel::Type::Boolean.new.cast(@cardtest.status)
     if @cardtest.update(cardtest_params)
-      redirect_to cardtests_url, notice: 'Cardtest was successfully updated.'
+      # redirect_to cardtests_url, notice: 'Cardtest was successfully updated.'
+      redirect_to edit_cardtest_url, notice: 'Cardtest was successfully updates.'
+      # render :edit
     else
       puts "update else"
       render :edit

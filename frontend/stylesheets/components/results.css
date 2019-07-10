@@ -1,0 +1,15 @@
+.muuri-new-column {
+
+}
+
+.used-column {
+  @apply shadow;
+}
+
+.name-link {
+  @apply text-sm text-indigo-700 underline;
+}
+
+.ui-sortable-helper {
+  z-index:999999;
+}

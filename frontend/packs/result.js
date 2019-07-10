@@ -17,15 +17,15 @@ function recalculateOrder(itemsContainer){
   //console.log(itemsContainer.sortable('toArray'));
   // console.log("itemOrder:");
 
-  console.log("recalc");
+  // console.log("recalc");
   $(this).find('.item').each(function( index, value ) {
-    console.log("cycling through items: "+index);
+    // console.log("cycling through items: "+index);
     $(this).find("input[name*='order']").val(index);
     $(this).find("p.order").html(index);
   });
 
   $(itemsContainer).each(function(){
-    console.log("Container found");
+    // console.log("Container found");
     $(this).find('.item').each(function( index, value ) {
       $(this).find("input[name*='order']").val(index);
       $(this).find("p.order").html(index);
@@ -39,6 +39,77 @@ function recalculateOrder(itemsContainer){
 
 
 $(document).on('turbolinks:load', function(){
+
+  $(".delete-group").click(function(e){
+    e.preventDefault();
+
+    // TEMP:
+    $(this).closest(".muuri-new-column").find(".name-link").text("Add a name");
+    $(this).closest(".muuri-new-column").find("input.name-input").val("");
+
+    var nameInput = $(this).closest(".muuri-new-column").find(".name-input");
+    var items = $(this).closest(".column-holder").find(".item");
+    // console.log("ITEMS:");
+    // console.log(items);
+    // items.remove();
+
+    var itemsMoved = items.appendTo(".new-column");
+    // console.log(itemsMoved);
+    $(this).closest(".muuri-new-column").removeClass("used-column");
+    $(this).closest(".muuri-new-column").removeClass("used-column");
+    $(this).closest(".muuri-new-column").removeClass("bg-gray-300");
+    $(this).closest(".muuri-new-column").addClass("bg-transparent");
+
+    console.log($(this).closest(".muuri-new-column").find(".name-input"));
+    console.log("setting value");
+
+    $(this).closest(".muuri-new-column").find(".group-header").addClass("hidden");
+    $(this).closest(".muuri-new-column").find(".full-container").removeClass("full-container");
+
+  });
+
+  $(".name-link").click(function(e){
+    e.preventDefault();
+    $(this).hide();
+    $(this).closest(".group-header").find(".delete-group").hide();
+    $(this).closest(".group-header").find(".muuri-handle").hide();
+    $(this).closest(".group-header").find(".name-input").show();
+    $(this).closest(".group-header").find(".name-input").focus();
+  });
+
+  $(".name-input").blur(function(e){
+    if(!$(this).val() == ""){
+      $(this).closest(".group-header").find(".name-link").text($(this).val());
+      $(this).hide();
+      $(this).closest(".group-header").find(".name-link").show();
+      $(this).closest(".group-header").find(".delete-group").show();
+      $(this).closest(".group-header").find(".muuri-handle").show();
+    } else {
+      $(this).closest(".group-header").find(".name-link").text("Add a name");
+      $(this).hide();
+      $(this).closest(".group-header").find(".name-link").show();
+      $(this).closest(".group-header").find(".muuri-handle").show();
+      $(this).closest(".group-header").find(".delete-group").show();
+    }
+
+
+  });
+
+  $(".name-input").on('keydown', function(e) {
+    if (e.which == 13) {
+      $(this).closest(".group-header").find(".name-link").text($(this).val());
+      $(this).hide();
+      $(this).closest(".group-header").find(".name-link").show();
+      e.preventDefault();
+    }
+});
+
+
+  $(".submit-result").click(function(e){
+    e.preventDefault();
+    $("#new_result").submit();
+  });
+
 
   var now = new Date().getTime();
   //var formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
@@ -64,37 +135,38 @@ $(document).on('turbolinks:load', function(){
                 }
 
              },
-              handle: '.drag-handle',
+
               out: function(event, ui){
-                console.log("Out event");
+                // console.log("Out event");
 
               },
               start: function(event, ui){
-                console.log("start event");
+                // console.log("start event");
                 //getCursorPosition();
                 grid.refreshItems().layout(function (items) {
-                  console.log('layout updated!');
+                  // console.log('layout updated!');
                 });
               },
               stop: function(event, ui){
-                console.log("stop event");
+                // console.log("stop event");
                 grid.refreshItems().layout(function (items) {
-                  console.log('layout updated!');
+                  // console.log('layout updated!');
                 });
                 //getCursorPosition();
               },
               change: function(event, ui){
-                console.log("change");
+                // console.log("change");
                 grid.refreshItems().layout(function (items) {
-                  console.log('layout updated!');
+                  // console.log('layout updated!');
                 });
-              }
+              },
+              appendTo: 'body'
 
           }
 
 
   if ($('.new-column').length>0){
-    console.log("new column present");
+    // console.log("new column present");
     $( ".new-column" ).sortable(sortableOptions);
 
     }
@@ -106,6 +178,11 @@ $(document).on('turbolinks:load', function(){
               zIndex: 10000,
               dropOnEmpty: true,
               update: function(event, ui) {
+                $(".muuri-new-column").removeClass("border-dashed border-gray-100 border-2");
+                var receivingList = $(event.target);
+                // console.log("receivinglist: ");
+                // console.log(receivingList);
+                receivingList.parents(".column-holder").find(".group-header").removeClass("hidden");
                 try {
                   var itemOrder = $(this).sortable('toArray');
 
@@ -117,32 +194,44 @@ $(document).on('turbolinks:load', function(){
                   console.log(error);
                 }
                },
-                handle: '.drag-handle',
+
                 out: function(event, ui){
-                  console.log("Out event");
+                  // console.log("Out event");
+                  var receivingList = $(event.target);
+                  // receivingList.parents(".muuri-new-column").removeClass("border-dashed border-gray-100 border-2");
 
                 },
                 start: function(event, ui){
-                  console.log("start event");
+                  // console.log("start event");
                   grid.refreshItems().layout(function (items) {
-                    console.log('layout updated!');
+                    // console.log('layout updated!');
                   });
                   //getCursorPosition();
                 },
                 stop: function(event, ui){
-                  console.log("stop event");
+                  // console.log("stop event");
 
                   grid.refreshItems().layout(function (items) {
-                    console.log('layout updated!');
+                    // console.log('layout updated!');
                   });
                   //getCursorPosition();
-                }
+                },
+                change: function(event, ui){
+                  // console.log("change event");
+                  var receivingList = $(event.target);
+                  $(".muuri-new-column").removeClass("border-dashed border-gray-700 border-2");
+
+                  receivingList.parents(".muuri-new-column").addClass("border-dashed border-gray-700 border-2");
+                  // console.log(receivingList.parents(".muuri-new-column"));
+
+                },
+                appendTo: 'body'
 
             }
 
 
     if ($('.items').length>0){
-      console.log("test columns found");
+      // console.log("test columns found");
       $( ".items" ).sortable(sortableOptionsOther);
 
       }
@@ -169,7 +258,7 @@ $(document).on('turbolinks:load', function(){
         }). on('dragReleaseEnd', function(){
 
           grid.refreshItems().layout(function (items) {
-            console.log('layout updated!');
+            // console.log('layout updated!');
           });
           //recalculateOrder(grid);
           //console.log(serializeLayout(grid));
@@ -187,15 +276,26 @@ $(document).on('turbolinks:load', function(){
           $(".items").each(function(index, value){
             //update array with items
             console.log("Window rebuild this: ");
-            console.log(this);
+            // console.log(this);
             data[index] = $(this).sortable('toArray');
 
+            // console.log("THIS");
+            // console.log($(this));
+
+            // console.log("ITEM DROPPED IN");
+            // console.log("THIS CHILDREN length:");
+            // console.log($(this).children().length > 0);
+            // console.log("FULL CONTINER:");
+            // console.log(!$(this).hasClass("full-container"));
             //add full container where needed
             if ($(this).children().length > 0 && !$(this).hasClass("full-container")){
+
               $(this).addClass("full-container");
-              $(this).parents(".muuri-new-column").addClass("bg-indigo-600 used-column");
-              $(this).parents(".muuri-new-column").removeClass("bg-indigo-200");
-              $(this).parents(".column-holder").prepend('<input type="text" class="container-name" placeholder="Add a name for your group ..."/>')
+              // console.log("ADD USED COLUMN AND GRAY BG");
+              $(this).parents(".muuri-new-column").addClass("bg-gray-300 used-column");
+              // $(this).parents(".muuri-new-column").removeClass("bg-indigo-200");
+
+              // $(this).parents(".column-holder").children(".group-header").append('<input type="text" class="w-4/5 container-name input-small inline-block" placeholder="Add a name for your group ..."/>')
               //console.log("length is: "+$(this).children().length);
 
             }
@@ -217,24 +317,24 @@ $(document).on('turbolinks:load', function(){
 
           });
 
-          console.log("used:");
-          console.log(usedNo);
-          console.log("unused:");
-          console.log(unusedNo);
+          // console.log("used:");
+          // console.log(usedNo);
+          // console.log("unused:");
+          // console.log(unusedNo);
 
           if (unusedNo < 3) {
             // $("#test-columns").append('<div class="muuri-new-column py-6 bg-indigo-200 m-6 w-64 absolute"><div class="column-holder"><div class="muuri-handle"><i class="fa fa-arrows-alt"></i></div><div class="items p-4"></div></div></div>');
-            var element = $('<div class="muuri-new-column py-6 bg-indigo-200 m-6 w-64 absolute"><div class="column-holder"><div class="muuri-handle"><i class="fa fa-arrows-alt"></i></div><div class="items p-4"></div></div></div>').appendTo("#test-columns")
+            var element = $('<div class="muuri-new-column m-2 mt-0 w-64 absolute"><div class="column-holder"><div class="group-header hidden"><div class="muuri-handle inline-block"><i class="fa fa-arrows-alt"></i></div></div><div class="items p-2"></div></div></div>').appendTo("#test-columns")
             // add new item
             grid.add(element[0]);
-            console.log("re init sortable:")
+            // console.log("re init sortable:")
 
             $( ".items" ).sortable(sortableOptionsOther);
             // grid.add([element]);
           }
 
-          console.log("this is the data");
-          console.log(data);
+          // console.log("this is the data");
+          // console.log(data);
         }
 
 
@@ -242,7 +342,7 @@ $(document).on('turbolinks:load', function(){
   $("#new_result").submit(function(e){
 
       e.preventDefault(); //prevent submit
-      console.log("Submit from result js");
+      // console.log("Submit from result js");
       var self = this;
 
       var data = {
@@ -295,7 +395,7 @@ $(document).on('turbolinks:load', function(){
 
       // console.log(data);
 
-      console.log(JSON.stringify(data));
+      // console.log(JSON.stringify(data));
 
       // add data to data input before submit
       $('#result_data').val(JSON.stringify(data));

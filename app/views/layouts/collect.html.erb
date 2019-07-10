@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html class="w-full sm:h-full">
+<head>
+  <%= render "shared/head" %>
+</head>
+
+<body class="w-full h-full <%= body_class(yield(:body_class)) %>">
+  <%= render "shared/flash" %>
+  <div class="collect">
+
+
+    <div class="dashboard-wrapper">
+      <div class="dashboard-nav-secondary clearfix">
+        <%# Example usage here: search, secondary navigation items, etc.  Do not forget to change the `justify-end` in `.dashboard-nav-secondary`. %>
+        <%= link_to Rails.configuration.application_name, root_path, class: "dashboard-nav__logo" %>
+        <a href="#" class="submit-result float-right btn btn--primary">Submit</a>
+      </div>
+
+      <div class="collect-content">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

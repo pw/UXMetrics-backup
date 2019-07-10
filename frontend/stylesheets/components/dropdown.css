@@ -1,5 +1,5 @@
 .dropdown {
-  @apply relative inline-block items-center px-4 py-2;
+  @apply relative inline-block items-center px-4 py-2 float-right;
   @apply text-base leading-none no-underline text-gray-800;
   @apply rounded;
 
@@ -46,4 +46,3 @@
     @apply bg-gray-100;
   }
 }
-

@@ -1,13 +1,13 @@
-<%= form_with(model: cardtest, local: true, class: "card p-4") do |form| %>
+<%= form_with(model: cardtest, local: true, class: "cardtest-form p-4") do |form| %>
 <%= render "shared/flash", flash: cardtest.errors %>
 
 <div class="field">
-  <%= form.label :name %>
+  <h4>Test name</h4>
+  <%# <%= form.label :name %>
   <%= form.text_field :name, class: "input" %>
-  <%= form.label :auth_token %>
-  <input type="text" value="<%= request.base_url %>/collect/<%= @cardtest.auth_token %>"/>
 
-  <%= form.text_field :status, class: "input", placeholder: "Status here"%>
+
+  <%# <%= form.text_field :status, class: "input", placeholder: "Status here"%>
 </div>
 
 <h4>Cards</h4>
@@ -19,19 +19,21 @@
         #render "card_fields", form:card
 
 
-        content_tag :div, id:card.index, class:"nested-field item", data: {new_record: form.object.new_record?} do %>
+        content_tag :div, id:card.index, class:"nested-field item bg-white rounded shadow p-4 my-4 flex", data: {new_record: form.object.new_record?} do %>
 
-            <div class="drag-handle">DRAG <%=  %></div>
+            <div class="drag-handle cursor-move w-1/8 pt-2 text-gray-400 hover:text-gray-600"><i class="fa fa-sort" aria-hidden="true"></i></div>
 
 
-              <div class="field">
-                <%= card.text_field :name, class: "input" %>
-                <small><%= link_to "Remove", "#", data: { action: "click->nested-form#remove_association"} %></small>
+              <div class="field w-7/8 clearfix flex m-0">
+                <%= card.text_field :name, class: "input w-7/8 mx-3", placeholder: "Enter card name ..." %>
+                <%= link_to "Remove", data: { action: "click->nested-form#remove_association"}, class: "pt-2 w-1/8 text-red-400 hover:text-red-600" do %>
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                <% end %>
 
               </div>
 
 
-              <%= card.text_field :order %>
+              <%= card.hidden_field :order %>
               <%= card.hidden_field :_destroy %>
 
 
@@ -46,15 +48,17 @@
 
     <%= form.fields_for(:cards, @cardtest.cards.sort_by(&:order), include_id: false) do |card| %>
 
-          <%= content_tag :div, id:card.index, class:"nested-field item", data: {new_record: form.object.new_record?} do %>
-              <div class="drag-handle">DRAG</div>
-                <div class="field">
-                  <%= card.text_field :name, class: "input" %>
+          <%= content_tag :div, id:card.index, class:"nested-field item bg-white rounded shadow p-4 my-4 flex", data: {new_record: form.object.new_record?} do %>
+              <div class="drag-handle cursor-move w-1/8 pt-2 text-gray-400 hover:text-gray-600"><i class="fa fa-sort" aria-hidden="true"></i></div>
+                <div class="field w-7/8 clearfix flex m-0">
+                  <%= card.text_field :name, class: "input w-7/8 mx-3" %>
                   <%= card.hidden_field :id %>
 
-                  <small><%= link_to "Remove", "#", data: { action: "click->nested-form#remove_association"} %></small>
+                  <%= link_to "Remove", data: { action: "click->nested-form#remove_association"}, class: "pt-2 w-1/8 text-red-400 hover:text-red-600" do %>
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                  <% end %>
                 </div>
-                <%= card.text_field :order %>
+                <%= card.hidden_field :order %>
                 <%= card.hidden_field :_destroy %>
           <% end %>
 
@@ -75,7 +79,9 @@
   </div> -->
 
 <div class="mb-3" data-target="nested-form.links">
-    <%= link_to "Add card", "#", class:"btn, btn-primary", data: {action: "click->nested-form#add_association"} %>
+    <%= link_to "#", class:"btn-small btn--primary", data: {action: "click->nested-form#add_association"} do %>
+      <i class="fa fa-plus" aria-hidden="true"></i> Add card
+    <% end %>
 
 </div>
 
@@ -83,10 +89,8 @@
 <div class="field flex justify-between items-center mb-0">
 
 
-  <%= form.submit class: "btn btn--primary" %>
+  <%# <%= form.submit class: "btn btn--primary" %>
 
-  <% if cardtest.persisted? %>
-    <%= link_to "Destroy", cardtest, method: :delete, class: "text-red-600", data: { confirm: "Are you sure?" } %>
-  <% end %>
+
 </div>
 <% end %>

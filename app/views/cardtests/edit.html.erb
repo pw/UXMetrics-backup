@@ -1,7 +1,109 @@
+<div class="subhead border-t border-gray-200 bg-white">
+  <div class="max-w-4xl mx-auto clearfix py-6 flex items-center px-6">
+    <div class="flex-1">
+      <h1 class="font-bold text-gray-600 text-xl"><%= @cardtest.name %></h1>
+      <span class="text-gray-400 text-sm block">Created on <%= @cardtest.created_at.strftime("%F") %></span>
+    </div>
+    <div class="flex-2 text-right">
+      <% begin %>
 
-  <div class="mt-16 max-w-xl mx-auto">
-  <h1 class="text-3xl mb-4">Edit Cardtest</h1>
+        <% if @cardtest.status == false %>
+          <span class="pill pill--secondary">Draft</span>
+          <div class="dropdown float-none" data-controller="dropdown">
+            <div class="dropdown__toggle" data-action="click->dropdown#toggle click@window->dropdown#hide" role="button">
+              More
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="dropdown__icon" data-target="dropdown.icon"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path></svg>
+            </div>
+            <div data-target="dropdown.menu" class="dropdown__menu hidden">
+              <div class="dropdown__items">
+                <% if @cardtest.persisted? %>
+                  <%= link_to 'Delete test', { action: :destroy, uid: @cardtest.uid }, method: :delete, data: { confirm: 'Are you sure?' }, class: "dropdown__item" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <a href="#" class="preview-btn btn-small btn--primary"><i class="mr-2 fa fa-external-link" aria-hidden="true"></i>Preview</a>
+          <a href="#" class="ml-2 save-btn btn-small btn--secondary"><i class="mr-2 fa fa-floppy-o" aria-hidden="true"></i>Save</a>
 
-  <%= render 'publish', cardtest: @cardtest %>
-  <%= render 'form', cardtest: @cardtest %>
+        <% else %>
+
+
+          <span class="pill pill--tertiary">Published</span>
+          <div class="dropdown float-none" data-controller="dropdown">
+            <div class="dropdown__toggle" data-action="click->dropdown#toggle click@window->dropdown#hide" role="button">
+              More
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="dropdown__icon" data-target="dropdown.icon"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path></svg>
+            </div>
+            <div data-target="dropdown.menu" class="dropdown__menu hidden">
+              <div class="dropdown__items">
+                <% if @cardtest.persisted? %>
+                  <%= link_to 'Delete test', { action: :destroy, uid: @cardtest.uid }, method: :delete, data: { confirm: 'Are you sure?' }, class: "dropdown__item" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <a href="#" class="btn-small btn--primary"><i class="mr-2 fa fa-external-link" aria-hidden="true"></i>
+Preview</a>
+
+<%= link_to cardtest_results_path(cardtest_uid: @cardtest.uid), class:"ml-2 btn-small btn--secondary" do %>
+  <i class="mr-2 fa fa-bar-chart" aria-hidden="true"></i> View report
+<% end %>
+
+
+
+
+
+        <% end %>
+      <% rescue => ex %>
+
+      <% end %>
+
+
+
+
+    </div>
+  </div>
+</div>
+<div class="mt-16 max-w-4xl mx-auto flex">
+
+  <div class="w-2/3 p-4">
+    <% begin %>
+
+      <% if @cardtest.status == false %>
+        <%= render 'form', cardtest: @cardtest %>
+      <% else %>
+
+      <div class="field">
+        <h4>Test name</h4>
+        <input class="input" value="<%= @cardtest.name %>" disabled/>
+
+
+      </div>
+
+      <h4>Cards</h4>
+      <div class="bg-white rounded shadow px-4 my-4">
+
+        <ul>
+          <% @cardtest.cards.sort_by(&:order).each_with_index do |card, index| %>
+
+          <li class="<% if @cardtest.cards.length > index+1 %>border-b<% end %> py-4">
+            <span class="text-blue-400"><%= index+1 %><%= ". "%></span><%= card.name %>
+
+          </li>
+          <% end %>
+        </ul>
+      <% end %>
+    <% rescue => ex %>
+
+    <% end %>
+
+    </div>
+  </div>
+
+  <div class="w-1/3 p-4">
+
+
+    <%= render 'publish', cardtest: @cardtest %>
+  </div>
+
 </div>

@@ -1,8 +1,23 @@
 .btn {
   @apply inline-block px-6 py-2;
   @apply font-medium;
-  @apply border-2 border-transparent rounded-full;
+  @apply rounded;
   @apply cursor-pointer;
+  @apply shadow;
+  @apply text-center;
+  @apply text-base;
+
+}
+
+.btn-small {
+  @apply inline-block px-4 py-2;
+  @apply font-medium;
+  @apply rounded;
+  @apply cursor-pointer;
+  @apply shadow;
+  @apply text-center;
+  @apply text-sm;
+
 }
 
 .btn--outline {
@@ -54,4 +69,3 @@
     border-color: currentColor;
   }
 }
-

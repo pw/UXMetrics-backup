@@ -3,33 +3,30 @@
 
 <div class="mt-16 max-w-4xl mx-auto flex">
   <div class="w-1/3 p-4">
-    <header class="flex justify-between">
+    <header class="justify-between">
       <h1 class="text-3xl mb-4">Cardtests</h1>
-
-      <div>
-        <%= link_to "Add", new_cardtest_path, class: "btn btn--primary" %>
+      <p class="mb-3">Browse your existing card tests or create a new one.</p>
+      <div class="block">
+        <%= link_to "Create new cardtest", new_cardtest_path, class: "w-full btn btn--primary" %>
       </div>
     </header>
   </div>
   <div class="w-2/3 p-4">
     <ul>
         <% @cardtests.each do |cardtest| %>
-        <li class="cardtest border-b border-gray-400">
-          <%= content_tag :tr, id: dom_id(cardtest) do %>
+        <li class="group cardtest py-8 p-6 relative hover:bg-white hover:shadow-lg rounded">
 
-            <span><%= link_to cardtest.name, cardtests_url+"/"+cardtest.uid+"/edit" %></span>
+          <div class="holder clearfix">
+            <div class="float-left">
+              <%= link_to cardtest.name, cardtests_url+"/"+cardtest.uid+"/edit", class: "font-bold text-gray-600 text-xl" %>
 
               <!-- <span><%= link_to cardtest.name, new_cardtest_result_path(cardtest_uid: cardtest.uid) %></span> -->
-
-
-
-
-
-
-
-
+              <span class="text-gray-400 text-sm block">Created on <%= cardtest.created_at.strftime("%F") %></span>
+            </div>
+            <div class="float-right">
                           <% begin %>
-                            <% if cardtest.status == "0"%>
+
+                            <% if cardtest.status == false %>
                               <span class="pill pill--secondary">Draft</span>
 
                             <% else %>
@@ -71,9 +68,12 @@
 
 
 
+                  </div>
+                </div>
+                <div class="relative group-hover:hidden divider"><div class="group-hover:hidden border-b float-none mt-8 bottom-0 absolute p-8 w-full -mb-8"></div></div>
 
 
-          <% end %>
+
         </li>
         <% end %>
       </ul>
