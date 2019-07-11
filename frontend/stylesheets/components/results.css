@@ -13,3 +13,19 @@
 .ui-sortable-helper {
   z-index:999999;
 }
+
+.group-header {
+  @apply rounded-tl rounded-tr;
+}
+
+.muuri-handle {
+  @apply bg-white py-1 px-2;
+}
+
+.column-holder .ui-sortable-placeholder {
+  @apply bg-gray-200 m-2 h-10 rounded;
+}
+
+.new-column .ui-sortable-placeholder {
+  @apply bg-gray-100 m-2 h-10 rounded;
+}

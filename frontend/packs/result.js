@@ -40,69 +40,211 @@ function recalculateOrder(itemsContainer){
 
 $(document).on('turbolinks:load', function(){
 
-  $(".delete-group").click(function(e){
-    e.preventDefault();
+  $("#test-columns").on('click', function(event){
+    console.log(event.target);
+    // console.log($(event.target).parents("a.delete-group"));
 
-    // TEMP:
-    $(this).closest(".muuri-new-column").find(".name-link").text("Add a name");
-    $(this).closest(".muuri-new-column").find("input.name-input").val("");
+    if($(event.target).is('.delete-group') || ($(event.target).parents('.delete-group').length > 0 )){
+      console.log("delete");
+      event.preventDefault();
 
-    var nameInput = $(this).closest(".muuri-new-column").find(".name-input");
-    var items = $(this).closest(".column-holder").find(".item");
-    // console.log("ITEMS:");
-    // console.log(items);
-    // items.remove();
+      var element;
 
-    var itemsMoved = items.appendTo(".new-column");
-    // console.log(itemsMoved);
-    $(this).closest(".muuri-new-column").removeClass("used-column");
-    $(this).closest(".muuri-new-column").removeClass("used-column");
-    $(this).closest(".muuri-new-column").removeClass("bg-gray-300");
-    $(this).closest(".muuri-new-column").addClass("bg-transparent");
+      element = $(event.target).parents("a.delete-group");
 
-    console.log($(this).closest(".muuri-new-column").find(".name-input"));
-    console.log("setting value");
+      console.log(element);
 
-    $(this).closest(".muuri-new-column").find(".group-header").addClass("hidden");
-    $(this).closest(".muuri-new-column").find(".full-container").removeClass("full-container");
+      $(element).closest(".muuri-new-column").find(".name-link").text("Add a name");
+        $(element).closest(".muuri-new-column").find("input.name-input").val("");
 
-  });
+        var nameInput = $(element).closest(".muuri-new-column").find(".name-input");
+        var items = $(element).closest(".column-holder").find(".item");
+        // console.log("ITEMS:");
+        // console.log(items);
+        // items.remove();
 
-  $(".name-link").click(function(e){
-    e.preventDefault();
-    $(this).hide();
-    $(this).closest(".group-header").find(".delete-group").hide();
-    $(this).closest(".group-header").find(".muuri-handle").hide();
-    $(this).closest(".group-header").find(".name-input").show();
-    $(this).closest(".group-header").find(".name-input").focus();
-  });
+        var itemsMoved = items.appendTo(".new-column");
+        // console.log(itemsMoved);
+        $(element).closest(".muuri-new-column").removeClass("used-column");
+        $(element).closest(".muuri-new-column").removeClass("used-column");
+        $(element).closest(".muuri-new-column").removeClass("bg-gray-300");
+        $(element).closest(".muuri-new-column").addClass("bg-transparent");
 
-  $(".name-input").blur(function(e){
-    if(!$(this).val() == ""){
-      $(this).closest(".group-header").find(".name-link").text($(this).val());
-      $(this).hide();
-      $(this).closest(".group-header").find(".name-link").show();
-      $(this).closest(".group-header").find(".delete-group").show();
-      $(this).closest(".group-header").find(".muuri-handle").show();
+        console.log($(element).closest(".muuri-new-column").find(".name-input"));
+        console.log("setting value");
+
+        $(element).closest(".muuri-new-column").find(".group-header").addClass("hidden");
+        $(element).closest(".muuri-new-column").find(".full-container").removeClass("full-container");
+
+
+    } else if ($(event.target).is('a.name-link')){
+      console.log("name link click");
+      event.preventDefault();
+
+      var element;
+
+      element = $(event.target);
+
+      $(element).hide();
+      $(element).closest(".group-header").find(".delete-group").hide();
+      $(element).closest(".group-header").find(".muuri-handle").hide();
+      $(element).closest(".group-header").find(".name-input").show();
+      $(element).closest(".group-header").find(".name-input").focus();
     } else {
-      $(this).closest(".group-header").find(".name-link").text("Add a name");
-      $(this).hide();
-      $(this).closest(".group-header").find(".name-link").show();
-      $(this).closest(".group-header").find(".muuri-handle").show();
-      $(this).closest(".group-header").find(".delete-group").show();
-    }
 
+    }
 
   });
 
-  $(".name-input").on('keydown', function(e) {
-    if (e.which == 13) {
-      $(this).closest(".group-header").find(".name-link").text($(this).val());
-      $(this).hide();
-      $(this).closest(".group-header").find(".name-link").show();
-      e.preventDefault();
+
+  $(document).on('focus','input[type=text]',function(event){
+
+    console.log("focus");
+
+
+
+
+  }).on('blur','input[type=text]', function(event){
+
+    console.log("blur event");
+
+    if ($(event.target).is('.name-input')) {
+      console.log("blur name input");
+
+      var element;
+
+      element = $(event.target);
+
+      if(!$(element).val() == ""){
+        $(element).closest(".group-header").find(".name-link").text($(this).val());
+        $(element).hide();
+        $(element).closest(".group-header").find(".name-link").show();
+        $(element).closest(".group-header").find(".delete-group").show();
+        $(element).closest(".group-header").find(".muuri-handle").show();
+      } else {
+        $(element).closest(".group-header").find(".name-link").text("Add a name");
+        $(element).hide();
+        $(element).closest(".group-header").find(".name-link").show();
+        $(element).closest(".group-header").find(".muuri-handle").show();
+        $(element).closest(".group-header").find(".delete-group").show();
+      }
+
+
     }
-});
+
+  });
+
+  // $("#test-columns").on('click', '.delete-group', function(){
+  //   e.preventDefault();
+  //
+  //   // TEMP:
+  //   $(this).closest(".muuri-new-column").find(".name-link").text("Add a name");
+  //   $(this).closest(".muuri-new-column").find("input.name-input").val("");
+  //
+  //   var nameInput = $(this).closest(".muuri-new-column").find(".name-input");
+  //   var items = $(this).closest(".column-holder").find(".item");
+  //   // console.log("ITEMS:");
+  //   // console.log(items);
+  //   // items.remove();
+  //
+  //   var itemsMoved = items.appendTo(".new-column");
+  //   // console.log(itemsMoved);
+  //   $(this).closest(".muuri-new-column").removeClass("used-column");
+  //   $(this).closest(".muuri-new-column").removeClass("used-column");
+  //   $(this).closest(".muuri-new-column").removeClass("bg-gray-300");
+  //   $(this).closest(".muuri-new-column").addClass("bg-transparent");
+  //
+  //   console.log($(this).closest(".muuri-new-column").find(".name-input"));
+  //   console.log("setting value");
+  //
+  //   $(this).closest(".muuri-new-column").find(".group-header").addClass("hidden");
+  //   $(this).closest(".muuri-new-column").find(".full-container").removeClass("full-container");
+  // });
+
+  // $(".delete-group").click(function(e){
+  //   e.preventDefault();
+  //
+  //   // TEMP:
+  //   $(this).closest(".muuri-new-column").find(".name-link").text("Add a name");
+  //   $(this).closest(".muuri-new-column").find("input.name-input").val("");
+  //
+  //   var nameInput = $(this).closest(".muuri-new-column").find(".name-input");
+  //   var items = $(this).closest(".column-holder").find(".item");
+  //   // console.log("ITEMS:");
+  //   // console.log(items);
+  //   // items.remove();
+  //
+  //   var itemsMoved = items.appendTo(".new-column");
+  //   // console.log(itemsMoved);
+  //   $(this).closest(".muuri-new-column").removeClass("used-column");
+  //   $(this).closest(".muuri-new-column").removeClass("used-column");
+  //   $(this).closest(".muuri-new-column").removeClass("bg-gray-300");
+  //   $(this).closest(".muuri-new-column").addClass("bg-transparent");
+  //
+  //   console.log($(this).closest(".muuri-new-column").find(".name-input"));
+  //   console.log("setting value");
+  //
+  //   $(this).closest(".muuri-new-column").find(".group-header").addClass("hidden");
+  //   $(this).closest(".muuri-new-column").find(".full-container").removeClass("full-container");
+  //
+  // });
+
+
+
+
+  // $(".name-link").click(function(e){
+  //   console.log("name link click");
+  //   e.preventDefault();
+  //   $(this).hide();
+  //   $(this).closest(".group-header").find(".delete-group").hide();
+  //   $(this).closest(".group-header").find(".muuri-handle").hide();
+  //   $(this).closest(".group-header").find(".name-input").show();
+  //   $(this).closest(".group-header").find(".name-input").focus();
+  // });
+
+  // $(".name-input").blur(function(e){
+  //   if(!$(this).val() == ""){
+  //     $(this).closest(".group-header").find(".name-link").text($(this).val());
+  //     $(this).hide();
+  //     $(this).closest(".group-header").find(".name-link").show();
+  //     $(this).closest(".group-header").find(".delete-group").show();
+  //     $(this).closest(".group-header").find(".muuri-handle").show();
+  //   } else {
+  //     $(this).closest(".group-header").find(".name-link").text("Add a name");
+  //     $(this).hide();
+  //     $(this).closest(".group-header").find(".name-link").show();
+  //     $(this).closest(".group-header").find(".muuri-handle").show();
+  //     $(this).closest(".group-header").find(".delete-group").show();
+  //   }
+  //
+  //
+  // });
+
+
+  $(document).on('keydown','input[type=text]',function(event){
+
+
+
+    var element;
+
+    element = $(event.target);
+
+    if (event.which == 13) {
+      $(element).closest(".group-header").find(".name-link").text($(this).val());
+      $(element).hide();
+      $(element).closest(".group-header").find(".name-link").show();
+      event.preventDefault();
+    }
+  });
+
+  // $(".name-input").on('keydown', function(e) {
+  //   if (e.which == 13) {
+  //     $(this).closest(".group-header").find(".name-link").text($(this).val());
+  //     $(this).hide();
+  //     $(this).closest(".group-header").find(".name-link").show();
+  //     e.preventDefault();
+  //   }
+  // });
 
 
   $(".submit-result").click(function(e){
@@ -160,7 +302,8 @@ $(document).on('turbolinks:load', function(){
                   // console.log('layout updated!');
                 });
               },
-              appendTo: 'body'
+              appendTo: 'body',
+              placeholder: "ui-sortable-placeholder"
 
           }
 
@@ -221,11 +364,14 @@ $(document).on('turbolinks:load', function(){
                   var receivingList = $(event.target);
                   $(".muuri-new-column").removeClass("border-dashed border-gray-700 border-2");
 
-                  receivingList.parents(".muuri-new-column").addClass("border-dashed border-gray-700 border-2");
+                  if (!receivingList.parents(".muuri-new-column").hasClass("used-column")){
+                    receivingList.parents(".muuri-new-column").addClass("border-dashed border-gray-700 border-2");
+                  }
                   // console.log(receivingList.parents(".muuri-new-column"));
 
                 },
-                appendTo: 'body'
+                appendTo: 'body',
+                placeholder: "ui-sortable-placeholder"
 
             }
 
@@ -324,7 +470,8 @@ $(document).on('turbolinks:load', function(){
 
           if (unusedNo < 3) {
             // $("#test-columns").append('<div class="muuri-new-column py-6 bg-indigo-200 m-6 w-64 absolute"><div class="column-holder"><div class="muuri-handle"><i class="fa fa-arrows-alt"></i></div><div class="items p-4"></div></div></div>');
-            var element = $('<div class="muuri-new-column m-2 mt-0 w-64 absolute"><div class="column-holder"><div class="group-header hidden"><div class="muuri-handle inline-block"><i class="fa fa-arrows-alt"></i></div></div><div class="items p-2"></div></div></div>').appendTo("#test-columns")
+            // var element = $('<div class="muuri-new-column m-2 mt-0 w-64 absolute"><div class="column-holder"><div class="group-header hidden"><div class="muuri-handle inline-block"><i class="fa fa-arrows-alt"></i></div></div><div class="items p-2"></div></div></div>').appendTo("#test-columns")
+            var element = $('<div class="muuri-new-column m-2 mt-0 w-64 absolute rounded"><div class="column-holder"><div class="group-header hidden bg-white p-2"><div class="muuri-handle inline-block text-xs text-gray-500"><i class="fa fa-arrows-alt"></i></div><a href="#" class="name-link py-1 inline-block">Add a name</a><input type="text" class="py-1 name-input w-full container-name input-small inline-block hidden" placeholder="Add a name for your group ..."/><a href="#" class="delete-group float-right text-sm pt-1 pr-1"><i class="fa fa-trash" aria-hidden="true"></i></a></div><div class="items p-2"></div></div></div>').appendTo("#test-columns")
             // add new item
             grid.add(element[0]);
             // console.log("re init sortable:")
