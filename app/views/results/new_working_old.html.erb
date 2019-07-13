@@ -1,0 +1,109 @@
+
+
+
+<div class="w-full mx-auto">
+
+
+
+    <div id="columns" class="relative">
+
+      <div class="card-columns flex">
+
+        <div class="intial-column flex-none bg-gray-200 h-screen">
+          <div class="new-column m-2 w-64 h-screen mt-5 ">
+
+            <% @cardtest.cards.sort_by(&:order).each do |card| %>
+
+
+
+
+                    <div id="<%= card.id %>" class="item bg-white px-3 py-3 shadow m-2 rounded">
+                        <div class="hidden drag-handle"><i class="fa fa-arrows"></i></div>
+                        <%= content_tag :div, class:"nested-field" do %>
+
+                          <div class="field mb-0 text-sm cursor-default">
+                            <p><%= card.name %></p>
+                            <p class="hidden order"><%= card.order %></p>
+                          </div>
+
+
+
+
+
+                    <% end %>
+                    </div>
+
+            <% end %>
+          </div>
+        </div>
+        <!-- <div class="new-column bg-indigo-900 m-6 flex-1">
+        </div> -->
+
+        <div id="test-columns" class="relative flex-1 mt-5 mx-2">
+          <div class="muuri-new-column m-2 mt-0 w-64 absolute rounded">
+            <div class="column-holder">
+              <div class="group-header hidden bg-white p-2">
+                <div class="muuri-handle inline-block text-xs text-gray-500"><i class="fa fa-arrows-alt"></i></div>
+                <a href="#" class="name-link py-1 inline-block">Add a name</a>
+                <input type="text" class="py-1 name-input w-full container-name input-small inline-block hidden" placeholder="Add a name for your group ..."/>
+                <a href="#" class="delete-group float-right text-sm pt-1 pr-1"><i class="fa fa-trash" aria-hidden="true"></i></a>
+              </div>
+                <div class="items p-2 h-32">
+
+                </div>
+            </div>
+          </div>
+          <div class="muuri-new-column m-2 mt-0 w-64 absolute rounded">
+            <div class="column-holder">
+              <div class="group-header hidden bg-white p-2">
+                <div class="muuri-handle inline-block text-xs text-gray-500"><i class="fa fa-arrows-alt"></i></div>
+                <a href="#" class="name-link py-1 inline-block">Add a name</a>
+                <input type="text" class="py-1 name-input w-full container-name input-small inline-block hidden" placeholder="Add a name for your group ..."/>
+                <a href="#" class="delete-group float-right text-sm pt-1 pr-1"><i class="fa fa-trash" aria-hidden="true"></i></a>
+              </div>
+                <div class="items p-2 h-32">
+
+                </div>
+            </div>
+          </div>
+          <div class="muuri-new-column m-2 mt-0 w-64 absolute rounded">
+            <div class="column-holder">
+              <div class="group-header hidden bg-white p-2">
+                <div class="muuri-handle inline-block text-xs text-gray-500"><i class="fa fa-arrows-alt"></i></div>
+                <a href="#" class="name-link py-1 inline-block">Add a name</a>
+                <input type="text" class="py-1 name-input w-full container-name input-small inline-block hidden" placeholder="Add a name for your group ..."/>
+                <a href="#" class="delete-group float-right text-sm pt-1 pr-1"><i class="fa fa-trash" aria-hidden="true"></i></a>
+              </div>
+                <div class="items p-2 h-32">
+
+                </div>
+            </div>
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+
+
+
+
+
+
+      <%= render 'results_form'%>
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+</div>

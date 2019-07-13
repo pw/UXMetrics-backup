@@ -1,19 +1,13 @@
 const sortable = require('jquery-ui/ui/widgets/sortable');
-// const packery = require("packery/js/packery");
-const packery = require("packery/dist/packery.pkgd");
 import Hammer from 'hammerjs/hammer';
 import Muuri from 'muuri/dist/muuri';
-
 
 
 
 require("hammerjs");
 require("muuri");
 
-
-
   var $ = require("jquery");
-
 
 function recalculateOrder(itemsContainer){
 
@@ -142,7 +136,91 @@ $(document).on('turbolinks:load', function(){
 
   });
 
+  // $("#test-columns").on('click', '.delete-group', function(){
+  //   e.preventDefault();
+  //
+  //   // TEMP:
+  //   $(this).closest(".muuri-new-column").find(".name-link").text("Add a name");
+  //   $(this).closest(".muuri-new-column").find("input.name-input").val("");
+  //
+  //   var nameInput = $(this).closest(".muuri-new-column").find(".name-input");
+  //   var items = $(this).closest(".column-holder").find(".item");
+  //   // console.log("ITEMS:");
+  //   // console.log(items);
+  //   // items.remove();
+  //
+  //   var itemsMoved = items.appendTo(".new-column");
+  //   // console.log(itemsMoved);
+  //   $(this).closest(".muuri-new-column").removeClass("used-column");
+  //   $(this).closest(".muuri-new-column").removeClass("used-column");
+  //   $(this).closest(".muuri-new-column").removeClass("bg-gray-300");
+  //   $(this).closest(".muuri-new-column").addClass("bg-transparent");
+  //
+  //   console.log($(this).closest(".muuri-new-column").find(".name-input"));
+  //   console.log("setting value");
+  //
+  //   $(this).closest(".muuri-new-column").find(".group-header").addClass("hidden");
+  //   $(this).closest(".muuri-new-column").find(".full-container").removeClass("full-container");
+  // });
 
+  // $(".delete-group").click(function(e){
+  //   e.preventDefault();
+  //
+  //   // TEMP:
+  //   $(this).closest(".muuri-new-column").find(".name-link").text("Add a name");
+  //   $(this).closest(".muuri-new-column").find("input.name-input").val("");
+  //
+  //   var nameInput = $(this).closest(".muuri-new-column").find(".name-input");
+  //   var items = $(this).closest(".column-holder").find(".item");
+  //   // console.log("ITEMS:");
+  //   // console.log(items);
+  //   // items.remove();
+  //
+  //   var itemsMoved = items.appendTo(".new-column");
+  //   // console.log(itemsMoved);
+  //   $(this).closest(".muuri-new-column").removeClass("used-column");
+  //   $(this).closest(".muuri-new-column").removeClass("used-column");
+  //   $(this).closest(".muuri-new-column").removeClass("bg-gray-300");
+  //   $(this).closest(".muuri-new-column").addClass("bg-transparent");
+  //
+  //   console.log($(this).closest(".muuri-new-column").find(".name-input"));
+  //   console.log("setting value");
+  //
+  //   $(this).closest(".muuri-new-column").find(".group-header").addClass("hidden");
+  //   $(this).closest(".muuri-new-column").find(".full-container").removeClass("full-container");
+  //
+  // });
+
+
+
+
+  // $(".name-link").click(function(e){
+  //   console.log("name link click");
+  //   e.preventDefault();
+  //   $(this).hide();
+  //   $(this).closest(".group-header").find(".delete-group").hide();
+  //   $(this).closest(".group-header").find(".muuri-handle").hide();
+  //   $(this).closest(".group-header").find(".name-input").show();
+  //   $(this).closest(".group-header").find(".name-input").focus();
+  // });
+
+  // $(".name-input").blur(function(e){
+  //   if(!$(this).val() == ""){
+  //     $(this).closest(".group-header").find(".name-link").text($(this).val());
+  //     $(this).hide();
+  //     $(this).closest(".group-header").find(".name-link").show();
+  //     $(this).closest(".group-header").find(".delete-group").show();
+  //     $(this).closest(".group-header").find(".muuri-handle").show();
+  //   } else {
+  //     $(this).closest(".group-header").find(".name-link").text("Add a name");
+  //     $(this).hide();
+  //     $(this).closest(".group-header").find(".name-link").show();
+  //     $(this).closest(".group-header").find(".muuri-handle").show();
+  //     $(this).closest(".group-header").find(".delete-group").show();
+  //   }
+  //
+  //
+  // });
 
 
   $(document).on('keydown','input[type=text]',function(event){
@@ -310,48 +388,47 @@ $(document).on('turbolinks:load', function(){
             }
 
 
-            if ($('.items').length>0){
-              // console.log("test columns found");
-              $( ".items" ).sortable(sortableOptionsOther);
+    if ($('.items').length>0){
+      // console.log("test columns found");
+      $( ".items" ).sortable(sortableOptionsOther);
 
-              }
-
-
+      }
 
 
 
-        // const grid = new Muuri('#test-columns',{
-        //     items: '.muuri-new-column',
-        //     layoutDuration: 400,
-        //     layoutEasing: 'ease',
-        //     dragEnabled: true,
-        //     dragSortInterval: 0,
-        //     dragSortGroup: 'column',
-        //     dragSortWith: 'column',
-        //     dragContainer: document.body,
-        //     dragReleaseDuration: 400,
-        //     dragReleaseEasing: 'ease',
-        //     dragStartPredicate: {
-        //        distance: 10,
-        //        delay: 1,
-        //        handle: '.muuri-handle'
-        //      },
-        //      // Layout
-        //      layout: {
-        //       fillGaps: true
-        //     }
-        //
-        //
-        //   }). on('dragReleaseEnd', function(){
-        //
-        //     grid.refreshItems().layout(function (items) {
-        //       // console.log('layout updated!');
-        //     });
-        //     //recalculateOrder(grid);
-        //     //console.log(serializeLayout(grid));
-        //
-        //
-        //   });
+
+        const grid = new Muuri('#test-columns',{
+            items: '.muuri-new-column',
+            layoutDuration: 400,
+            layoutEasing: 'ease',
+            dragEnabled: true,
+            dragSortInterval: 0,
+            dragSortGroup: 'column',
+            dragSortWith: 'column',
+            dragContainer: document.body,
+            dragReleaseDuration: 400,
+            dragReleaseEasing: 'ease',
+            dragStartPredicate: {
+               distance: 10,
+               delay: 1,
+               handle: '.muuri-handle'
+             },
+             // Layout
+             layout: {
+              fillGaps: true
+            }
+
+
+          }). on('dragReleaseEnd', function(){
+
+            grid.refreshItems().layout(function (items) {
+              // console.log('layout updated!');
+            });
+            //recalculateOrder(grid);
+            //console.log(serializeLayout(grid));
+
+
+          });
 
 
 
@@ -361,24 +438,69 @@ $(document).on('turbolinks:load', function(){
           var data = [];
 
           $(".items").each(function(index, value){
-
+            //update array with items
             console.log("Window rebuild this: ");
-
+            // console.log(this);
             data[index] = $(this).sortable('toArray');
 
+            // console.log("THIS");
+            // console.log($(this));
 
+            // console.log("ITEM DROPPED IN");
+            // console.log("THIS CHILDREN length:");
+            // console.log($(this).children().length > 0);
+            // console.log("FULL CONTINER:");
+            // console.log(!$(this).hasClass("full-container"));
+            //add full container where needed
             if ($(this).children().length > 0 && !$(this).hasClass("full-container")){
 
               $(this).addClass("full-container");
               $(this).removeClass("h-32");
-
+              // console.log("ADD USED COLUMN AND GRAY BG");
               $(this).parents(".muuri-new-column").addClass("bg-gray-300 used-column");
+              // $(this).parents(".muuri-new-column").removeClass("bg-indigo-200");
 
+              // $(this).parents(".column-holder").children(".group-header").append('<input type="text" class="w-4/5 container-name input-small inline-block" placeholder="Add a name for your group ..."/>')
+              //console.log("length is: "+$(this).children().length);
 
             }
 
           });
 
+          var usedNo = 0;
+          var unusedNo = 0;
+
+          $(".muuri-new-column").each(function(index, value){
+
+            if ($(this).hasClass("used-column")) {
+              usedNo++;
+            } else {
+              unusedNo++;
+            }
+
+
+
+          });
+
+          // console.log("used:");
+          // console.log(usedNo);
+          // console.log("unused:");
+          // console.log(unusedNo);
+
+          if (unusedNo < 3) {
+            // $("#test-columns").append('<div class="muuri-new-column py-6 bg-indigo-200 m-6 w-64 absolute"><div class="column-holder"><div class="muuri-handle"><i class="fa fa-arrows-alt"></i></div><div class="items p-4"></div></div></div>');
+            // var element = $('<div class="muuri-new-column m-2 mt-0 w-64 absolute"><div class="column-holder"><div class="group-header hidden"><div class="muuri-handle inline-block"><i class="fa fa-arrows-alt"></i></div></div><div class="items p-2"></div></div></div>').appendTo("#test-columns")
+            var element = $('<div class="muuri-new-column m-2 mt-0 w-64 absolute rounded"><div class="column-holder"><div class="group-header hidden bg-white p-2"><div class="muuri-handle inline-block text-xs text-gray-500"><i class="fa fa-arrows-alt"></i></div><a href="#" class="name-link py-1 inline-block">Add a name</a><input type="text" class="py-1 name-input w-full container-name input-small inline-block hidden" placeholder="Add a name for your group ..."/><a href="#" class="delete-group float-right text-sm pt-1 pr-1"><i class="fa fa-trash" aria-hidden="true"></i></a></div><div class="items p-2 h-32"></div></div></div>').appendTo("#test-columns")
+            // add new item
+            grid.add(element[0]);
+            // console.log("re init sortable:")
+
+            $( ".items" ).sortable(sortableOptionsOther);
+            // grid.add([element]);
+          }
+
+          // console.log("this is the data");
+          // console.log(data);
         }
 
 
@@ -450,10 +572,5 @@ $(document).on('turbolinks:load', function(){
 
   });
 
-console.log(packery);
-  $('#test-columns').packery({
-    itemSelector: '.muuri-new-column',
-    gutter:10
-  });
 
 });
