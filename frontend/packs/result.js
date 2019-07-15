@@ -1,18 +1,23 @@
 const sortable = require('jquery-ui/ui/widgets/sortable');
 // const packery = require("packery/js/packery");
-const packery = require("packery/dist/packery.pkgd");
+// const packery = require("packery/dist/packery.pkgd");
+
+// var Packery = require('packery');
+
 import Hammer from 'hammerjs/hammer';
 import Muuri from 'muuri/dist/muuri';
 
 
 
-
+require('jquery-ui/ui/widgets/draggable');
 require("hammerjs");
 require("muuri");
 
 
 
   var $ = require("jquery");
+  var jQBridget = require('jquery-bridget');
+  var Packery = require('packery');
 
 
 function recalculateOrder(itemsContainer){
@@ -43,10 +48,123 @@ function recalculateOrder(itemsContainer){
 }
 
 
-
+function debounce(func, wait, immediate) {
+	var timeout;
+  console.log("debounce");
+  return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};
 
 
 $(document).on('turbolinks:load', function(){
+
+  var draggingItem = false;
+  var onDropArea = false;
+  var currentMousePos = { x: -1, y: -1 };
+  var dragStart = 0;
+  var buffer = 150;
+  var initPos = 0;
+
+
+  var dePosition = debounce(function(event) {
+
+    // console.log(event.pageX);
+
+
+    if(draggingItem == true){
+
+      // console.log(dragStart);
+    }
+    // console.log((currentMousePos.x - dragStart + 120 > 252));
+
+    // console.log(Math.abs(initPos - currentMousePos.x - dragStart + 120));
+    // if(draggingItem == true && (currentMousePos.x - dragStart + 120 > 252) && Math.abs(initPos - currentMousePos.x - dragStart + 120) > buffer){
+    if(draggingItem == true && (currentMousePos.x - dragStart + 120 > 252)){
+
+      // initPos = currentMousePos.x - dragStart + 120;
+      console.log(initPos);
+
+
+      onDropArea = true;
+
+
+      // console.log($('.muuri-new-column')[0]);
+
+
+      console.log("calling fit");
+
+      // $grid.packery( 'fit', $('.empty-column')[0], currentMousePos.x - dragStart - 240, currentMousePos.y );
+      $grid.packery( 'fit', $('.empty-column')[0], currentMousePos.x - 340 - dragStart, currentMousePos.y );
+
+      // $("#new-column").sortable(sortableOptions);
+      // $(".items").sortable(sortableOptionsOther);
+      // $("#new-column").sortable("refresh");
+      $("#new-column").sortable("refreshPositions");
+      // $(".items").sortable("refresh");
+      $(".items").sortable("refreshPositions");
+
+
+
+
+
+    } else {
+      onDropArea = false;
+    }
+
+  }, 100);
+
+
+  function nonDePosition(event){
+    console.log(event.pageX);
+    currentMousePos.x = event.pageX;
+    currentMousePos.y = event.pageY;
+
+    if(draggingItem == true){
+
+      // console.log(dragStart);
+    }
+    // console.log((currentMousePos.x - dragStart + 120 > 252));
+
+    // console.log(Math.abs(initPos - currentMousePos.x - dragStart + 120));
+    if(draggingItem == true && (currentMousePos.x - dragStart + 120 > 252)){
+
+      initPos = currentMousePos.x - dragStart + 120;
+
+
+      onDropArea = true;
+      var element = '<div class="muuri-new-column mt-0 w-64 absolute rounded bg-gray-200">              <div class="column-holder">                <div class="group-header hidden bg-white p-2">                  <div class="muuri-handle inline-block text-xs text-gray-500"><i class="fa fa-arrows-alt"></i></div>                  <a href="#" class="name-link py-1 inline-block">Add a name</a>                  <input type="text" class="py-1 name-input w-full container-name input-small inline-block hidden" placeholder="Add a name for your group ..."/>                  <a href="#" class="delete-group float-right text-sm pt-1 pr-1"><i class="fa fa-trash" aria-hidden="true"></i></a>                </div>                  <div class="items p-2 h-32">                    </div>              </div>            </div>';
+
+      // console.log($('.muuri-new-column')[0]);
+
+
+      console.log("calling fit");
+      $grid.packery( 'fit', $('.empty-column')[0], currentMousePos.x - dragStart - 240, currentMousePos.y );
+
+
+
+    } else {
+      onDropArea = false;
+    }
+
+  }
+
+    $(document).mousemove(function(event){
+      // console.log("CONSTANTLY");
+      currentMousePos.x = event.pageX;
+      currentMousePos.y = event.pageY;
+      dePosition(event);
+    });
+
+
 
   $("#test-columns").on('click', function(event){
     console.log(event.target);
@@ -187,12 +305,17 @@ $(document).on('turbolinks:load', function(){
             zIndex: 10000,
             dropOnEmpty: true,
             update: function(event, ui) {
+
+
+
+
                 try {
+                  console.log($(this));
                   var itemOrder = $(this).sortable('toArray');
 
 
                 var itemsContainer = $('.new-column');
-                recalculateOrder(itemsContainer);
+                // recalculateOrder(itemsContainer);
                 rebuildData();
                 }
 
@@ -209,22 +332,49 @@ $(document).on('turbolinks:load', function(){
               start: function(event, ui){
                 // console.log("start event");
                 //getCursorPosition();
-                grid.refreshItems().layout(function (items) {
-                  // console.log('layout updated!');
-                });
+                // grid.refreshItems().layout(function (items) {
+                //   // console.log('layout updated!');
+                // });
+
+                console.log("start drag");
+                dragStart = currentMousePos.x;
+                draggingItem = true;
+
+
+
+
+                // $grid.packery();
               },
               stop: function(event, ui){
                 // console.log("stop event");
-                grid.refreshItems().layout(function (items) {
-                  // console.log('layout updated!');
-                });
+                // grid.refreshItems().layout(function (items) {
+                //   // console.log('layout updated!');
+                // });
+                console.log("stop drag");
+
+
+                draggingItem = false;
+                dragStart = 0;
+
+
+
+                // $grid.packery();
+
                 //getCursorPosition();
               },
               change: function(event, ui){
                 // console.log("change");
-                grid.refreshItems().layout(function (items) {
-                  // console.log('layout updated!');
-                });
+                // grid.refreshItems().layout(function (items) {
+                //   // console.log('layout updated!');
+                // });
+
+
+
+                // $grid.packery();
+              },
+              receive: function(event, ui)
+              {
+                console.log("received");
               },
               appendTo: 'body',
               placeholder: "ui-sortable-placeholder"
@@ -232,9 +382,12 @@ $(document).on('turbolinks:load', function(){
           }
 
 
-  if ($('.new-column').length>0){
+  if ($('#new-column').length>0){
     // console.log("new column present");
-    $( ".new-column" ).sortable(sortableOptions);
+    console.log("adding sortable");
+    $( "#new-column" ).sortable(sortableOptions);
+    // console.log($( ".new-column" ));
+    // console.log($( ".new-column" ).sortable('toArray'));
 
     }
 
@@ -265,9 +418,10 @@ $(document).on('turbolinks:load', function(){
                 out: function(event, ui){
                   console.log("Out event");
                   var receivingList = $(event.target);
-                  grid.refreshItems().layout(function (items) {
-                    // console.log('layout updated!');
-                  });
+                  // grid.refreshItems().layout(function (items) {
+                  //   // console.log('layout updated!');
+                  // });
+                  // $grid.packery();
                   // receivingList.parents(".muuri-new-column").removeClass("border-dashed border-gray-100 border-2");
 
                 },
@@ -277,32 +431,38 @@ $(document).on('turbolinks:load', function(){
                   $(".muuri-new-column").css('z-index', 1000);
                   $(event.currentTarget).css('z-index', 9000);
                   $(event.currentTarget).parents(".muuri-new-column").css('z-index', 9000);
-                  grid.refreshItems().layout(function (items) {
-
-                  });
+                  // grid.refreshItems().layout(function (items) {
+                  //
+                  // });
+                  // $grid.packery();
                   //getCursorPosition();
                 },
                 stop: function(event, ui){
                   // console.log("stop event");
 
-                  grid.refreshItems().layout(function (items) {
-                    // console.log('layout updated!');
-                  });
+                  // grid.refreshItems().layout(function (items) {
+                  //   // console.log('layout updated!');
+                  // });
+                  // $grid.packery();
                   //getCursorPosition();
                 },
                 change: function(event, ui){
-                  // console.log("change event");
+                  console.log("change event");
                   var receivingList = $(event.target);
                   $(".muuri-new-column").removeClass("border-dashed border-gray-700 border-2");
 
                   if (!receivingList.parents(".muuri-new-column").hasClass("used-column")){
+                    $grid.packery( 'fit', $('.empty-column')[0], currentMousePos.x - dragStart - 240, currentMousePos.y );
+
                     receivingList.parents(".muuri-new-column").addClass("border-dashed border-gray-700 border-2");
                   }
                   // console.log(receivingList.parents(".muuri-new-column"));
+                  // $grid.packery();
 
                 },
                 sort: function(event, ui){
                   // console.log("sort");
+                  // $grid.packery();
                 },
                 appendTo: 'body',
                 placeholder: "ui-sortable-placeholder"
@@ -358,12 +518,38 @@ $(document).on('turbolinks:load', function(){
         function rebuildData(){
 
 
+
+
+
+          var element = $('<div class="muuri-new-column mt-0 w-64 absolute rounded bg-gray-200 empty-column">              <div class="column-holder">                <div class="group-header hidden bg-white p-2">                  <div class="muuri-handle inline-block text-xs text-gray-500"><i class="fa fa-arrows-alt"></i></div>                  <a href="#" class="name-link py-1 inline-block">Add a name</a>                  <input type="text" class="py-1 name-input w-full container-name input-small inline-block hidden" placeholder="Add a name for your group ..."/>                  <a href="#" class="delete-group float-right text-sm pt-1 pr-1"><i class="fa fa-trash" aria-hidden="true"></i></a>                </div>                  <div class="items p-2 h-32">                    </div>              </div>            </div>');
+
+
+          if($('.empty-column').length < 1 ){
+            // $("#test-columns").append(element);
+
+
+            $grid.append(element).packery( 'appended', element);
+            $( "#new-column" ).sortable(sortableOptions);
+            $( ".items" ).sortable(sortableOptionsOther);
+
+
+            var $items = $('.muuri-new-column').draggable();
+
+            $grid.packery( 'bindUIDraggableEvents', $items );
+
+          }
+
+
+
+
+
+
           var data = [];
 
           $(".items").each(function(index, value){
 
             console.log("Window rebuild this: ");
-
+            console.log(this);
             data[index] = $(this).sortable('toArray');
 
 
@@ -373,11 +559,14 @@ $(document).on('turbolinks:load', function(){
               $(this).removeClass("h-32");
 
               $(this).parents(".muuri-new-column").addClass("bg-gray-300 used-column");
+              $(this).parents(".muuri-new-column").removeClass("empty-column");
 
 
             }
 
           });
+
+          // $grid.packery();
 
         }
 
@@ -450,10 +639,37 @@ $(document).on('turbolinks:load', function(){
 
   });
 
-console.log(packery);
-  $('#test-columns').packery({
+// console.log(packery);
+
+  // var = new Packery( '#test-columns', {
+  //   // options
+  //   itemSelector: '.muuri-new-column',
+  //   gutter: 10
+  // });
+
+  $.bridget( 'packery', Packery, $ );
+
+  var $grid = $('#test-columns').packery({
     itemSelector: '.muuri-new-column',
+    // columnWidth helps with drop positioning
+    columnWidth: 256,
+
     gutter:10
+  });
+
+  var pckry = Packery.data('#test-columns');
+
+  console.log(pckry);
+
+
+  var $items = $('.muuri-new-column').draggable();
+
+  $grid.packery( 'bindUIDraggableEvents', $items );
+
+
+  $('.refresh').click(function(event){
+    event.preventDefault();
+    $grid.packery();
   });
 
 });
