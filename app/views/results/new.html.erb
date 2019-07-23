@@ -3,7 +3,7 @@
 
 <div class="w-full mx-auto">
 
-
+<canvas id="canvas" class="hidden absolute" width="1000" height="1000" style="left:256px;"></canvas>
 
     <div id="columns" class="relative">
 
@@ -35,14 +35,71 @@
 
             <% end %>
             <a href="#" class="refresh">refresh layout</a>
+            <a href="#" class="add-group">add group</a>
           </div>
 
         </div>
         <!-- <div class="new-column bg-indigo-900 m-6 flex-1">
         </div> -->
 
-        <div id="test-columns" class="relative flex-1 mt-5 mx-2">
+        <div id="test-columns" class="">
+        <!-- <div id="test-columns" class="relative flex-1 mt-5 mx-2"> -->
+          <!-- <canvas style="width:1000px; height:1000px;"></canvas> -->
+          <div class="muuri-sizer w-64"></div>
+          <div class="muuri-new-column mt-0 w-64 absolute rounded bg-gray-200 empty-column">
+            <div class="column-holder">
+              <div class="group-header hidden bg-white p-2">
+                <div class="muuri-handle inline-block text-xs text-gray-500"><i class="fa fa-arrows-alt"></i></div>
+                <a href="#" class="name-link py-1 inline-block">Add a name</a>
+                <input type="text" class="py-1 name-input w-full container-name input-small inline-block hidden" placeholder="Add a name for your group ..."/>
+                <a href="#" class="delete-group float-right text-sm pt-1 pr-1"><i class="fa fa-trash" aria-hidden="true"></i></a>
+              </div>
+              <div class="items p-2 h-32">
 
+
+                  <div id="20" class="item bg-white px-3 py-3 shadow m-2 rounded">
+                      <div class="hidden drag-handle"><i class="fa fa-arrows"></i></div>
+                      <div class="nested-field">
+
+                        <div class="field mb-0 text-sm cursor-default">
+                          <p>Test 1</p>
+                          <p class="hidden order">3</p>
+                        </div>
+                      </div>
+                  </div>
+
+
+              </div>
+              <a href="#" class="plus">plus</a>
+            </div>
+          </div>
+          <div class="muuri-new-column mt-0 w-64 absolute rounded bg-gray-200 empty-column">
+            <div class="column-holder">
+              <div class="group-header hidden bg-white p-2">
+                <div class="muuri-handle inline-block text-xs text-gray-500"><i class="fa fa-arrows-alt"></i></div>
+                <a href="#" class="name-link py-1 inline-block">Add a name</a>
+                <input type="text" class="py-1 name-input w-full container-name input-small inline-block hidden" placeholder="Add a name for your group ..."/>
+                <a href="#" class="delete-group float-right text-sm pt-1 pr-1"><i class="fa fa-trash" aria-hidden="true"></i></a>
+              </div>
+              <div class="items p-2 h-32">
+
+
+                  <div id="20" class="item bg-white px-3 py-3 shadow m-2 rounded">
+                      <div class="hidden drag-handle"><i class="fa fa-arrows"></i></div>
+                      <div class="nested-field">
+
+                        <div class="field mb-0 text-sm cursor-default">
+                          <p>Test 1</p>
+                          <p class="hidden order">3</p>
+                        </div>
+                      </div>
+                  </div>
+
+
+              </div>
+              <a href="#" class="plus">plus</a>
+            </div>
+          </div>
           <div class="muuri-new-column mt-0 w-64 absolute rounded bg-gray-200 empty-column">
             <div class="column-holder">
               <div class="group-header hidden bg-white p-2">
@@ -53,9 +110,28 @@
               </div>
                 <div class="items p-2 h-32">
 
+
+                    <div id="20" class="item bg-white px-3 py-3 shadow m-2 rounded">
+                        <div class="hidden drag-handle"><i class="fa fa-arrows"></i></div>
+                        <div class="nested-field">
+
+                          <div class="field mb-0 text-sm cursor-default">
+                            <p>Test 1</p>
+                            <p class="hidden order">3</p>
+                          </div>
+                        </div>
+                    </div>
+
+
                 </div>
+                <a href="#" class="plus">plus</a>
             </div>
           </div>
+
+
+
+
+
 
 
 
