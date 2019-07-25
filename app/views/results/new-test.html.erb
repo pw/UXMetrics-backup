@@ -1,0 +1,93 @@
+
+
+
+<div class="w-full mx-auto">
+
+<!-- <canvas id="canvas" class="hidden absolute" width="1000" height="1000" style="left:256px;"></canvas> -->
+
+    <div id="columns" class="relative">
+
+      <div class="card-columns">
+
+        <div class="intial-column flex-none bg-gray-200 h-screen">
+          <div id="new-column" class="new-column m-2 w-64 h-screen mt-5 ">
+
+            <% @cardtest.cards.sort_by(&:order).each do |card| %>
+
+
+
+
+                    <div id="<%= card.id %>" class="item bg-white px-3 py-3 shadow m-2 rounded">
+                        <div class="hidden drag-handle"><i class="fa fa-arrows"></i></div>
+                        <%= content_tag :div, class:"nested-field" do %>
+
+                          <div class="field mb-0 text-sm cursor-default">
+                            <p><%= card.name %></p>
+                            <p class="hidden order"><%= card.order %></p>
+                          </div>
+
+
+
+
+
+                    <% end %>
+                    </div>
+
+            <% end %>
+            <a href="#" class="refresh">refresh layout</a>
+            <a href="#" class="add-group">add group</a>
+            <A href="#" class="make-draggable">make draggable</a>
+          </div>
+
+        </div>
+        <!-- <div class="new-column bg-indigo-900 m-6 flex-1">
+        </div> -->
+
+        <div id="test-columns" class="" style="">
+        <!-- <div id="test-columns" class="relative flex-1 mt-5 mx-2"> -->
+          <!-- <canvas style="width:1000px; height:1000px;"></canvas> -->
+
+          <div class="muuri-new-column bg-gray-200 empty-column">
+
+          </div>
+          <div class="muuri-new-column bg-gray-200 empty-column">
+
+          </div>
+          <div class="muuri-new-column bg-gray-200 empty-column">
+
+          </div>
+
+
+
+
+
+
+
+
+
+        </div>
+
+
+      </div>
+
+
+
+
+
+
+
+      <%= render 'results_form'%>
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+</div>

@@ -1,5 +1,7 @@
 .muuri-new-column {
-
+  width:256px !important;
+  height:152px !important;
+  float:left;
 }
 
 .used-column {
@@ -28,4 +30,25 @@
 
 .new-column .ui-sortable-placeholder {
   @apply bg-gray-100 m-2 h-10 rounded;
+}
+
+.packery-drop-placeholder {
+  outline: 3px dashed #444;
+  outline-offset: -6px;
+  /* transition position changing */
+  -webkit-transition: -webkit-transform 0.2s;
+          transition: transform 0.2s;
+}
+
+
+#test-columns {
+  max-width:1000px;
+  height:100vh !important;
+
+}
+
+#test-columns:after {
+  content: ' ';
+  display: block;
+  clear: both;
 }

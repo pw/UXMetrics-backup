@@ -516,7 +516,7 @@ $(document).on('turbolinks:load', function(){
   if ($('#new-column').length>0){
     // console.log("new column present");
     console.log("SORTABLE: INIT");
-    // $( "#new-column" ).sortable(sortableOptions);
+    $( "#new-column" ).sortable(sortableOptions);
     // console.log($( ".new-column" ));
     // console.log($( ".new-column" ).sortable('toArray'));
 
@@ -619,7 +619,7 @@ $(document).on('turbolinks:load', function(){
 
             if ($('.items').length>0){
               console.log("SORTABLE OTHER: INIT");
-              // $( ".items" ).sortable(sortableOptionsOther);
+              $( ".items" ).sortable(sortableOptionsOther);
 
               }
 
@@ -732,11 +732,7 @@ $(document).on('turbolinks:load', function(){
               // console.log($('.empty-column')[0]);
 
               //
-              $grid.find('.muuri-new-column').each( function( i, gridItem ) {
-                var draggie = new Draggabilly( gridItem );
-                // bind drag events to Packery
-                $grid.packery( 'bindDraggabillyEvents', draggie );
-              });
+              $element.each(makeEachDraggable);
               //
 
               // $grid.packery( 'fit', $('.empty-column')[0]);
@@ -836,13 +832,15 @@ $(document).on('turbolinks:load', function(){
   var $grid = $('#test-columns').packery({
     itemSelector: '.muuri-new-column',
     // columnWidth helps with drop positioning
-    columnWidth: '.muuri-sizer',
-    rowHeight: 128,
-
-    gutter:10
+    columnWidth: 256,
+    columnHeight: 152,
+    gutter: 10
   });
 
   var pckry = Packery.data('#test-columns');
+
+
+
 
   console.log("pckry: ");
   console.log(pckry);
@@ -858,10 +856,13 @@ $(document).on('turbolinks:load', function(){
     // bind Draggabilly events to Packery
     // console.log("MAKE DRAGGABLE");
     // console.log(itemElem);
+    console.log("THIS IS $GRID in make draggable: ");
+    console.log($grid);
     $grid.packery( 'bindDraggabillyEvents', draggie );
   }
 
-  $('.muuri-new-column').each(makeEachDraggable);
+  $('#test-columns').find('.muuri-new-column').each(makeEachDraggable);
+  // $('.muuri-new-column').each(makeEachDraggable);
   // $grid.find('.muuri-new-column').each( function( i, gridItem ) {
   //   var draggie = new Draggabilly( gridItem );
   //   // bind drag events to Packery
@@ -876,15 +877,59 @@ $(document).on('turbolinks:load', function(){
     var container = $(this).closest(".column-holder").children(".items");
     container.children(".item").clone().appendTo(container);
     container.removeClass('h-32');
-    $grid.packery('layout');
+    $grid.packery('shiftLayout');
 
   });
 
+
+  $('.make-draggable').click(function(e){
+    e.preventDefault();
+    $('.muuri-new-column').each(makeEachDraggable);
+
+  });
+
+
   $('.add-group').click(function(event){
+
+    // var $grid = $('#test-columns').packery({
+    //   itemSelector: '.muuri-new-column',
+    //   // columnWidth helps with drop positioning
+    //   columnWidth: '.muuri-sizer',
+    //   gutter:10
+    // });
+
+    console.log($grid);
+    console.log("GET ITEM ELEMENTS:");
+    console.log($grid.packery('getItemElements'));
+
+
+    // $grid.packery('destroy');
     event.preventDefault();
-    var element = '<div class="muuri-new-column mt-0 w-64 absolute rounded bg-gray-200 empty-column"><div class="column-holder"><div class="group-header hidden bg-white p-2"><div class="muuri-handle inline-block text-xs text-gray-500"><i class="fa fa-arrows-alt"></i></div><a href="#" class="name-link py-1 inline-block">Add a name</a><input type="text" class="py-1 name-input w-full container-name input-small inline-block hidden" placeholder="Add a name for your group ..."/><a href="#" class="delete-group float-right text-sm pt-1 pr-1"><i class="fa fa-trash" aria-hidden="true"></i></a></div><div class="items p-2 h-32"><div id="20" class="item bg-white px-3 py-3 shadow m-2 rounded"><div class="hidden drag-handle"><i class="fa fa-arrows"></i></div><div class="nested-field"><div class="field mb-0 text-sm cursor-default"><p>Test 1</p><p class="hidden order">3</p></div></div></div></div><a href="#" class="plus">plus</a></div></div>';
+    // var element = '<div class="muuri-new-column mt-0 w-64 absolute rounded bg-gray-200 empty-column"><div class="column-holder"><div class="group-header hidden bg-white p-2"><div class="muuri-handle inline-block text-xs text-gray-500"><i class="fa fa-arrows-alt"></i></div><a href="#" class="name-link py-1 inline-block">Add a name</a><input type="text" class="py-1 name-input w-full container-name input-small inline-block hidden" placeholder="Add a name for your group ..."/><a href="#" class="delete-group float-right text-sm pt-1 pr-1"><i class="fa fa-trash" aria-hidden="true"></i></a></div><div class="items p-2 h-32"><div id="20" class="item bg-white px-3 py-3 shadow m-2 rounded"><div class="hidden drag-handle"><i class="fa fa-arrows"></i></div><div class="nested-field"><div class="field mb-0 text-sm cursor-default"><p>Test 1</p><p class="hidden order">3</p></div></div></div></div><a href="#" class="plus">plus</a></div></div>';
+    var element = '<div class="muuri-new-column bg-gray-200"></div>';
     var $element = $(element);
+
     $('#test-columns').append($element).packery('appended', $element);
+
+    // $('#test-columns').append($element);
+    //
+    // var $grid = $('#test-columns').packery({
+    //   itemSelector: '.muuri-new-column',
+    //   // columnWidth helps with drop positioning
+    //   columnWidth: '.muuri-sizer',
+    //   gutter:10
+    // });
+    $grid.packery('reloadItems');
+    $grid.packery('layout');
+
+    console.log("GET ITEM ELEMENTS:");
+    console.log($grid.packery('getItemElements'));
+
+    var pckry = Packery.data('#test-columns');
+
+    $element.each(makeEachDraggable);
+
+    // $('#test-columns').packery('appended', $element)
     // $('#test-columns').append($element);
     // var $grid = $('#test-columns').packery({
     //   itemSelector: '.muuri-new-column',
@@ -896,10 +941,11 @@ $(document).on('turbolinks:load', function(){
 
     // $grid.packery( 'fit', $element);
     // $grid.packery('layout');
+    // $grid.packery('reloadItems');
 
 
 
-    $('.muuri-new-column').each(makeEachDraggable);
+    // $('.muuri-new-column').each(makeEachDraggable);
     // $element.each(makeEachDraggable);
     // $grid.find('.muuri-new-column').each( function( i, gridItem ) {
     //   var draggie = new Draggabilly( gridItem );
@@ -908,7 +954,7 @@ $(document).on('turbolinks:load', function(){
     // });
 
 
-    var pckry = Packery.data('#test-columns');
+    // var pckry = Packery.data('#test-columns');
 
     console.log("pckry: ");
     console.log(pckry);
