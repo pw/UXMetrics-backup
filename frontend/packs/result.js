@@ -732,7 +732,7 @@ $(document).on('turbolinks:load', function(){
               // console.log($('.empty-column')[0]);
 
               //
-              $element.each(makeEachDraggable);
+              $tempElement.each(makeEachDraggable);
               //
 
               // $grid.packery( 'fit', $('.empty-column')[0]);
