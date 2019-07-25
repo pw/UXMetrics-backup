@@ -1,6 +1,5 @@
 .muuri-new-column {
   width:256px !important;
-  height:152px !important;
   float:left;
 }
 
@@ -42,7 +41,7 @@
 
 
 #test-columns {
-  max-width:1000px;
+
   height:100vh !important;
 
 }
