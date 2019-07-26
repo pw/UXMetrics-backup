@@ -48,18 +48,58 @@ $(document).on('turbolinks:load', function(){
   var initPos = 0;
   var tempElement;
   var inList = false;
+  var fitComplete = true;
+
+
+  $.bridget( 'packery', Packery, $ );
+
+  var $grid = $('#test-columns').packery({
+    itemSelector: '.muuri-new-column',
+    // columnWidth helps with drop positioning
+    columnWidth: 256,
+    columnHeight: 152,
+    gutter: 10
+  });
+
+  var pckry = Packery.data('#test-columns');
+
+
+  pckry.on('fitComplete', function(event, item){
+    console.log("fitcomplete event");
+    fitComplete = true;
+  });
+
+
+
+  function makeEachDraggable(i, itemElem) {
+    var draggie = new Draggabilly(itemElem, {
+      handle: '.muuri-handle'
+    });
+    $grid.packery('bindDraggabillyEvents', draggie);
+  }
+
+
+
+  $('#test-columns').find('.muuri-new-column').each(makeEachDraggable);
+
+  var isActive = true;
 
   var dePosition = debounce(function(event) {
 
-    if(draggingItem == true && (currentMousePos.x - dragStart + 120 > 252)){
+    console.log(fitComplete);
+    if(draggingItem == true && (currentMousePos.x - dragStart + 120 > 252) && fitComplete == true){
       onDropArea = true;
+      fitComplete = false;
       $grid.packery( 'fit', $('.empty-column')[0], currentMousePos.x - dragStart - 240, currentMousePos.y);
+
+
+
       $(".items").sortable("refresh");
     } else {
       onDropArea = false;
     }
 
-  }, 200);
+  }, 20);
 
 
   $(document).mousemove(function(event){
@@ -283,6 +323,7 @@ $(document).on('turbolinks:load', function(){
   function rebuildData(){
     console.log("REBUILD DATA");
     var data = [];
+    fitComplete = true;
 
     $(".items").each(function(index, value){
       data[index] = $(this).sortable('toArray');
@@ -347,27 +388,13 @@ $(document).on('turbolinks:load', function(){
 
   });
 
-  $.bridget( 'packery', Packery, $ );
 
-  var $grid = $('#test-columns').packery({
-    itemSelector: '.muuri-new-column',
-    // columnWidth helps with drop positioning
-    columnWidth: 256,
-    columnHeight: 152,
-    gutter: 10
+
+  $('.fit').click(function(e){
+    console.log("fit");
+    e.preventDefault();
+    $grid.packery( 'fit', $('.empty-column')[0], currentMousePos.x - dragStart - 240, currentMousePos.y);
   });
 
-  function makeEachDraggable(i, itemElem) {
-    var draggie = new Draggabilly(itemElem, {
-      handle: '.muuri-handle'
-    });
-    $grid.packery('bindDraggabillyEvents', draggie);
-  }
-
-  var pckry = Packery.data('#test-columns');
-
-  $('#test-columns').find('.muuri-new-column').each(makeEachDraggable);
-
-  var isActive = true;
 
 });
