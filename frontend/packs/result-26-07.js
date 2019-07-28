@@ -82,22 +82,6 @@ $(document).on('turbolinks:load', function(){
 
   $('#test-columns').find('.muuri-new-column').each(makeEachDraggable);
 
-
-  // if($('.empty-column').length < 1 ){
-  //     console.log("adding temp elem");
-  //   tempElement = '<div class="muuri-new-column mt-0 w-64 absolute rounded empty-column">              <div class="column-holder">                <div class="group-header hidden bg-white p-2">                  <div class="muuri-handle inline-block text-xs text-gray-500"><i class="fa fa-arrows-alt"></i></div>                  <a href="#" class="name-link py-1 inline-block">Add a name</a>                  <input type="text" class="py-1 name-input w-full container-name input-small inline-block hidden" placeholder="Add a name for your group ..."/>                  <a href="#" class="delete-group float-right text-sm pt-1 pr-1"><i class="fa fa-trash" aria-hidden="true"></i></a>                </div>                  <div class="items p-2 h-32">                    </div>              </div>            </div>';
-  //
-  //   var $tempElement = $(tempElement);
-  //   $('#test-columns').append($tempElement).packery('appended',$tempElement);
-  //   // $grid.packery('reloadItems');
-  //   $tempElement.each(makeEachDraggable);
-  //   $( "#new-column" ).sortable(sortableOptions);
-  //   $( ".items" ).sortable(sortableOptionsOther);
-  // }
-
-
-
-
   var isActive = true;
 
   var dePosition = debounce(function(event) {
@@ -106,7 +90,6 @@ $(document).on('turbolinks:load', function(){
     console.log("inList is: "+inList);
 
     if(draggingItem == true && (currentMousePos.x - dragStart + 120 > 252) && fitComplete == true && inList == false){
-      console.log("inList IS: "+inList);
       onDropArea = true;
       fitComplete = false;
       // $('.empty-column').addClass('packery-drop-placeholder');
@@ -236,10 +219,8 @@ $(document).on('turbolinks:load', function(){
     dropOnEmpty: true,
     update: function(event, ui) {
 
-
       $( "#new-column" ).sortable(sortableOptions);
       $( ".items" ).sortable(sortableOptionsOther);
-
       draggingItem = false;
 
       try {
@@ -262,31 +243,28 @@ $(document).on('turbolinks:load', function(){
       draggingItem = true;
 
 
-
-
     },
     stop: function(event, ui){
 
       $(".muuri-new-column").removeClass('droparea');
       console.log("STOPPP");
-      $grid.packery('shiftLayout');
-      // draggingItem = false;
-      if (draggingItem == true){
 
-        $grid.packery('remove', $('.empty-column')[0]);
-        $('.empty-column').remove();
-        $( "#new-column" ).sortable(sortableOptions);
-        $( ".items" ).sortable(sortableOptionsOther);
-        draggingItem = false;
-
-      }
+      draggingItem = false;
+      // if (draggingItem == true){
+      //
+      //   $grid.packery('remove', $('.empty-column')[0]);
+      //   $('.empty-column').remove();
+      //   $( "#new-column" ).sortable(sortableOptions);
+      //   $( ".items" ).sortable(sortableOptionsOther);
+      //   draggingItem = false;
+      //
+      // }
 
       dragStart = 0;
 
     },
     change: function(event, ui){
-      console.log("change");
-      $grid.packery('shiftLayout');
+
 
     },
     receive: function(event, ui){
@@ -343,16 +321,12 @@ $(document).on('turbolinks:load', function(){
       draggingItem = true;
     },
     stop: function(event, ui){
-      $(".muuri-new-column").removeClass('droparea');
         draggingItem = false;
 
 
         // $grid.packery('layout');
     },
     change: function(event, ui){
-
-      $grid.packery('shiftLayout');
-
       var receivingList = $(event.target);
       $(".muuri-new-column").removeClass("border-dashed border-gray-700 border-2");
 
@@ -377,21 +351,6 @@ $(document).on('turbolinks:load', function(){
     var data = [];
     fitComplete = true;
 
-    $(".muuri-new-column").removeClass('droparea');
-    if($('.empty-column').length < 1 ){
-        console.log("adding temp elem");
-      tempElement = '<div class="muuri-new-column mt-0 w-64 absolute rounded empty-column">              <div class="column-holder">                <div class="group-header hidden bg-white p-2">                  <div class="muuri-handle inline-block text-xs text-gray-500"><i class="fa fa-arrows-alt"></i></div>                  <a href="#" class="name-link py-1 inline-block">Add a name</a>                  <input type="text" class="py-1 name-input w-full container-name input-small inline-block hidden" placeholder="Add a name for your group ..."/>                  <a href="#" class="delete-group float-right text-sm pt-1 pr-1"><i class="fa fa-trash" aria-hidden="true"></i></a>                </div>                  <div class="items p-2 h-32">                    </div>              </div>            </div>';
-
-      var $tempElement = $(tempElement);
-      $('#test-columns').append($tempElement).packery('appended',$tempElement);
-      // $grid.packery('reloadItems');
-      $tempElement.each(makeEachDraggable);
-      $( "#new-column" ).sortable(sortableOptions);
-      $( ".items" ).sortable(sortableOptionsOther);
-    }
-
-
-
     $(".items").each(function(index, value){
       data[index] = $(this).sortable('toArray');
 
@@ -406,7 +365,16 @@ $(document).on('turbolinks:load', function(){
 
     });
 
+    if($('.empty-column').length < 1 ){
+      tempElement = '<div class="muuri-new-column mt-0 w-64 absolute rounded empty-column">              <div class="column-holder">                <div class="group-header hidden bg-white p-2">                  <div class="muuri-handle inline-block text-xs text-gray-500"><i class="fa fa-arrows-alt"></i></div>                  <a href="#" class="name-link py-1 inline-block">Add a name</a>                  <input type="text" class="py-1 name-input w-full container-name input-small inline-block hidden" placeholder="Add a name for your group ..."/>                  <a href="#" class="delete-group float-right text-sm pt-1 pr-1"><i class="fa fa-trash" aria-hidden="true"></i></a>                </div>                  <div class="items p-2 h-32">                    </div>              </div>            </div>';
 
+      var $tempElement = $(tempElement);
+      $('#test-columns').append($tempElement).packery('appended',$tempElement);
+      // $grid.packery('reloadItems');
+      $tempElement.each(makeEachDraggable);
+      $( "#new-column" ).sortable(sortableOptions);
+      $( ".items" ).sortable(sortableOptionsOther);
+    }
   }
 
   $("#new_result").submit(function(e){

@@ -32,8 +32,8 @@
 }
 
 .packery-drop-placeholder {
-  outline: 3px dashed #444;
-  outline-offset: -6px;
+  @apply border-dashed border-gray-700 border-2 rounded;
+  z-index:1;
   /* transition position changing */
   -webkit-transition: -webkit-transform 0.2s;
           transition: transform 0.2s;
@@ -50,4 +50,12 @@
   content: ' ';
   display: block;
   clear: both;
+}
+
+.droparea {
+  @apply border-dashed border-gray-400 border-2;
+}
+
+.is-dragging {
+  z-index:99999;
 }
