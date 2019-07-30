@@ -152,6 +152,8 @@ $(document).on('turbolinks:load', function(){
 
       $grid.packery('remove', $(element).closest(".muuri-new-column")).packery('shiftLayout');
 
+      rebuildData();
+
       // $(element).closest(".muuri-new-column").remove();
 
       // $(element).closest(".muuri-new-column").removeClass("used-column");
@@ -392,6 +394,7 @@ $(document).on('turbolinks:load', function(){
 
 
 
+
     $(".items").each(function(index, value){
       data[index] = $(this).sortable('toArray');
 
@@ -399,12 +402,27 @@ $(document).on('turbolinks:load', function(){
         $(this).addClass("full-container");
         $(this).removeClass("h-32");
         $(this).parents(".muuri-new-column").addClass("bg-gray-300 used-column");
+
+
         $(this).parents(".muuri-new-column").removeClass("empty-column");
         // $grid.packery('reloadItems');
         // $grid.packery('layout');
       }
 
     });
+
+
+
+
+
+    if ($(".muuri-new-column").hasClass("used-column") == 0){
+      // not working for some reason
+      $('.helper').show();
+    } else {
+      $('.helper').hide();
+    }
+
+
 
 
   }
@@ -437,7 +455,9 @@ $(document).on('turbolinks:load', function(){
           "title": groupTitles[index],
           "card": columnCards[index]
         }
-        data.groups.push(group);
+        if (group.card != ''){
+          data.groups.push(group);
+        }
 
       });
 

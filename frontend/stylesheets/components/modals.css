@@ -2,7 +2,7 @@
   @apply fixed inset-0;
   @apply w-full h-full;
   @apply flex flex-col items-center justify-center;
-  background-color: #fffe; /* [1] */
+  background-color: rgba(0, 0, 0, 0.12);
   @apply z-10;
   animation-name: fadeIn;
   animation-fill-mode: both;
@@ -10,7 +10,7 @@
 }
 
 .modal {
-  @apply flex flex-col relative w-full max-w-xl;
+  @apply flex flex-col relative w-full max-w-md;
   @apply bg-white rounded shadow-lg;
   animation-name: slideUpSm;
   animation-fill-mode: both;
@@ -32,16 +32,16 @@
 }
 
 .modal__content {
-  @apply relative flex flex-col justify-center w-full p-4 pr-8;
+  @apply relative flex flex-col justify-center w-full p-6;
 
   @screen sm {
-    @apply w-2/3
+
   }
 }
 
 .modal__header {
   @apply mb-1 pr-4;
-  @apply text-xl font-medium leading-tight text-white;
+  @apply text-xl font-medium leading-tight text-gray-800;
 }
 
 .modal__close {
@@ -56,4 +56,3 @@
 }
 
 /* [1] tailwind does not have transparent colors out of the box */
-

@@ -3,16 +3,17 @@ class ResultsController < ApplicationController
   before_action :set_cardtest, except: [:new]
 
 
-  layout "collect"
+
+  layout "dashboard"
   # GET /results
   def index
 
 
     @cardtest = Cardtest.find_by(uid: params[:cardtest_uid])
 
-    puts params[:uid]
-    puts "CARDTEST ID"
-    puts @cardtest.id
+    # puts params[:uid]
+    # puts "CARDTEST ID"
+    # puts @cardtest.id
 
     @results = Result.where(cardtest_id: @cardtest.id)
 
@@ -66,6 +67,8 @@ class ResultsController < ApplicationController
       @cardsByGroups.push({"id":card.id,"name":card.name,"titles":get_group_titles_for_card(card.id)}.to_json)
     end
 
+
+
   end
 
   # GET /results/1
@@ -76,6 +79,7 @@ class ResultsController < ApplicationController
   def new
     @cardtest = Cardtest.find_by(auth_token: params[:auth_token])
     @result = Result.new
+    render layout: "collect"
 
   end
 
@@ -86,6 +90,7 @@ class ResultsController < ApplicationController
   # POST /results
   def thanks
     @cardtest = Cardtest.find_by(uid: params[:cardtest_uid])
+    render layout: "collect"
   end
 
   def create
@@ -160,7 +165,13 @@ class ResultsController < ApplicationController
       hours, milliseconds   = milliseconds.divmod(1000 * 60 * 60)
       minutes, milliseconds = milliseconds.divmod(1000 * 60)
       seconds, milliseconds = milliseconds.divmod(1000)
-      "#{hours}h #{minutes}m #{seconds}s"
+      if hours == 0 and minutes !=0
+        "#{minutes}m #{seconds}s"
+      elsif hours == 0 and minutes == 0
+        "#{seconds}s"
+      else
+        "#{hours}h #{minutes}m #{seconds}s"
+      end
     end
 
 
