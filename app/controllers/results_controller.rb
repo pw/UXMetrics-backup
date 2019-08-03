@@ -32,7 +32,7 @@ class ResultsController < ApplicationController
 
       #puts Oj.dump(resultGroup.data)
       begin
-        puts JSON.parse(resultGroup.data)
+        # puts JSON.parse(resultGroup.data)
         @resultnames.push(JSON.parse(resultGroup.data)['name'])
         @resultgroups.push(JSON.parse(resultGroup.data)['groups'])
         @resulttimes.push(JSON.parse(resultGroup.data)['time'])
@@ -66,6 +66,8 @@ class ResultsController < ApplicationController
     @cardtest.cards.sort_by(&:order).each do |card|
       @cardsByGroups.push({"id":card.id,"name":card.name,"titles":get_group_titles_for_card(card.id)}.to_json)
     end
+
+    get_agreement_scores_for_card
 
 
 
@@ -177,7 +179,7 @@ class ResultsController < ApplicationController
 
     def get_group_titles_for_card(cardId)
       puts "GET GROUP TITLES FOR CARD CALLED"
-      puts cardId
+      # puts cardId
       @cardGroupTitles = []
       @resultgroups.each do |groups|
 
@@ -186,13 +188,23 @@ class ResultsController < ApplicationController
               #puts group['card'].include?(cardId.to_s)
               if group['card'].length > 0 && group['card'].include?(cardId.to_s)
 
-                puts "TRUE"
+                # puts "TRUE"
                 @cardGroupTitles.push(group['title']);
               end
             end
       end
 
       return @cardGroupTitles
+
+    end
+
+
+    def get_agreement_scores_for_card()
+
+      @cardsByGroups.each do |test|
+        puts test
+      end
+
 
     end
 

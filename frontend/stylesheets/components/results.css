@@ -59,3 +59,22 @@
 .is-dragging {
   z-index:99999;
 }
+
+/* .footable-sorted {
+  @apply text-gray-900;
+}
+
+.footable-sorted::after {
+  font-family: "FontAwesome"; content: "\f0de";
+  margin-left: 4px;
+}
+
+
+.footable-sorted-desc {
+  @apply text-gray-900;
+}
+
+.footable-sorted-desc::after {
+  font-family: "FontAwesome"; content: "\f0dd";
+  margin-left: 4px;
+} */

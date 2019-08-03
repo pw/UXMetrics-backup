@@ -1,7 +1,14 @@
+// var $ = require("jquery");
+var jQuery = require("jquery");
+import $ from 'jquery';
+window.jQuery = $;
+window.$ = $;
 const d3 = require('d3/dist/d3');
 const britecharts = require('britecharts/dist/bundled/britecharts.min');
 const miniTooltip = require('britecharts/src/charts/mini-tooltip');
 var _ = require('lodash');
+
+const footable = require('footable/dist/footable.all.min');
 
 // $(document).on('turbolinks:load', function(){
 document.addEventListener("turbolinks:load", function() {
@@ -18,9 +25,10 @@ for (const [count, resultString] of entries) {
 
 
   try {
-    result = JSON.parse(JSON.parse(resultString));
+    var result = JSON.parse(JSON.parse(resultString));
   } catch (e) {
     console.log("Some result data is invalid JSON");
+    console.log(e);
   }
 
 
@@ -77,7 +85,7 @@ for (i=0; i < barData.length; i++) {
 
   var percent = 100*barData[i].value / totalResults;
   var percentRounded =  Math.round( percent * 10 ) / 1000;
-  barDataPercent.push({"name":i, "value":percentRounded})
+  barDataPercent.push({"name":i+1, "value":percentRounded})
 
 }
 
@@ -86,7 +94,7 @@ console.log(barDataPercent);
 
 
 
-tooltip = miniTooltip();
+var tooltip = miniTooltip();
 
   barChart
       .margin({left: 30})
@@ -96,13 +104,15 @@ tooltip = miniTooltip();
       .isAnimated(true)
       .on('customMouseOver', tooltip.show)
       .on('customMouseMove', tooltip.update)
-      .on('customMouseOut', tooltip.hide);
+      .on('customMouseOut', tooltip.hide)
+      .xAxisLabel("Number of groups created")
+      .xAxisLabelOffset(35);
 
   container.datum(barDataPercent).call(barChart);
 
   tooltip.numberFormat('.1%');
 
-  tooltipContainer = d3.select('.bar-chart .metadata-group');
+  var tooltipContainer = d3.select('.bar-chart .metadata-group');
   tooltipContainer.datum([]).call(tooltip);
 
 
@@ -124,4 +134,7 @@ tooltip = miniTooltip();
   window.addEventListener("resize", throttledRedraw);
 
 //
+
+  $(".table").footable();
+
 });
