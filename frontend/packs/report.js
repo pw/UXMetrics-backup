@@ -1,4 +1,5 @@
 // var $ = require("jquery");
+
 var jQuery = require("jquery");
 import $ from 'jquery';
 window.jQuery = $;
@@ -9,6 +10,7 @@ const miniTooltip = require('britecharts/src/charts/mini-tooltip');
 var _ = require('lodash');
 
 const footable = require('footable/dist/footable.all.min');
+
 
 // $(document).on('turbolinks:load', function(){
 document.addEventListener("turbolinks:load", function() {
