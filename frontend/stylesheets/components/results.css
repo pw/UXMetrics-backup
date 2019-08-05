@@ -60,26 +60,47 @@
   z-index:99999;
 }
 
-.footable-sortable:hover .footable-sort-indicator::after {
+/* .footable-sortable:hover .footable-sort-indicator::after {
   font-family: "FontAwesome"; content: "\f0de";
   margin-left:8px;
+} */
+
+
+
+thead th {
+  cursor:default;
+}
+
+.footable-sort-indicator::after {
+  font-family: "FontAwesome"; content: "\f0dc";
+  visibility: hidden;
+  margin-left: 8px;
+}
+
+.footable-sortable:hover {
+  @apply text-blue-400;
+}
+
+.footable-sortable:hover .footable-sort-indicator::after {
+  visibility: visible;
 }
 
 .footable-sorted {
-  @apply text-gray-900;
+  @apply text-blue-400;
 }
 
 .footable-sorted .footable-sort-indicator::after {
   font-family: "FontAwesome"; content: "\f0de";
-  margin-left: 8px;
+  visibility: visible;
 }
 
 
 .footable-sorted-desc {
-  @apply text-gray-900;
+  @apply text-blue-400;
 }
 
 .footable-sorted-desc .footable-sort-indicator::after {
   font-family: "FontAwesome"; content: "\f0dd";
-  margin-left: 8px;
+  visibility: visible;
+
 }

@@ -30,8 +30,8 @@
 
 
 
-<div class="subhead border-t border-gray-200 bg-white">
-  <div class="max-w-4xl mx-auto clearfix py-6 flex items-center px-6">
+<div class="subhead border-t border-gray-200 bg-white pl-10 pr-10">
+  <div class="max-w-6xl mx-auto clearfix py-6 flex items-center px-6">
     <div class="flex-1">
       <h1 class="font-bold text-gray-600 text-xl"><%= @cardtest.name %></h1>
       <span class="text-gray-400 text-sm block">Created on <%= @cardtest.created_at.strftime("%F") %></span>
@@ -45,7 +45,7 @@
   </div>
 </div>
 
-<div class="mt-16 max-w-4xl mx-auto flex">
+<div class="mt-16 max-w-6xl mx-auto flex pl-10 pr-10">
   <div class="w-2/3 p-4">
     <table class="table hidden">
       <thead>
@@ -163,27 +163,28 @@
 
 </div>
 
-<div class="analysis mt-16 max-w-4xl mx-auto">
+<div class="analysis mt-16 mx-auto pl-10 pr-10 max-w-6xl">
 
-  <a href="" class="">Cards analysis</a>
-  <a href="" class="">Categories analysis</a>
-
+  <div class="table-tabs text-center mb-8">
+    <a href="" class="font-semibold active mr-3">Cards analysis</a>
+    <a href="" class="font-semibold ml-3">Categories analysis</a>
+  </div>
   <table class="table text-sm" data-sortin="true">
-    <thead class="uppercase text-gray-600 text-xs leading-tight font-medium">
+    <thead class="uppercase text-gray-900 text-xs leading-tight font-medium">
       <th data-type="number">Card name</th>
-      <th></th>
-      <th>Categories</th>
-      <th>Number of times</th>
+      <th data-sortable="false"></th>
+      <th data-sortable="false">Categories</th>
+      <th data-sortable="false">Number of times</th>
       <th>Percentage of people sorted</th>
       <th>Agreement score <i class="fa fa-info-circle" aria-hidden="true"></i></th>
     </thead>
     <tbody>
       <% @cardtest.cards.sort_by(&:order).each_with_index do |card, index| %>
       <tr>
-        <td><strong><%= card.name %> </strong></td>
+        <td><h3><%= card.name %> </h3></td>
         <td>was sorted into</td>
         <td>
-          <ul>
+          <ul class="categories-list">
           <% @cardsByGroups.each do |cardIdRow| %>
             <% if card.id == JSON.parse(cardIdRow)['id'] %>
               <% titlesGrouped = JSON.parse(cardIdRow)['titles'].group_by{|i| i}.map{|k,v| [k, v.count] } %>
@@ -195,7 +196,7 @@
           </ul>
         </td>
         <td>
-          <ul>
+          <ul class="counts-list">
           <% @cardsByGroups.each do |cardIdRow| %>
             <% if card.id == JSON.parse(cardIdRow)['id'] %>
               <% titlesGrouped = JSON.parse(cardIdRow)['titles'].group_by{|i| i}.map{|k,v| [k, v.count] } %>

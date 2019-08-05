@@ -18,6 +18,47 @@ document.addEventListener("turbolinks:load", function() {
 console.log("turbolinks:load");
 //console.log(dataCompiled);
 
+var element = '<a href="">See more (<span></span>)</a>';
+
+$(".categories-list").each(function(index){
+  // console.log("Index: "+index);
+  // console.log($(this).children().length);
+  var tdMirrorElement = $(this).parent().parent().find("ul.counts-list");
+  if($(this).children().length > 3){
+    // console.log("yes");
+    $(this).parent().append('<ul class="collapsed-list hidden"></ul>');
+    $(this).parent().append(element);
+
+    tdMirrorElement.parent().append('<ul class="collapsed-counts-list text-gray-300"></ul>');
+    // console.log($(this).parent().children('a').children('span'));
+
+    $(this).parent().on('click', 'a', function(e){
+      e.preventDefault();
+      $(this).siblings('.collapsed-list').toggle();
+      // console.log("click");
+    });
+
+    $(this).parent().children('a').children('span').text($(this).children().length - 3);
+    $(this).children().each(function(index){
+      // console.log("Index2: "+index);
+      if(index>4){
+        // console.log($(this).parent().parent().children('.collapsed-list'));
+        $(this).appendTo($(this).parent().parent().children('.collapsed-list'));
+        // console.log(tdMirrorElement.children().eq(index));
+        console.log("Index to move: "+index);
+        console.log(tdMirrorElement.parent().children('.collapsed-counts-list'));
+        tdMirrorElement.children().eq(index).appendTo(tdMirrorElement.parent().children('.collapsed-counts-list'));
+
+        // $(this).appendTo($(this).parent().parent().children('.collapsed-list'));
+
+      }
+    });
+  }
+
+  // tdMirrorElement
+
+
+});
 
 const entries = Object.entries(dataCompiled);
 console.log(entries );
@@ -137,6 +178,8 @@ var tooltip = miniTooltip();
 
 //
 
-  $(".table").footable();
+  $(".table").footable({
+    "columns": [{"sortable":false}]
+  });
 
 });
