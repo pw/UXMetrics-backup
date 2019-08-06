@@ -30,3 +30,5 @@ yarn-debug.log*
 dump.rdb
 dump.rdb
 dump.rdb
+dump.rdb
+*.rdb

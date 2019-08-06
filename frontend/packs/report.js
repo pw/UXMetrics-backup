@@ -21,6 +21,12 @@ console.log("turbolinks:load");
 var element = '<a href="">See more (<span></span>)</a>';
 
 $(".categories-list").each(function(index){
+
+  var expanded = false;
+
+  var categoriesToMove = [];
+  var countsToMove = [];
+
   // console.log("Index: "+index);
   // console.log($(this).children().length);
   var tdMirrorElement = $(this).parent().parent().find("ul.counts-list");
@@ -29,25 +35,56 @@ $(".categories-list").each(function(index){
     $(this).parent().append('<ul class="collapsed-list hidden"></ul>');
     $(this).parent().append(element);
 
-    tdMirrorElement.parent().append('<ul class="collapsed-counts-list text-gray-300"></ul>');
+    tdMirrorElement.parent().append('<ul class="collapsed-counts-list hidden"></ul>');
     // console.log($(this).parent().children('a').children('span'));
 
     $(this).parent().on('click', 'a', function(e){
       e.preventDefault();
       $(this).siblings('.collapsed-list').toggle();
+      tdMirrorElement.siblings('.collapsed-counts-list').toggle();
+
+      if(expanded == false){
+        expanded = true;
+        $(this).text("Collapse");
+      } else {
+        $(this).html("See more (<span></span>)");
+        $(this).parent().children('a').children('span').text($(this).parent().children('.collapsed-list').children().length);
+      }
+
       // console.log("click");
     });
 
     $(this).parent().children('a').children('span').text($(this).children().length - 3);
     $(this).children().each(function(index){
-      // console.log("Index2: "+index);
-      if(index>4){
+      // console.log("Index of categories: "+index);
+      if(index>=3){
         // console.log($(this).parent().parent().children('.collapsed-list'));
-        $(this).appendTo($(this).parent().parent().children('.collapsed-list'));
+        // tdMirrorElement.children().eq(index).appendTo(tdMirrorElement.parent().children('.collapsed-counts-list'));
+        // var collapsedCountContainer = tdMirrorElement.parent().children('.collapsed-counts-list');
+        var countToInsert = tdMirrorElement.children().eq(index);
+
+        countsToMove.push(countToInsert);
+
+        // console.log("Index: "+index);
+        // console.log(tdMirrorElement);
+        // console.log(countToInsert);
+
+        // countToInsert.appendTo(collapsedCountContainer);
+
+        // countToInswer.a
+        // tdMirrorElement.children().eq(index).detach().appendTo(tdMirrorElement.parent().children('.collapsed-counts-list'));
+        // tdMirrorElement.children().eq(index).remove();
+        var collapsedContainer = $(this).parent().parent().find('.collapsed-list');
+        var categoryToInsert = $(this);
+
+        // .children('.collapsed-list')
+        // console.log($(this).parent());
+        categoryToInsert.appendTo(collapsedContainer);
+        // $('ul').append(categoryToInsert);
         // console.log(tdMirrorElement.children().eq(index));
-        console.log("Index to move: "+index);
-        console.log(tdMirrorElement.parent().children('.collapsed-counts-list'));
-        tdMirrorElement.children().eq(index).appendTo(tdMirrorElement.parent().children('.collapsed-counts-list'));
+        // console.log("Index to move: "+index);
+        // console.log(tdMirrorElement.parent().children('.collapsed-counts-list').children().eq(index));
+
 
         // $(this).appendTo($(this).parent().parent().children('.collapsed-list'));
 
@@ -56,7 +93,10 @@ $(".categories-list").each(function(index){
   }
 
   // tdMirrorElement
-
+  countsToMove.forEach(function(item){
+    console.log(item);
+    item.detach().appendTo(tdMirrorElement.parent().children('.collapsed-counts-list'));
+  })
 
 });
 
