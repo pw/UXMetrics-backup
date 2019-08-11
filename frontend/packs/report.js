@@ -11,6 +11,7 @@ var _ = require('lodash');
 
 const footable = require('footable/dist/footable.all.min');
 
+var tableActive = "cards";
 
 // $(document).on('turbolinks:load', function(){
 document.addEventListener("turbolinks:load", function() {
@@ -49,6 +50,7 @@ $(".categories-list").each(function(index){
       } else {
         $(this).html("See more (<span></span>)");
         $(this).parent().children('a').children('span').text($(this).parent().children('.collapsed-list').children().length);
+        expanded = false;
       }
 
       // console.log("click");
@@ -94,14 +96,14 @@ $(".categories-list").each(function(index){
 
   // tdMirrorElement
   countsToMove.forEach(function(item){
-    console.log(item);
+    // console.log(item);
     item.detach().appendTo(tdMirrorElement.parent().children('.collapsed-counts-list'));
   })
 
 });
 
 const entries = Object.entries(dataCompiled);
-console.log(entries );
+// console.log(entries );
 
 for (const [count, resultString] of entries) {
 
@@ -119,7 +121,7 @@ for (const [count, resultString] of entries) {
 
 }
 
-console.log(result.groups);
+// console.log(result.groups);
 
   const container = d3.select('.bar-container');
   const barChart = britecharts.bar();
@@ -146,19 +148,19 @@ console.log(result.groups);
 
 const mostGroups = Math.max.apply(null, groupsPerResult);
 
-console.log("Highest group number: "+mostGroups);
+// console.log("Highest group number: "+mostGroups);
 var i;
 var totalResults = 0;
 
 for (i=1; i <= mostGroups; i++) {
   var count = groupsPerResult.filter(j => j === i).length;
-  console.log("Index: "+i);
-  console.log("Count: "+count);
+  // console.log("Index: "+i);
+  // console.log("Count: "+count);
   barData.push({"name": i, "value": count});
   totalResults = totalResults+count;
 }
 
-console.log(totalResults);
+// console.log(totalResults);
 // create percentage array for chart
 const barDataPercent = [];
 
@@ -173,7 +175,7 @@ for (i=0; i < barData.length; i++) {
 }
 
 
-console.log(barDataPercent);
+// console.log(barDataPercent);
 
 
 
@@ -219,7 +221,28 @@ var tooltip = miniTooltip();
 //
 
   $(".table").footable({
-    "columns": [{"sortable":false}]
+
+  });
+
+  $(".table-tabs a").click(function(e){
+    e.preventDefault();
+    if(!$(this).hasClass('active')){
+      $(".table-tabs a").removeClass("active");
+      $(this).addClass("active");
+
+      console.log(tableActive);
+
+      if (tableActive == "cards"){
+        tableActive = "categories";
+        $('.cards-table').hide();
+        $('.categories-table').show();
+      } else {
+        tableActive = "cards";
+        $('.categories-table').hide();
+        $('.cards-table').show();
+      }
+    }
+
   });
 
 });

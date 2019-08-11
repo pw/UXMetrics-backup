@@ -104,3 +104,21 @@ thead th {
   visibility: visible;
 
 }
+
+.table-tabs a {
+  @apply text-gray-500;
+}
+
+.table-tabs a:hover {
+  @apply text-gray-900;
+}
+
+.table-tabs .active {
+  @apply border-b-2;
+  color: var(--brandColor);
+  border-color: var(--brandColor);
+}
+
+.table-tabs .active:hover {
+  color: var(--brandColor);
+}

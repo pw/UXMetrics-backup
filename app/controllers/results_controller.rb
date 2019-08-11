@@ -33,6 +33,7 @@ class ResultsController < ApplicationController
       #puts Oj.dump(resultGroup.data)
       begin
         # puts JSON.parse(resultGroup.data)
+
         @resultnames.push(JSON.parse(resultGroup.data)['name'])
         @resultgroups.push(JSON.parse(resultGroup.data)['groups'])
         @resulttimes.push(JSON.parse(resultGroup.data)['time'])
@@ -189,7 +190,28 @@ class ResultsController < ApplicationController
               if group['card'].length > 0 && group['card'].include?(cardId.to_s)
 
                 # puts "TRUE"
-                @cardGroupTitles.push(group['title']);
+                @cardGroupTitles.push(group['title'].capitalize);
+              end
+            end
+      end
+
+      return @cardGroupTitles
+
+    end
+
+    def get_cards_for_group(group)
+      puts "GET CARDS FOR GROUP CALLED"
+      # puts cardId
+      @cardGroupTitles = []
+      @resultgroups.each do |groups|
+
+            groups.each do |group|
+              #puts group['card']
+              #puts group['card'].include?(cardId.to_s)
+              if group['card'].length > 0 && group['card'].include?(cardId.to_s)
+
+                # puts "TRUE"
+                @cardGroupTitles.push(group['title'].capitalize);
               end
             end
       end
