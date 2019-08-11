@@ -5,10 +5,6 @@
     <% if card.id == JSON.parse(cardIdRow)['id'] %>
       <% countArray = [] %>
       <% titlesGrouped = JSON.parse(cardIdRow)['titles'].group_by{|i| i}.map{|k,v| [k, v.count] } %>
-      <%= titlesGrouped %>
-      ---
-      <%= titlesGrouped.count %>
-      ---
       <% titlesGrouped.sort_by{|k|k[1]}.reverse.each do |element| %>
         <% countArray.push(element[1]) %>
         <!-- <div><%= element[1] %></div> -->
@@ -32,45 +28,8 @@
   <% end %>
 <% end %>
 
-
-
-
-
-
-<% dataCompiled = [] %>
-
-<% @results.each do |result| %>
-  <% dataCompiled.push(result.data.to_json)%>
-<% end %>
-
-<%= javascript_tag do %>
-  window.dataCompiled = <%=raw dataCompiled %>;
-  window.groupsPerResult = <%=raw @groupsperresult %>;
-<% end %>
-
-<h4>Cards by groups</h4>
-
-<ul>
-<% @cardsByGroups.each do |cardIdRow| %>
-  <li><%= cardIdRow %></li>
-<% end %>
-</ul>
-
-<h5>Cards count:</h5>
-<%= @cardsByGroups.count %>
-
-<br/><br/><br/><br/>
-
-<h4>Result groups</h4>
-
-<ul>
-<% @resultgroups.each do |cardIdRow| %>
-  <li><%= cardIdRow %></li>
-<% end %>
-</ul>
-
-<h5>Result count:</h5>
-<%= @resultgroups.count %>
+<% uniqueCategories = [] %>
+<% categories = [] %>
 
 
 <div class="subhead border-t border-gray-200 bg-white pl-10 pr-10">
@@ -91,6 +50,42 @@
 <div class="mt-16 max-w-6xl mx-auto flex pl-10 pr-10">
   <div class="w-2/3 p-4">
 
+    <h4>Cards by groups</h4>
+
+    <ul>
+    <% @cardsByGroups.each do |cardIdRow| %>
+      <li><%= cardIdRow %></li>
+    <% end %>
+    </ul>
+
+    <h5>Cards count:</h5>
+    <%= @cardsByGroups.count %>
+
+    <br/><br/><br/><br/>
+
+    <h4>Result groups</h4>
+
+    <ul>
+    <% @resultgroups.each do |cardIdRow| %>
+      <li><%= cardIdRow %></li>
+    <% end %>
+    </ul>
+
+    <h5>Result count:</h5>
+    <%= @resultgroups.count %>
+
+
+
+
+    <h1 class="text-3xl mb-4">Overview</h1>
+    <h4>
+      <%# <%= @groupsperresult %>
+      Most people created <%= @mediangroups.to_i %>
+
+      <% if @mediangroups.to_i == 1%>
+      group<% else %>
+      groups<% end %>.
+    </h4>
 
 
 
@@ -117,6 +112,42 @@
 
       <p class="font-semibold px-2 text-center text-4xl text-green-600">
 
+        <% groupscount  = 0%>
+
+        <!-- <h4><%= @resultgroups.uniq %></h4> -->
+
+        <% @resultgroups.each do |resultgroup| %>
+
+
+          <% if resultgroup.count > 0%>
+            <% resultgroup.each do |result| %>
+              <% if result["card"].length > 0 %>
+                <% categories.push(result["title"]) %>
+              <% end %>
+            <% end %>
+          <% end %>
+          <%# <% unless uniqueCategories.include?(resultgroup)
+            uniqueCategories << resultgroup
+          end
+          groupscount = groupscount + resultgroup.count %>
+        <% end %>
+
+
+
+        <% categories.map!(&:capitalize).each do |category| %>
+          <% if category != "Unnamed" %>
+            <% if !uniqueCategories.include?(category) %>
+              <% uniqueCategories.push(category) %>
+            <% end %>
+          <% else %>
+            <% uniqueCategories.push(category) %>
+          <% end %>
+
+
+        <% end %>
+
+
+      <%= uniqueCategories.count %></p>
 
       <h4 class="-mt-2 font-semibold px-2 text-center">Groups created</h4>
 
@@ -162,31 +193,51 @@
       </tr>
     </thead>
     <tbody>
-
+      <% @cardtest.cards.sort_by(&:order).each_with_index do |card, index| %>
       <tr>
-        <td><h3>Card name</h3></td>
+        <td><h3><%= card.name %> </h3></td>
 
         <td>
           <ul class="categories-list">
-            <li>Group list</li>
+          <% @cardsByGroups.each do |cardIdRow| %>
+            <% if card.id == JSON.parse(cardIdRow)['id'] %>
+              <% titlesGrouped = JSON.parse(cardIdRow)['titles'].group_by{|i| i}.map{|k,v| [k, v.count] } %>
+              <% titlesGrouped.sort_by{|k|k[1]}.reverse.each do |element| %>
+                <%# <% uniqueCategories.push(element[0]) %>
+                <li><%= element[0] %></li>
+              <% end %>
+            <% end %>
+          <% end %>
           </ul>
         </td>
         <td>
           <ul class="counts-list">
-            <li>Times list</li>
+          <% @cardsByGroups.each do |cardIdRow| %>
+            <% if card.id == JSON.parse(cardIdRow)['id'] %>
+              <% titlesGrouped = JSON.parse(cardIdRow)['titles'].group_by{|i| i}.map{|k,v| [k, v.count] } %>
+              <% titlesGrouped.sort_by{|k|k[1]}.reverse.each do |element| %>
+                <li><%= element[1] %>
+                  <% if element[1] == 1 %>
+                    time
+                  <% else %>
+                    times
+                  <% end %></li>
+              <% end %>
+            <% end %>
+          <% end %>
           </ul>
         </td>
-        <td data-sort-value="">
-
+        <td data-sort-value="<%= sortedPercent[index]*100 %>">
+          <%= sortedPercent[index] %>%
         </td>
-        <td data-sort-value="">
+        <td data-sort-value="<%= agreementScores[index] %>">
 
-
+          <%= agreementScores[index] %>%
 
 
         </td>
       </tr>
-
+      <% end %>
     </tbody>
 
   </table>
@@ -204,15 +255,15 @@
       </tr>
     </thead>
     <tbody>
-
+      <% uniqueCategories.each do |category| %>
       <tr>
-        <td>Category</td>
+        <td><%= category %></td>
         <td></td>
         <td></td>
         <td></td>
         <td></td>
       </tr>
-
+      <% end %>
     </tbody>
   </table>
 

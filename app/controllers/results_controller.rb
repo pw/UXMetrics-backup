@@ -68,7 +68,25 @@ class ResultsController < ApplicationController
       @cardsByGroups.push({"id":card.id,"name":card.name,"titles":get_group_titles_for_card(card.id)}.to_json)
     end
 
-    get_agreement_scores_for_card
+    agreementScores = []
+    sortedPercent = []
+
+    @cardsByGroups.each do |cardIdRow|
+      titlesGrouped = JSON.parse(cardIdRow)['titles'].group_by{|i| i}.map{|k,v| [k, v.count] }
+      titlesGrouped.sort_by{|k|k[1]}.reverse.each do |element|
+        countArray.push(element[1])
+      end
+
+      if countArray.max == 1
+        agreementScores.push(0)
+      else
+        agreementScores.push(((countArray.max.to_f/countArray.sum.to_f) * 100).round(1))
+      end
+
+      sortedPercent.push(((countArray.sum.to_f/@results.count.to_f) * 100).round(1))
+
+    end
+    # get_agreement_scores_for_card
 
 
 
