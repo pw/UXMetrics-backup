@@ -9,7 +9,29 @@
   window.groupsPerResult = <%=raw @groupsperresult %>;
 <% end %>
 
+<h4>Cards by groups</h4>
 
+<ul>
+<% @cardsByGroups.each do |cardIdRow| %>
+  <li><%= cardIdRow %></li>
+<% end %>
+</ul>
+
+<h5>Cards count:</h5>
+<%= @cardsByGroups.count %>
+
+<br/><br/><br/><br/>
+
+<h4>Result groups</h4>
+
+<ul>
+<% @resultgroups.each do |cardIdRow| %>
+  <li><%= cardIdRow %></li>
+<% end %>
+</ul>
+
+<h5>Result count:</h5>
+<%= @resultgroups.count %>
 
 
 <div class="subhead border-t border-gray-200 bg-white pl-10 pr-10">
@@ -106,8 +128,8 @@
           <td><h3><%= JSON.parse(cardIdRow)["name"] %></h3></td>
 
           <td>
-
-
+            <% puts "£££££££££££££WHATISTHIS:"%>
+            <% puts JSON.parse(cardIdRow)['titles']%>
             <% titlesGroups = JSON.parse(cardIdRow)['titles'].partition{|v| v == "Unnamed"}
               # Separating titles into Unnamed and NOT, because we want Unnamed at the bottom and not grouped
               if titlesGroups.count == 2
@@ -181,13 +203,61 @@
 
 
 
+  <% @resultgroups.each_with_index do |cardIdRow, index| %>
+    <% cardIdRow.each_with_index do |title, i| %>
+      <% if title['card'].count > 0 %>
+        <% uniqueTitles.push(title) %>
+      <% end %>
+    <% end %>
+  <% end %>
 
 
 
 
+  <% puts "WHAAAAAAAAAAAAT" %>
+  <% puts uniqueTitles %>
+  <% u = uniqueTitles.partition{|v| v["title"] == "Unnamed"}
+
+  puts "paritioned"
+  puts u[1]
+
+  puts "before: "
+  puts u[1]
+
+  u[0].map!{|e| e.flatten}
+  u[0].map!{|e| e.flatten}.each do |group|
+    group.reject!{|x| x=="title" or x=="card"}
+  end
+
+  if u.count == 2
+    u[1].map!{|e| e.flatten}.each do |group|
+      group.reject!{|x| x=="title" or x=="card"}
+    end
+
+    u[1] = u[1].group_by(&:first).map{ |c, xs| [c.capitalize, xs.map(&:last)]}
+    # u[1].group_by{|i| i["title"]}
+    puts "after: "
+    p u[1]
+    finalTitles = u[1] + u[0]
+    p "final titles before:"
+    p finalTitles
+
+    # finalTitles.group_by{|i| i}
+    # p "final titles after group:"
+    # p finalTitles
 
 
-  <%# puts @titleslist %>
+  else
+    u[0] = u[0].group_by{|i| i["title"]}.group_by(&:first).map{ |c, xs| [c.capitalize, xs.map(&:last)]}
+    finalTitles = u[0]
+  end
+
+  # fintalTitles.group_by{}
+
+  puts "finalTitles count: "+ finalTitles.count.to_s
+  # puts finalTitles
+
+  %>
 
 
   <table data-page-size="5000" data-paging="false" class="table text-sm categories-table hidden">
@@ -195,7 +265,7 @@
       <tr>
         <th data-type="text" data-sort-initial="true">Group name</th>
         <th data-sort-ignore="true" width="200">Cards added</th>
-        <th data-sort-ignore="true" width="500"></th>
+        <th data-sort-ignore="true" width="100"></th>
         <th data-type="numeric">Percentage of people sorted</th>
         <th data-type="numberic">Agreement score
           <!-- <i class="fa fa-info-circle" aria-hidden="true"></i> -->
@@ -203,27 +273,17 @@
       </tr>
     </thead>
     <tbody>
-      <% @titleslist.each do |title| %>
+        <%# finalTitles.group_by{|i| i}.each_with_index do |title, index| %>
+        <% finalTitles.map{|c,d| [c.capitalize, d]}.each_with_index do |title, index| %>
           <tr>
-            <td><%= title[:title] %></td>
-            <td>
-              <ul>
-              <% title[:cards].each do |card| %>
-                <li><%= card %></li>
-              <% end %>
-            </ul>
-            </td>
-            <td>
-              <ul>
-              <% title[:cards].each do |card| %>
-                <li><%= @cardtest.cards.find(card).name %></li>
-              <% end %>
-            </ul>
-            </td>
+            <td><%= title %> - <%= index %></td>
+            <td></td>
+            <td></td>
             <td></td>
             <td></td>
           </tr>
-      <% end %>
+        <% end %>
+
     </tbody>
   </table>
 

@@ -34,6 +34,7 @@ class ResultsController < ApplicationController
       begin
         # puts JSON.parse(resultGroup.data)
 
+
         @resultnames.push(JSON.parse(resultGroup.data)['name'])
         @resultgroups.push(JSON.parse(resultGroup.data)['groups'])
         @resulttimes.push(JSON.parse(resultGroup.data)['time'])
@@ -50,13 +51,105 @@ class ResultsController < ApplicationController
 
     @groupsperresult = []
 
+    @titleslist = []
+
     @resultgroups.each do |groups|
+
+          #determine groups per result
           groupCount = 0
-          groups.each do |group|
+          # p "groups below::::"
+
+
+
+
+
+          # p "*****************map below:***********************"
+
+          g = groups.map{|e| {e.keys[0] => e.values[0].capitalize, e.keys[1] => e.values[1]}}
+
+          # p g
+
+          g.each do |group|
+
+
+
+
+            # p group
+            # p JSON.parse(group)
+            # p "how about this ------"
+            # p group
+
             if group['card'].length > 0
+
+              contains = []
+
+              # group['title'] = group['title'].capitalize
+
+              # need to get unique capitalized titles grouped, except Unnamed
+              # with all the cards grouped under it
+              if group['title'] == "Unnamed"
+                @titleslist.push({"title":group['title'],"cards":group['card']})
+              else
+                # puts "else"
+                # puts "looking for "+group['title']+ " in: "
+                # p @titleslist
+
+
+
+
+
+                contains = @titleslist.detect{|g| g[:title] == group['title']}
+
+                if !contains.nil?
+                  # puts "-------------------- CONTAINS -------------------"
+                  i = @titleslist.index(contains)
+
+                  # p @titleslist[i]
+
+                  cardsToMerge = @titleslist[i].slice(:cards)
+                  cardsToMergeTitles = @titleslist[i].slice(:title)
+
+                  # p "before merge"
+                  # p cardsToMerge
+
+                  # p @titleslist[i]
+
+                  cardsToMerge.merge!({:cards => group['card']}){|key, oldval, newval| oldval+newval}
+                  cardsToMerge[:cards].uniq!
+                  # p "after merge"
+                  # p cardsToMerge
+
+                  @titleslist[i] = cardsToMergeTitles.merge(cardsToMerge)
+                  # @titleslist[i][:cards].merge!(group['card']}){|key, oldval, newval| oldval+newval}
+
+                else
+                  # puts "-------------------- DOESN'T CONTAIN ------------"
+                  @titleslist.push({"title":group['title'],"cards":group['card']})
+                end
+
+                # if @titleslist.includes?(group['title'])
+                  # @titleslist.merge({"title":group['title'],"cards":group['card']}){|key, oldval, newval| oldval+newval}
+                # else
+
+                # end
+
+              end
+
+
+
+
+
               groupCount += 1
             end
           end
+
+          # testtt = [{},{"title":"Name1", "cards":["8"]}]
+          # p testtt.class
+          # testttc = testtt.detect{|g| g[:title] == "Name1"}
+
+          # puts "€€€€€€€€€€€€€€ A QUICK TEST €€€€€€€€€€€: "+testttc.to_s
+
+
           @groupsperresult.push(groupCount)
     end
 
@@ -68,24 +161,50 @@ class ResultsController < ApplicationController
       @cardsByGroups.push({"id":card.id,"name":card.name,"titles":get_group_titles_for_card(card.id)}.to_json)
     end
 
+
+
     agreementScores = []
     sortedPercent = []
 
-    @cardsByGroups.each do |cardIdRow|
+    @cardsByGroups.each_with_index do |cardIdRow, index|
+      countArrayAgreement = []
+      countArray = []
       titlesGrouped = JSON.parse(cardIdRow)['titles'].group_by{|i| i}.map{|k,v| [k, v.count] }
+      # puts "TEST"
+      # puts titlesGrouped
       titlesGrouped.sort_by{|k|k[1]}.reverse.each do |element|
         countArray.push(element[1])
+        if element[0] != "Unnamed"
+          countArrayAgreement.push(element[1])
+        end
       end
-
-      if countArray.max == 1
+      # puts countArray
+      if countArrayAgreement.max == 1
         agreementScores.push(0)
       else
-        agreementScores.push(((countArray.max.to_f/countArray.sum.to_f) * 100).round(1))
+        agreementScores.push(((countArrayAgreement.max.to_f/countArray.sum.to_f) * 100).round(1))
       end
 
       sortedPercent.push(((countArray.sum.to_f/@results.count.to_f) * 100).round(1))
 
+      # JSON.parse(cardIdRow)[:agreementScores] = agreementScores
+      # puts cardIdRow
+
     end
+
+    @cardsByGroups.map!.with_index {|item, index| item.insert(-2, ',"sortedpercent":'+sortedPercent[index].to_s+',"agreementscore":'+agreementScores[index].to_s)}
+    # test = @cardsByGroups[0]
+    # # test.merge!("fszf": "sad")
+    # # test.to_json
+    #
+    # # test.insert(-2, ',"newattr":100')
+    #
+    # puts test
+    # puts "test"
+
+
+
+
     # get_agreement_scores_for_card
 
 
