@@ -193,35 +193,49 @@
   <table data-page-size="5000" data-paging="false" class="table text-sm categories-table hidden">
     <thead class="uppercase text-gray-900 text-xs leading-tight font-medium">
       <tr>
-        <th data-type="text" data-sort-initial="true">Group name</th>
-        <th data-sort-ignore="true" width="200">Cards added</th>
-        <th data-sort-ignore="true" width="500"></th>
-        <th data-type="numeric">Percentage of people sorted</th>
-        <th data-type="numberic">Agreement score
-          <!-- <i class="fa fa-info-circle" aria-hidden="true"></i> -->
-        </th>
+        <th data-type="text" data-sort-initial="true" width="200">Group name</th>
+        <th data-type="numeric">Created by</th>
+        <th data-sort-ignore="true">Cards added</th>
+        <th data-type="numeric">Number of times</th>
+
+
       </tr>
     </thead>
     <tbody>
       <% @titleslist.each do |title| %>
           <tr>
             <td><%= title[:title] %></td>
+            <td data-sort-value="<%= title[:createdby] %>">
+              <% if title[:createdby] > 1%>
+                <%= title[:createdby] %> respondents
+              <% else %>
+                <%= title[:createdby] %> respondent
+              <% end %>
+            </td>
             <td>
               <ul>
+
               <% title[:cards].each do |card| %>
-                <li><%= card %></li>
+                <li><%= @cardtest.cards.find(card[0]).name %></li>
               <% end %>
             </ul>
             </td>
             <td>
               <ul>
-              <% title[:cards].each do |card| %>
-                <li><%= @cardtest.cards.find(card).name %></li>
-              <% end %>
-            </ul>
+                <% title[:cards].each do |card| %>
+                  <li>
+                    <% if card[1] > 1 %>
+                      <%= card[1] %> times</li>
+                    <% else %>
+                      <%= card[1] %> time</li>
+                    <% end %>
+
+
+                <% end %>
+              </ul>
             </td>
-            <td></td>
-            <td></td>
+
+
           </tr>
       <% end %>
     </tbody>

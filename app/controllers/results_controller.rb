@@ -88,20 +88,21 @@ class ResultsController < ApplicationController
               # need to get unique capitalized titles grouped, except Unnamed
               # with all the cards grouped under it
               if group['title'] == "Unnamed"
-                @titleslist.push({"title":group['title'],"cards":group['card']})
+                @titleslist.push({"title":group['title'],"cards":group['card'], "createdby":1})
               else
                 # puts "else"
                 # puts "looking for "+group['title']+ " in: "
                 # p @titleslist
 
 
-
+                createdby = 1
 
 
                 contains = @titleslist.detect{|g| g[:title] == group['title']}
 
                 if !contains.nil?
                   # puts "-------------------- CONTAINS -------------------"
+                  createdby = createdby+1
                   i = @titleslist.index(contains)
 
                   # p @titleslist[i]
@@ -114,8 +115,9 @@ class ResultsController < ApplicationController
 
                   # p @titleslist[i]
 
-                  cardsToMerge.merge!({:cards => group['card']}){|key, oldval, newval| oldval+newval}
-                  cardsToMerge[:cards].uniq!
+                  cardsToMerge.merge!({:cards => group['card'], :createdby => createdby}){|key, oldval, newval| oldval+newval}
+                  # cardsToMerge[:cards].uniq!
+
                   # p "after merge"
                   # p cardsToMerge
 
@@ -124,7 +126,7 @@ class ResultsController < ApplicationController
 
                 else
                   # puts "-------------------- DOESN'T CONTAIN ------------"
-                  @titleslist.push({"title":group['title'],"cards":group['card']})
+                  @titleslist.push({"title":group['title'],"cards":group['card'], "createdby":createdby})
                 end
 
                 # if @titleslist.includes?(group['title'])
@@ -141,7 +143,12 @@ class ResultsController < ApplicationController
 
               groupCount += 1
             end
+
           end
+
+
+
+
 
           # testtt = [{},{"title":"Name1", "cards":["8"]}]
           # p testtt.class
@@ -151,6 +158,10 @@ class ResultsController < ApplicationController
 
 
           @groupsperresult.push(groupCount)
+    end
+
+    @titleslist.each do |title|
+      title[:cards] = title[:cards].group_by{|i| i}.map{|k,v| [k, v.count] }
     end
 
     @mediangroups = median(@groupsperresult)
