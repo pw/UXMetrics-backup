@@ -149,3 +149,21 @@
   }
 }
 
+.header-nav {
+  @apply ml-40;
+
+}
+
+.header-nav .active {
+  @apply border-b-2 uppercase relative inline-block items-center mx-4 py-1 mt-1 float-left text-xs font-bold leading-none no-underline tracking-wide text-gray-800;
+  color: var(--brandColor);
+  border-color: var(--brandColor);
+}
+
+.header-nav-item {
+  @apply uppercase relative inline-block items-center mx-4 py-1 mt-2 float-left text-xs font-bold leading-none no-underline tracking-wide text-gray-600;
+}
+
+.header-nav-item:hover {
+  @apply text-gray-800;
+}
