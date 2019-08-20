@@ -2,6 +2,9 @@
 
 
 <div class="mt-16 max-w-4xl mx-auto flex">
+
+  <% if @cardtests.count > 0 %>
+
   <div class="w-1/3 p-4">
     <header class="justify-between">
       <h1 class="text-3xl mb-4">Cardtests</h1>
@@ -11,6 +14,9 @@
       </div>
     </header>
   </div>
+
+
+
   <div class="w-2/3 p-4">
     <ul>
         <% @cardtests.each do |cardtest| %>
@@ -78,4 +84,18 @@
         <% end %>
       </ul>
   </div>
+
+  <% else %>
+
+  <div class="w-2/3 m-auto text-center p-4 mt-8">
+    <header class="justify-between">
+      <p class="mb-3">Uh! Looks like you don't have any cardtests yet.</p>
+      <div class="block">
+        <%= link_to "Create new cardtest", new_cardtest_path, class: "w-2/3 btn btn--primary" %>
+      </div>
+    </header>
+  </div>
+
+
+  <% end %>
 </div>

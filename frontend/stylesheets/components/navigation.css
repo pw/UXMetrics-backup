@@ -155,7 +155,7 @@
 }
 
 .header-nav .active {
-  @apply border-b-2 uppercase relative inline-block items-center mx-4 py-1 mt-1 float-left text-xs font-bold leading-none no-underline tracking-wide text-gray-800;
+  @apply border-b-2 uppercase relative inline-block items-center mx-4 py-1 mt-2 float-left text-xs font-bold leading-none no-underline tracking-wide text-gray-800;
   color: var(--brandColor);
   border-color: var(--brandColor);
 }
@@ -166,4 +166,17 @@
 
 .header-nav-item:hover {
   @apply text-gray-800;
+}
+
+.header-nav .coming-soon {
+  @apply text-xs text-gray-500 cursor-default;
+}
+
+.header-nav .coming-soon:hover {
+  @apply text-xs text-gray-500;
+}
+
+.header-nav .coming-soon .pill{
+  font-size:0.6rem;
+  @apply ml-2 -mt-1;
 }
