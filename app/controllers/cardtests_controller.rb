@@ -39,7 +39,7 @@ class CardtestsController < ApplicationController
   # POST /cardtests
   def create
     @cardtest = current_user.cardtests.new(cardtest_params)
-    @cardtest.status = ActiveModel::Type::Boolean.new.cast(@cardtest.status)
+    @cardtest.status = ActiveModel::Type::Boolean.new.cast(false)
     # name = @cardtest.name
     # puts name
     # slug = to_slug(name)
@@ -50,7 +50,7 @@ class CardtestsController < ApplicationController
 
 
     if @cardtest.save
-      redirect_to @cardtest, notice: 'Cardtest was successfully created.'
+      redirect_to edit_cardtest_path(@cardtest), notice: 'Cardtest was successfully created.'
     else
       render :new
     end
@@ -63,7 +63,7 @@ class CardtestsController < ApplicationController
     @cardtest.status = ActiveModel::Type::Boolean.new.cast(@cardtest.status)
     if @cardtest.update(cardtest_params)
       # redirect_to cardtests_url, notice: 'Cardtest was successfully updated.'
-      redirect_to edit_cardtest_url, notice: 'Cardtest was successfully updates.'
+      redirect_to edit_cardtest_url, notice: 'Cardtest was successfully updated.'
       # render :edit
     else
       puts "update else"

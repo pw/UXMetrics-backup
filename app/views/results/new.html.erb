@@ -1,4 +1,7 @@
-
+<% if request.original_url.include? "preview" %>
+<% preview = true %>
+<div class="preview-bar">this is a preview</div>
+<% end %>
 
 
 <div class="w-full mx-auto">

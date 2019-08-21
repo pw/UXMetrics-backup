@@ -30,8 +30,17 @@ $(function() {
 
 
 
-  $(".save-btn").click(function(){
-    $('.cardtest-form').submit();
+  $(".save-btn").click(function(e){
+    e.preventDefault();
+    // console.log($('.cardtest-form')[0].checkValidity());
+    // if ($('.cardtest-form')[0].checkValidity()){
+    //     $('.cardtest-form').submit();
+    // } else {
+    //   alert("failed");
+    // }
+
+    $('.save-cardtest').trigger('click');
+
   })
 
   $(".copy-to-clipboard").click(function(e){
