@@ -2,7 +2,7 @@
   @apply fixed inset-0;
   @apply w-full h-full;
   @apply flex flex-col items-center justify-center;
-  background-color: rgba(0, 0, 0, 0.12);
+  background-color: rgba(0, 0, 0, 0.42);
   @apply z-10;
   animation-name: fadeIn;
   animation-fill-mode: both;

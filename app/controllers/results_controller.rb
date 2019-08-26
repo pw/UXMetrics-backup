@@ -253,6 +253,8 @@ class ResultsController < ApplicationController
     if @result.save
       # redirect_to controller: :results, action: "thanks", notice: 'Result was successfully created.'
       puts @cardtest.auth_token
+      puts "below:"
+      puts request.query_parameters
        redirect_to thanks_url, auth_token: @cardtest.auth_token, status: 301
        # redirect_to thanks_url, auth_token: "1", status: 301
        # redirect_to thanks_url, :auth_token => @cardtest.auth_token, status: 301

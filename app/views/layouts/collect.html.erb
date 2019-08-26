@@ -6,6 +6,11 @@
 
 <body class="w-full h-full <%= body_class(yield(:body_class)) %>">
   <%= render "shared/flash" %>
+
+  <% if request.original_url.include? "preview" %>
+  <% preview = true %>
+    <div class="preview-bar bg-yellow-500 text-center py-2"><h5 class="my-2 text-sm"><i class="fa fa-eye mr-2" aria-hidden="true"></i> This is a preview of your test, results will not be saved.</h5></div>
+  <% end %>
   <div class="collect">
 
 
@@ -15,7 +20,8 @@
 
       <div class="dashboard-nav-secondary clearfix">
         <%# Example usage here: search, secondary navigation items, etc.  Do not forget to change the `justify-end` in `.dashboard-nav-secondary`. %>
-        <%= link_to Rails.configuration.application_name, root_path, class: "dashboard-nav__logo" %>
+        <%# link_to Rails.configuration.application_name, root_path, class: "dashboard-nav__logo" %>
+        <%= image_tag(asset_pack_path("images/Userdrive-Logo.png"), size: "125x33", class: "dashboard-nav__logo") %>
 
         <a href="#" class="submit-result float-right btn btn--primary">Submit</a>
         <div data-controller="modal"  data-action="keydown@window->modal#closeWithKeyboard">
@@ -28,7 +34,7 @@
 
 
               <div class="modal__content">
-                <h3 class="modal__header mb-4">Subscribe to our newsletter</h3>
+                <h3 class="modal__header mb-4">Instructions</h3>
                 <p class="mb-4">Take a quick look at the list of items to the left.
                 We'd like you to sort them into groups that make sense to you.
                 There is no right or wrong answer. Just do what comes naturally..</p>

@@ -462,7 +462,19 @@ $(document).on('turbolinks:load', function(){
       });
 
       $('#result_data').val(JSON.stringify(data));
-      self.submit();
+
+      // alert(location.search);
+      if (location.search.indexOf("preview")>=0){
+        // preview, don't submit just go to thank you
+        console.log(window.location.pathname);
+        window.location.replace(window.location.pathname+"/thanks?preview=true");
+      } else {
+        // not preview, submit data
+        self.submit();
+      }
+
+
+
 
   });
 
