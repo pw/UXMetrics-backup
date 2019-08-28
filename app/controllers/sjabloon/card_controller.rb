@@ -1,6 +1,8 @@
 class Sjabloon::CardController < ApplicationController
   before_action :authenticate_user!, only: [:update]
 
+  layout "dashboard"
+
   def update
     current_payer.update_card(params[:stripeToken])
 
@@ -10,4 +12,3 @@ class Sjabloon::CardController < ApplicationController
     redirect_to billing_path, alert: e.message
   end
 end
-

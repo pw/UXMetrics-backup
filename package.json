@@ -1,5 +1,5 @@
 {
-  "name": "ux-card6",
+  "name": "Userdrive",
   "private": true,
   "dependencies": {
     "@rails/ujs": "6.0.0-beta2",

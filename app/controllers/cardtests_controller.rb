@@ -102,10 +102,24 @@ class CardtestsController < ApplicationController
 
     def force_subscribe
       puts "force called"
-      if current_user.subscribed? == false
-        puts "subscribed false"
-        redirect_to pricing_path
+
+      # the below thing is forcing people to subscript to a paid plan
+      # if current_user.subscribed? == false
+      #   puts "subscribed false"
+      #   redirect_to pricing_path
+      # end
+
+      puts current_user.created_at
+
+      # if account was created less than 60 days ago it's in "triel" - not stripe trial though
+      if current_user.created_at < 60.days.ago
+        if current_user.subscribed? == false
+          puts "subscribed false"
+          redirect_to pricing_path
+        end
       end
+
+
     end
 
 

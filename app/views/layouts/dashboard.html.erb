@@ -17,11 +17,19 @@
 
         <div class="dashboard-nav-secondary__account">
           <div class="header-nav">
-            <% css_class = current_page?(controller: 'cardtests', action: 'index') ? "active" : "" %>
+            <% if (controller_name.eql? "cardtests") && (action_name.eql? "index") %>
+              <% css_class = "active"%>
+            <% else %>
+              <% css_class = "" %>
+            <% end %>
+            <%# css_class = current_page?(url_for(controller: 'cardtests', action: 'index')) ? "active" : "" %>
+            <%# css_class = current_page?(url_for(controller: 'cardtests', action: 'index')) ? "active" : "" %>
             <%= link_to "Cardtests", cardtests_path, class:"header-nav-item #{css_class}"%>
 
             <a href="#" class="header-nav-item coming-soon">Tree tests<span class="pill pill--primary">Soon</span></a>
           </div>
+
+
           <div class="dropdown" data-controller="dropdown">
             <div class="dropdown__toggle" data-action="click->dropdown#toggle click@window->dropdown#hide" role="button">
               <%= current_user.first_name %>
@@ -29,12 +37,20 @@
             </div>
             <div data-target="dropdown.menu" class="dropdown__menu hidden">
               <div class="dropdown__items">
-                <%= link_to "Billing",  billing_path, class: "dropdown__item" %>
+
+                <% if current_user.created_at < 60.days.ago %>
+                  <%= link_to "Billing",  billing_path, class: "dropdown__item" %>
+                <% end %>
                 <%= link_to "Edit account",  edit_user_registration_path, class: "dropdown__item" %>
                 <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown__item" %>
               </div>
             </div>
           </div>
+          <% if current_user.created_at > 60.days.ago %>
+            <div class="trial float-right mt-1">
+              <span class="pill pill--tertiary" style="font-size:0.6rem"><%= 60-((Time.now - current_user.created_at)/1.day).round %> day(s) left of your trial</span>
+            </div>
+          <% end %>
         </div>
       </div>
 

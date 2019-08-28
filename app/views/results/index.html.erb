@@ -89,6 +89,7 @@
     <a href="" class="font-semibold active mr-3">View cards</a>
     <a href="" class="font-semibold ml-3">View groups</a>
   </div>
+  
   <table data-page-size="5000" data-paging="false" class="table text-sm cards-table">
     <thead class="uppercase text-gray-900 text-xs leading-tight font-medium">
       <tr>
@@ -102,10 +103,22 @@
       </tr>
     </thead>
     <tbody>
+
+
+      <% pp "all cards below:" %>
+      <% pp @cardsByGroups %>
       <% @cardsByGroups.each do |cardIdRow| %>
         <tr>
-          <td><h3><%= JSON.parse(cardIdRow)["name"] %></h3></td>
 
+
+          <% pp "name:" %>
+          <td>
+
+
+            <% pp "single card below:" %>
+            <% pp cardIdRow %>
+            <h3><%= JSON.parse(cardIdRow)["name"] %></h3></td>
+          <% pp "done" %>
           <td>
 
 

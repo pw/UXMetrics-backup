@@ -2,6 +2,8 @@ class Sjabloon::PlansController < ApplicationController
   before_action :redirect_if_not_subscribed, only: [:index, :update], if: :owner_not_subscribed
   before_action :authenticate_user!, only: [:index, :update]
 
+  layout "dashboard"
+
   def index
     @plans        = Sjabloon::Plan.active.visible.order(position: :asc, amount: :asc)
     @subscription = current_payer.subscription
@@ -29,4 +31,3 @@ class Sjabloon::PlansController < ApplicationController
     !current_payer.subscribed?
   end
 end
-

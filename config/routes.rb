@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   post '/webhooks/stripe', to: 'stripe_event/webhook#event'
 
   authenticated :user do
-    root to: 'dashboard#show'
+    root to: 'cardtests#index'
   end
   devise_for :users, path: "/", path_names: { sign_up: "signup", sign_in: "login", sign_out: "logout", edit: "edit" }, controllers: { masquerades: "admin/masquerades" }
   get '/privacy', to: 'pages#privacy'

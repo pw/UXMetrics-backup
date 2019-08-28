@@ -1,6 +1,8 @@
 class Sjabloon::CouponsController < ApplicationController
   before_action :set_coupon, only: [:index]
 
+  layout "dashboard"
+
   def index
     if @coupon
       render json: {
@@ -23,4 +25,3 @@ class Sjabloon::CouponsController < ApplicationController
     @coupon = Sjabloon::Coupon.where(code: code, is_valid: true).last
   end
 end
-

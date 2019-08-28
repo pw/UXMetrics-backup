@@ -3,6 +3,8 @@ class Sjabloon::BillingController < ApplicationController
   before_action :redirect_if_not_subscribed, only: [:show, :update, :destroy], if: :owner_not_subscribed
   before_action :set_plan, only: [:new]
 
+  layout "dashboard"
+
   def show
     @plan    = current_payer.subscription.plan
     @charges = current_payer.charges
@@ -62,4 +64,3 @@ class Sjabloon::BillingController < ApplicationController
     params[:code].upcase
   end
 end
-

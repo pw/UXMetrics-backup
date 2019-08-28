@@ -3,6 +3,8 @@ class Sjabloon::ChargesController < ApplicationController
   before_action :redirect_if_not_subscribed, only: [:show], if: :owner_not_subscribed
   before_action :set_charge, only: [:show]
 
+  layout "dashboard"
+
   def show
     respond_to do |format|
       format.pdf {
@@ -28,4 +30,3 @@ class Sjabloon::ChargesController < ApplicationController
     !current_payer.subscribed?
   end
 end
-
