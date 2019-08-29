@@ -190,7 +190,7 @@ class ResultsController < ApplicationController
         end
       end
       # puts countArray
-      if countArrayAgreement.max == 1
+      if countArrayAgreement.max == 1 or countArrayAgreement.count == 0
         agreementScores.push(0)
       else
         agreementScores.push(((countArrayAgreement.max.to_f/countArray.sum.to_f) * 100).round(1))
