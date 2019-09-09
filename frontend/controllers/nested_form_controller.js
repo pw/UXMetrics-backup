@@ -15,6 +15,8 @@ export default class extends Controller {
     var content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime())
     //this.linksTarget.insertAdjacentHTML('beforeend', content)
     $('#editable-cards').append(content);
+    //$("#target").focus();
+    $('#editable-cards .nested-field:last-child input').focus();
 
   }
 
@@ -22,16 +24,25 @@ export default class extends Controller {
     event.preventDefault();
     console.log("Remove event handler from Stimulus");
 
-    let wrapper = event.target.closest(".nested-field")
-    if(wrapper.dataset.newRecord == "true"){
-      console.log("remove from frontend");
-      wrapper.remove();
-    } else {
-      console.log("remove from db");
-      wrapper.querySelector("input[name*='_destroy']").value = 1
-      wrapper.style.display = 'none'
-    }
+    console.log($(".nested-field").length);
 
+    if ($(".nested-field").length > 1){
+
+      let wrapper = event.target.closest(".nested-field")
+      if(wrapper.dataset.newRecord == "true"){
+        console.log("remove from frontend");
+        wrapper.remove();
+      } else {
+        console.log("remove from db");
+        wrapper.querySelector("input[name*='_destroy']").value = 1
+        wrapper.style.display = 'none'
+      }
+
+    } else {
+      console.log(event.target.closest(".field").querySelector("input[type='text']"));
+      event.target.closest(".field").querySelector("input[type='text']").value = "";
+      // event.target.closest(".nested-field").find("input[type='text']").focus();
+    }
 
 
   }

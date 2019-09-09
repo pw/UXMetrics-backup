@@ -100,25 +100,6 @@ $(document).on('turbolinks:load', function(){
   //   $( ".items" ).sortable(sortableOptionsOther);
   // }
 
- //
- //  $(".item").mousedown(function() {
- //     console.log("this");
- //     console.log("mousedown");
- //     if($('.empty-column').length < 1 ){
- //         console.log("adding temp elem");
- //       tempElement = '<div class="muuri-new-column mt-0 w-64 absolute rounded empty-column droparea">              <div class="column-holder">                <div class="group-header hidden bg-white p-2">                  <div class="muuri-handle inline-block text-xs text-gray-500"><i class="fa fa-arrows-alt"></i></div>                  <a href="#" class="name-link py-1 inline-block">Add a name</a>                  <input type="text" class="py-1 name-input w-full container-name input-small inline-block hidden" placeholder="Add a name for your group ..."/>                  <a href="#" class="delete-group float-right text-sm pt-1 pr-1"><i class="fa fa-trash" aria-hidden="true"></i></a>                </div>                  <div class="items p-2 h-32">                    </div>              </div>            </div>';
- //
- //       var $tempElement = $(tempElement);
- //       $('#test-columns').append($tempElement).packery('appended',$tempElement);
- //       // $grid.packery('reloadItems');
- //       // $tempElement.each(makeEachDraggable);
- //       $( "#new-column" ).sortable(sortableOptions);
- //       $( ".items" ).sortable(sortableOptionsOther);
- //     }
- // });
-
-
-
 
 
 
@@ -130,88 +111,21 @@ $(document).on('turbolinks:load', function(){
     // console.log(fitComplete);
     // console.log("inList is: "+inList);
 
-    if (draggingItem == true && fitComplete == true && inGroup == true && inDropArea == false && inList == false){
-      // console.log("hiding because it's in a group");
-      console.log("Group true, hiding");
-      $('.empty-column').hide();
-      $grid.packery('shiftLayout');
+    if (draggingItem == true && fitComplete == true && inList == true){
       // $grid.packery( 'fit', $('.empty-column')[0], 9999, 9999);
-    } else if (draggingItem == true && fitComplete == true && inGroup == false && inDropArea == false && inList == false){
-      console.log("All false, showing");
-      $('.empty-column').show();
-      $grid.packery('shiftLayout');
-      // console.log("showing because it's not in any container");
-    } else if (draggingItem == true && fitComplete == true && inGroup == false && inDropArea == true && inList == false){
-      console.log("droparea true, not doing anything");
-      // $('.empty-column').hide();
-      // console.log("hiding because it's in empty drop area");
-    } else if (draggingItem == true && fitComplete == true && inGroup == false && inDropArea == false && inList == true){
-      console.log("list is true, hiding");
-      $('.empty-column').hide();
-      $grid.packery('shiftLayout');
-    }
-
-    if (draggingItem == true){
-      // START HERE TOMORROW
-
-
-
-      // $('.empty-column').show();
-      // if($('.empty-column').length < 1 ){
-      //     console.log("adding empty temp element because draggingItem is TRUE");
-      //   tempElement = '<div class="muuri-new-column mt-0 w-64 absolute rounded empty-column droparea">              <div class="column-holder">                <div class="group-header hidden bg-white p-2">                  <div class="muuri-handle inline-block text-xs text-gray-500"><i class="fa fa-arrows-alt"></i></div>                  <a href="#" class="name-link py-1 inline-block">Add a name</a>                  <input type="text" class="py-1 name-input w-full container-name input-small inline-block hidden" placeholder="Add a name for your group ..."/>                  <a href="#" class="delete-group float-right text-sm pt-1 pr-1"><i class="fa fa-trash" aria-hidden="true"></i></a>                </div>                  <div class="items p-2 h-32">                    </div>              </div>            </div>';
-      //
-      //   var $tempElement = $(tempElement);
-      //   $('#test-columns').append($tempElement).packery('appended',$tempElement);
-      //   // $grid.packery('reloadItems');
-      //   $tempElement.each(makeEachDraggable);
-      //   $( "#new-column" ).sortable(sortableOptions);
-      //   console.log($( "#new-column" ).sortable("refresh"));
-      //   $( ".items" ).sortable(sortableOptionsOther);
-      //   console.log($( ".items" ).sortable("refresh"));
-      // }
-
     }
 
 
-    // console.log(draggingItem+" "+fitComplete+" "+inGroup+" "+inList+" "+inDropArea);
-
-    // console.log("DraggingItem: ");
-    // console.log(draggingItem);
-    // console.log("fitComplete: ");
-    // console.log(fitComplete);
-    // console.log("inGroup: ");
-    // console.log(inGroup);
-    // console.log("inlist: ");
-    // console.log(inList);
-    // console.log("inDropArea: ");
-    // console.log(inDropArea);
+    if(draggingItem == true && (currentMousePos.x - dragStart + 120 > 252) && fitComplete == true && inList == false){
+      console.log("could dropm, inList IS: "+inList);
 
 
-
-
-
-
-    if(draggingItem == true && (currentMousePos.x - dragStart + 120 > 252) && fitComplete == true && inGroup == false && inList == false && inDropArea == false){
-      // console.log("could dropm, inList IS: "+inList);
-
-      // if($('.empty-column').length < 1 ){
-      //   console.log("adding temp elem");
-      //   tempElement = '<div class="muuri-new-column mt-0 w-64 absolute rounded empty-column droparea">              <div class="column-holder">                <div class="group-header hidden bg-white p-2">                  <div class="muuri-handle inline-block text-xs text-gray-500"><i class="fa fa-arrows-alt"></i></div>                  <a href="#" class="name-link py-1 inline-block">Add a name</a>                  <input type="text" class="py-1 name-input w-full container-name input-small inline-block hidden" placeholder="Add a name for your group ..."/>                  <a href="#" class="delete-group float-right text-sm pt-1 pr-1"><i class="fa fa-trash" aria-hidden="true"></i></a>                </div>                  <div class="items p-2 h-32">                    </div>              </div>            </div>';
-      //
-      //   var $tempElement = $(tempElement);
-      //   $('#test-columns').append($tempElement).packery('appended',$tempElement);
-      //   // $grid.packery('reloadItems');
-      //   $tempElement.each(makeEachDraggable);
-      //   $( "#new-column" ).sortable(sortableOptions);
-      //   $( ".items" ).sortable(sortableOptionsOther);
-      // }
 
 
 
 
       onDropArea = true;
-      // fitComplete = false;
+      fitComplete = false;
       // $('.empty-column').addClass('packery-drop-placeholder');
       if (sourceShelf == true){
         $grid.packery( 'fit', $('.empty-column')[0], currentMousePos.x - dragStart - 240, currentMousePos.y-100);
@@ -220,7 +134,7 @@ $(document).on('turbolinks:load', function(){
         $grid.packery( 'fit', $('.empty-column')[0], currentMousePos.x - 240, currentMousePos.y - 100);
         console.log(currentMousePos.x);
       }
-      // $('.empty-column').addClass('droparea');
+      $('.empty-column').addClass('droparea');
       $(".items").sortable("refresh");
     } else {
       onDropArea = false;
@@ -228,7 +142,7 @@ $(document).on('turbolinks:load', function(){
     }
 
     if (inList == true){
-      //$('.empty-column').removeClass('droparea');
+      $('.empty-column').removeClass('droparea');
     }
 
   }, 2);
@@ -244,15 +158,6 @@ $(document).on('turbolinks:load', function(){
       // console.log(itemDragged.parents(".muuri-new-column"));
 
       // changed this from .muuri-new-column to .used-column
-      // console.log("dragging child of used-column? "+itemDragged.parents(".used-column").length);
-      // console.log(itemDragged.parents(".used-column").length);
-      // console.log("dragging child of empty-column? "+itemDragged.parents(".empty-column").length);
-      // console.log(itemDragged.parents(".empty-column").length);
-
-
-      // console.log("how come not list?");
-      // console.log(itemDragged.parents(".new-column").length);
-
       if (itemDragged.parents(".used-column").length>0){
 
         // !!! AND BELOW!
@@ -280,78 +185,23 @@ $(document).on('turbolinks:load', function(){
         if (currentMousePos.x < containerLeft || currentMousePos.x > containerRight || currentMousePos.y < containerTop || currentMousePos.y > containerBottom) {
 
           console.log("outside");
-          inGroup = false;
-
+          inList = false;
 
         }
 
         if (currentMousePos.x > containerLeft && currentMousePos.x < containerRight && currentMousePos.y > containerTop && currentMousePos.y < containerBottom) {
 
           console.log("inside");
-          inGroup = true;
-          inDropArea = false;
-
-
-        }
-
-
-
-
-
-
-      }
-
-      if (itemDragged.parents(".empty-column").length>0){
-
-
-        var containerLeft = itemDragged.parents(".empty-column").offset().left;
-        var containerTop = itemDragged.parents(".empty-column").offset().top;
-
-
-        var containerRight = containerLeft + itemDragged.parents(".empty-column").width();
-        var containerBottom = containerTop + itemDragged.parents(".empty-column").height()+5;
-
-
-
-        if (currentMousePos.x < containerLeft || currentMousePos.x > containerRight || currentMousePos.y < containerTop || currentMousePos.y > containerBottom) {
-
-          console.log("outside of empty");
-          inDropArea = false;
-          inGroup = false;
-
-          // console.log("Mouse: "+currentMousePos.x+", "+currentMousePos.y);
-          // console.log("Container L/R/T/B: "+containerLeft+"/"+containerRight+"/"+containerTop+"/"+containerBottom);
-          // console.log(itemDragged.parent().parent().parent());
-
-        }
-
-        if (currentMousePos.x > containerLeft && currentMousePos.x < containerRight && currentMousePos.y > containerTop && currentMousePos.y < containerBottom) {
-
-          console.log("inside of empty");
-          inDropArea = true;
-
-          // console.log("Mouse: "+currentMousePos.x+", "+currentMousePos.y);
-          // console.log("Container L/R/T/B: "+containerLeft+"/"+containerRight+"/"+containerTop+"/"+containerBottom);
-          // console.log(itemDragged.parent().parent().parent());
-
-        }
-
-      }
-
-      if (itemDragged.parents(".new-column").length>0){
-        console.log("parent is initial list");
-        var listRight = itemDragged.parents(".new-column").width();
-
-        if (currentMousePos.x > listRight){
-          inList = false;
-        } else {
           inList = true;
+
         }
 
+
+
+
+
+
       }
-
-
-
     }
 
     dePosition(event);
@@ -486,14 +336,11 @@ $(document).on('turbolinks:load', function(){
     },
     start: function(event, ui){
 
+      $('.empty-column').show();
 
-
-
-      inList = true;
       dragStart = currentMousePos.x;
       draggingItem = true;
       itemDragged = ui.item;
-      // console.log(itemDragged.parents(".new-column"));
       console.log("------------START ONEEEEEEEE------------");
       sourceShelf = true;
 
@@ -505,24 +352,21 @@ $(document).on('turbolinks:load', function(){
     },
     stop: function(event, ui){
 
-      // $(".muuri-new-column").removeClass('droparea');
-      console.log("stop event triggering!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-      $('.empty-column').hide();
-      // $grid.packery( 'remove', $('.empty-column')[0]).packery('shiftLayout');
+      $(".muuri-new-column").removeClass('droparea');
+
+      $grid.packery( 'remove', $('.empty-column')[0]).packery('shiftLayout');
       //$('.empty-column').hide();
       // $grid.packery( 'fit', $('.empty-column')[0], 9999, 9999);
 
       inList = false;
-      inGroup = false;
-      inDropArea = false;
       console.log("STOPPP, setting inlist false");
 
       $grid.packery('shiftLayout');
       // draggingItem = false;
       if (draggingItem == true){
         //
-        // $grid.packery('remove', $('.empty-column')[0]);
-        // $('.empty-column').remove();
+        $grid.packery('remove', $('.empty-column')[0]);
+        $('.empty-column').remove();
         $( "#new-column" ).sortable(sortableOptions);
         $( ".items" ).sortable(sortableOptionsOther);
         draggingItem = false;
@@ -542,10 +386,8 @@ $(document).on('turbolinks:load', function(){
 
     },
     change: function(event, ui){
-      console.log("change groups");
+      console.log("change");
       $grid.packery('shiftLayout');
-      // $('.empty-column').hide();
-      // inGroup = true;
 
     },
     receive: function(event, ui){
@@ -594,17 +436,11 @@ $(document).on('turbolinks:load', function(){
       // inList = false;
     },
     over: function(event, ui){
-      console.log("over");
-
-      itemDragged = ui.placeholder;
-      console.log(itemDragged.parents(".empty-column").length);
-      inDropArea = true;
 
       if (itemDragged.parents('.used-column').length > 0){
-        console.log("over - setting inGroup to true");
-        inGroup = true;
+        console.log("over - setting inlist to true");
+        inList = true;
         itemDragged = ui.placeholder;
-        console.log(itemDragged.parents(".empty-column").length);
       }
       // console.log(itemDragged.parents('.used-column'));
       // itemDragged.addClass("bg-orange-600");
@@ -612,9 +448,7 @@ $(document).on('turbolinks:load', function(){
     },
     start: function(event, ui){
 
-      // $('.empty-column').show();
-
-      // $('.empty-column').show();
+      $('.empty-column').show();
 
       console.log(ui.item.offset().left);
       dragStart = currentMousePos.x - ui.item.offset().left;
@@ -625,7 +459,7 @@ $(document).on('turbolinks:load', function(){
       $(event.currentTarget).css('z-index', 9000);
       $(event.currentTarget).parents(".muuri-new-column").css('z-index', 9000);
       draggingItem = true;
-      inGroup = true;
+
       // need to pass the item being dragged in a variable
       // so I can check if it cursor goes out of bounds of it's container
 
@@ -634,78 +468,36 @@ $(document).on('turbolinks:load', function(){
 
     },
     stop: function(event, ui){
-      console.log("Stop event 2 triggering !!!!!!!!!!!");
-      // $grid.packery( 'remove', $('.empty-column')[0]).packery('shiftLayout');
+
+      $grid.packery( 'remove', $('.empty-column')[0]).packery('shiftLayout');
       // $grid.packery( 'fit', $('.empty-column')[0], 9999, 9999);
-      $('.empty-column').hide();
+      // $('.empty-column').hide();
       console.log("stopped, setting inlist to false");
-      // $(".muuri-new-column").removeClass('droparea');
-      draggingItem = false;
-      inList = false;
-      inGroup = false;
-      inDropArea = false;
+      $(".muuri-new-column").removeClass('droparea');
+        draggingItem = false;
+        inList = false;
 
 
         // $grid.packery('layout');
     },
     change: function(event, ui){
-      console.log("change list");
-      // $('.empty-column').hide();
+      console.log("change");
+
       $grid.packery('shiftLayout');
 
       var receivingList = $(event.target);
-      // console.log(event);
-      // console.log(receivingList);
-      itemDragged = receivingList.children(".item");
-      // console.log(itemDragged);
-      // console.log("is it empty? :"+receivingList.parents(".emtpy-column").length);
+      console.log(receivingList);
+      $(".muuri-new-column").removeClass("border-dashed border-gray-700 border-2");
 
-      // $(".muuri-new-column").removeClass("border-dashed border-gray-700 border-2");
-
-      if (receivingList.parents(".muuri-new-column").hasClass("empty-column")){
+      if (!receivingList.parents(".muuri-new-column").hasClass("used-column")){
+        console.log("NOT setting inlist");
         receivingList.parents(".muuri-new-column").addClass("border-dashed border-gray-700 border-2");
-        inDropArea = true;
-        inList = false;
-        inGroup = false;
-      }
-
-      if (receivingList.parents(".muuri-new-column").hasClass("used-column")){
-        // receivingList.parents(".muuri-new-column").addClass("border-dashed border-gray-700 border-2");
-        inDropArea = false;
-        inList = false;
-        inGroup = true;
-      }
-
-      if (receivingList.parents(".muuri-new-column").hasClass("new-column")){
-        // receivingList.parents(".muuri-new-column").addClass("border-dashed border-gray-700 border-2");
-        inDropArea = false;
+      } else {
+        console.log("Setting inlist to true");
         inList = true;
-        inGroup = false;
+
+
       }
-
-      // if (!receivingList.parents(".muuri-new-column").hasClass("used-column")){
-      //   // console.log("NOT setting inlist");
-      //
-      //
-      //   inDropArea = true;
-      //   inList = false;
-      //   inGroup = false;
-      //   // inList = true;
-      //   receivingList.parents(".muuri-new-column").addClass("border-dashed border-gray-700 border-2");
-      // } else if (receivingList.parents(".muuri-new-column").hasClass("used-column")){
-      //   console.log("Setting inGroup to true");
-      //   inDropArea = false;
-      //   inList = false;
-      //   inGroup = true;
-      //
-      //   // $grid.packery( 'remove', $('.empty-column')[0]).packery('shiftLayout');
-      //
-      //
-      // }
-      // inList = true;
-
-
-
     },
     sort: function(event, ui){
 
@@ -724,10 +516,10 @@ $(document).on('turbolinks:load', function(){
     var data = [];
     fitComplete = true;
 
-    // $(".muuri-new-column").removeClass('droparea');
+    $(".muuri-new-column").removeClass('droparea');
     if($('.empty-column').length < 1 ){
         console.log("adding temp elem");
-      tempElement = '<div class="muuri-new-column mt-0 w-64 absolute rounded empty-column droparea">              <div class="column-holder">                <div class="group-header hidden bg-white p-2">                  <div class="muuri-handle inline-block text-xs text-gray-500"><i class="fa fa-arrows-alt"></i></div>                  <a href="#" class="name-link py-1 inline-block">Add a name</a>                  <input type="text" class="py-1 name-input w-full container-name input-small inline-block hidden" placeholder="Add a name for your group ..."/>                  <a href="#" class="delete-group float-right text-sm pt-1 pr-1"><i class="fa fa-trash" aria-hidden="true"></i></a>                </div>                  <div class="items p-2 h-32">                    </div>              </div>            </div>';
+      tempElement = '<div class="muuri-new-column mt-0 w-64 absolute rounded empty-column">              <div class="column-holder">                <div class="group-header hidden bg-white p-2">                  <div class="muuri-handle inline-block text-xs text-gray-500"><i class="fa fa-arrows-alt"></i></div>                  <a href="#" class="name-link py-1 inline-block">Add a name</a>                  <input type="text" class="py-1 name-input w-full container-name input-small inline-block hidden" placeholder="Add a name for your group ..."/>                  <a href="#" class="delete-group float-right text-sm pt-1 pr-1"><i class="fa fa-trash" aria-hidden="true"></i></a>                </div>                  <div class="items p-2 h-32">                    </div>              </div>            </div>';
 
       var $tempElement = $(tempElement);
       $('#test-columns').append($tempElement).packery('appended',$tempElement);
@@ -757,7 +549,7 @@ $(document).on('turbolinks:load', function(){
       if ($(this).children().length == 0 && !$(this).parents(".muuri-new-column").hasClass('empty-column')){
         console.log($(this).parents('.muuri-new-column'));
         console.log("this happens?");
-        // $(this).parents(".muuri-new-column").remove();
+        $(this).parents(".muuri-new-column").remove();
         $( "#new-column" ).sortable(sortableOptions);
         $( ".items" ).sortable(sortableOptionsOther);
       }

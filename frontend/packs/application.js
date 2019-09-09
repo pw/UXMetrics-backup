@@ -66,6 +66,7 @@ if ($('#editable-cards').length>0){
   $(document).on('click', 'a[data-action="click->nested-form#add_association"]', function(e) {
     console.log("add stimulus and recalc called");
     e.preventDefault;
+
     var itemsContainer = $('#editable-cards');
     itemsContainer.sortable( "refresh" );
     var itemsContainer = $('#editable-cards');

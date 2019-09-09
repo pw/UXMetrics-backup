@@ -122,3 +122,15 @@ thead th {
 .table-tabs .active:hover {
   color: var(--brandColor);
 }
+
+.item, .item * {
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+}
+
+.ui-sortable-helper, .ui-sortable-helper * {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
