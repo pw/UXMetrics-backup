@@ -50,6 +50,34 @@
           </div>
         </div>
         </div>
+
+
+        <div data-controller="modal"  data-action="keydown@window->modal#closeWithKeyboard">
+          <div data-target="modal.container" class="">
+
+          <div class="modal-wrapper validation hidden">
+            <div class="modal">
+
+
+
+
+              <div class="modal__content">
+                <h3 class="modal__header mb-4">You must name the groups dude.</h3>
+                <p class="mb-4">Drag the items from the left column to the area on the right and group them however it makes sense to you.</p>
+
+                <div class="field mb-0">
+                  <a href="#" class="btn btn--primary block text-center close-validation">Okay</a>
+                </div>
+
+                <svg class="modal__close close-validation" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+
+
+
       </div>
 
       <% else %>

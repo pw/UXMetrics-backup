@@ -40,6 +40,14 @@ function debounce(func, wait, immediate){
 }
 
 $(document).on('turbolinks:load', function(){
+
+  $(".close-validation").click(function(e){
+    e.preventDefault();
+    $(".validation").hide();
+  });
+
+
+
   var itemDragged;
   var draggingItem = false;
   var onDropArea = false;
@@ -174,7 +182,7 @@ $(document).on('turbolinks:load', function(){
     }
 
 
-    // console.log(draggingItem+" "+fitComplete+" "+inGroup+" "+inList+" "+inDropArea);
+    console.log(draggingItem+" "+fitComplete+" "+inGroup+" "+inList+" "+inDropArea);
 
     // console.log("DraggingItem: ");
     // console.log(draggingItem);
@@ -648,6 +656,9 @@ $(document).on('turbolinks:load', function(){
 
         // $grid.packery('layout');
     },
+    receive: function(event, ui){
+      console.log("receive !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    },
     change: function(event, ui){
       console.log("change list");
       // $('.empty-column').hide();
@@ -656,32 +667,40 @@ $(document).on('turbolinks:load', function(){
       var receivingList = $(event.target);
       // console.log(event);
       // console.log(receivingList);
-      itemDragged = receivingList.children(".item");
+      // console.log(ui.helper.parents(".empty-column"));
+      // console.log(ui.item.parents(".empty-column"));
+      // console.log(event);
+      // console.log(receivingList);
+      itemDragged = ui.item;
       // console.log(itemDragged);
       // console.log("is it empty? :"+receivingList.parents(".emtpy-column").length);
 
       // $(".muuri-new-column").removeClass("border-dashed border-gray-700 border-2");
 
-      if (receivingList.parents(".muuri-new-column").hasClass("empty-column")){
-        receivingList.parents(".muuri-new-column").addClass("border-dashed border-gray-700 border-2");
-        inDropArea = true;
-        inList = false;
-        inGroup = false;
-      }
 
-      if (receivingList.parents(".muuri-new-column").hasClass("used-column")){
-        // receivingList.parents(".muuri-new-column").addClass("border-dashed border-gray-700 border-2");
-        inDropArea = false;
-        inList = false;
-        inGroup = true;
-      }
+      // START HERE - just replaced receivingList with itemDragged
+      // CONT - problem is that empty-column is shown when inside group.
+        if (itemDragged.parents(".muuri-new-column").hasClass("empty-column")){
+          itemDragged.parents(".muuri-new-column").addClass("border-dashed border-gray-700 border-2");
+          console.log("DROPAREA IS FALSE, SETTING TO TRUE");
+          inDropArea = true;
+          inList = false;
+          inGroup = false;
+        }
 
-      if (receivingList.parents(".muuri-new-column").hasClass("new-column")){
-        // receivingList.parents(".muuri-new-column").addClass("border-dashed border-gray-700 border-2");
-        inDropArea = false;
-        inList = true;
-        inGroup = false;
-      }
+        if (itemDragged.parents(".muuri-new-column").hasClass("used-column")){
+          // receivingList.parents(".muuri-new-column").addClass("border-dashed border-gray-700 border-2");
+          inDropArea = false;
+          inList = false;
+          inGroup = true;
+        }
+
+        if (itemDragged.parents(".muuri-new-column").hasClass("new-column")){
+          // receivingList.parents(".muuri-new-column").addClass("border-dashed border-gray-700 border-2");
+          inDropArea = false;
+          inList = true;
+          inGroup = false;
+        }
 
       // if (!receivingList.parents(".muuri-new-column").hasClass("used-column")){
       //   // console.log("NOT setting inlist");
@@ -725,6 +744,9 @@ $(document).on('turbolinks:load', function(){
     fitComplete = true;
 
     // $(".muuri-new-column").removeClass('droparea');
+
+    $(".used-column").removeClass("droparea");
+
     if($('.empty-column').length < 1 ){
         console.log("adding temp elem");
       tempElement = '<div class="muuri-new-column mt-0 w-64 absolute rounded empty-column droparea">              <div class="column-holder">                <div class="group-header hidden bg-white p-2">                  <div class="muuri-handle inline-block text-xs text-gray-500"><i class="fa fa-arrows-alt"></i></div>                  <a href="#" class="name-link py-1 inline-block">Add a name</a>                  <input type="text" class="py-1 name-input w-full container-name input-small inline-block hidden" placeholder="Add a name for your group ..."/>                  <a href="#" class="delete-group float-right text-sm pt-1 pr-1"><i class="fa fa-trash" aria-hidden="true"></i></a>                </div>                  <div class="items p-2 h-32">                    </div>              </div>            </div>';
@@ -757,7 +779,7 @@ $(document).on('turbolinks:load', function(){
       if ($(this).children().length == 0 && !$(this).parents(".muuri-new-column").hasClass('empty-column')){
         console.log($(this).parents('.muuri-new-column'));
         console.log("this happens?");
-        // $(this).parents(".muuri-new-column").remove();
+        $(this).parents(".muuri-new-column").remove();
         $( "#new-column" ).sortable(sortableOptions);
         $( ".items" ).sortable(sortableOptionsOther);
       }
@@ -783,7 +805,8 @@ $(document).on('turbolinks:load', function(){
   $("#new_result").submit(function(e){
       e.preventDefault();
       var self = this;
-
+      console.log("submit");
+      var validation = false;
       var data = {
         name: "",
         time: "",
@@ -798,9 +821,15 @@ $(document).on('turbolinks:load', function(){
       data.time = time_spent;
 
       $(".items").each(function(index, value){
-        if($(this).parents('.column-holder').find('.container-name').val()){
-          groupTitles[index] = $(this).parents('.column-holder').find('.container-name').val();
+
+        // START HERE
+        //fkin exclude empty-columns from validation!!
+
+        if($(this).parents('.used-column').find('.container-name').val()){
+          groupTitles[index] = $(this).parents('.used-column').find('.container-name').val();
         } else {
+          console.log("found unnamed group");
+          validation = true;
           groupTitles[index] = "Unnamed";
         }
         columnCards[index] = $(this).sortable('toArray');
@@ -813,6 +842,12 @@ $(document).on('turbolinks:load', function(){
         }
 
       });
+
+      if (validation == true){
+        console.log("validation errors found");
+        $(".validation").css('display', 'flex');
+        return false;
+      }
 
       $('#result_data').val(JSON.stringify(data));
 
