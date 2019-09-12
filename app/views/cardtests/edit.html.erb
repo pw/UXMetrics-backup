@@ -44,10 +44,12 @@
           </div>
 <a href="<%= request.base_url %>/collect/<%= @cardtest.auth_token %>?preview=true" class="preview-btn btn-small btn--primary" target="_blank"><i class="mr-2 fa fa-external-link" aria-hidden="true"></i>Preview</a>
 
-<%= link_to cardtest_results_path(cardtest_uid: @cardtest.uid), class:"ml-2 btn-small btn--secondary" do %>
-  <i class="mr-2 fa fa-bar-chart" aria-hidden="true"></i> View report
+<% @results = Result.where(cardtest_id: @cardtest.id) %>
+<% if @results.count > 0 %>
+  <%= link_to cardtest_results_path(cardtest_uid: @cardtest.uid), class:"ml-2 btn-small btn--secondary" do %>
+    <i class="mr-2 fa fa-bar-chart" aria-hidden="true"></i> View report
+  <% end %>
 <% end %>
-
 
 
 

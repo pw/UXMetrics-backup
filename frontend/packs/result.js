@@ -807,6 +807,7 @@ $(document).on('turbolinks:load', function(){
       var self = this;
       console.log("submit");
       var validation = false;
+      var err = "";
       var data = {
         name: "",
         time: "",
@@ -820,8 +821,12 @@ $(document).on('turbolinks:load', function(){
       data.name = "testJSONname";
       data.time = time_spent;
 
-      $(".items").each(function(index, value){
 
+
+
+      $(".used-column .items").each(function(index, value){
+
+        console.log("count: "+index);
         // START HERE
         //fkin exclude empty-columns from validation!!
 
@@ -830,6 +835,7 @@ $(document).on('turbolinks:load', function(){
         } else {
           console.log("found unnamed group");
           validation = true;
+          err = "unnamed";
           groupTitles[index] = "Unnamed";
         }
         columnCards[index] = $(this).sortable('toArray');
@@ -843,10 +849,24 @@ $(document).on('turbolinks:load', function(){
 
       });
 
+      if ($("#new-column").children().length > 1){
+        console.log("still left to sort");
+        validation = true;
+        err = "notsorted";
+      }
+
       if (validation == true){
         console.log("validation errors found");
+
+        if (err == "notsorted"){
+          $(".validation p").text("Please sort all the cards from the column on the left!");
+        } else if (err == "unnamed"){
+          $(".validation p").text("Oh no! Please give a name to your groups, so we can understand your thinking behind the groups. :)");
+        }
+
+
         $(".validation").css('display', 'flex');
-        return false;
+        return false; // don't submit
       }
 
       $('#result_data').val(JSON.stringify(data));
