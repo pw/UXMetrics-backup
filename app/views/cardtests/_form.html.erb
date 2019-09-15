@@ -1,97 +1,101 @@
 <%= form_with(model: cardtest, local: true, class: "cardtest-form p-4") do |form| %>
 <%= render "shared/flash", flash: cardtest.errors %>
 
-<div class="field">
-  <h4>Test name</h4>
-  <%# <%= form.label :name %>
-  <%= form.text_field :name, class: "input", autofocus:true, placeholder: "Add a name for your test ...", required: true %>
+<div class="tab-setup">
+  <div class="field">
+    <h4>Test name</h4>
+    <%# <%= form.label :name %>
+    <%= form.text_field :name, class: "input", autofocus:true, placeholder: "Add a name for your test ...", required: true %>
 
-  <!-- <input type="text" id="share-link" class="input rounded-r-none" value="<%= request.base_url %>/collect/<%= @cardtest.auth_token %>?preview"/> -->
+    <!-- <input type="text" id="share-link" class="input rounded-r-none" value="<%= request.base_url %>/collect/<%= @cardtest.auth_token %>?preview"/> -->
 
-  <%# form.text_field :status, class: "input", placeholder: "Status here"%>
+    <%# form.text_field :status, class: "input", placeholder: "Status here"%>
+  </div>
 </div>
 
-<h4>Cards</h4>
-<div data-controller = "nested-form">
+<div class="tab-cards hidden">
+  <h4>Cards</h4>
+  <div data-controller = "nested-form">
 
-  <template data-target="nested-form.template">
-    <%= form.fields_for :cards, Card.new, child_index: "NEW_RECORD" do |card| %>
-        <%= #render partial: "card_fields", locals: {form: card}
-        #render "card_fields", form:card
-
-
-        content_tag :div, id:card.index, class:"nested-field item bg-white rounded shadow p-4 my-4 flex", data: {new_record: form.object.new_record?} do %>
-
-            <div class="drag-handle cursor-move w-1/8 pt-2 text-gray-400 hover:text-gray-600"><i class="fa fa-sort" aria-hidden="true"></i></div>
+    <template data-target="nested-form.template">
+      <%= form.fields_for :cards, Card.new, child_index: "NEW_RECORD" do |card| %>
+          <%= #render partial: "card_fields", locals: {form: card}
+          #render "card_fields", form:card
 
 
-              <div class="field w-7/8 clearfix flex m-0">
-                <%= card.text_field :name, class: "input w-7/8 mx-3", placeholder: "Enter card name ...", required: true %>
-                <%= link_to "Remove", data: { action: "click->nested-form#remove_association"}, class: "pt-2 w-1/8 text-red-400 hover:text-red-600" do %>
-                  <i class="fa fa-trash" aria-hidden="true"></i>
-                <% end %>
+          content_tag :div, id:card.index, class:"nested-field item bg-white rounded shadow p-4 my-4 flex", data: {new_record: form.object.new_record?} do %>
 
-              </div>
-
-
-              <%= card.hidden_field :order %>
-              <%= card.hidden_field :_destroy %>
-
-
-        </div>
-
-        <% end %>
-
-    <% end %>
-  </template>
-
-  <div id="editable-cards">
-
-    <%= form.fields_for(:cards, @cardtest.cards.sort_by(&:order), include_id: false) do |card| %>
-
-          <%= content_tag :div, id:card.index, class:"nested-field item bg-white rounded shadow p-4 my-4 flex", data: {new_record: form.object.new_record?} do %>
               <div class="drag-handle cursor-move w-1/8 pt-2 text-gray-400 hover:text-gray-600"><i class="fa fa-sort" aria-hidden="true"></i></div>
-                <div class="field w-7/8 clearfix flex m-0">
-                  <%= card.text_field :name, class: "input w-7/8 mx-3", placeholder: "Enter card name ..." , required: true%>
-                  <%= card.hidden_field :id %>
 
+
+                <div class="field w-7/8 clearfix flex m-0">
+                  <%= card.text_field :name, class: "input w-7/8 mx-3", placeholder: "Enter card name ...", required: true %>
                   <%= link_to "Remove", data: { action: "click->nested-form#remove_association"}, class: "pt-2 w-1/8 text-red-400 hover:text-red-600" do %>
                     <i class="fa fa-trash" aria-hidden="true"></i>
                   <% end %>
+
                 </div>
+
+
                 <%= card.hidden_field :order %>
                 <%= card.hidden_field :_destroy %>
+
+
+
+
           <% end %>
 
-    <% end %>
+      <% end %>
+    </template>
+
+    <div id="editable-cards">
+
+      <%= form.fields_for(:cards, @cardtest.cards.sort_by(&:order), include_id: false) do |card| %>
+
+            <%= content_tag :div, id:card.index, class:"nested-field item bg-white rounded shadow p-4 my-4 flex", data: {new_record: form.object.new_record?} do %>
+                <div class="drag-handle cursor-move w-1/8 pt-2 text-gray-400 hover:text-gray-600"><i class="fa fa-sort" aria-hidden="true"></i></div>
+                  <div class="field w-7/8 clearfix flex m-0">
+                    <%= card.text_field :name, class: "input w-7/8 mx-3", placeholder: "Enter card name ..." , required: true%>
+                    <%= card.hidden_field :id %>
+
+                    <%= link_to "Remove", data: { action: "click->nested-form#remove_association"}, class: "pt-2 w-1/8 text-red-400 hover:text-red-600" do %>
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    <% end %>
+                  </div>
+                  <%= card.hidden_field :order %>
+                  <%= card.hidden_field :_destroy %>
+            <% end %>
+
+      <% end %>
+    </div>
+
+    <!-- <div id="editable-cards-test">
+      <div class="item-test">
+        <div class="item-content">
+            <h4>Item 1</h4>
+        </div>
+      </div>
+      <div class="item-test">
+        <div class="item-content">
+            <h4>Item 2</h4>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="mb-3" data-target="nested-form.links">
+        <%= link_to "#", class:"btn-small btn--primary", data: {action: "click->nested-form#add_association"} do %>
+          <i class="fa fa-plus" aria-hidden="true"></i> Add card
+        <% end %>
+
+    </div>
+
   </div>
-
-  <!-- <div id="editable-cards-test">
-    <div class="item-test">
-      <div class="item-content">
-          <h4>Item 1</h4>
-      </div>
-    </div>
-    <div class="item-test">
-      <div class="item-content">
-          <h4>Item 2</h4>
-      </div>
-    </div>
-  </div> -->
-
-<div class="mb-3" data-target="nested-form.links">
-    <%= link_to "#", class:"btn-small btn--primary", data: {action: "click->nested-form#add_association"} do %>
-      <i class="fa fa-plus" aria-hidden="true"></i> Add card
-    <% end %>
-
-</div>
+  <div class="field flex justify-between items-center mb-0">
 
 
-<div class="field flex justify-between items-center mb-0">
+    <%= form.submit class: "btn btn--primary hidden save-cardtest" %>
 
 
-  <%= form.submit class: "btn btn--primary hidden save-cardtest" %>
-
-
+  </div>
 </div>
 <% end %>

@@ -59,6 +59,48 @@ $(function() {
   });
 
 
+  $(".tabs-holder ul").on('click', function(event){
+
+
+
+    event.preventDefault();
+
+    if($(event.target).is('a')) {
+
+        if($(event.target).attr('href') == "#cards"){
+          $(".tab-setup").hide();
+          $(".tab-customise").hide();
+          $(".tab-cards").show();
+
+
+
+        } else if ($(event.target).attr('href') == "#setup"){
+          $(".tab-customise").hide();
+          $(".tab-cards").hide();
+          $(".tab-setup").show();
+
+
+
+
+        } else if ($(event.target).attr('href') == "#customise"){
+          $(".tab-setup").hide();
+          $(".tab-cards").hide();
+          $(".tab-customise").show();
+
+
+
+
+        }
+        $(".tabs-holder li").removeClass("tab-active").addClass("tab-inactive");
+        $(event.target).parent("li").removeClass("tab-inactive").addClass("tab-active");
+
+    }
+
+  });
+
+
+
+
   $("#publish-form").submit(function(e){
 
     // e.preventDefault(); //prevent submit
