@@ -1,6 +1,7 @@
 class Cardtest < ApplicationRecord
   has_many :cards, inverse_of: :cardtest
   has_many :results
+  has_one_attached:logoimg
   accepts_nested_attributes_for :cards, allow_destroy:true
   before_validation :mark_cards_for_destruction
 

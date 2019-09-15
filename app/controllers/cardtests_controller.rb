@@ -96,7 +96,7 @@ class CardtestsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def cardtest_params
 
-      params.require(:cardtest).permit(:name, :items, :user, :status, :uid, cards_attributes: [:id, :name, :order, :_destroy])
+      params.require(:cardtest).permit(:name, :items, :user, :status, :uid, :logoimg, :intro, :outro, cards_attributes: [:id, :name, :order, :_destroy])
 
     end
 
@@ -120,6 +120,12 @@ class CardtestsController < ApplicationController
       end
 
 
+    end
+
+    def delete_image_attachment
+      @cardtest_img = ActiveStorage::Attachment.find(params[:id])
+      @cardtest_img.purge
+      redirect_back(fallback_location: request.referer)
     end
 
 
