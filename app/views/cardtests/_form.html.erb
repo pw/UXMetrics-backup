@@ -18,13 +18,19 @@
     <%= form.file_field :logoimg, class: "image", id: "logo-img", required: false %>
 
     <% puts "asddsa" %>
-    <% puts cardtest.logoimg.present? %>
+    <% puts cardtest.logoimg.attached? %>
+
     <% puts "121321" %>
 
-    <% if cardtest.logoimg.exists? %>
+
+
+    <% if cardtest.logoimg.attached? %>
+      <% puts "in the if" %>
       <%= image_tag(url_for(cardtest.logoimg)) %>
-      <%= link_to 'Remove image', delete_image_attachment_cardtest_url(cardtest.logoimg.id) %>
+      <%# byebug %>
+      <%= link_to 'Remove image', delete_image_attachment_cardtest_url(cardtest.logoimg.id), method: :delete %>
     <% else %>
+      <% puts "in the else" %>
       <img src="https://via.placeholder.com/200x100" id="logo-uploaded"/>
     <% end %>
 

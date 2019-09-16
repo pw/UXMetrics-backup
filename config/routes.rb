@@ -32,6 +32,9 @@ Rails.application.routes.draw do
 
   resources :cardtests, param: :uid do
     resources :results, param: :id
+    member do
+      delete :delete_image_attachment
+    end
 
   end
 

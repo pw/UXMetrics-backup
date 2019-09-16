@@ -81,6 +81,14 @@ class CardtestsController < ApplicationController
     redirect_to cardtests_url, notice: 'Cardtest was successfully destroyed.'
   end
 
+  def delete_image_attachment
+
+    puts "is this even?"
+    @cardtest_img = ActiveStorage::Attachment.find(params[:uid])
+    @cardtest_img.purge
+    redirect_back(fallback_location: request.referer)
+  end
+
 
 
 
@@ -122,11 +130,7 @@ class CardtestsController < ApplicationController
 
     end
 
-    def delete_image_attachment
-      @cardtest_img = ActiveStorage::Attachment.find(params[:id])
-      @cardtest_img.purge
-      redirect_back(fallback_location: request.referer)
-    end
+
 
 
 
