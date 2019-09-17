@@ -240,7 +240,8 @@ class ResultsController < ApplicationController
 
   # POST /results
   def thanks
-    @cardtest = Cardtest.find_by(uid: params[:cardtest_uid])
+    @cardtest = Cardtest.find_by(auth_token: params[:auth_token])
+    # @cardtest = Cardtest.find_by(uid: params[:cardtest_uid]) <-- this was wrong? now all fine :)
     render layout: "collect"
   end
 

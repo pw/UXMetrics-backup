@@ -12,9 +12,20 @@
   @apply text-sm leading-none not-italic text-gray-600;
 }
 
+#logo-uploaded {
+  max-width:150px;
+  @apply my-4;
+}
+
+.remove-image {
+  @apply text-xs underline;
+}
+
 .buttons {
   @apply flex items-center;
 }
+
+
 
 label {
   @apply inline-block mb-2;

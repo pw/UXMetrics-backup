@@ -159,13 +159,28 @@ $(function() {
 
           reader.onload = function (e) {
               $('#logo-uploaded').attr('src', e.target.result);
+              $('#logo-uploaded').removeClass("hidden");
+              $('.remove-image').removeClass("hidden");
+
           }
 
           reader.readAsDataURL(input.files[0]);
       }
   }
 
+  $('.remove-image').click(function(event){
+    event.preventDefault();
+    $('#logo-img').val('');
+    $('#logo-uploaded').addClass("hidden");
+    $(this).addClass("hidden");
+  });
+
   $("#logo-img").change(function(){
+      readURL(this);
+  });
+
+  $(".cardtest-form").on('change', '#logo-img',function(){
+    console.log("change event");
       readURL(this);
   });
 
