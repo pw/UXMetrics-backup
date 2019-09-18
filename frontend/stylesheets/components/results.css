@@ -123,7 +123,7 @@ thead th {
   color: var(--brandColor);
 }
 
-.item, .item * {
+#new-column .item, #new-column .item * {
   cursor: grab;
   cursor: -moz-grab;
   cursor: -webkit-grab;

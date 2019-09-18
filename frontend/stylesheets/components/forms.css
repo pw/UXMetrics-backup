@@ -32,7 +32,57 @@ label {
   @apply font-medium text-gray-700;
 }
 
+
 .input {
+  @apply w-full px-4 py-2;
+  @apply text-gray-800 leading-tight;
+  @apply bg-white border border-gray-400;
+  @apply rounded;
+  -webkit-appearance: none;
+  @apply appearance-none;
+
+  &:hover,
+  &:focus {
+    border-color: var(--brandColor);
+  }
+}
+
+
+.input:disabled  {
+  @apply w-full px-4 py-2;
+  @apply text-gray-800 leading-tight;
+  @apply bg-gray-200 border border-gray-400;
+  @apply rounded;
+  -webkit-appearance: none;
+  @apply appearance-none;
+}
+
+textarea {
+  @apply w-full px-4 py-2;
+  @apply text-gray-800 leading-tight;
+  @apply bg-white border border-gray-400;
+  @apply rounded;
+  -webkit-appearance: none;
+  @apply appearance-none;
+  @apply h-40;
+
+  &:hover,
+  &:focus {
+    border-color: var(--brandColor);
+  }
+}
+
+textarea:disabled {
+  @apply w-full px-4 py-2;
+  @apply text-gray-800 leading-tight;
+  @apply bg-gray-200 border border-gray-400;
+  @apply rounded;
+  -webkit-appearance: none;
+  @apply appearance-none;
+}
+
+
+.card .input, .item .input, #publish-form .input {
   @apply w-full px-4 py-2;
   @apply text-gray-800 leading-tight;
   @apply bg-gray-200 border-2 border-gray-200;
@@ -46,7 +96,10 @@ label {
   }
 }
 
-.input-small {
+
+
+
+.column-holder .input-small, .item .input-small, .card .input-small {
   @apply w-full px-2 py-2;
   @apply text-gray-800 leading-tight text-sm;
   @apply bg-gray-200 border-2 border-gray-200;
