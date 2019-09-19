@@ -2,17 +2,24 @@
   <div class="max-w-4xl mx-auto clearfix py-6 flex items-center px-6">
     <div class="flex-1">
       <% begin %>
-        <h1 class="font-bold text-gray-600 text-xl">Create new cardtest</h1>
+        <h1 class="font-bold text-gray-600 text-xl">Create new cardtest <span class="step-1">1/2</span><span class="step-2 hidden">2/2</span></h1>
       <% rescue => ex %>
 
       <% end %>
     </div>
     <div class="flex-2 text-right">
-      <% begin %>
-          <a href="#" class="ml-2 save-btn btn-small btn--secondary"><i class="mr-2 fa fa-floppy-o" aria-hidden="true"></i>Save</a>
-      <% rescue => ex %>
+      <div class="step-1">
+        <a href="#" class="ml-2 continue-btn btn-small btn--primary">Continue<i class="ml-2 fa  fa-arrow-right" aria-hidden="true"></i></a>
+      </div>
+      <div class="step-2 hidden">
+        <% begin %>
+            <a href="#" class="ml-2 back-btn btn-small btn--primary"><i class="mr-2 fa  fa-arrow-left" aria-hidden="true"></i>Back to Setup</a>
+            <a href="#" class="ml-2 save-btn btn-small btn--secondary"><i class="mr-2 fa fa-floppy-o" aria-hidden="true"></i>Save</a>
 
-      <% end %>
+        <% rescue => ex %>
+
+        <% end %>
+      </div>
 
 
 
@@ -20,8 +27,23 @@
     </div>
   </div>
 </div>
-<div class="mt-16 max-w-4xl mx-auto flex">
+<div class="mt-2 max-w-4xl mx-auto flex">
     <div class="w-2/3 p-4">
+
+      <div class="tabs-holder p-4 hidden">
+        <ul class="flex border-b">
+          <li class="mr-1 tab-active">
+            <a class="inline-block py-2 px-4 font-semibold" href="#setup">Setup</a>
+          </li>
+          <li class="mr-1 tab-inactive">
+            <a class="inline-block py-2 px-4 font-semibold" href="#cards">Cards</a>
+          </li>
+          <!-- <li class="mr-1 tab-inactive">
+            <a class="inline-block py-2 px-4 font-semibold" href="#customise">Customise</a>
+          </li> -->
+        </ul>
+      </div>
+
       <%= render 'form', cardtest: @cardtest %>
     </div>
 

@@ -19,7 +19,8 @@
 }
 
 .tab-active a {
-  @apply border-l border-t border-r rounded-t text-gray-800 bg-white;
+  @apply border-b-4 text-gray-800;
+  border-color: var(--brandColor);
 
 }
 

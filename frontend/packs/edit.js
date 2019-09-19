@@ -26,7 +26,27 @@ $(document).on('turbolinks:load', function() {
 $(function() {
 
 
+  $(".continue-btn").click(function(e){
+    e.preventDefault();
+    if(!$('#cardtest_name')[0].checkValidity()){
+      $('.save-cardtest').trigger('click');
+    } else {
+      $(".tab-setup").hide();
+      $(".tab-cards").show();
+      $(".step-1").hide();
+      $(".step-2").show();
+    }
 
+  });
+
+  $(".back-btn").click(function(e){
+    e.preventDefault();
+    $(".tab-setup").show();
+    $(".tab-cards").hide();
+    $(".step-1").show();
+    $(".step-2").hide();
+
+  });
 
 
 
@@ -169,6 +189,7 @@ $(function() {
   }
 
   $('.remove-image').click(function(event){
+    console.log("remove");
     event.preventDefault();
     $('#logo-img').val('');
     $('#logo-uploaded').addClass("hidden");

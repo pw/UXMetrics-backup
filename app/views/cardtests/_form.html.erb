@@ -11,6 +11,51 @@
 
     <%# form.text_field :status, class: "input", placeholder: "Status here"%>
   </div>
+  <div class="field">
+    <h4>Test settings</h4>
+    <div class="checkbox">
+      <input type="checkbox" id="randomize" name="randomize">
+      <label for="randomize">Randomize card order</label>
+    </div>
+  </div>
+
+  <div class="field">
+    <h4>Logo</h4>
+    <p class="-mt-4 text-xs mb-4">Upload a custom logo for this test</p>
+
+
+
+    <% puts "asddsa" %>
+    <% puts cardtest.logoimg.attached? %>
+
+    <% puts "121321" %>
+
+
+
+    <% if cardtest.logoimg.attached? %>
+      <% puts "in the if" %>
+      <%= image_tag(url_for(cardtest.logoimg), id: "logo-uploaded") %>
+      <%# byebug %>
+      <%= link_to 'Remove image', delete_image_attachment_cardtest_url(cardtest.logoimg.id), method: :delete, class: "remove-image-server" %>
+    <% else %>
+      <% puts "in the else" %>
+      <%= form.file_field :logoimg, class: "image", id: "logo-img", required: false %>
+      <img src="" id="logo-uploaded" class="hidden"/>
+      <a href="#" class="remove-image hidden">Remove image</a>
+    <% end %>
+
+
+  </div>
+  <div class="field">
+    <h4>Test introduction</h4>
+    <p class="-mt-4 text-xs mb-4">Greet your test respondents with a custom introduction</p>
+    <%= form.text_area :intro, class: "intro-text", required: false %>
+  </div>
+  <div class="field">
+    <h4>Thank you message</h4>
+    <p class="-mt-4 text-xs mb-4">Custom thank you message to show respondents upon completion</p>
+    <%= form.text_area :outro, class: "outro-text", required: false %>
+  </div>
 
 
 
@@ -103,43 +148,7 @@
   </div>
 </div>
 <div class="tab-customise hidden">
-  <div class="field">
-    <h4 class="mb-0">Logo</h4>
-    <p class="text-xs mb-4">Upload a custom logo for this test</p>
 
-
-
-    <% puts "asddsa" %>
-    <% puts cardtest.logoimg.attached? %>
-
-    <% puts "121321" %>
-
-
-
-    <% if cardtest.logoimg.attached? %>
-      <% puts "in the if" %>
-      <%= image_tag(url_for(cardtest.logoimg), id: "logo-uploaded") %>
-      <%# byebug %>
-      <%= link_to 'Remove image', delete_image_attachment_cardtest_url(cardtest.logoimg.id), method: :delete, class: "remove-image" %>
-    <% else %>
-      <% puts "in the else" %>
-      <%= form.file_field :logoimg, class: "image", id: "logo-img", required: false %>
-      <img src="" id="logo-uploaded" class="hidden"/>
-      <a href="#" class="remove-image hidden">Remove image</a>
-    <% end %>
-
-
-  </div>
-  <div class="field">
-    <h4 class="mb-0">Test introduction</h4>
-    <p class="text-xs mb-4">Greet your test respondents with a custom introduction</p>
-    <%= form.text_area :intro, class: "intro-text", required: false %>
-  </div>
-  <div class="field">
-    <h4 class="mb-0">Thank you message</h4>
-    <p class="text-xs mb-4">Custom thank you message to show respondents upon completion</p>
-    <%= form.text_area :outro, class: "outro-text", required: false %>
-  </div>
 </div>
 
 

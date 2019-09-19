@@ -1,6 +1,6 @@
 .field {
   @apply w-full;
-  @apply mb-6;
+  @apply mb-10;
 }
 
 .fields-inline {
@@ -18,6 +18,10 @@
 }
 
 .remove-image {
+  @apply text-xs underline;
+}
+
+.remove-image-server {
   @apply text-xs underline;
 }
 
