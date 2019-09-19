@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_15_165039) do
+ActiveRecord::Schema.define(version: 2019_09_19_220536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2019_09_15_165039) do
     t.datetime "updated_at", null: false
     t.text "intro"
     t.text "outro"
+    t.boolean "random"
     t.index ["auth_token"], name: "index_cardtests_on_auth_token", unique: true
     t.index ["uid"], name: "index_cardtests_on_uid", unique: true
     t.index ["user_id"], name: "index_cardtests_on_user_id"

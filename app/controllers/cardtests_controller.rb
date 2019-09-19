@@ -104,7 +104,7 @@ class CardtestsController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def cardtest_params
 
-      params.require(:cardtest).permit(:name, :items, :user, :status, :uid, :logoimg, :intro, :outro, cards_attributes: [:id, :name, :order, :_destroy])
+      params.require(:cardtest).permit(:name, :items, :user, :status, :uid, :logoimg, :intro, :outro, :random, cards_attributes: [:id, :name, :order, :_destroy])
 
     end
 

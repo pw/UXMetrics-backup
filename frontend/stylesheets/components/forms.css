@@ -33,12 +33,12 @@
 
 label {
   @apply inline-block mb-2;
-  @apply font-medium text-gray-700;
+  @apply font-normal text-gray-700 mt-1;
 }
 
 
 .input {
-  @apply w-full px-4 py-2;
+  @apply w-full px-3 py-2;
   @apply text-gray-800 leading-tight;
   @apply bg-white border border-gray-400;
   @apply rounded;
@@ -62,7 +62,7 @@ label {
 }
 
 textarea {
-  @apply w-full px-4 py-2;
+  @apply w-full px-3 py-2;
   @apply text-gray-800 leading-tight;
   @apply bg-white border border-gray-400;
   @apply rounded;
@@ -87,7 +87,7 @@ textarea:disabled {
 
 
 .card .input, .item .input, #publish-form .input {
-  @apply w-full px-4 py-2;
+  @apply w-full px-3 py-2;
   @apply text-gray-800 leading-tight;
   @apply bg-gray-200 border-2 border-gray-200;
   @apply rounded;
@@ -153,9 +153,12 @@ textarea:disabled {
 }
 
 .checkbox {
-  @apply ml-2;
-  @apply lowercase;
-  @apply cursor-pointer;
+
+  @apply text-sm;
+}
+
+input[type="checkbox"] {
+   @apply mr-1;
 }
 
 .radio-button__input {
