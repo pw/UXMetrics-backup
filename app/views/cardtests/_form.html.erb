@@ -5,7 +5,7 @@
   <div class="field">
     <h4>Test name</h4>
     <%# <%= form.label :name %>
-    <%= form.text_field :name, class: "input", autofocus:true, placeholder: "Add a name for your test ...", required: true %>
+    <%= form.text_field :name, class: "input", placeholder: "Add a name for your test ...", required: true %>
 
     <!-- <input type="text" id="share-link" class="input rounded-r-none" value="<%= request.base_url %>/collect/<%= @cardtest.auth_token %>?preview"/> -->
 
@@ -16,7 +16,7 @@
     <div class="checkbox">
 
       <%= form.check_box :random %>
-      <label for="randomize">Randomize card order</label>
+      <label for="randomize">Randomize card order in test</label>
     </div>
   </div>
 

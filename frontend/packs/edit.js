@@ -6,16 +6,28 @@ console.log("EDIT JS");
 
 var msg, unsaved;
 
-msg = "Your changes were not saved. Are you sure you want to publish?";
+msg = "You have unsaved changes in your cardtest. Are you sure you want to publish without saving?";
 
 unsaved = false;
 
+// $(document).on('change', 'input', function() {
+//   return unsaved = true;
+//   console.log(unsaved);
+//   $("save-btn").show();
+// });
+
+
+
 $(document).on('change', 'input', function() {
-  return unsaved = true;
-  console.log(unsaved);
+  unsaved = true;
+  console.log("unsaved to true");
+  $(".save-btn").show();
 });
 
 $(document).on('turbolinks:load', function() {
+
+
+
   return unsaved = false;
   console.log(unsaved);
 });
@@ -24,6 +36,8 @@ $(document).on('turbolinks:load', function() {
 
 
 $(function() {
+
+
 
 
   $(".continue-btn").click(function(e){
@@ -151,15 +165,23 @@ $(function() {
           return false;
         }
       } else {
-        if ($(this).find('#status-field').val() == "true"){
-            console.log("is 1, setting to 0");
-            $(this).find('#status-field').val("false");
-            // $(this).find('#status-field').value = "false";
+        var choice = confirm("You won't be able to make any changes to your test once it's been published. Are you sure it's ready for participants?");
+
+        if (choice == true){
+
+          if ($(this).find('#status-field').val() == "true"){
+              console.log("is 1, setting to 0");
+              $(this).find('#status-field').val("false");
+              // $(this).find('#status-field').value = "false";
+          } else {
+              console.log("is 0, setting to 1");
+              $(this).find('#status-field').val("true");
+              // $(this).find('#status-field').value = "true";
+          }
         } else {
-            console.log("is 0, setting to 1");
-            $(this).find('#status-field').val("true");
-            // $(this).find('#status-field').value = "true";
+          return false;
         }
+
       }
       // var status = true;
 

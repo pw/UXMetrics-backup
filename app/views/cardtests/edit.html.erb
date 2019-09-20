@@ -23,7 +23,7 @@
             </div>
           </div>
           <a href="<%= request.base_url %>/collect/<%= @cardtest.auth_token %>?preview=true" class="preview-btn btn-small btn--primary" target="_blank"><i class="mr-2 fa fa-external-link" aria-hidden="true"></i>Preview</a>
-          <a href="#" class="ml-2 save-btn btn-small btn--secondary"><i class="mr-2 fa fa-floppy-o" aria-hidden="true"></i>Save</a>
+          <a href="#" class="ml-2 save-btn btn-small btn--secondary hidden"><i class="mr-2 fa fa-floppy-o" aria-hidden="true"></i>Save</a>
 
         <% else %>
 
@@ -90,11 +90,35 @@
         <% if @cardtest.status == false %>
           <%= render 'form', cardtest: @cardtest %>
         <% else %>
-
+        <div class="locked-tabs p-4">
           <div class="tab-setup">
             <div class="field">
               <h4>Test name</h4>
               <input class="input" value="<%= @cardtest.name %>" disabled/>
+            </div>
+            <div class="field">
+              <h4>Test settings</h4>
+              <ul>
+                <li class="font-normal text-sm text-gray-700 mt-1 mb-2">- <% if @cardtest.random %>Card order is randomized. <% else %> Card order is not randomized.<% end %></li>
+              </ul>
+            </div>
+            <div class="field">
+              <h4>Logo</h4>
+
+              <% if @cardtest.logoimg.attached? %>
+
+                <%= image_tag(url_for(@cardtest.logoimg), id: "logo-uploaded") %>
+
+
+              <% else %>
+
+              <ul>
+                <li class="font-normal text-sm text-gray-700 mt-1 mb-2">- No custom logo uploaded.</li>
+              </ul>
+
+
+              <% end %>
+
             </div>
           </div>
 
@@ -113,6 +137,7 @@
               </ul>
             </div>
           </div>
+        </div>
 
         <% end %>
 

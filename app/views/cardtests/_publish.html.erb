@@ -1,19 +1,21 @@
 <%= form_with(model: cardtest, local: true, class: "py-4 bg-white rounded shadow px-4 my-4", id:"publish-form") do |form| %>
 <%= render "shared/flash", flash: cardtest.errors %>
 
-<div class="field">
+<div class="field hidden">
   <%= form.hidden_field :status, id:"status-field", class: "input"%>
   <%# <%= form.hidden_field :uid %>
 </div>
 
   <% begin %>
     <% if cardtest.status == false%>
-      <h4 class="mt-2 mb-6 font-semibold px-2 text-center">Your cardtest is currently in <span class="text-orange-300">draft</span> status.</h1>
-        <p class="text-sm text-center py-2">When your test is ready just hit the button below to publish it!</p>
+      <h4 class="mt-2 mb-3 font-semibold px-2 text-center">👍 Nice one, your cardtest has been created!</h4>
+        <p class="text-sm text-center py-2 mb-4">When you are ready to publish it just hit the button below!</p>
+
       <%= form.submit class: "btn btn--primary w-full", value:"Publish", id:"publish-test"%>
+      <p class="text-xs text-center py-2"><strong>Note:</strong> You won't be able to make any changes once the test is published.</p>
     <% else %>
 
-    <h4 class="mt-2 mb-6 font-semibold px-2 text-center">Your cardtest is currently <span class="text-green-700">published</span>.</h1>
+    <h4 class="mt-2 mb-6 font-semibold px-2 text-center">🎉 Your cardtest is <span class="text-green-700">published</span> and accepting responses.</h1>
       <p class="text-sm text-center py-2">Copy the link below to share your test with participants.</p>
       <div class="fields-inline items-end">
         <div class="field">
