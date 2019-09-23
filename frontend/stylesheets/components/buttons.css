@@ -69,3 +69,12 @@
     border-color: currentColor;
   }
 }
+
+.btn--tertiary {
+  @apply text-white;
+  background-color: #E36060;
+
+  &:hover {
+    background-color: #D04545;
+  }
+}

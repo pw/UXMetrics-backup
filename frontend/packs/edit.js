@@ -137,8 +137,23 @@ $(function() {
 
   $("#publish-form").submit(function(e){
 
-    // e.preventDefault(); //prevent submit
+    e.preventDefault(); //prevent submit
+    // console.log($(this));
+    // console.log($(this).find("#publish-test"));
+    if($(this).find("#publish-test").hasClass("end-test") && $(this).find('#status-field').val() == "published")
 
+    var choice = confirm("Are you sure you want to end your test?");
+
+    if (choice == true){
+
+      console.log("is 1, setting to 0");
+      $(this).find('#status-field').val("ended");
+      this.submit();
+      return true;
+
+    } else {
+      return false;
+    }
 
 
 
@@ -148,13 +163,15 @@ $(function() {
         var choice = confirm(msg);
         if (choice == true){
 
-          if ($(this).find('#status-field').val() == "true"){
+          if ($(this).find('#status-field').val() == "published"){
               console.log("is 1, setting to 0");
-              $(this).find('#status-field').val("false");
+              $(this).find('#status-field').val("ended");
+              this.submit();
               // $(this).find('#status-field').value = "false";
           } else {
               console.log("is 0, setting to 1");
-              $(this).find('#status-field').val("true");
+              $(this).find('#status-field').val("published");
+              this.submit();
               // $(this).find('#status-field').value = "true";
           }
 
@@ -169,13 +186,15 @@ $(function() {
 
         if (choice == true){
 
-          if ($(this).find('#status-field').val() == "true"){
+          if ($(this).find('#status-field').val() == "published"){
               console.log("is 1, setting to 0");
-              $(this).find('#status-field').val("false");
+              $(this).find('#status-field').val("ended");
+              this.submit();
               // $(this).find('#status-field').value = "false";
           } else {
               console.log("is 0, setting to 1");
-              $(this).find('#status-field').val("true");
+              $(this).find('#status-field').val("published");
+              this.submit();
               // $(this).find('#status-field').value = "true";
           }
         } else {

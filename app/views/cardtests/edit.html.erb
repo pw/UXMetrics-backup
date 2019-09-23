@@ -7,7 +7,7 @@
     <div class="flex-2 text-right">
       <% begin %>
 
-        <% if @cardtest.status == false %>
+        <% if @cardtest.status == "draft" %>
           <span class="pill pill--secondary">Draft</span>
           <div class="dropdown float-none" data-controller="dropdown">
             <div class="dropdown__toggle" data-action="click->dropdown#toggle click@window->dropdown#hide" role="button">
@@ -25,7 +25,7 @@
           <a href="<%= request.base_url %>/collect/<%= @cardtest.auth_token %>?preview=true" class="preview-btn btn-small btn--primary" target="_blank"><i class="mr-2 fa fa-external-link" aria-hidden="true"></i>Preview</a>
           <a href="#" class="ml-2 save-btn btn-small btn--secondary hidden"><i class="mr-2 fa fa-floppy-o" aria-hidden="true"></i>Save</a>
 
-        <% else %>
+        <% elsif @cardtest.status == "published" %>
 
 
           <span class="pill pill--tertiary">Published</span>
@@ -42,15 +42,48 @@
               </div>
             </div>
           </div>
-<a href="<%= request.base_url %>/collect/<%= @cardtest.auth_token %>?preview=true" class="preview-btn btn-small btn--primary" target="_blank"><i class="mr-2 fa fa-external-link" aria-hidden="true"></i>Preview</a>
+          <a href="<%= request.base_url %>/collect/<%= @cardtest.auth_token %>?preview=true" class="preview-btn btn-small btn--primary" target="_blank"><i class="mr-2 fa fa-external-link" aria-hidden="true"></i>Preview</a>
 
-<% @results = Result.where(cardtest_id: @cardtest.id) %>
-<% if @results.count > 0 %>
-  <%= link_to cardtest_results_path(cardtest_uid: @cardtest.uid), class:"ml-2 btn-small btn--secondary" do %>
-    <i class="mr-2 fa fa-bar-chart" aria-hidden="true"></i> View report
-  <% end %>
-<% end %>
+                <% @results = Result.where(cardtest_id: @cardtest.id) %>
+                <% if @results.count > 0 %>
+                  <%= link_to cardtest_results_path(cardtest_uid: @cardtest.uid), class:"ml-2 btn-small btn--secondary" do %>
+                  <i class="mr-2 fa fa-bar-chart" aria-hidden="true"></i> View report
+                <% end %>
 
+                <% else %>
+
+
+                <% end %>
+
+
+        <% else %>
+
+          <span class="pill pill--primary">Ended</span>
+
+          <div class="dropdown float-none" data-controller="dropdown">
+            <div class="dropdown__toggle" data-action="click->dropdown#toggle click@window->dropdown#hide" role="button">
+              More
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="dropdown__icon" data-target="dropdown.icon"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path></svg>
+            </div>
+            <div data-target="dropdown.menu" class="dropdown__menu hidden">
+              <div class="dropdown__items">
+                <% if @cardtest.persisted? %>
+                  <%= link_to 'Delete test', { action: :destroy, uid: @cardtest.uid }, method: :delete, data: { confirm: 'Are you sure?' }, class: "dropdown__item" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <% @results = Result.where(cardtest_id: @cardtest.id) %>
+
+          <% if @results.count > 0 %>
+            <%= link_to cardtest_results_path(cardtest_uid: @cardtest.uid), class:"ml-2 btn-small btn--secondary" do %>
+            <i class="mr-2 fa fa-bar-chart" aria-hidden="true"></i> View report
+            <% end %>
+          <% else %>
+
+
+          <% end %>
 
 
 
@@ -87,7 +120,7 @@
 
       <% begin %>
 
-        <% if @cardtest.status == false %>
+        <% if @cardtest.status == "draft" %>
           <%= render 'form', cardtest: @cardtest %>
         <% else %>
         <div class="locked-tabs p-4">
