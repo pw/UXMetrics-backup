@@ -133,6 +133,10 @@ $(function() {
   });
 
 
+  $(".end-t").click(function(e){
+    e.preventDefault();
+    $("#publish-form").trigger("submit");
+  });
 
 
   $("#publish-form").submit(function(e){
@@ -140,22 +144,22 @@ $(function() {
     e.preventDefault(); //prevent submit
     // console.log($(this));
     // console.log($(this).find("#publish-test"));
-    if($(this).find("#publish-test").hasClass("end-test") && $(this).find('#status-field').val() == "published")
+    if($(this).find("#publish-test").hasClass("end-test") && $(this).find('#status-field').val() == "published"){
 
-    var choice = confirm("Are you sure you want to end your test?");
+      var choice = confirm("Are you sure you want to end your test?");
 
-    if (choice == true){
+      if (choice == true){
 
-      console.log("is 1, setting to 0");
-      $(this).find('#status-field').val("ended");
-      this.submit();
-      return true;
+        console.log("is 1, setting to 0");
+        $(this).find('#status-field').val("ended");
+        this.submit();
+        return true;
 
-    } else {
-      return false;
+      } else {
+        return false;
+      }
+
     }
-
-
 
       var self = this;
       console.log(unsaved);

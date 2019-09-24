@@ -32,25 +32,24 @@
 
       <p class="copied-text hidden -mt-4 mb-4 text-sm text-green-600 text-center">Share link copied to your clipboard.</p>
 
-      <%= form.submit class: "btn btn--tertiary w-full end-test", value:"End test", id:"publish-test" %>
+      <%= form.submit class: "btn btn--tertiary w-full end-test hidden", value:"End test", id:"publish-test" %>
     <% else %>
     <h4 class="mt-2 mb-6 font-semibold px-2 text-center">🏁 Your cardtest has <span class="text-red-500">ended</span>.</h1>
+
+      <% @results = Result.where(cardtest_id: cardtest.id) %>
       <% if @results.count > 0 %>
         <p class="text-sm text-center py-2">You can view results in your report.</p>
       <% else %>
-
-
+        <p class="text-sm text-center py-2">You don't have any results yet. Check back soon.</p>
       <% end %>
 
       <div class="fields-inline items-end">
-
-          <% @results = Result.where(cardtest_id: cardtest.id) %>
-
           <% if @results.count > 0 %>
             <%= link_to cardtest_results_path(cardtest_uid: cardtest.uid), class:"ml-2 btn btn--secondary w-full" do %>
             <i class="mr-2 fa fa-bar-chart" aria-hidden="true"></i> View report
             <% end %>
           <% else %>
+
 
 
           <% end %>

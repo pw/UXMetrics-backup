@@ -32,16 +32,16 @@
             <div class="float-right">
                           <% begin %>
 
-                            <% if cardtest.status == false %>
+                            <% if cardtest.status == "draft" %>
                               <span class="pill pill--secondary">Draft</span>
 
-                            <% else %>
+                            <% elsif cardtest.status == "published" %>
 
 
                               <span class="pill pill--tertiary">Published</span>
 
-
-
+                            <% else %>
+                              <span class="pill pill--primary">Ended</span>
 
                             <% end %>
                           <% rescue => ex %>

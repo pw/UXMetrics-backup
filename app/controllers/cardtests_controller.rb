@@ -39,7 +39,7 @@ class CardtestsController < ApplicationController
   # POST /cardtests
   def create
     @cardtest = current_user.cardtests.new(cardtest_params)
-    @cardtest.status = ActiveModel::Type::Boolean.new.cast(false)
+    @cardtest.status = "draft"
     # name = @cardtest.name
     # puts name
     # slug = to_slug(name)
