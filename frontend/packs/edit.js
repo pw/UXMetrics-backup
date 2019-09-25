@@ -48,6 +48,7 @@ $(function() {
       $(".tab-setup").hide();
       $(".tab-cards").show();
       $(".step-1").hide();
+      $(".continue-btn-body").hide();
       $(".step-2").show();
     }
 
@@ -59,6 +60,7 @@ $(function() {
     $(".tab-cards").hide();
     $(".step-1").show();
     $(".step-2").hide();
+    $(".continue-btn-body").show();
 
   });
 
