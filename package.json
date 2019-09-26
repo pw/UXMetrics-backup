@@ -2,8 +2,8 @@
   "name": "Userdrive",
   "private": true,
   "dependencies": {
-    "@rails/ujs": "6.0.0-beta2",
-    "@rails/webpacker": "3.5",
+    "@rails/ujs": "6.0.0",
+    "@rails/webpacker": "4.0.7",
     "britecharts": "^2.12.0",
     "d3": "^5.9.2",
     "draggabilly": "^2.2.0",
@@ -14,15 +14,15 @@
     "jquery-bridget": "^2.0.1",
     "jquery-ui": "^1.12.1",
     "lodash": "^4.17.15",
-    "muuri": "^0.7.1",
+    "muuri": "^0.8.0",
     "packery": "^2.1.2",
     "postcss-nested": "4.1.2",
-    "postcss-preset-env": "6.6.0",
+    "postcss-preset-env": "6.7.0",
     "stimulus": "^1.1.1",
     "tailwindcss": "^1.0.4",
     "turbolinks": "5.2.0"
   },
   "devDependencies": {
-    "webpack-dev-server": "2.11.2"
+    "webpack-dev-server": "3.8.1"
   }
 }
