@@ -27,6 +27,9 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+gem 'figaro'
+gem "google-cloud-storage", "~> 1.8", require: false
+
 gem 'uniqueness', '~> 1.1'
 
 # Use Capistrano for deployment
