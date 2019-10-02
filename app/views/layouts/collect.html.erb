@@ -13,7 +13,7 @@
   <% end %>
   <div class="collect">
 
-    <% if @cardtest.status == "published" || preview == true%>
+    <% if @cardtest.status == "published" %>
 
     <div class="dashboard-wrapper">
 
@@ -25,7 +25,7 @@
         <% if @cardtest.logoimg.attached? %>
           <%= image_tag(url_for(@cardtest.logoimg), id: "logo-uploaded", class: "dashboard-nav__logo") %>
         <% else %>
-          <%= image_tag(asset_pack_path("media/images/Userdrive-Logo.png"), size: "125x33", class: "dashboard-nav__logo") %>
+          <%= image_tag(asset_pack_path("images/Userdrive-Logo.png"), size: "125x33", class: "dashboard-nav__logo") %>
         <% end %>
 
         <a href="#" class="submit-result float-right btn btn--primary">Submit</a>
@@ -102,7 +102,7 @@
         <p></p>
       </div>
       <div class="text-center bottom-0 mb-8 absolute block w-full">
-        <p class="text-xs text-gray-500 mb-4">This test was powered by <%= link_to image_tag(asset_pack_path("media/images/Userdrive-Logo.png"), size: "76x20", class: "ml-2 inline"), root_path, class: "text-center" %></p>
+        <p class="text-xs text-gray-500 mb-4">This test was powered by <%= link_to image_tag(asset_pack_path("images/Userdrive-Logo.png"), size: "76x20", class: "ml-2 inline"), root_path, class: "text-center" %></p>
 
 
       </div>

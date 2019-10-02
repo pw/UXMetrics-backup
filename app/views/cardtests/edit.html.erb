@@ -185,9 +185,7 @@
   </div>
 
   <div class="w-1/3 p-4">
-    
-    <% if @cardtest.status == "published" || @cardtest.status == "ended"%>
-
+    <% if !@cardtest.status == "draft" %>
       <div class="py-4 bg-white rounded shadow px-4 my-4">
         <% @results = Result.where(cardtest_id: @cardtest.id) %>
         <% if @results.count > 0 %>
