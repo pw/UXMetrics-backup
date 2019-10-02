@@ -81,8 +81,7 @@ Rails.application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   # active storage config
-  # config.active_storage.service = :local
-  config.active_storage.service = :google
+  config.active_storage.service = :local
 
   # Use a different logger for distributed setups.
   # require 'syslog/logger'

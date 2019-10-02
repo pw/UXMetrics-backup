@@ -1,15 +1,3 @@
 local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
-
-google:
-  service: GCS
-  project: my-project-1537888435309
-  credentials: <%= ENV['GOOGLE_APPLICATION_CREDENTIALS'].as_json %>
-  bucket: ux-card-images
-
-google_dev:
-  service: GCS
-  project: my-project-1537888435309
-  credentials: <%= Rails.root.join("config/secrets/ux-card.json") %>
-  bucket: ux-card-images

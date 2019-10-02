@@ -12,7 +12,7 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
-/config/secrets/*
+
 
 /node_modules
 /yarn-error.log
@@ -39,6 +39,3 @@ dump.rdb
 *.rdb
 *.rdb
 dump.rdb
-
-# Ignore application configuration
-/config/application.yml
