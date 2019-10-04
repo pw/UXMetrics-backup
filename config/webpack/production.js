@@ -22,6 +22,7 @@ const config = {
       }
     ]
   },
+  entry: './frontend/packs/application.js',
   output: {
     filename: '[name].js',
     path: './dist'
