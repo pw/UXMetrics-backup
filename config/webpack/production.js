@@ -22,6 +22,10 @@ const config = {
       }
     ]
   },
+  output: {
+    filename: '[name].js',
+    path: './dist'
+  },
   plugins: [
    new MinifyPlugin()
  ]
