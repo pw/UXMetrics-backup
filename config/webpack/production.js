@@ -22,7 +22,7 @@ const config = {
       }
     ]
   },
-  entry: 'application.js',
+  entry: './src/index.js',
   output: {
 
     filename: '[name].js',
