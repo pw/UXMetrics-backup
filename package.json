@@ -27,6 +27,7 @@
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@babel/preset-env": "^7.6.2",
+    "babel": "^6.23.0",
     "webpack-dev-server": "2.11.2"
   },
   "scripts": {
