@@ -4,7 +4,6 @@
   "dependencies": {
     "@rails/ujs": "6.0.0-beta2",
     "@rails/webpacker": "3.5",
-    "babel-core": "7.0.0-bridge.0",
     "britecharts": "^2.12.0",
     "d3": "^5.9.2",
     "draggabilly": "^2.2.0",
