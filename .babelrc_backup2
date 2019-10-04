@@ -1,13 +1,6 @@
 {
   "presets": [
-    ["env", {
-      "modules": false,
-      "targets": {
-        "browsers": "> 1%",
-        "uglify": false
-      },
-      "useBuiltIns": true
-    }]
+    "@babel/preset-env"
   ],
   "plugins": [
     "syntax-dynamic-import",
