@@ -24,8 +24,9 @@ const config = {
   },
   entry: './frontend/packs/application.js',
   output: {
+
     filename: '[name].js',
-    path: './dist'
+    path: __dirname + "/dist/js"
   },
   plugins: [
    new MinifyPlugin()
