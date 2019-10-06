@@ -10,4 +10,9 @@ module.exports = {
     minimize: true,
     minimizer: [new TerserPlugin()],
   },
+  output: {
+
+   filename: '[name].js',
+   path: __dirname + "/dist/js"
+ }
 };
