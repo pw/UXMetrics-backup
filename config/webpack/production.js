@@ -10,8 +10,8 @@ module.exports = {
     minimize: true,
     minimizer: [new TerserPlugin()],
   },
+  entry: './src/index.js',
   output: {
-
    filename: '[name].js',
    path: __dirname + "/dist/js"
  }
