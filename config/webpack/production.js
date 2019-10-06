@@ -1,6 +1,7 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'production'
 
 const environment = require('./environment')
+var path = require('path');
 
 // module.exports = environment.toWebpackConfig()
 const TerserPlugin = require('terser-webpack-plugin');
@@ -14,7 +15,7 @@ module.exports = {
   },
   entry: './src/index.js',
   output: {
-   filename: '[name].js',
-   path: __dirname + "/dist/js"
- }
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  }
 };
