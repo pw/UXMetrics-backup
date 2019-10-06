@@ -25,9 +25,9 @@ module.exports = function() {
           },
           output: {
             beautify: false,
-          },
-        },
-      }),
-
+          }
+        }
+      })
+    ]
   });
 };
