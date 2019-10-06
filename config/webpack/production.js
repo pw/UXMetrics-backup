@@ -6,15 +6,10 @@ const environment = require('./environment')
 const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
-  module: {
-    optimization: {
-      minimize: true,
-      minimizer: [new TerserPlugin()],
-    }
-  },
-  entry: './src/index.js',
-  output: {
-   filename: '[name].js',
-   path: __dirname + "/dist/js"
- }
+
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
+  }
+
 };
