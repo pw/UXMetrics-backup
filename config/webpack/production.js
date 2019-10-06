@@ -1,33 +1,13 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'production'
 
 const environment = require('./environment')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-
 
 // module.exports = environment.toWebpackConfig()
+const TerserPlugin = require('terser-webpack-plugin');
 
-module.exports = function() {
-  console.log("BUILDING PRODUCTION");
-
-  return webpackMerge(commonConfig(), {
-
-    plugins: [
-
-      new UglifyJsPlugin({
-        test: /\.js($|\?)/i,
-        sourceMap: true,
-        uglifyOptions: {
-          mangle: {
-            keep_fnames: true,
-          },
-          compress: {
-            warnings: false,
-          },
-          output: {
-            beautify: false,
-          }
-        }
-      })
-    ]
-  });
+module.exports = {
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
+  },
 };
