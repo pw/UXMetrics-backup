@@ -41,3 +41,5 @@ dump.rdb
 dump.rdb
 config/secrets/ux-card.json
 *.rdb
+.env
+.env
