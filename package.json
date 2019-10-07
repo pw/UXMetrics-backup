@@ -27,6 +27,7 @@
     "turbolinks": "5.2.0"
   },
   "devDependencies": {
+    "babel-minify-webpack-plugin": "^0.3.1",
     "webpack-dev-server": "3.8.1"
   }
 }
