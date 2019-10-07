@@ -1,21 +1,36 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'production'
 
-const environment = require('./environment')
-var path = require('path');
+const webpack = require('@rails/webpacker');
 
-// module.exports = environment.toWebpackConfig()
-const TerserPlugin = require('terser-webpack-plugin');
+// const environment = require('@rails/webpacker')
+const MinifyPlugin = require('babel-minify-webpack-plugin');
 
-module.exports = {
+const config = {
   module: {
-    optimization: {
-      minimize: true,
-      minimizer: [new TerserPlugin()],
-    }
+    rules: [
+      {
+        test: /\.js$/,
+        use: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
+      }
+    ]
   },
   entry: './src/index.js',
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
-  }
-};
+
+    filename: '[name].js',
+    path: __dirname + "/dist/js"
+  },
+  plugins: [
+   new MinifyPlugin()
+ ]
+}
+
+module.exports = config;
