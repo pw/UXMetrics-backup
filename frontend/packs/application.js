@@ -1,7 +1,7 @@
 /* eslint no-console:0 */
 
 import { Application } from "stimulus"
-require("@rails/ujs").start()
+// require("@rails/ujs").start()
 require("turbolinks").start()
 
 require("../../node_modules/font-awesome/css/font-awesome.css");
