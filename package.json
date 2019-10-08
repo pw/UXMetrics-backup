@@ -3,12 +3,6 @@
   "private": true,
   "scripts": {
     "webpack:deploy": "webpack --config=config/webpack/production.js -p",
-    "heroku-postbuild": "npm run webpack:deploy"
-  },
-  "scripts": {
-      "dev": "webpack --mode development --module-bind js=babel-loader",
-      "build": "webpack --mode production --module-bind js=babel-loader",
-      "heroku-postbuild": "npm run webpack:deploy"
   },
   "dependencies": {
     "@rails/ujs": "^6.0.0",
