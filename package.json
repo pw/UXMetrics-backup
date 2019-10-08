@@ -2,7 +2,7 @@
   "name": "Userdrive",
   "private": true,
   "scripts": {
-    "webpack:deploy": "webpack --config=config/webpack/production.js -p",
+    "webpack:deploy": "webpack --config=config/webpack/production.js -p"
   },
   "dependencies": {
     "@rails/ujs": "^6.0.0",
