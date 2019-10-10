@@ -25,13 +25,10 @@
     <p class="-mt-4 text-xs mb-4">Upload a custom logo for this test</p>
 
 
-
     <% puts "asddsa" %>
     <% puts cardtest.logoimg.attached? %>
 
     <% puts "121321" %>
-
-
 
     <% if cardtest.logoimg.attached? %>
       <% puts "in the if" %>
@@ -50,12 +47,35 @@
   <div class="field">
     <h4>Test introduction</h4>
     <p class="-mt-4 text-xs mb-4">Greet your test respondents with a custom introduction</p>
-    <%= form.text_area :intro, class: "intro-text", required: false %>
+
+    <% if cardtest.intro == "" or !cardtest.intro? %>
+      <%= form.text_area :intro, class: "intro-text", required: false,
+      value: "Thank you for agreeing to help us, it shouldn't take more than 5 minutes!
+
+The left column contains cards that we'd like you to categorize into groups that make sense to you. You can do this by dragging them into the area on the right.
+
+Don't worry, there is no right or wrong answer, just do what makes sense to you." %>
+
+    <% else %>
+      <%= form.text_area :intro, class: "intro-text", required: false %>
+    <% end %>
   </div>
   <div class="field">
     <h4>Thank you message</h4>
     <p class="-mt-4 text-xs mb-4">Custom thank you message to show respondents upon completion</p>
+
+    <% if cardtest.outro == ""  or !cardtest.outro? %>
+
+    <%= form.text_area :outro, class: "outro-text", required: false,
+    value: "Thanks for taking the time to help us.
+
+Your contribution is essential in our journey to deliver improvements." %>
+
+
+  <% else %>
     <%= form.text_area :outro, class: "outro-text", required: false %>
+  <% end %>
+
   </div>
 
 
@@ -127,13 +147,7 @@
         <% end %>
     </div>
 
-
-
-
-
   </div>
-
-
 
 </div>
 <div class="tab-customise hidden">

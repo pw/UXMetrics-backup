@@ -17,6 +17,11 @@ unsaved = false;
 // });
 
 
+$(document).on('change', 'textarea', function() {
+  unsaved = true;
+  console.log("unsaved to true");
+  $(".save-btn").show();
+});
 
 $(document).on('change', 'input', function() {
   unsaved = true;
@@ -39,7 +44,7 @@ $(function() {
 
 
   $(".save-cardtest").click(function(e){
-    
+
   });
 
   $(".continue-btn").click(function(e){

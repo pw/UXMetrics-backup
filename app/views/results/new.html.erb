@@ -14,11 +14,6 @@
             <% if @cardtest.random %>
               <% @cardtest.cards.shuffle.each do |card| %>
 
-
-
-
-
-
                     <div id="<%= card.id %>" class="item bg-white px-3 py-3 shadow m-2 rounded">
                         <div class="hidden drag-handle"><i class="fa fa-arrows"></i></div>
                         <%= content_tag :div, class:"nested-field" do %>
@@ -27,10 +22,6 @@
                             <p><%= card.name %></p>
                             <p class="hidden order"><%= card.order %></p>
                           </div>
-
-
-
-
 
                     <% end %>
                     </div>

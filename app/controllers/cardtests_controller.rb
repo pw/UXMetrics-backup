@@ -40,6 +40,21 @@ class CardtestsController < ApplicationController
   def create
     @cardtest = current_user.cardtests.new(cardtest_params)
     @cardtest.status = "draft"
+
+    if @cardtest.intro == "" or !@cardtest.intro?
+      @cardtest.intro = "Thank you for agreeing to help us, it shouldn't take more than 5 minutes!
+
+The left column contains cards that we'd like you to categorize into groups that make sense to you. You can do this by dragging them into the area on the right.
+
+Don't worry, there is no right or wrong answer, just do what makes sense to you."
+    end
+
+    if @cardtest.outro == "" or !@cardtest.outro?
+      @cardtest.outro = "Thanks for taking the time to help us.
+
+Your contribution is essential in our journey to deliver improvements."
+    end
+
     # name = @cardtest.name
     # puts name
     # slug = to_slug(name)

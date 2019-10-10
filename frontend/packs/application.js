@@ -65,6 +65,8 @@ if ($('#editable-cards').length>0){
     recalculateOrder(itemsContainer);
     itemsContainer.sortable( "refresh" );
 
+
+
   });
 
 
@@ -159,7 +161,9 @@ function createTempColumn(){
 //InitGrid();
 
 
-
+$(".header-nav .coming-soon").click(function(e){
+  e.preventDefault();
+});
 
 
 //Intercept form submit and resubmit with compiled data
@@ -195,6 +199,9 @@ function createTempColumn(){
 
     });
 
+    var unsaved = true;
+    console.log("unsaved to true");
+    $(".save-btn").show();
 
   }
 

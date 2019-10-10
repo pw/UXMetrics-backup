@@ -13,7 +13,7 @@
   <% end %>
   <div class="collect">
 
-    <% if @cardtest.status == "published" %>
+    <% if @cardtest.status == "published" || preview == true %>
 
     <div class="dashboard-wrapper">
 
@@ -41,7 +41,7 @@
               <div class="modal__content">
                 <h3 class="modal__header mb-4">Instructions</h3>
 
-                <p class="mb-4"><%= @cardtest.intro %></p>
+                <p class="mb-4"><%= simple_format(@cardtest.intro) %></p>
 
                 <div class="field mb-0">
                   <a href="#" class="btn btn--primary block text-center" data-action="click->modal#close">Get Started</a>

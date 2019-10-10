@@ -1,10 +1,13 @@
-<div class="mt-16 max-w-4xl mx-auto text-center">
+<div class="mt-16 max-w-xl mx-auto text-center">
   <div class="thanks-icon text-6xl"><i class="fa fa-check" aria-hidden="true"></i></div>
   <h1 class="text-3xl">That's it!</h1>
-  <p><%= @cardtest.outro %></p>
+  <div class="thanks-message mt-8">
+    <p class=""><%= simple_format(@cardtest.outro) %></p>
+  </div>
 </div>
 <div class="text-center bottom-0 mb-8 absolute block w-full">
-  <p class="text-xs text-gray-500 mb-4">This test was powered by <%= link_to image_tag(asset_pack_path("media/images/Userdrive-Logo.png"), size: "76x20", class: "ml-2 inline"), root_path, class: "text-center" %></p>
+
+    <p class="text-xs text-gray-500 mb-4">This test was powered by <%= link_to image_tag(asset_pack_path("media/images/Userdrive-Logo.png"), size: "76x20", class: "ml-2 inline"), root_path, class: "text-center" %></p>
 
 
 </div>

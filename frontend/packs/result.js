@@ -848,9 +848,10 @@ $(document).on('turbolinks:load', function(){
         }
 
       });
-
-      if ($("#new-column").children().length > 1){
-        console.log("still left to sort");
+      // alert($("#new-column .item").length);
+      if ($("#new-column .item").length >= 1){
+        // console.log($("#new-column .item").length);
+        // console.log("still left to sort");
         validation = true;
         err = "notsorted";
       }
@@ -861,7 +862,7 @@ $(document).on('turbolinks:load', function(){
         if (err == "notsorted"){
           $(".validation p").text("Please sort all the cards from the column on the left!");
         } else if (err == "unnamed"){
-          $(".validation p").text("Oh no! Please give a name to your groups, so we can understand your thinking behind the groups. :)");
+          $(".validation p").text("Please name your groups by clicking 'Add a name'. ");
         }
 
 

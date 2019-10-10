@@ -39,6 +39,14 @@
   }
 }
 
+.thanks-message p {
+  @apply mb-4;  
+}
+
+.modal__content p {
+  @apply mb-4;
+}
+
 .modal__header {
   @apply mb-1 pr-4;
   @apply text-xl font-medium leading-tight text-gray-800;

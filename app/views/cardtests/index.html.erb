@@ -19,7 +19,7 @@
 
   <div class="w-2/3 p-4">
     <ul>
-        <% @cardtests.each do |cardtest| %>
+        <% @cardtests.order("created_at desc").each do |cardtest| %>
         <li class="group cardtest py-8 p-6 relative hover:bg-white hover:shadow-lg rounded">
 
           <div class="holder clearfix">
@@ -29,14 +29,13 @@
               <!-- <span><%= link_to cardtest.name, new_cardtest_result_path(cardtest_uid: cardtest.uid) %></span> -->
               <span class="text-gray-400 text-sm block">Created on <%= cardtest.created_at.strftime("%F") %></span>
             </div>
-            <div class="float-right">
+            <div class="float-right mt-3">
                           <% begin %>
 
                             <% if cardtest.status == "draft" %>
                               <span class="pill pill--secondary">Draft</span>
 
                             <% elsif cardtest.status == "published" %>
-
 
                               <span class="pill pill--tertiary">Published</span>
 
@@ -47,13 +46,6 @@
                           <% rescue => ex %>
 
                           <% end %>
-
-
-
-
-
-
-
 
                           <% begin %>
                             <% if cardtest.status == "0"%>
