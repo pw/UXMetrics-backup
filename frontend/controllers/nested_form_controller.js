@@ -17,7 +17,16 @@ export default class extends Controller {
     $('#editable-cards').append(content);
     //$("#target").focus();
     $('#editable-cards .nested-field:last-child input').focus();
+  }
 
+  add_association_t(event){
+    event.preventDefault();
+    console.log("add t");
+    var content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime())
+    //this.linksTarget.insertAdjacentHTML('beforeend', content)
+    $('#editable-cards').append(content);
+    //$("#target").focus();
+    $('#editable-cards .nested-field:last-child input').focus();
   }
 
   remove_association(event){
@@ -45,6 +54,11 @@ export default class extends Controller {
     }
 
 
+  }
+
+  remove_association_t(event){
+    event.preventDefault();
+    console.log("Remove TTTT");
   }
 
 }

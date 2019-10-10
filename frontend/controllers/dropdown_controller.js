@@ -4,11 +4,13 @@ export default class extends Controller {
   static targets = [ "menu", "icon" ]
 
   connect() {
+    console.log("dropdown connect");
     this.toggleClass = this.data.get("class")           || "hidden"
     this.iconToggleClass = this.data.get("toggleClass") || "dropdown__icon--toggled"
   }
 
   toggle() {
+    console.log("toggle");
     this.menuTarget.classList.toggle(this.toggleClass)
 
     if (this.hasIconTarget) {
@@ -26,4 +28,3 @@ export default class extends Controller {
     }
   }
 }
-

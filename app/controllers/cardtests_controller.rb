@@ -60,7 +60,7 @@ class CardtestsController < ApplicationController
   def update
     #@cardtest = Cardtest.find_by(slug: params[:id])
     @cardtest = Cardtest.find_by(uid: params[:uid])
-    @cardtest.status = ActiveModel::Type::Boolean.new.cast(@cardtest.status)
+    # @cardtest.status = ActiveModel::Type::Boolean.new.cast(@cardtest.status)
     if @cardtest.update(cardtest_params)
       # redirect_to cardtests_url, notice: 'Cardtest was successfully updated.'
       redirect_to edit_cardtest_url, notice: 'Cardtest was successfully updated.'

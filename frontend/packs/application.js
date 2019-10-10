@@ -1,17 +1,19 @@
 /* eslint no-console:0 */
 
 import { Application } from "stimulus"
-// require("@rails/ujs").start()
-require("turbolinks").start()
-
-require("../../node_modules/font-awesome/css/font-awesome.css");
-import('jquery-ui/ui/widgets/sortable');
-
 import { definitionsFromContext } from "stimulus/webpack-helpers"
 
 const application = Application.start()
 const context = require.context("controllers", true, /.js$/)
 application.load(definitionsFromContext(context))
+
+require("@rails/ujs").start()
+require("turbolinks").start()
+
+require("../../node_modules/font-awesome/css/font-awesome.css");
+import('jquery-ui/ui/widgets/sortable');
+
+
 
 import "../stylesheets/application.css"
 import "../../node_modules/font-awesome/css/font-awesome.css";
@@ -26,6 +28,9 @@ const sortable = require('jquery-ui/ui/widgets/sortable');
   var $ = require("jquery");
   require("jquery-ui");
 
+
+
+// $(document).on('load', function(){
 $(document).on('turbolinks:load', function(){
 
 
@@ -64,8 +69,9 @@ if ($('#editable-cards').length>0){
 
 
   $(document).on('click', 'a[data-action="click->nested-form#add_association"]', function(e) {
-    console.log("add stimulus and recalc called");
     e.preventDefault;
+    console.log("add stimulus and recalc called");
+
 
     var itemsContainer = $('#editable-cards');
     itemsContainer.sortable( "refresh" );

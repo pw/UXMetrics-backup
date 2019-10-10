@@ -38,7 +38,9 @@ $(document).on('turbolinks:load', function() {
 $(function() {
 
 
-
+  $(".save-cardtest").click(function(e){
+    
+  });
 
   $(".continue-btn").click(function(e){
     e.preventDefault();
