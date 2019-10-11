@@ -45,4 +45,7 @@ Rails.application.routes.draw do
 
   get 'collect/:auth_token', to: 'results#new'
 
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+
 end

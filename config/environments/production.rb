@@ -5,14 +5,15 @@ Rails.application.configure do
   config.active_job.queue_adapter = :sidekiq
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
-  # SMTP settings for mailgun
+  # SMTP settings for sendgrid
   ActionMailer::Base.smtp_settings = {
-    :port           => 465,
-    :address        => "smtp.sendgrid.net",
-    :domain         => ENV['userdrive.co'],
-    :user_name      => ENV['username'],
-    :password       => ENV['password'],
+    :user_name => 'apikey',
+    :password => ENV['password'],
+    :domain => 'yourdomain.com',
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
     :authentication => :plain,
+    :enable_starttls_auto => true
   }
 
 
