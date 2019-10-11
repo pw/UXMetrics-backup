@@ -1,4 +1,22 @@
 Rails.application.configure do
+
+  config.action_mailer.default_url_options = { host: 'ux-card.herokuapp.com/' }
+  config.active_job.queue_name_prefix = "#{Rails.configuration.application_name.parameterize}_#{Rails.env}"
+  config.active_job.queue_adapter = :sidekiq
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.delivery_method = :smtp
+  # SMTP settings for mailgun
+  ActionMailer::Base.smtp_settings = {
+    :port           => 465,
+    :address        => "smtp.sendgrid.net",
+    :domain         => ENV['userdrive.co'],
+    :user_name      => ENV['username'],
+    :password       => ENV['password'],
+    :authentication => :plain,
+  }}
+
+
+
   config.middleware.use Rack::Deflater
   # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = false
