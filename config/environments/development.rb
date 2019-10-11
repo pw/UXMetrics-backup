@@ -9,13 +9,14 @@ Rails.application.configure do
 
   ActionMailer::Base.smtp_settings = {
     :user_name => 'apikey',
-    :password => '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',
-    :domain => 'yourdomain.com',
+    :password => ENV['SENDGRID_API_KEY'],
+    :domain => 'userdrive.co',
     :address => 'smtp.sendgrid.net',
     :port => 587,
-    :authentication => :plain,
-    :enable_starttls_auto => true
+    :authentication => :plain
   }
+
+
 
 
   # Verifies that versions and hashed value of the package contents in the project's package.json
@@ -49,7 +50,7 @@ Rails.application.configure do
   end
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 

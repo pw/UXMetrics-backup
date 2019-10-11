@@ -50,3 +50,4 @@ config/secrets/ux-card.json
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+sendgrid.env

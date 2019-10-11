@@ -9,11 +9,10 @@ Rails.application.configure do
   ActionMailer::Base.smtp_settings = {
     :user_name => 'apikey',
     :password => ENV['password'],
-    :domain => 'yourdomain.com',
+    :domain => 'userdrive.co',
     :address => 'smtp.sendgrid.net',
     :port => 587,
-    :authentication => :plain,
-    :enable_starttls_auto => true
+    :authentication => :plain
   }
 
 
