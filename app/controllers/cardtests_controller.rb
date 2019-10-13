@@ -11,6 +11,8 @@ class CardtestsController < ApplicationController
   # GET /cardtests
   def index
     @cardtests = current_user.cardtests.all
+
+    # CardtestWorker.perform_async(current_user.email)
   end
 
   # GET /cardtests/1
@@ -38,6 +40,11 @@ class CardtestsController < ApplicationController
 
   # POST /cardtests
   def create
+
+    @cardtests = current_user.cardtests.all
+
+
+
     @cardtest = current_user.cardtests.new(cardtest_params)
     @cardtest.status = "draft"
 
@@ -66,6 +73,12 @@ Your contribution is essential in our journey to deliver improvements."
 
     if @cardtest.save
       redirect_to edit_cardtest_path(@cardtest), notice: 'Cardtest was successfully created.'
+
+      if @cardtests.count == 1
+        UserNotifierMailer.send_first_cardtest_email(current_user, @cardtest).deliver_later
+      end
+
+
     else
       render :new
     end
@@ -78,6 +91,7 @@ Your contribution is essential in our journey to deliver improvements."
     # @cardtest.status = ActiveModel::Type::Boolean.new.cast(@cardtest.status)
     if @cardtest.update(cardtest_params)
       # redirect_to cardtests_url, notice: 'Cardtest was successfully updated.'
+
       redirect_to edit_cardtest_url, notice: 'Cardtest was successfully updated.'
       # render :edit
     else

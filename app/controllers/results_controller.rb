@@ -252,6 +252,17 @@ class ResultsController < ApplicationController
     @result = @cardtest.results.new(result_params)
 
     if @result.save
+
+      @results = Result.where(cardtest_id: @cardtest.id)
+      # @cardtests = current_user.cardtests.all
+      puts "RESULT COUNT FOR THIS CARDTEST IS::::"
+      puts @results.count
+      
+      if @results.count == 1
+        UserNotifierMailer.send_first_result_email(current_user, @cardtest).deliver_later
+      end
+
+
       # redirect_to controller: :results, action: "thanks", notice: 'Result was successfully created.'
       puts @cardtest.auth_token
       puts "below:"

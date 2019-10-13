@@ -1,0 +1,9 @@
+<p>Hi <%= @user.name %>! </p>
+
+<p>Congrats, your results are starting to come in for <strong><%= @cardtest.name %></strong>.</p>
+
+<p>You can <a href="<%= cardtest_results_url(cardtest_uid: @cardtest.uid) %>">view all your results in the report</a>.</p>
+
+<p>Thanks,<br/>
+Zsolt<br/>
+- Maker of Userdrive</p>

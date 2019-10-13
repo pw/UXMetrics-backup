@@ -6,6 +6,17 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
   # SMTP settings for sendgrid
+  # ActionMailer::Base.smtp_settings = {
+  #   :user_name => 'apikey',
+  #   :password => ENV['password'],
+  #   :domain => 'userdrive.co',
+  #   :address => 'smtp.sendgrid.net',
+  #   :port => 587,
+  #   :authentication => :plain
+  # }
+
+
+
   ActionMailer::Base.smtp_settings = {
     :user_name => 'apikey',
     :password => ENV['password'],
@@ -15,6 +26,7 @@ Rails.application.configure do
     :authentication => :plain
   }
 
+  # config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
 
 
   config.middleware.use Rack::Deflater
