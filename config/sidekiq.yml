@@ -1,4 +1,4 @@
-:concurrency: 25
+:concurrency: 7
 :logfile: ./log/sidekiq.log
 :timeout: 8
 :queues:
