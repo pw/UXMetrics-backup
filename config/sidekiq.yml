@@ -5,3 +5,4 @@
   - default
   - mailers
   - userdrive_development_mailers
+  - userdrive_production_mailers
