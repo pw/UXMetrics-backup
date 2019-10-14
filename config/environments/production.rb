@@ -1,6 +1,6 @@
 Rails.application.configure do
 
-  config.action_mailer.default_url_options = { host: 'ux-card.herokuapp.com/' }
+  config.action_mailer.default_url_options = { host: 'userdrive.co' }
   config.active_job.queue_name_prefix = "#{Rails.configuration.application_name.parameterize}_#{Rails.env}"
   config.active_job.queue_adapter = :sidekiq
   config.action_mailer.perform_deliveries = true
@@ -66,7 +66,7 @@ Rails.application.configure do
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = 'https://userdrive.co'
+  # config.action_controller.asset_host = 'userdrive.co'
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
@@ -95,6 +95,8 @@ Rails.application.configure do
   config.active_job.queue_name_prefix = "#{Rails.configuration.application_name.parameterize}_#{Rails.env}"
 
   config.action_mailer.perform_caching = false
+
+  config.action_mailer.asset_host = 'https://userdrive.co'
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
