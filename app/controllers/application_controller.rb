@@ -16,4 +16,15 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
     devise_parameter_sanitizer.permit(:account_update, keys: [:name])
   end
+
+
+  def default_url_options
+    if Rails.env.production?
+      Rails.application.routes.default_url_options = { host: "www.userdrive.co", protocol: 'https' }
+    elsif Rails.env.development?
+      Rails.application.routes.default_url_options = { host: 'localhost:5000', protocol: 'http' }
+    end
+  end
+
+
 end
