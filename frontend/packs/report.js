@@ -6,8 +6,36 @@ window.jQuery = $;
 window.$ = $;
 const d3 = require('d3/dist/d3');
 const britecharts = require('britecharts/dist/bundled/britecharts.min');
+
+import {GoogleCharts} from 'google-charts';
+
+
+// require("d3-sankey/dist/d3-sankey.min");
+// import { sankey } from 'd3-sankey';
+
+
+
+//
+
+
+
+// import { scaleLinear } from 'd3-scale';
+// import { min, max } from 'd3-array';
+// import { select } from 'd3-selection';
+// import { sankey } from 'd3-sankey';
+
+
+
+
+// console.log(Sankey);
+
+
 const miniTooltip = require('britecharts/src/charts/mini-tooltip');
 var _ = require('lodash');
+
+
+
+
 
 const footable = require('footable/dist/footable.all.min');
 
@@ -18,6 +46,58 @@ document.addEventListener("turbolinks:load", function() {
 
 console.log("turbolinks:load");
 //console.log(dataCompiled);
+
+
+
+// GoogleCharts.load(drawChart);
+GoogleCharts.load('current', {'packages':['sankey'], 'callback': drawChart});
+
+
+function drawChart() {
+      console.log("sankey");
+       var data = new google.visualization.DataTable();
+       data.addColumn('string', 'From');
+       data.addColumn('string', 'To');
+       data.addColumn('number', 'Weight');
+       data.addColumn({type: 'string', role: 'tooltip', 'p': {'html': true}});
+
+       data.addRows(relationshipData);
+
+       // Sets chart options.
+       var options = {
+         width: 600,
+         height: 300,
+         sankey: {
+           link: {
+             color: {
+
+              fillOpacity: 0.2 // Transparency of the link.
+
+             }
+
+           },
+           node: {label: {
+             fontName: 'Heebo',
+             fontSize: 14
+           }}
+         },
+         tooltip: { isHtml: true }
+       };
+
+       // Instantiates and draws our chart, passing in some options.
+       var chart = new google.visualization.Sankey(document.getElementById('sankey'));
+       chart.draw(data, options);
+     }
+
+// var sankey_chart =
+// var chart = d3.select("#chart").append("svg").chart("Sankey");
+
+
+// var chart = d3.select("#sankey").append("svg").chart("Sankey");
+
+// var sankey = d3.sankey();
+
+// chart.draw(relationshipData);
 
 var element = '<a href="">See more (<span></span>)</a>';
 

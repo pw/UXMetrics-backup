@@ -89,7 +89,7 @@
     <a href="" class="font-semibold active mr-3">View cards</a>
     <a href="" class="font-semibold ml-3">View groups</a>
   </div>
-  
+
   <table data-page-size="5000" data-paging="false" class="table text-sm cards-table">
     <thead class="uppercase text-gray-900 text-xs leading-tight font-medium">
       <tr>
@@ -216,9 +216,28 @@
       </tr>
     </thead>
     <tbody>
+      <%# Create json data for relationship graph %>
+
+
+      <% @linksList = Array.new %>
+
+
+
+
       <% @titleslist.each do |title| %>
+      <%# <% @titlesList.each_with_index do |title, index| %>
           <tr>
             <td><%= title[:title] %></td>
+
+
+
+
+
+
+
+
+
+
             <td data-sort-value="<%= title[:createdby] %>">
               <% if title[:createdby] > 1%>
                 <%= title[:createdby] %> respondents
@@ -230,6 +249,12 @@
               <ul>
 
               <% title[:cards].each do |card| %>
+
+                <%# add cards to nodesList%>
+                <%# <% @nodesList.push({:name => @cardtest.cards.find(card[0]).name}) %>
+                <% @linksList.push([title[:title], @cardtest.cards.find(card[0]).name, card[1], "<div class='p-2'><strong>"+@cardtest.cards.find(card[0]).name+"</strong>" + " grouped into <strong>"+title[:title]+"</strong><br/><br/> <strong>"+ card[1].to_s + "</strong> time(s)</div>" ]) %>
+                <%# <% @linksList.push({:source => groupIndex, :target => i, :value => card[1]}) %>
+
                 <li><%= @cardtest.cards.find(card[0]).name %></li>
               <% end %>
             </ul>
@@ -251,8 +276,23 @@
 
 
           </tr>
+
+
+
       <% end %>
     </tbody>
   </table>
 
+  <%
+
+
+  %>
+
+
+  <%= javascript_tag do %>
+    window.relationshipData = <%= raw @linksList %>;
+  <% end %>
+
+  <div id="sankey">
+  </div>
 </div>
