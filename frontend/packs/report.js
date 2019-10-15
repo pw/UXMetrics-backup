@@ -54,6 +54,7 @@ GoogleCharts.load('current', {'packages':['sankey'], 'callback': drawChart});
 
 
 function drawChart() {
+      drawBasic();
       console.log("sankey");
        var data = new google.visualization.DataTable();
        data.addColumn('string', 'From');
@@ -65,15 +66,16 @@ function drawChart() {
 
        // Sets chart options.
        var options = {
-         width: 600,
+
          height: 300,
          sankey: {
            link: {
              color: {
-
+               
               fillOpacity: 0.2 // Transparency of the link.
 
-             }
+            },
+            colorMode: 'none'
 
            },
            node: {label: {
@@ -201,10 +203,52 @@ for (const [count, resultString] of entries) {
 
 }
 
+
+GoogleCharts.load('current', {packages: ['corechart', 'bar']});
+
+
+
+function drawBasic() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Groups bucket');
+      data.addColumn('number', 'Number of people created');
+      console.log(barData);
+
+      data.addRows(barData);
+
+      var options = {
+        hAxis: {
+          gridlines: {
+            count: 0
+          },
+          minorGridlines: {
+            count: 0
+          },
+          ticks: [5,10,15,20]
+        },
+        vAxis: {
+          title: 'Number of people'
+        },
+        bar: {groupWidth: "55%"},
+        legend: { position: "none"},
+        fontName: 'Heebo',
+        fontSize: 14,
+        height: 300,
+        backgroundColor: "#f7fafc",
+        chartArea: {left:50,top:50,width:'85%',height:'75%'}
+      };
+
+      var chart = new google.visualization.ColumnChart(
+        document.getElementById('bar-container'));
+
+      chart.draw(data, options);
+    }
+
 // console.log(result.groups);
 
-  const container = d3.select('.bar-container');
-  const barChart = britecharts.bar();
+  // const container = d3.select('.bar-container');
+  // const barChart = britecharts.bar();
 
 
   // const barData = [
@@ -236,7 +280,14 @@ for (i=1; i <= mostGroups; i++) {
   var count = groupsPerResult.filter(j => j === i).length;
   // console.log("Index: "+i);
   // console.log("Count: "+count);
-  barData.push({"name": i, "value": count});
+
+  if (i == 1){
+    barData.push([i+" group",count]);
+  } else {
+    barData.push([i+" groups",count]);
+  }
+
+
   totalResults = totalResults+count;
 }
 
@@ -250,7 +301,7 @@ for (i=0; i < barData.length; i++) {
 
   var percent = 100*barData[i].value / totalResults;
   var percentRounded =  Math.round( percent * 10 ) / 1000;
-  barDataPercent.push({"name":i+1, "value":percentRounded})
+  barDataPercent.push([i+1, percentRounded])
 
 }
 
@@ -259,44 +310,45 @@ for (i=0; i < barData.length; i++) {
 
 
 
-var tooltip = miniTooltip();
+// var tooltip = miniTooltip();
+//
+//   barChart
+//       .margin({left: 30})
+//       .percentageAxisToMaxRatio(1.5)
+//       .height(400)
+//       .width(500)
+//       .isAnimated(true)
+//       .on('customMouseOver', tooltip.show)
+//       .on('customMouseMove', tooltip.update)
+//       .on('customMouseOut', tooltip.hide)
+//       .xAxisLabel("Number of groups created")
+//       .xAxisLabelOffset(35);
+//
+//   container.datum(barDataPercent).call(barChart);
+//
+//   tooltip.numberFormat('.1%');
+//
+//   var tooltipContainer = d3.select('.bar-chart .metadata-group');
+//   tooltipContainer.datum([]).call(tooltip);
+//
+//
+//   const redrawChart = () => {
+//       const newContainerWidth = container.node() ? container.node().getBoundingClientRect().width : false;
+//
+//       // Setting the new width on the chart
+//       barChart.width(newContainerWidth);
+//
+//       // Rendering the chart again
+//       container.call(barChart);
+//   };
+//   redrawChart();
+//   const throttledRedraw = _.throttle(redrawChart, 200);
+//
+//
+//
+//
+//   window.addEventListener("resize", throttledRedraw);
 
-  barChart
-      .margin({left: 30})
-      .percentageAxisToMaxRatio(1.5)
-      .height(400)
-      .width(500)
-      .isAnimated(true)
-      .on('customMouseOver', tooltip.show)
-      .on('customMouseMove', tooltip.update)
-      .on('customMouseOut', tooltip.hide)
-      .xAxisLabel("Number of groups created")
-      .xAxisLabelOffset(35);
-
-  container.datum(barDataPercent).call(barChart);
-
-  tooltip.numberFormat('.1%');
-
-  var tooltipContainer = d3.select('.bar-chart .metadata-group');
-  tooltipContainer.datum([]).call(tooltip);
-
-
-  const redrawChart = () => {
-      const newContainerWidth = container.node() ? container.node().getBoundingClientRect().width : false;
-
-      // Setting the new width on the chart
-      barChart.width(newContainerWidth);
-
-      // Rendering the chart again
-      container.call(barChart);
-  };
-  redrawChart();
-  const throttledRedraw = _.throttle(redrawChart, 200);
-
-
-
-
-  window.addEventListener("resize", throttledRedraw);
 
 //
 
@@ -324,5 +376,10 @@ var tooltip = miniTooltip();
     }
 
   });
+
+  $(window).resize(function(){
+    drawChart();
+  });
+
 
 });
