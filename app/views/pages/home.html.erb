@@ -1,42 +1,49 @@
 <%= content_for :body_class, "bg-gray-800" %>
 
 <div class="hero">
-  <div class="container hero__content">
+  <div class="container hero__content banner">
     <h1 class="hero__heading">
-      Find out how people organize your content.
+      Improve user experience by understanding how users think about your content.
     </h1>
     <h2 class="hero__subheading">
       Use card sorting to gain insight into your user's mental models.
     </h2>
 
-    <div class="mt-8">
-      <%= link_to "Try the Beta", new_user_registration_path, class: "nav__item btn btn--primary" %>
+    <div class="mt-8 text-center m-auto sm:w-5/6 w-full md:w-3/6 ">
+      <div class="fields-inline">
+        <div class="field w-2/3 mb-1">
+          <input type="text" id="email" class="input rounded-r-none w-full" style="padding-top:0.6rem !important;" placeholder="Your email address"/>
+        </div>
+        <div class="field w-1/3 mb-1">
+          <%= link_to "Sign up", new_user_registration_path, class: "btn btn--primary rounded-l-none w-full", id:"homepage-signup"%>
+        </div>
+      </div>
       <%# link_to "Start Free Trial", new_user_registration_path, class: "btn btn--primary-outline mr-4" %>
-      <span class="block ml-2 text-xs text-gray-600 mt-2">No credit card &middot; Try for 60 days</span>
+      <p class="block ml-2 text-sm text-gray-200 mt-2">No credit card <span class="px-1">&bull;</span> Free early access</p>
     </div>
   </div>
 
-  <div class="hero__image"></div>
+  <!-- <div class="hero__image"></div> -->
 </div>
 
 <div class="bg-gray-200">
   <div class="container max-w-5xl mx-auto flex flex-wrap px-4">
     <div class="w-full sm:w-1/3 pr-8 py-16 sm:py-16">
       <span class="flex items-center justify-center w-12 h-12 mb-4 text-2xl font-bold text-white bg-blue-500 rounded-full">1</span>
-      <h2 class="mb-2 text-2xl font-semibold">Create your test</h2>
-      <p class="text-lg text-gray-700">Add topics that you want people to categorize.</p>
+      <h2 class="mb-2 text-2xl font-semibold">Create cardtest</h2>
+      <p class="text-lg text-gray-700">Add topics that you want people to categorize and label. These can be key pieces of content, navigation elements or product categories.</p>
     </div>
 
     <div class="w-full sm:w-1/3 pr-8 py-16 sm:py-16">
       <span class="flex items-center justify-center w-12 h-12 mb-4 text-2xl font-bold text-white bg-purple-500 rounded-full">2</span>
       <h2 class="mb-2 text-2xl font-semibold">Share your test</h2>
-      <p class="text-lg text-gray-700">Distribute your test with a shareable link.</p>
+      <p class="text-lg text-gray-700">Invite your users to complete the test by sending out a shareable link. Ideally you want at least 15 responses to notice correlations.</p>
     </div>
 
     <div class="w-full sm:w-1/3 py-8 sm:py-16">
       <span class="flex items-center justify-center w-12 h-12 mb-4 text-2xl font-bold text-white bg-indigo-500 rounded-full">3</span>
-      <h2 class="mb-2 text-2xl font-semibold">Gain insight</h2>
-      <p class="text-lg text-gray-700">Analyse test results using our report to gain insight.</p>
+      <h2 class="mb-2 text-2xl font-semibold">Discover patterns</h2>
+      <p class="text-lg text-gray-700">Analyse your results using our report, pick up patterns on how users group and label your cards.</p>
     </div>
   </div>
 </div>
@@ -44,45 +51,75 @@
 <div class="bg-gray-800" style="background: radial-gradient(1270.42px at 0% 0%, #212A38 0%, #2D3748 100%);">
   <div class="container max-w-5xl mx-auto px-4 py-8 sm:py-32">
     <p class="mb-2 text-sm font-medium uppercase tracking-wider text-blue-400">What does <%= Rails.configuration.application_name %> do?</p>
-    <h3 class="mb-8 text-4xl leading-tight font-semibold text-gray-100">Getting better at understanding humans</h3>
+    <h3 class="mb-12 text-4xl leading-tight font-semibold text-gray-100">Getting better at understanding humans</h3>
 
-    <div class="tabs-wrapper" data-controller="tabs" data-tabs-active-tab="tab--active-dark">
-      <div class="tabs">
-        <div class="tab tab--dark" data-target="tabs.tab" data-action="click->tabs#change">
-          <h5 class="tab__heading tab__heading--dark">
-            Together
-            <%= embedded_svg("chevron-right.svg", class: "tab__icon") %>
-          </h5>
-        </div>
-        <div class="tab tab--dark" data-target="tabs.tab" data-action="click->tabs#change">
-          <h5 class="tab__heading tab__heading--dark">
-            Moving forward
-            <%= embedded_svg("chevron-right.svg", class: "tab__icon") %>
-          </h5>
-        </div>
-        <div class="tab tab--dark" data-target="tabs.tab" data-action="click->tabs#change">
-          <h5 class="tab__heading tab__heading--dark">
-            Instant insights
-            <%= embedded_svg("chevron-right.svg", class: "tab__icon") %>
-          </h5>
-        </div>
-      </div>
+    <div class="columns flex flex-wrap mb-6 mt-24">
 
-      <div class="panel panel--dark" data-target="tabs.panel">
+      <div class="w-full md:w-1/2">
+
         <h4 class="panel__heading panel__heading--dark">Together</h4>
-        <p class="panel__content">Keffiyeh locavore street art chartreuse fam pop-up. Etsy brooklyn jianbing cardigan. Intelligentsia cray marfa normcore. Retro truffaut everyday carry letterpress marfa street art narwhal hoodie 90's adaptogen portland wayfarers messenger bag scenester. Flexitarian waistcoat sriracha raclette taiyaki austin banh mi messenger bag. Jean shorts bushwick banjo tilde twee locavore small batch organic. Truffaut cornhole godard cred mixtape hashtag brooklyn direct trade farm-to-table.</p>
+        <p class="panel__content">Keffiyeh locavore street art chartreuse fam pop-up. Etsy brooklyn jianbing cardigan. Intelligentsia cray marfa normcore.</p>
+
+      </div>
+      <div class="w-full md:w-1/2 px-12">
+        <%= image_tag(asset_pack_path("media/images/Create Test.png")) %>
       </div>
 
-      <div class="panel panel--dark" data-target="tabs.panel">
-        <h4 class="panel__heading panel__heading--dark">Moving forward</h4>
-        <p class="panel__content">Yr messenger bag snackwave, thundercats woke fingerstache poke adaptogen man braid air plant post-ironic semiotics seitan flexitarian street art. Next level taiyaki direct trade kitsch palo santo listicle artisan gastropub pug taxidermy plaid cloud bread 90's bitters drinking vinegar. Lomo shaman brunch microdosing ethical, kitsch affogato vegan asymmetrical try-hard activated charcoal tilde mixtape pitchfork wayfarers. Try-hard stumptown vape you probably haven't heard of them artisan everyday carry.</p>
-      </div>
-
-      <div class="panel panel--dark" data-target="tabs.panel">
-        <h4 class="panel__heading panel__heading--dark">Instant insights</h4>
-        <p class="panel__content">Humblebrag salvia kogi yr, ethical organic man bun copper mug cronut. Green juice keytar raw denim deep v irony pour-over godard heirloom bitters hella blog. Tumeric food truck helvetica chambray vape umami actually health goth letterpress knausgaard. 8-bit selvage retro, YOLO messenger bag mustache fingerstache food truck. Food truck authentic tumeric whatever hammock flexitarian shaman godard truffaut mumblecore sartorial knausgaard fixie normcore. Succulents kitsch stumptown, migas meggings aesthetic fingerstache four dollar toast chambray yuccie man bun palo santo lomo. Etsy hoodie poke, cold-pressed drinking vinegar pug heirloom sustainable.</p>
-      </div>
     </div>
+    <div class="columns flex flex-wrap mb-6 mt-24">
+
+      <div class="w-full md:w-3/4 px-12">
+        <%= image_tag(asset_pack_path("media/images/Test.png")) %>
+      </div>
+      <div class="w-full md:w-1/4">
+
+        <h4 class="panel__heading panel__heading--dark">Together</h4>
+        <p class="panel__content">Keffiyeh locavore street art chartreuse fam pop-up. Etsy brooklyn jianbing cardigan. Intelligentsia cray marfa normcore.</p>
+
+      </div>
+
+
+    </div>
+    <div class="columns flex flex-wrap mb-6 mt-24">
+
+      <div class="w-full md:w-1/4">
+
+        <h4 class="panel__heading panel__heading--dark">Together</h4>
+        <p class="panel__content">Keffiyeh locavore street art chartreuse fam pop-up. Etsy brooklyn jianbing cardigan. Intelligentsia cray marfa normcore.</p>
+
+      </div>
+      <div class="w-full md:w-3/4 px-12">
+        <%= image_tag(asset_pack_path("media/images/Report Overview.png")) %>
+      </div>
+
+    </div>
+    <div class="columns flex flex-wrap mb-6 mt-24">
+
+      <div class="w-full md:w-1/4">
+
+        <h4 class="panel__heading panel__heading--dark">Together</h4>
+        <p class="panel__content">Keffiyeh locavore street art chartreuse fam pop-up. Etsy brooklyn jianbing cardigan. Intelligentsia cray marfa normcore.</p>
+
+      </div>
+      <div class="w-full md:w-3/4 px-12">
+        <%= image_tag(asset_pack_path("media/images/Report Table.png")) %>
+      </div>
+
+    </div>
+    <div class="columns flex flex-wrap mb-6 mt-24">
+
+      <div class="w-full md:w-1/2">
+
+        <h4 class="panel__heading panel__heading--dark">Together</h4>
+        <p class="panel__content">Keffiyeh locavore street art chartreuse fam pop-up. Etsy brooklyn jianbing cardigan. Intelligentsia cray marfa normcore.</p>
+
+      </div>
+      <div class="w-full md:w-1/2 px-12">
+        <%= image_tag(asset_pack_path("media/images/Report Sankey.png")) %>
+      </div>
+
+    </div>
+
   </div>
 </div>
 

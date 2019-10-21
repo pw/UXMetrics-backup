@@ -67,11 +67,11 @@ function drawChart() {
        // Sets chart options.
        var options = {
 
-         height: 300,
+         height: 600,
          sankey: {
            link: {
              color: {
-               
+
               fillOpacity: 0.2 // Transparency of the link.
 
             },

@@ -166,6 +166,14 @@ $(".header-nav .coming-soon").click(function(e){
 });
 
 
+if ($("#homepage-signup")){
+  $("#homepage-signup").click(function(e){
+    e.preventDefault();
+    Turbolinks.visit($(this).attr('href')+"?"+$("#email").val())
+  });
+}
+
+
 //Intercept form submit and resubmit with compiled data
 
 

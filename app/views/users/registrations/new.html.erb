@@ -14,7 +14,11 @@
 
     <div class="field">
       <%= f.label :email %>
-      <%= f.email_field :email, placeholder: "Your email", autocomplete: "email", class: "input" %>
+      <% if request.original_url.split("?")[1].present? %>
+        <%= f.email_field :email, placeholder: "Your email", autocomplete: "email", class: "input", value:request.original_url.split("?")[1] %>
+      <% else %>
+        <%= f.email_field :email, placeholder: "Your email", autocomplete: "email", class: "input" %>
+      <% end %>
     </div>
 
     <div class="field">
@@ -22,7 +26,7 @@
       <%= f.password_field :password, placeholder: "•••••••••••••", autocomplete: "new-password", class: "input" %>
     </div>
 
-    
+
 
     <div class="actions">
       <%= f.submit "Create an account", class: "btn btn--primary" %>
@@ -31,4 +35,3 @@
 
   <%= render "users/shared/links" %>
 </div>
-

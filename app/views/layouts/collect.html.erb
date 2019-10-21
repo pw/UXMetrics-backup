@@ -23,14 +23,14 @@
         <%# Example usage here: search, secondary navigation items, etc.  Do not forget to change the `justify-end` in `.dashboard-nav-secondary`. %>
         <%# link_to Rails.configuration.application_name, root_path, class: "dashboard-nav__logo" %>
         <% if @cardtest.logoimg.attached? %>
-          <%= image_tag(url_for(@cardtest.logoimg), id: "logo-uploaded", class: "dashboard-nav__logo") %>
+          <%= image_tag(url_for(@cardtest.logoimg), id: "logo--uploaded", class: "dashboard-nav__logo", style: 'max-height:40px !important; width:auto; display:table-cell; vertical-align:middle;') %>
         <% else %>
           <%= image_tag(asset_pack_path("media/images/Userdrive-Logo.png"), size: "125x33", class: "dashboard-nav__logo") %>
         <% end %>
 
         <a href="#" class="submit-result float-right btn btn--primary">Submit</a>
         <div data-controller="modal"  data-action="keydown@window->modal#closeWithKeyboard">
-        <a href="#" data-action="click->modal#open" class="mr-3 float-right btn btn--primary-outline">View Instructions</a>
+        <a href="#" data-action="click->modal#open" class="mr-3 float-right btn btn--secondary">View Instructions</a>
         <div data-target="modal.container" class="">
           <div data-target="modal.background" data-action="click->modal#closeBackground" class="modal-wrapper">
             <div class="modal">
