@@ -1,5 +1,5 @@
 class UserNotifierMailer < ApplicationMailer
-  default :from => 'Userdrive <info@userdrive.co>'
+  default :from => 'Userdrive <zsolt@userdrive.co>'
 
   layout 'mailer'
   # send a signup email to the user, pass in the user object that   contains the user's email address
