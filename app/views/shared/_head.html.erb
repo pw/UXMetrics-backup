@@ -1,3 +1,13 @@
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23516247-19"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23516247-19');
+</script>
+
 <title><%= content_for?(:page_title)? yield(:page_title) : "#{Rails.configuration.application_name}" %></title>
 <meta name="description" content="<%= content_for?(:page_description)? yield(:page_description) : "UX card descr" %>" />
 
