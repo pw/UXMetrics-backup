@@ -26,8 +26,8 @@
   <!-- <div class="hero__image"></div> -->
 </div>
 
-<div class="bg-gray-200">
-  <div class="container max-w-5xl mx-auto flex flex-wrap px-4">
+<div class="bg-white">
+  <div class="container max-w-5xl mx-auto flex flex-wrap px-8">
     <div class="w-full sm:w-1/3 pr-8 py-16 sm:py-16">
       <span class="flex items-center justify-center w-12 h-12 mb-4 text-2xl font-bold text-white bg-blue-500 rounded-full">1</span>
       <h2 class="mb-2 text-2xl font-semibold">Create cardtest</h2>
@@ -49,9 +49,10 @@
 </div>
 
 <div class="bg-gray-800" style="background: radial-gradient(1270.42px at 0% 0%, #212A38 0%, #2D3748 100%);">
-  <div class="container max-w-5xl mx-auto px-4 py-8 sm:py-32">
+  <div class="container max-w-5xl mx-auto px-8 py-8 sm:py-32">
     <p class="mb-2 text-sm font-medium uppercase tracking-wider text-blue-400 text-center">What does <%= Rails.configuration.application_name %> do?</p>
-    <h3 class="mb-12 text-4xl leading-tight font-semibold text-gray-100 text-center">Getting better at understanding humans</h3>
+    <!-- <h3 class="mb-12 text-4xl leading-tight font-semibold text-gray-100 text-center">Getting better at understanding humans</h3> -->
+    <h3 class="mb-12 text-4xl leading-tight font-semibold text-gray-100 text-center">Userdrive let's you run card sorting tests<span class="hidden" style="color:#27C366">*</span><br/> and analyze results</h3>
 
     <!-- <div class="columns flex flex-wrap mb-6 mt-24">
 
@@ -68,7 +69,7 @@
     </div> -->
     <div class="columns flex flex-wrap mb-6 mt-24 items-center">
 
-      <div class="w-full md:w-1/4">
+      <div class="w-full md:w-1/4 pb-8">
 
         <h4 class="panel__heading panel__heading--dark">Groups and labels</h4>
         <p class="panel__content">Participants group your content or topics and label the groups.</p>
@@ -83,10 +84,16 @@
     </div>
     <div class="columns flex flex-wrap mb-6 mt-24 items-center">
 
-      <div class="w-full md:w-3/4 md:px-24">
-        <%= image_tag(asset_pack_path("media/images/Report Overview.png")) %>
+      <div class="w-full md:hidden pb-8">
+
+        <h4 class="panel__heading panel__heading--dark">Results summary</h4>
+        <p class="panel__content">Find out how many logical buckets your content can be grouped in and how difficult the task is.</p>
+
       </div>
-      <div class="w-full md:w-1/4">
+      <div class="w-full md:w-3/4 md:px-24">
+        <%= image_tag(asset_pack_path("media/images/Report Overview.png"), class:"md:mt-8") %>
+      </div>
+      <div class="w-full hidden md:w-1/4 md:block">
 
         <h4 class="panel__heading panel__heading--dark">Results summary</h4>
         <p class="panel__content">Find out how many logical buckets your content can be grouped in and how difficult the task is.</p>
@@ -99,7 +106,7 @@
     </div>
     <div class="columns flex flex-wrap mb-6 mt-24 items-center">
 
-      <div class="w-full md:w-1/4">
+      <div class="w-full md:w-1/4 pb-8">
 
         <h4 class="panel__heading panel__heading--dark">Detailed data</h4>
         <p class="panel__content">All the grouping data with agreement score to help you identify patterns in mental models.</p>
@@ -112,10 +119,16 @@
     </div>
     <div class="columns flex flex-wrap mb-6 mt-24 items-center">
 
+      <div class="w-full md:hidden pb-8">
+
+        <h4 class="panel__heading panel__heading--dark">Visual connections</h4>
+        <p class="panel__content">Easily identify the most common groups and connections made.</p>
+
+      </div>
       <div class="w-full md:w-3/4 md:px-32">
         <%= image_tag(asset_pack_path("media/images/Report Sankey.png")) %>
       </div>
-      <div class="w-full md:w-1/4">
+      <div class="w-full hidden md:w-1/4 md:block">
 
         <h4 class="panel__heading panel__heading--dark">Visual connections</h4>
         <p class="panel__content">Easily identify the most common groups and connections made.</p>
@@ -130,8 +143,14 @@
   </div>
 </div>
 
+<div class="bg-white">
+  <div class="container max-w-5xl mx-auto px-8 py-8 sm:py-32">
+    <p class="mb-2 text-sm font-medium uppercase tracking-wider text-blue-500">The mission</p>
+    <h3 class="text-4xl leading-tight font-medium">Good UX is not rocket science, we just need the right tools.</h3>
+  </div>
+</div>
 <div class="hidden bg-white">
-  <div class="container max-w-5xl mx-auto px-4 py-8 sm:py-32">
+  <div class="container max-w-5xl mx-auto px-8 py-8 sm:py-32">
     <p class="mb-2 text-sm font-medium uppercase tracking-wider text-blue-500">1,234 customers (and counting) can't be wrong</p>
     <h3 class="text-4xl leading-tight font-medium">People <span class="text-red-400">♥</span> <%= Rails.configuration.application_name %></h3>
 
@@ -182,9 +201,9 @@
 </div>
 
 <div class="bg-blue-800" style="background: radial-gradient(1270.42px at 0% 0%, #14355F 0%, #2C5282 100%)">
-  <div class="container max-w-5xl mx-auto px-4 text-center py-8 sm:py-32">
+  <div class="container max-w-5xl mx-auto px-8 text-center py-8 sm:py-32">
     <h3 class="mb-2 text-4xl leading-tight font-medium text-blue-100">Ready for more human understanding?</h3>
-    <p class="text-lg text-blue-200">Start your your free 14-day trial today.</p>
+    <p class="text-lg text-blue-200">Try for free during early access.</p>
     <div class="mt-8">
       <%= link_to "Sign up", new_user_registration_path, class: "nav__item btn btn--primary" %>
       <%# link_to "Start Free Trial", new_user_registration_path, class: "btn btn--primary-outline mr-4" %>

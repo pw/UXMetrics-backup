@@ -5,7 +5,7 @@
       <p class="mt-2 text-xs text-gray-400">© <%= Time.zone.now.strftime("%Y") %></p>
     </div>
 
-    <ul class="footer__items">
+    <ul class="footer__items hidden">
       <%= tag.h6 "Company", class: "footer__item footer__heading" %>
 
       <li class="footer__item">
@@ -21,8 +21,35 @@
         <%= link_to "Vision", "#", class: "footer__link" %>
       </li>
     </ul>
-
     <ul class="footer__items">
+      <%= tag.h6 "Support", class: "footer__item footer__heading" %>
+
+      <li class="footer__item">
+        <%# <%= link_to "Contact", contact_path, class: "footer__link" %>
+        <a href="mailto:info@userdrive.co">info@userdrive.co</a>
+      </li>
+      <li class="footer__item">
+
+      </li>
+      <li class="footer__item">
+        <%= link_to "Terms", terms_path, class: "footer__link" %> and
+        <%= link_to "privacy", privacy_path, class: "footer__link" %>
+      </li>
+    </ul>
+    <ul class="footer__items">
+      <%= tag.h6 "Follow", class: "footer__item footer__heading" %>
+
+      <li class="footer__item">
+        <%# <%= link_to "Contact", contact_path, class: "footer__link" %>
+        <a href="https://twitter.com/userdrive" target="_blank">@userdrive</a>
+      </li>
+
+    </ul>
+
+    <div class="footer__items">
+      Created by <a href="https://twitter.com/kaolti" target="_blank">@kaolti</a>
+    </div>
+    <ul class="footer__items hidden">
       <%= tag.h6 "Features", class: "footer__item footer__heading" %>
 
       <li class="footer__item">
@@ -36,20 +63,6 @@
       </li>
     </ul>
 
-    <ul class="footer__items">
-      <%= tag.h6 "Support", class: "footer__item footer__heading" %>
 
-      <li class="footer__item">
-        <%= link_to "Contact", contact_path, class: "footer__link" %>
-      </li>
-      <li class="footer__item">
-        <%= link_to "Helpdesk", "#", class: "footer__link" %>
-      </li>
-      <li class="footer__item">
-        <%= link_to "Terms", terms_path, class: "footer__link" %> and
-        <%= link_to "privacy", privacy_path, class: "footer__link" %>
-      </li>
-    </ul>
   </div>
 </footer>
-
