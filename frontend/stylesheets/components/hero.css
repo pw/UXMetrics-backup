@@ -1,6 +1,7 @@
 .hero {
   @apply relative;
   /* background: radial-gradient(1270.42px at 0% 0%, #f7fafc 0%, #ffffff 100%); */
+  background: radial-gradient(1270.42px at 0% 0%, #14355F 0%, #2C5282 100%);
 }
 
 .hero__content {

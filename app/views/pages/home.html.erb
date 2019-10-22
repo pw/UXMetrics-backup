@@ -19,7 +19,7 @@
         </div>
       </div>
       <%# link_to "Start Free Trial", new_user_registration_path, class: "btn btn--primary-outline mr-4" %>
-      <p class="block ml-2 text-sm text-gray-200 mt-2">No credit card <span class="px-1">&bull;</span> Free early access</p>
+      <p class="block ml-2 text-sm text-gray-200 mt-2">Free early access <span class="px-1">&bull;</span> No credit card</p>
     </div>
   </div>
 
@@ -50,10 +50,10 @@
 
 <div class="bg-gray-800" style="background: radial-gradient(1270.42px at 0% 0%, #212A38 0%, #2D3748 100%);">
   <div class="container max-w-5xl mx-auto px-4 py-8 sm:py-32">
-    <p class="mb-2 text-sm font-medium uppercase tracking-wider text-blue-400">What does <%= Rails.configuration.application_name %> do?</p>
-    <h3 class="mb-12 text-4xl leading-tight font-semibold text-gray-100">Getting better at understanding humans</h3>
+    <p class="mb-2 text-sm font-medium uppercase tracking-wider text-blue-400 text-center">What does <%= Rails.configuration.application_name %> do?</p>
+    <h3 class="mb-12 text-4xl leading-tight font-semibold text-gray-100 text-center">Getting better at understanding humans</h3>
 
-    <div class="columns flex flex-wrap mb-6 mt-24">
+    <!-- <div class="columns flex flex-wrap mb-6 mt-24">
 
       <div class="w-full md:w-1/2">
 
@@ -65,58 +65,65 @@
         <%= image_tag(asset_pack_path("media/images/Create Test.png")) %>
       </div>
 
-    </div>
-    <div class="columns flex flex-wrap mb-6 mt-24">
+    </div> -->
+    <div class="columns flex flex-wrap mb-6 mt-24 items-center">
 
-      <div class="w-full md:w-3/4 px-12">
+      <div class="w-full md:w-1/4">
+
+        <h4 class="panel__heading panel__heading--dark">Groups and labels</h4>
+        <p class="panel__content">Participants group your content or topics and label the groups.</p>
+
+      </div>
+
+      <div class="w-full md:w-3/4 md:px-24">
         <%= image_tag(asset_pack_path("media/images/Test.png")) %>
       </div>
-      <div class="w-full md:w-1/4">
-
-        <h4 class="panel__heading panel__heading--dark">Together</h4>
-        <p class="panel__content">Keffiyeh locavore street art chartreuse fam pop-up. Etsy brooklyn jianbing cardigan. Intelligentsia cray marfa normcore.</p>
-
-      </div>
 
 
     </div>
-    <div class="columns flex flex-wrap mb-6 mt-24">
+    <div class="columns flex flex-wrap mb-6 mt-24 items-center">
 
-      <div class="w-full md:w-1/4">
-
-        <h4 class="panel__heading panel__heading--dark">Together</h4>
-        <p class="panel__content">Keffiyeh locavore street art chartreuse fam pop-up. Etsy brooklyn jianbing cardigan. Intelligentsia cray marfa normcore.</p>
-
-      </div>
-      <div class="w-full md:w-3/4 px-12">
+      <div class="w-full md:w-3/4 md:px-24">
         <%= image_tag(asset_pack_path("media/images/Report Overview.png")) %>
       </div>
+      <div class="w-full md:w-1/4">
+
+        <h4 class="panel__heading panel__heading--dark">Results summary</h4>
+        <p class="panel__content">Find out how many logical buckets your content can be grouped in and how difficult the task is.</p>
+
+      </div>
+
+
+
 
     </div>
-    <div class="columns flex flex-wrap mb-6 mt-24">
+    <div class="columns flex flex-wrap mb-6 mt-24 items-center">
 
       <div class="w-full md:w-1/4">
 
-        <h4 class="panel__heading panel__heading--dark">Together</h4>
-        <p class="panel__content">Keffiyeh locavore street art chartreuse fam pop-up. Etsy brooklyn jianbing cardigan. Intelligentsia cray marfa normcore.</p>
+        <h4 class="panel__heading panel__heading--dark">Detailed data</h4>
+        <p class="panel__content">All the grouping data with agreement score to help you identify patterns in mental models.</p>
 
       </div>
-      <div class="w-full md:w-3/4 px-12">
+      <div class="w-full md:w-3/4 md:px-24">
         <%= image_tag(asset_pack_path("media/images/Report Table.png")) %>
       </div>
 
     </div>
-    <div class="columns flex flex-wrap mb-6 mt-24">
+    <div class="columns flex flex-wrap mb-6 mt-24 items-center">
 
-      <div class="w-full md:w-1/2">
-
-        <h4 class="panel__heading panel__heading--dark">Together</h4>
-        <p class="panel__content">Keffiyeh locavore street art chartreuse fam pop-up. Etsy brooklyn jianbing cardigan. Intelligentsia cray marfa normcore.</p>
-
-      </div>
-      <div class="w-full md:w-1/2 px-12">
+      <div class="w-full md:w-3/4 md:px-32">
         <%= image_tag(asset_pack_path("media/images/Report Sankey.png")) %>
       </div>
+      <div class="w-full md:w-1/4">
+
+        <h4 class="panel__heading panel__heading--dark">Visual connections</h4>
+        <p class="panel__content">Easily identify the most common groups and connections made.</p>
+
+      </div>
+
+
+
 
     </div>
 
@@ -179,9 +186,9 @@
     <h3 class="mb-2 text-4xl leading-tight font-medium text-blue-100">Ready for more human understanding?</h3>
     <p class="text-lg text-blue-200">Start your your free 14-day trial today.</p>
     <div class="mt-8">
-      <%= link_to "Try the Beta", new_user_registration_path, class: "nav__item btn btn--primary" %>
+      <%= link_to "Sign up", new_user_registration_path, class: "nav__item btn btn--primary" %>
       <%# link_to "Start Free Trial", new_user_registration_path, class: "btn btn--primary-outline mr-4" %>
-      <span class="block text-xs text-blue-400 mt-2">No credit card &middot; Try for 60 days</span>
+      <span class="block text-xs text-blue-400 mt-2">Free early access &middot; No credit card</span>
     </div>
   </div>
 </div>
