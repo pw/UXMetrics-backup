@@ -25,6 +25,10 @@
       <%= f.label :password %>
       <%= f.password_field :password, placeholder: "•••••••••••••", autocomplete: "new-password", class: "input" %>
     </div>
+    <div class="field">
+      <input type="checkbox" id="consent" name="consent" required>
+      <label for="consent">I agree with the <%= link_to "Terms", terms_path, target: "_blank" %></label>
+    </div>
 
 
 
