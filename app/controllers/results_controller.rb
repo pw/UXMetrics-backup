@@ -250,6 +250,7 @@ class ResultsController < ApplicationController
     # @cardtest = Cardtest.find_by(uid: params[:cardtest_uid])
     @cardtest = Cardtest.find_by(auth_token: params[:auth_token])
     @result = @cardtest.results.new(result_params)
+    @user = User.find(@cardtest.user_id)
 
     if @result.save
 
@@ -257,9 +258,9 @@ class ResultsController < ApplicationController
       # @cardtests = current_user.cardtests.all
       puts "RESULT COUNT FOR THIS CARDTEST IS::::"
       puts @results.count
-      
+
       if @results.count == 1
-        UserNotifierMailer.send_first_result_email(current_user, @cardtest).deliver_later
+        UserNotifierMailer.send_first_result_email(@user, @cardtest).deliver_later
       end
 
 
