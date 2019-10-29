@@ -13,6 +13,12 @@ require "action_cable/engine"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
+require "mixpanel-ruby"
+
+# tracker = Mixpanel::Tracker.new()
+tracker = Mixpanel::Tracker.new(ENV["PROJECT_TOKEN"])
+
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)

@@ -25,4 +25,14 @@ class User < ApplicationRecord
     UserNotifierMailer.send_signup_email(self).deliver_later
   end
 
+  def after_database_authentication
+    tracker.people.set(current_user.id, {
+        '$first_name'       => current_user.first_name,
+        '$last_name'        => current_user.last_name,
+        '$email'            => current_user.email,
+        '$phone'            => '5555555555',
+        'Favorite Color'    => 'red'
+    }, ip = 0, {'$ignore_time' => 'true'});
+  end
+
 end
