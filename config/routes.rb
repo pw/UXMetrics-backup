@@ -46,8 +46,8 @@ Rails.application.routes.draw do
   get 'collect/:auth_token', to: 'results#new'
 
   require 'sidekiq/web'
-  authenticated :user do
+  authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end
-  
+
 end
