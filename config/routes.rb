@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'users/index'
   resource :billing, controller: 'sjabloon/billing', only: [:create, :update, :destroy] do
     member do
       get 'setup', to: 'sjabloon/billing#new', as: 'new'

@@ -26,12 +26,11 @@ class User < ApplicationRecord
   end
 
   def after_database_authentication
-    tracker.people.set(current_user.id, {
-        '$first_name'       => current_user.first_name,
-        '$last_name'        => current_user.last_name,
-        '$email'            => current_user.email,
-        '$phone'            => '5555555555',
-        'Favorite Color'    => 'red'
+    tracker = Mixpanel::Tracker.new(ENV["PROJECT_TOKEN"])
+    tracker.people.set(self.id, {
+        '$first_name'       => self.first_name,
+        '$last_name'        => self.last_name,
+        '$email'            => self.email
     }, ip = 0, {'$ignore_time' => 'true'});
   end
 

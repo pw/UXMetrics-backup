@@ -1,0 +1,1271 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 11.3
+-- Dumped by pg_dump version 11.3
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: active_storage_attachments; Type: TABLE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE TABLE public.active_storage_attachments (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    record_type character varying NOT NULL,
+    record_id bigint NOT NULL,
+    blob_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.active_storage_attachments OWNER TO zsoltkacso;
+
+--
+-- Name: active_storage_attachments_id_seq; Type: SEQUENCE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE SEQUENCE public.active_storage_attachments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.active_storage_attachments_id_seq OWNER TO zsoltkacso;
+
+--
+-- Name: active_storage_attachments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: zsoltkacso
+--
+
+ALTER SEQUENCE public.active_storage_attachments_id_seq OWNED BY public.active_storage_attachments.id;
+
+
+--
+-- Name: active_storage_blobs; Type: TABLE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE TABLE public.active_storage_blobs (
+    id bigint NOT NULL,
+    key character varying NOT NULL,
+    filename character varying NOT NULL,
+    content_type character varying,
+    metadata text,
+    byte_size bigint NOT NULL,
+    checksum character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.active_storage_blobs OWNER TO zsoltkacso;
+
+--
+-- Name: active_storage_blobs_id_seq; Type: SEQUENCE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE SEQUENCE public.active_storage_blobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.active_storage_blobs_id_seq OWNER TO zsoltkacso;
+
+--
+-- Name: active_storage_blobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: zsoltkacso
+--
+
+ALTER SEQUENCE public.active_storage_blobs_id_seq OWNED BY public.active_storage_blobs.id;
+
+
+--
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE TABLE public.ar_internal_metadata (
+    key character varying NOT NULL,
+    value character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.ar_internal_metadata OWNER TO zsoltkacso;
+
+--
+-- Name: cards; Type: TABLE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE TABLE public.cards (
+    id bigint NOT NULL,
+    name text,
+    cardtest_id bigint,
+    "order" integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.cards OWNER TO zsoltkacso;
+
+--
+-- Name: cards_id_seq; Type: SEQUENCE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE SEQUENCE public.cards_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.cards_id_seq OWNER TO zsoltkacso;
+
+--
+-- Name: cards_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: zsoltkacso
+--
+
+ALTER SEQUENCE public.cards_id_seq OWNED BY public.cards.id;
+
+
+--
+-- Name: cardtests; Type: TABLE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE TABLE public.cardtests (
+    id bigint NOT NULL,
+    user_id bigint,
+    name character varying,
+    auth_token character varying,
+    status character varying,
+    uid character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    intro text,
+    outro text,
+    random boolean
+);
+
+
+ALTER TABLE public.cardtests OWNER TO zsoltkacso;
+
+--
+-- Name: cardtests_id_seq; Type: SEQUENCE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE SEQUENCE public.cardtests_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.cardtests_id_seq OWNER TO zsoltkacso;
+
+--
+-- Name: cardtests_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: zsoltkacso
+--
+
+ALTER SEQUENCE public.cardtests_id_seq OWNED BY public.cardtests.id;
+
+
+--
+-- Name: friendly_id_slugs; Type: TABLE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE TABLE public.friendly_id_slugs (
+    id bigint NOT NULL,
+    slug character varying NOT NULL,
+    sluggable_id integer NOT NULL,
+    sluggable_type character varying(50),
+    scope character varying,
+    created_at timestamp without time zone
+);
+
+
+ALTER TABLE public.friendly_id_slugs OWNER TO zsoltkacso;
+
+--
+-- Name: friendly_id_slugs_id_seq; Type: SEQUENCE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE SEQUENCE public.friendly_id_slugs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.friendly_id_slugs_id_seq OWNER TO zsoltkacso;
+
+--
+-- Name: friendly_id_slugs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: zsoltkacso
+--
+
+ALTER SEQUENCE public.friendly_id_slugs_id_seq OWNED BY public.friendly_id_slugs.id;
+
+
+--
+-- Name: results; Type: TABLE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE TABLE public.results (
+    id bigint NOT NULL,
+    name character varying,
+    data text,
+    cardtest_id bigint,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.results OWNER TO zsoltkacso;
+
+--
+-- Name: results_id_seq; Type: SEQUENCE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE SEQUENCE public.results_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.results_id_seq OWNER TO zsoltkacso;
+
+--
+-- Name: results_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: zsoltkacso
+--
+
+ALTER SEQUENCE public.results_id_seq OWNED BY public.results.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE TABLE public.schema_migrations (
+    version character varying NOT NULL
+);
+
+
+ALTER TABLE public.schema_migrations OWNER TO zsoltkacso;
+
+--
+-- Name: sjabloon_charges; Type: TABLE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE TABLE public.sjabloon_charges (
+    id bigint NOT NULL,
+    owner_id bigint,
+    processor character varying NOT NULL,
+    processor_id character varying NOT NULL,
+    amount integer NOT NULL,
+    amount_refunded integer,
+    card_type character varying,
+    card_last4 character varying,
+    card_exp_month character varying,
+    card_exp_year character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.sjabloon_charges OWNER TO zsoltkacso;
+
+--
+-- Name: sjabloon_charges_id_seq; Type: SEQUENCE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE SEQUENCE public.sjabloon_charges_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.sjabloon_charges_id_seq OWNER TO zsoltkacso;
+
+--
+-- Name: sjabloon_charges_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: zsoltkacso
+--
+
+ALTER SEQUENCE public.sjabloon_charges_id_seq OWNED BY public.sjabloon_charges.id;
+
+
+--
+-- Name: sjabloon_coupons; Type: TABLE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE TABLE public.sjabloon_coupons (
+    id bigint NOT NULL,
+    code character varying,
+    name character varying,
+    currency character varying,
+    max_redemptions integer,
+    amount_off integer,
+    percent_off numeric,
+    duration character varying,
+    duration_in_months integer,
+    redeem_by timestamp without time zone,
+    times_redeemed integer DEFAULT 0,
+    is_valid boolean,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.sjabloon_coupons OWNER TO zsoltkacso;
+
+--
+-- Name: sjabloon_coupons_id_seq; Type: SEQUENCE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE SEQUENCE public.sjabloon_coupons_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.sjabloon_coupons_id_seq OWNER TO zsoltkacso;
+
+--
+-- Name: sjabloon_coupons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: zsoltkacso
+--
+
+ALTER SEQUENCE public.sjabloon_coupons_id_seq OWNED BY public.sjabloon_coupons.id;
+
+
+--
+-- Name: sjabloon_plans; Type: TABLE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE TABLE public.sjabloon_plans (
+    id bigint NOT NULL,
+    processor_id character varying,
+    amount integer,
+    currency character varying,
+    nickname character varying,
+    trial_period_days integer,
+    "interval" character varying,
+    interval_count character varying,
+    product character varying,
+    features jsonb DEFAULT '{}'::jsonb NOT NULL,
+    "position" integer,
+    active boolean DEFAULT true,
+    visible boolean DEFAULT true,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.sjabloon_plans OWNER TO zsoltkacso;
+
+--
+-- Name: sjabloon_plans_id_seq; Type: SEQUENCE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE SEQUENCE public.sjabloon_plans_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.sjabloon_plans_id_seq OWNER TO zsoltkacso;
+
+--
+-- Name: sjabloon_plans_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: zsoltkacso
+--
+
+ALTER SEQUENCE public.sjabloon_plans_id_seq OWNED BY public.sjabloon_plans.id;
+
+
+--
+-- Name: sjabloon_subscriptions; Type: TABLE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE TABLE public.sjabloon_subscriptions (
+    id bigint NOT NULL,
+    owner_id bigint,
+    name character varying NOT NULL,
+    processor character varying NOT NULL,
+    processor_id character varying NOT NULL,
+    processor_plan character varying NOT NULL,
+    quantity integer DEFAULT 1 NOT NULL,
+    trial_ends_at timestamp without time zone,
+    ends_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.sjabloon_subscriptions OWNER TO zsoltkacso;
+
+--
+-- Name: sjabloon_subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE SEQUENCE public.sjabloon_subscriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.sjabloon_subscriptions_id_seq OWNER TO zsoltkacso;
+
+--
+-- Name: sjabloon_subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: zsoltkacso
+--
+
+ALTER SEQUENCE public.sjabloon_subscriptions_id_seq OWNED BY public.sjabloon_subscriptions.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE TABLE public.users (
+    id bigint NOT NULL,
+    email character varying DEFAULT ''::character varying NOT NULL,
+    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying,
+    reset_password_sent_at timestamp without time zone,
+    remember_created_at timestamp without time zone,
+    sign_in_count integer DEFAULT 0 NOT NULL,
+    current_sign_in_at timestamp without time zone,
+    last_sign_in_at timestamp without time zone,
+    current_sign_in_ip inet,
+    last_sign_in_ip inet,
+    confirmation_token character varying,
+    confirmed_at timestamp without time zone,
+    confirmation_sent_at timestamp without time zone,
+    unconfirmed_email character varying,
+    failed_attempts integer DEFAULT 0 NOT NULL,
+    unlock_token character varying,
+    locked_at timestamp without time zone,
+    first_name character varying,
+    last_name character varying,
+    admin boolean DEFAULT false,
+    communication_settings jsonb,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    processor character varying,
+    processor_id character varying,
+    trial_ends_at timestamp without time zone,
+    card_type character varying,
+    card_last4 character varying,
+    card_exp_month character varying,
+    card_exp_year character varying
+);
+
+
+ALTER TABLE public.users OWNER TO zsoltkacso;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: zsoltkacso
+--
+
+CREATE SEQUENCE public.users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO zsoltkacso;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: zsoltkacso
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- Name: active_storage_attachments id; Type: DEFAULT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.active_storage_attachments ALTER COLUMN id SET DEFAULT nextval('public.active_storage_attachments_id_seq'::regclass);
+
+
+--
+-- Name: active_storage_blobs id; Type: DEFAULT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.active_storage_blobs ALTER COLUMN id SET DEFAULT nextval('public.active_storage_blobs_id_seq'::regclass);
+
+
+--
+-- Name: cards id; Type: DEFAULT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.cards ALTER COLUMN id SET DEFAULT nextval('public.cards_id_seq'::regclass);
+
+
+--
+-- Name: cardtests id; Type: DEFAULT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.cardtests ALTER COLUMN id SET DEFAULT nextval('public.cardtests_id_seq'::regclass);
+
+
+--
+-- Name: friendly_id_slugs id; Type: DEFAULT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.friendly_id_slugs ALTER COLUMN id SET DEFAULT nextval('public.friendly_id_slugs_id_seq'::regclass);
+
+
+--
+-- Name: results id; Type: DEFAULT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.results ALTER COLUMN id SET DEFAULT nextval('public.results_id_seq'::regclass);
+
+
+--
+-- Name: sjabloon_charges id; Type: DEFAULT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.sjabloon_charges ALTER COLUMN id SET DEFAULT nextval('public.sjabloon_charges_id_seq'::regclass);
+
+
+--
+-- Name: sjabloon_coupons id; Type: DEFAULT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.sjabloon_coupons ALTER COLUMN id SET DEFAULT nextval('public.sjabloon_coupons_id_seq'::regclass);
+
+
+--
+-- Name: sjabloon_plans id; Type: DEFAULT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.sjabloon_plans ALTER COLUMN id SET DEFAULT nextval('public.sjabloon_plans_id_seq'::regclass);
+
+
+--
+-- Name: sjabloon_subscriptions id; Type: DEFAULT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.sjabloon_subscriptions ALTER COLUMN id SET DEFAULT nextval('public.sjabloon_subscriptions_id_seq'::regclass);
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Data for Name: active_storage_attachments; Type: TABLE DATA; Schema: public; Owner: zsoltkacso
+--
+
+COPY public.active_storage_attachments (id, name, record_type, record_id, blob_id, created_at) FROM stdin;
+18	logoimg	Cardtest	29	18	2019-09-22 14:07:11.786074
+19	logoimg	Cardtest	33	19	2019-09-25 11:43:56.760378
+20	logoimg	Cardtest	35	20	2019-09-26 11:31:35.180393
+22	logoimg	Cardtest	37	22	2019-10-03 09:51:05.939952
+23	logoimg	Cardtest	26	23	2019-10-03 14:10:40.913268
+24	logoimg	Cardtest	36	24	2019-10-09 20:08:45.98845
+25	logoimg	Cardtest	34	25	2019-10-10 13:54:26.32992
+26	logoimg	Cardtest	39	26	2019-10-10 20:03:04.595893
+27	logoimg	Cardtest	41	27	2019-10-10 20:45:14.958951
+28	logoimg	Cardtest	44	28	2019-10-13 22:43:20.509399
+30	logoimg	Cardtest	48	30	2019-10-16 11:35:03.148102
+\.
+
+
+--
+-- Data for Name: active_storage_blobs; Type: TABLE DATA; Schema: public; Owner: zsoltkacso
+--
+
+COPY public.active_storage_blobs (id, key, filename, content_type, metadata, byte_size, checksum, created_at) FROM stdin;
+1	13XzHQbrsqVgnkgwd5QoEwbu	L&R - Logo.png	image/png	{"identified":true}	566464	mMliRBKxp5OhSOdCdt7ZkA==	2019-09-15 21:10:43.975732
+2	vNSag6P2h1popYCgPpJWLZLt	L&R - Logo.png	image/png	{"identified":true}	566464	mMliRBKxp5OhSOdCdt7ZkA==	2019-09-15 21:11:05.541627
+18	TnekXUuhDuGsMFUe9Jw3yHTr	Feefo-logo-black-yellow@2x.png	image/png	{"identified":true}	2741	WO4DNhO3qsnTbxSElZoSNQ==	2019-09-22 14:07:11.709985
+19	qmjFupyw21gH12i8St5eDsbz	L&R - Logo.png	image/png	{"identified":true}	566464	mMliRBKxp5OhSOdCdt7ZkA==	2019-09-25 11:43:56.687388
+20	RSYwk3bx9Qq32n8KhE7Rk4r6	L&R - Logo.png	image/png	{"identified":true}	566464	mMliRBKxp5OhSOdCdt7ZkA==	2019-09-26 11:31:34.704835
+22	PLP5y9TvMs8G2pQZ1AqWAGa7	L&R - Logo.png	image/png	{"identified":true}	566464	mMliRBKxp5OhSOdCdt7ZkA==	2019-10-03 09:51:05.912554
+23	HDXnSuhiuss5R6gmgfgTzjUs	L&R - Logo.png	image/png	{"identified":true}	566464	mMliRBKxp5OhSOdCdt7ZkA==	2019-10-03 14:10:40.872213
+24	ujUWPBGvTHp8HDbW4QUDFRhb	temp-logo-mark.png	image/png	{"identified":true}	4055	WN2+Vc2fJ6MflyDMJRTZ7A==	2019-10-09 20:08:45.980769
+25	2yk7Bo4WyaWC8K1cbvKytSXn	logo.png	image/png	{"identified":true}	4593	trWhSbsVcnRS2p5PKiEQsA==	2019-10-10 13:54:26.327441
+26	a5UyTuzUwrNjbuTN2B4Gwkt3	tick-large.png	image/png	{"identified":true}	425	07ySwbzToJmevWfpQcuyqQ==	2019-10-10 20:03:04.574841
+27	u5GqrrzgjSsGTSmvsAp6soUn	trial-icon.png	image/png	{"identified":true}	1652	qxNF4P6JjIXAXqwqIvEraQ==	2019-10-10 20:45:14.940208
+28	1v2g4oJnP3vYQ3hTaTZWyCmB	L&R - Logo.png	image/png	{"identified":true}	566464	mMliRBKxp5OhSOdCdt7ZkA==	2019-10-13 22:43:20.378049
+30	nwAGkL7u6Gad6EBhPsQDPscT	Growify.png	image/png	{"identified":true}	4536	Gze+ZQBCZpHnxJhwqJwR8w==	2019-10-16 11:35:03.14438
+\.
+
+
+--
+-- Data for Name: ar_internal_metadata; Type: TABLE DATA; Schema: public; Owner: zsoltkacso
+--
+
+COPY public.ar_internal_metadata (key, value, created_at, updated_at) FROM stdin;
+environment	development	2019-06-19 12:27:19.679816	2019-06-19 12:27:19.679816
+\.
+
+
+--
+-- Data for Name: cards; Type: TABLE DATA; Schema: public; Owner: zsoltkacso
+--
+
+COPY public.cards (id, name, cardtest_id, "order", created_at, updated_at) FROM stdin;
+71	test card1	35	0	2019-09-26 11:31:35.174298	2019-09-26 11:31:35.174298
+72	test card2	35	1	2019-09-26 11:31:35.177821	2019-09-26 11:31:35.177821
+73	test card3	35	2	2019-09-26 11:31:35.178995	2019-09-26 11:31:35.178995
+74	xar1	36	0	2019-09-29 15:52:08.036392	2019-09-29 15:52:08.036392
+75	xar2	36	1	2019-09-29 15:52:08.039065	2019-09-29 15:52:08.039065
+76	t1	37	0	2019-10-03 09:51:05.93486	2019-10-03 09:51:05.93486
+77	t2	37	1	2019-10-03 09:51:05.938752	2019-10-03 09:51:05.938752
+78	CARD 1	38	\N	2019-10-09 20:11:57.694481	2019-10-09 20:11:57.694481
+70	111	34	0	2019-09-25 11:48:14.378084	2019-10-10 13:54:01.260494
+79	2	34	1	2019-10-10 13:54:01.312551	2019-10-10 13:54:01.312551
+80	3	34	2	2019-10-10 13:54:01.319191	2019-10-10 13:54:01.319191
+81	c1	39	0	2019-10-10 20:03:04.591299	2019-10-10 20:03:04.591299
+82	c2	39	1	2019-10-10 20:03:04.593082	2019-10-10 20:03:04.593082
+83	c3	39	2	2019-10-10 20:03:04.593983	2019-10-10 20:03:04.593983
+84	c4	39	3	2019-10-10 20:03:04.594806	2019-10-10 20:03:04.594806
+85	c1c1c1c1	40	0	2019-10-10 20:19:09.792167	2019-10-10 20:19:09.792167
+86	c2c2c2c2	40	1	2019-10-10 20:19:09.793266	2019-10-10 20:19:09.793266
+87	c33	40	2	2019-10-10 20:19:09.794285	2019-10-10 20:19:09.794285
+88	card 1	41	0	2019-10-10 20:45:14.953094	2019-10-10 20:45:14.953094
+24	card name	16	0	2019-08-21 11:39:11.814518	2019-08-21 11:39:11.814518
+25	card 1	17	\N	2019-08-21 11:42:13.491083	2019-08-21 11:42:13.491083
+26	card 1	18	\N	2019-08-21 11:42:28.521837	2019-08-21 11:42:28.521837
+27	card777	19	0	2019-08-21 11:43:09.555117	2019-08-21 11:43:09.555117
+28	card 888	19	1	2019-08-21 11:43:09.55751	2019-08-21 11:43:09.55751
+30	test22	20	0	2019-08-21 11:49:25.91153	2019-08-21 11:49:25.91153
+31	test777	21	0	2019-08-22 07:53:19.785543	2019-08-22 08:16:34.654734
+32	test2	21	1	2019-08-22 08:16:34.656334	2019-08-22 08:16:34.656334
+33	test	22	1	2019-08-28 11:17:35.981134	2019-08-29 11:09:50.010989
+34	test12	22	0	2019-08-28 11:17:35.983659	2019-08-29 11:09:50.018843
+35	test	23	\N	2019-08-29 12:03:06.873757	2019-08-29 12:03:06.873757
+44	Card 5	26	4	2019-08-29 20:40:58.050726	2019-08-29 20:40:58.050726
+45	Card 6	26	5	2019-08-29 20:40:58.051655	2019-08-29 20:40:58.051655
+46	Card 7	26	6	2019-08-29 20:40:58.052481	2019-08-29 20:40:58.052481
+47	Card 8	26	7	2019-08-29 20:40:58.053348	2019-08-29 20:40:58.053348
+40	Card 1	26	1	2019-08-29 20:40:58.046943	2019-09-16 21:58:34.225518
+41	Card 2	26	2	2019-08-29 20:40:58.047992	2019-09-16 21:58:34.226923
+42	Card 3	26	3	2019-08-29 20:40:58.048883	2019-09-16 21:58:34.227799
+43	Card 4	26	0	2019-08-29 20:40:58.049692	2019-09-16 21:58:34.22862
+48	card 9	26	8	2019-09-18 20:55:11.861044	2019-09-18 20:55:11.861044
+49	card 1	27	\N	2019-09-19 12:08:45.485753	2019-09-19 12:08:45.485753
+52	7 feju sarkany	29	0	2019-09-22 14:07:11.776162	2019-09-22 14:07:11.776162
+53	1	29	1	2019-09-22 14:07:11.779407	2019-09-22 14:07:11.779407
+54	2	29	2	2019-09-22 14:07:11.780699	2019-09-22 14:07:11.780699
+55	3	29	3	2019-09-22 14:07:11.781698	2019-09-22 14:07:11.781698
+56	4	29	4	2019-09-22 14:07:11.782687	2019-09-22 14:07:11.782687
+57	5	29	5	2019-09-22 14:07:11.78362	2019-09-22 14:07:11.78362
+58	6 okor	29	6	2019-09-22 14:07:11.784811	2019-09-22 14:07:11.784811
+60	ttt	31	\N	2019-09-24 11:26:31.075666	2019-09-24 11:26:31.075666
+61	test	32	0	2019-09-25 11:42:43.455693	2019-09-25 11:42:43.455693
+62	test	32	1	2019-09-25 11:42:43.45889	2019-09-25 11:42:43.45889
+63	testestes	32	2	2019-09-25 11:42:43.460008	2019-09-25 11:42:43.460008
+64	TESSSS	32	3	2019-09-25 11:42:43.461285	2019-09-25 11:42:43.461285
+65	TES	32	4	2019-09-25 11:42:43.462353	2019-09-25 11:42:43.462353
+66	rwaraw	33	0	2019-09-25 11:43:56.742836	2019-09-25 11:43:56.742836
+67	testse	33	1	2019-09-25 11:43:56.744081	2019-09-25 11:43:56.744081
+68	testes	33	2	2019-09-25 11:43:56.758133	2019-09-25 11:43:56.758133
+69	tessse	33	3	2019-09-25 11:43:56.759235	2019-09-25 11:43:56.759235
+89	card 5	41	1	2019-10-10 20:45:14.954912	2019-10-10 20:45:14.954912
+90	card 2	41	2	2019-10-10 20:45:14.956147	2019-10-10 20:45:14.956147
+91	card 3	41	3	2019-10-10 20:45:14.957016	2019-10-10 20:45:14.957016
+92	card 4	41	4	2019-10-10 20:45:14.957854	2019-10-10 20:45:14.957854
+93	c1	42	\N	2019-10-10 22:08:46.557912	2019-10-10 22:08:46.557912
+120	Card 1	49	0	2019-10-18 11:20:00.452156	2019-10-18 11:20:00.452156
+94	c1	43	1	2019-10-10 22:12:04.65582	2019-10-10 22:29:02.029018
+95	c2	43	2	2019-10-10 22:28:55.832278	2019-10-10 22:29:02.0302
+96	c3	43	0	2019-10-10 22:28:55.873926	2019-10-10 22:29:02.031273
+97	card 1	44	0	2019-10-13 22:43:20.499016	2019-10-13 22:43:20.499016
+98	card 2	44	1	2019-10-13 22:43:20.507574	2019-10-13 22:43:20.507574
+99	c1	45	0	2019-10-13 22:45:05.353826	2019-10-13 22:45:05.353826
+100	c2	45	1	2019-10-13 22:45:05.355583	2019-10-13 22:45:05.355583
+101	c1	46	0	2019-10-13 22:58:12.464214	2019-10-13 22:58:12.464214
+102	c2	46	1	2019-10-13 22:58:12.465468	2019-10-13 22:58:12.465468
+103	c2	47	0	2019-10-13 23:03:23.921797	2019-10-13 23:03:23.921797
+104	c3	47	1	2019-10-13 23:03:23.923098	2019-10-13 23:03:23.923098
+105	Dashboard	48	0	2019-10-16 11:28:01.661307	2019-10-16 11:28:01.661307
+106	Customise Emails	48	1	2019-10-16 11:28:01.708673	2019-10-16 11:28:01.708673
+107	Create Campaigns	48	2	2019-10-16 11:28:01.710241	2019-10-16 11:28:01.710241
+108	Monitor Social Media	48	3	2019-10-16 11:28:01.712648	2019-10-16 11:28:01.712648
+109	Monitor Web Presence	48	4	2019-10-16 11:28:01.714663	2019-10-16 11:28:01.714663
+110	Monitor Ad Performance	48	5	2019-10-16 11:28:01.716428	2019-10-16 11:28:01.716428
+111	Manage Users	48	6	2019-10-16 11:28:01.717606	2019-10-16 11:28:01.717606
+112	My Account	48	7	2019-10-16 11:28:01.718605	2019-10-16 11:28:01.718605
+113	Notification Preferences	48	8	2019-10-16 11:28:01.719555	2019-10-16 11:28:01.719555
+114	Connect Social Media	48	9	2019-10-16 11:28:01.721344	2019-10-16 11:28:01.721344
+115	Connect Ad Accounts	48	10	2019-10-16 11:28:01.723129	2019-10-16 11:28:01.723129
+116	Invite Users	48	11	2019-10-16 11:28:01.724078	2019-10-16 11:28:01.724078
+117	Overall Performance Trends	48	12	2019-10-16 11:28:01.725147	2019-10-16 11:28:01.725147
+118	Opportunities	48	13	2019-10-16 11:28:01.802812	2019-10-16 11:28:01.802812
+119	Ask a Question	48	14	2019-10-16 11:28:01.803911	2019-10-16 11:28:01.803911
+121	Card 2	49	1	2019-10-18 11:20:00.453804	2019-10-18 11:20:00.453804
+122	Support	49	2	2019-10-18 11:20:00.455168	2019-10-18 11:20:00.455168
+123	x1	50	0	2019-10-29 11:13:47.457672	2019-10-29 11:13:47.457672
+124	x2	50	1	2019-10-29 11:13:47.508761	2019-10-29 11:13:47.508761
+\.
+
+
+--
+-- Data for Name: cardtests; Type: TABLE DATA; Schema: public; Owner: zsoltkacso
+--
+
+COPY public.cardtests (id, user_id, name, auth_token, status, uid, created_at, updated_at, intro, outro, random) FROM stdin;
+35	5	test1	2y31uh3o	published	m9yp6hx6	2019-09-26 11:31:34.976627	2019-09-26 11:36:20.51927	test intro	test outro	t
+7	2		273uag4t	draft	u76i5moj	2019-08-21 11:23:06.760629	2019-08-21 11:23:06.760629	\N	\N	f
+8	2		gczk422h	draft	erpfbpwy	2019-08-21 11:23:14.561088	2019-08-21 11:23:14.561088	\N	\N	f
+9	2		90s1ybnh	draft	jyx0i1qw	2019-08-21 11:23:21.272272	2019-08-21 11:23:21.272272	\N	\N	f
+10	2		30u5y45m	draft	oslh2jg1	2019-08-21 11:28:27.653697	2019-08-21 11:28:27.653697	\N	\N	f
+11	2		l8bl8y4e	draft	ya1kpf37	2019-08-21 11:28:32.129455	2019-08-21 11:28:32.129455	\N	\N	f
+12	2		3epyugtk	draft	6dckdl24	2019-08-21 11:28:49.950532	2019-08-21 11:28:49.950532	\N	\N	f
+13	2	test	929h99cd	draft	vtes7dg2	2019-08-21 11:34:35.815493	2019-08-21 11:34:35.815493	\N	\N	f
+14	2	test	qhysptge	draft	qt692ovu	2019-08-21 11:36:37.545408	2019-08-21 11:36:37.545408	\N	\N	f
+15	2	test2	rtwh4smx	draft	p4x8uw0u	2019-08-21 11:37:27.676203	2019-08-21 11:37:27.676203	\N	\N	f
+16	2	test name	orhd0yy2	draft	nmdikxjp	2019-08-21 11:39:11.811231	2019-08-21 11:39:11.811231	\N	\N	f
+17	2	test3	n2thl85m	draft	v9rh2btv	2019-08-21 11:42:13.489765	2019-08-21 11:42:13.489765	\N	\N	f
+18	2	test3	brz14ocz	draft	qhuzw1g5	2019-08-21 11:42:28.520654	2019-08-21 11:42:28.520654	\N	\N	f
+19	2	test66555	8v3ur78y	draft	mrw0ev7n	2019-08-21 11:43:09.492044	2019-08-21 11:43:09.492044	\N	\N	f
+20	2	test1	nlbkodpb	draft	8u5e9atk	2019-08-21 11:46:41.333209	2019-08-21 11:59:13.080889	\N	\N	f
+21	2	test555	948odh20	draft	34r4iltj	2019-08-22 07:53:19.740527	2019-08-26 22:12:16.537803	\N	\N	f
+22	2	test	pcgx734e	draft	44ty8htf	2019-08-28 11:17:35.976866	2019-08-29 11:09:52.270009	\N	\N	f
+23	2	test	1kssdgd4	draft	mud4kao0	2019-08-29 12:03:06.822963	2019-08-29 12:03:08.953532	\N	\N	f
+46	16	Card test 3, no email for creation but yes email for 1st result	77y3xckl	published	kdytstg7	2019-10-13 22:58:12.462498	2019-10-13 22:58:21.145585	Thank you for agreeing to help us, it shouldn't take more than 5 minutes!\r\n\r\nThe left column contains cards that we'd like you to categorize into groups that make sense to you. You can do this by dragging them into the area on the right.\r\n\r\nDon't worry, there is no right or wrong answer, just do what makes sense to you.	Thanks for taking the time to help us.\r\n\r\nYour contribution is essential in our journey to deliver improvements.	f
+44	16	First card test	c1rlzvsn	published	9zz2g1un	2019-10-13 22:43:20.451371	2019-10-13 22:44:37.610195	Thank you for agreeing to help us, it shouldn't take more than 5 minutes!\r\n\r\nThe left column contains cards that we'd like you to categorize into groups that make sense to you. You can do this by dragging them into the area on the right.\r\n\r\nDon't worry, there is no right or wrong answer, just do what makes sense to you.	Thanks for taking the time to help us.\r\n\r\nYour contribution is essential in our journey to deliver improvements.	t
+45	16	Card test two, no email right?	jjez0i7c	draft	uucg4esi	2019-10-13 22:45:05.311651	2019-10-13 22:45:05.311651	Thank you for agreeing to help us, it shouldn't take more than 5 minutes!\r\n\r\nThe left column contains cards that we'd like you to categorize into groups that make sense to you. You can do this by dragging them into the area on the right.\r\n\r\nDon't worry, there is no right or wrong answer, just do what makes sense to you.	Thanks for taking the time to help us.\r\n\r\nYour contribution is essential in our journey to deliver improvements.	f
+43	5	test card 2	n77z2wgp	draft	ym4nytve	2019-10-10 22:12:04.654417	2019-10-10 22:28:55.830273	Thank you for agreeing to help us, it shouldn't take more than 5 minutes!\r\n\r\nThe left column contains cards that we'd like you to categorize into groups that make sense to you. You can do this by dragging them into the area on the right.\r\n\r\nDon't worry, there is no right or wrong answer, just do what makes sense to you.	Thanks for taking the time to help us.\r\n\r\nYour contribution is essential in our journey to deliver improvements.	f
+26	5	Navigation test - UPDATED	nssd75qy	t	5ds4mxqr	2019-08-29 20:40:58.045687	2019-10-03 14:10:41.000259	Custom introj Ancsa	Custom thanks for taking part in our test!	t
+36	5	testcgooglecould	ktz5dgyz	t	t5bf7csc	2019-09-29 15:52:08.028983	2019-10-09 20:08:45.992286	testi	testt	t
+29	5	Uj tili toli vetelkedo	ov68dq69	ended	b3dl619k	2019-05-21 14:07:11.768298	2019-09-23 11:46:28.276763	allitsd sorba a tili toli kartyakat!	koszike!	t
+27	5	test	k0uufkk1	published	qh89ithc	2019-09-19 12:08:45.435622	2019-09-24 11:22:36.769093			f
+31	5	testn	7w5yoiim	published	c54m5c2g	2019-09-24 11:26:31.073769	2019-09-24 11:27:03.518319			f
+38	5	WHERE IS THIS IN THE DBasdafdsa	46dem491	t	pz0vd9bl	2019-10-09 20:11:57.649312	2019-10-09 20:16:39.31619	INTRO IS THIS SAVED WTF	dsafads	f
+32	5	testd	ahw1vanl	t	jf4uef2r	2019-09-25 11:42:43.411033	2019-10-09 20:23:44.656838	f		f
+33	5	gregrae	rpdr78bm	ended	sxayilrj	2019-09-25 11:43:56.741274	2019-09-25 11:44:51.116986	intro John	thank you John	t
+41	5	Legit card test	xs9nyw1n	published	opvupe92	2019-10-10 20:45:14.951201	2019-10-10 21:16:34.809558	Thank you for agreeing to help us, it shouldn't take more than 5 minutes!\r\n\r\nThe left column contains cards that we'd like you to categorize into groups that make sense to you. You can do this by dragging them into the area on the right.\r\n\r\nDon't worry, there is no right or wrong answer, just do what makes sense to you.	Thanks for taking the time to help us.\r\n\r\nYour contribution is essential in our journey to deliver improvements.	f
+37	5	testgoogled	ig0vztdo	t	no3coi3z	2019-10-03 09:51:05.927314	2019-10-09 20:31:03.149448			f
+42	5	test card 1	39hva8td	draft	rutsdyyr	2019-10-10 22:08:46.555833	2019-10-10 22:08:46.555833		1	f
+47	16	first result test	k3llj3hq	published	epsty6z7	2019-10-13 23:03:23.918841	2019-10-13 23:03:26.880436	Thank you for agreeing to help us, it shouldn't take more than 5 minutes!\r\n\r\nThe left column contains cards that we'd like you to categorize into groups that make sense to you. You can do this by dragging them into the area on the right.\r\n\r\nDon't worry, there is no right or wrong answer, just do what makes sense to you.	Thanks for taking the time to help us.\r\n\r\nYour contribution is essential in our journey to deliver improvements.	f
+34	5	testd	dbuojwan	ended	znt9vm4l	2019-09-25 11:48:14.375242	2019-10-10 14:01:29.604311	intro	outro	t
+39	5	t1	64h2b539	published	rxpfwjyz	2019-10-10 20:03:04.587834	2019-10-10 20:03:18.464228	t1	toutro	t
+40	5	ttt2	qhmwbgtt	published	hpe1q0mf	2019-10-10 20:19:09.790526	2019-10-10 20:19:17.354797	asadfsaintroo]\r\n\r\n\r\nintro line breaks\r\ng\r\no\r\ni\r\nn\r\ng	geawgrea outro ageawgrea outro ageawgrea outro ageawgrea outro ageawgrea outro ageawgrea outro a\r\n\r\nlinebreaks\r\n\r\nwhatever	f
+49	16	test Neil	s4njkv0r	published	vx8kjlw3	2019-10-18 11:20:00.401116	2019-10-18 11:21:40.047918	Thank you for agreeing to help us, it shouldn't take more than 5 minutes!\r\n\r\nThe left column contains cards that we'd like you to categorize into groups that make sense to you. You can do this by dragging them into the area on the right.\r\n\r\nDon't worry, there is no right or wrong answer, just do what makes sense to you.	Thanks for taking the time to help us.\r\n\r\nYour contribution is essential in our journey to deliver improvements.	f
+48	16	Navigation test	rzil4ara	published	6u1j2iww	2019-10-16 11:28:01.611717	2019-10-21 11:46:23.268166	Thank you for agreeing to help us, it shouldn't take more than 5 minutes!\r\n\r\nThe left column contains cards that we'd like you to categorize into groups that make sense to you. You can do this by dragging them into the area on the right.\r\n\r\nDon't worry, there is no right or wrong answer, just do what makes sense to you.	Thanks for taking the time to help us.\r\n\r\nYour contribution is essential in our journey to deliver improvements.	f
+50	19	t1	m9b8s1aa	published	pvbbywfg	2019-10-29 11:13:47.404044	2019-10-29 11:13:50.412712	Thank you for agreeing to help us, it shouldn't take more than 5 minutes!\r\n\r\nThe left column contains cards that we'd like you to categorize into groups that make sense to you. You can do this by dragging them into the area on the right.\r\n\r\nDon't worry, there is no right or wrong answer, just do what makes sense to you.	Thanks for taking the time to help us.\r\n\r\nYour contribution is essential in our journey to deliver improvements.	f
+\.
+
+
+--
+-- Data for Name: friendly_id_slugs; Type: TABLE DATA; Schema: public; Owner: zsoltkacso
+--
+
+COPY public.friendly_id_slugs (id, slug, sluggable_id, sluggable_type, scope, created_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: results; Type: TABLE DATA; Schema: public; Owner: zsoltkacso
+--
+
+COPY public.results (id, name, data, cardtest_id, created_at, updated_at) FROM stdin;
+19	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":151827,\\"groups\\":[{\\"title\\":\\"Unnamed\\",\\"card\\":[\\"31\\"]}]}"	21	2019-08-22 08:03:29.456055	2019-08-22 08:03:29.456055
+20	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":4458,\\"groups\\":[]}"	21	2019-08-22 08:08:12.31258	2019-08-22 08:08:12.31258
+21	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":1883,\\"groups\\":[]}"	21	2019-08-22 08:08:23.295304	2019-08-22 08:08:23.295304
+22	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":2823,\\"groups\\":[]}"	21	2019-08-22 08:08:39.00387	2019-08-22 08:08:39.00387
+23	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":2570,\\"groups\\":[]}"	21	2019-08-22 08:08:59.321031	2019-08-22 08:08:59.321031
+24	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":1250,\\"groups\\":[]}"	21	2019-08-22 08:09:23.042923	2019-08-22 08:09:23.042923
+25	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":1296,\\"groups\\":[]}"	21	2019-08-22 08:09:30.013305	2019-08-22 08:09:30.013305
+26	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":9819,\\"groups\\":[]}"	21	2019-08-26 22:08:50.029477	2019-08-26 22:08:50.029477
+27	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":1998,\\"groups\\":[]}"	21	2019-08-26 22:09:44.364166	2019-08-26 22:09:44.364166
+28	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":7226,\\"groups\\":[]}"	21	2019-08-26 22:12:27.79241	2019-08-26 22:12:27.79241
+29	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":37968,\\"groups\\":[{\\"title\\":\\"NEW TESET GROUP NAME\\",\\"card\\":[\\"27\\",\\"28\\"]}]}"	19	2019-08-28 11:13:33.727596	2019-08-28 11:13:33.727596
+30	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":4277,\\"groups\\":[{\\"title\\":\\"Unnamed\\",\\"card\\":[\\"27\\",\\"28\\"]}]}"	19	2019-08-28 11:14:07.377881	2019-08-28 11:14:07.377881
+31	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":18813,\\"groups\\":[{\\"title\\":\\"groups ups4\\",\\"card\\":[\\"34\\"]},{\\"title\\":\\"groups ups\\",\\"card\\":[\\"33\\"]}]}"	22	2019-08-29 11:10:14.992656	2019-08-29 11:10:14.992656
+32	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":5364,\\"groups\\":[]}"	23	2019-08-29 12:03:17.216713	2019-08-29 12:03:17.216713
+33	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":30323,\\"groups\\":[{\\"title\\":\\"test 3\\",\\"card\\":[\\"42\\",\\"40\\"]},{\\"title\\":\\"test2\\",\\"card\\":[\\"44\\",\\"41\\"]},{\\"title\\":\\"test1\\",\\"card\\":[\\"45\\",\\"47\\",\\"43\\",\\"46\\"]}]}"	26	2019-09-12 11:37:53.497706	2019-09-12 11:37:53.497706
+34	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":111481,\\"groups\\":[{\\"title\\":\\"megerett a meggy\\",\\"card\\":[\\"53\\"]},{\\"title\\":\\"csipkebokor vesszo\\",\\"card\\":[\\"54\\"]},{\\"title\\":\\"te leszel a parom\\",\\"card\\":[\\"55\\",\\"56\\",\\"57\\"]},{\\"title\\":\\"8ast elfelejtettem\\",\\"card\\":[\\"58\\",\\"52\\"]}]}"	29	2019-09-22 14:10:18.60764	2019-09-22 14:10:18.60764
+35	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":71286,\\"groups\\":[{\\"title\\":\\"egykettoharom\\",\\"card\\":[\\"53\\",\\"54\\",\\"55\\"]},{\\"title\\":\\"negyot\\",\\"card\\":[\\"56\\",\\"57\\"]},{\\"title\\":\\"8ast elfelejtettem\\",\\"card\\":[\\"52\\"]},{\\"title\\":\\"menj a hatosba \\",\\"card\\":[\\"58\\"]}]}"	29	2019-09-22 14:12:35.645072	2019-09-22 14:12:35.645072
+36	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":7776,\\"groups\\":[{\\"title\\":\\"test\\",\\"card\\":[\\"49\\"]}]}"	27	2019-09-25 11:26:58.677936	2019-09-25 11:26:58.677936
+37	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":9138,\\"groups\\":[{\\"title\\":\\"test\\",\\"card\\":[\\"67\\",\\"66\\",\\"68\\",\\"69\\"]}]}"	33	2019-09-25 11:44:31.243238	2019-09-25 11:44:31.243238
+38	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":9742,\\"groups\\":[{\\"title\\":\\"test\\",\\"card\\":[\\"73\\",\\"71\\"]},{\\"title\\":\\"ttest1\\",\\"card\\":[\\"72\\"]}]}"	35	2019-09-26 11:37:29.297213	2019-09-26 11:37:29.297213
+39	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":132011,\\"groups\\":[{\\"title\\":\\"group 2\\",\\"card\\":[\\"79\\",\\"70\\"]},{\\"title\\":\\"group 1\\",\\"card\\":[\\"80\\"]}]}"	34	2019-10-10 14:01:01.444368	2019-10-10 14:01:01.444368
+40	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":16915,\\"groups\\":[{\\"title\\":\\"group 1\\",\\"card\\":[\\"98\\"]},{\\"title\\":\\"group 2\\",\\"card\\":[\\"97\\"]}]}"	44	2019-10-13 22:56:54.916594	2019-10-13 22:56:54.916594
+41	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":5110,\\"groups\\":[{\\"title\\":\\"t2\\",\\"card\\":[\\"97\\",\\"98\\"]}]}"	44	2019-10-13 22:57:34.805765	2019-10-13 22:57:34.805765
+42	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":6083,\\"groups\\":[{\\"title\\":\\"r1\\",\\"card\\":[\\"101\\",\\"102\\"]}]}"	46	2019-10-13 22:58:33.174371	2019-10-13 22:58:33.174371
+43	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":8049,\\"groups\\":[{\\"title\\":\\"t3\\",\\"card\\":[\\"101\\"]},{\\"title\\":\\"t2\\",\\"card\\":[\\"102\\"]}]}"	46	2019-10-13 23:01:41.909018	2019-10-13 23:01:41.909018
+44	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":8050,\\"groups\\":[{\\"title\\":\\"t2\\",\\"card\\":[\\"104\\",\\"103\\"]}]}"	47	2019-10-13 23:03:40.971281	2019-10-13 23:03:40.971281
+45	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":10347,\\"groups\\":[{\\"title\\":\\"Group 1\\",\\"card\\":[\\"97\\",\\"98\\"]}]}"	44	2019-10-14 17:05:40.357005	2019-10-14 17:05:40.357005
+46	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":9801,\\"groups\\":[{\\"title\\":\\"Group 2\\",\\"card\\":[\\"98\\"]},{\\"title\\":\\"Group 1\\",\\"card\\":[\\"97\\"]}]}"	44	2019-10-14 17:05:54.330271	2019-10-14 17:05:54.330271
+47	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":8841,\\"groups\\":[{\\"title\\":\\"Group 3\\",\\"card\\":[\\"97\\",\\"98\\"]}]}"	44	2019-10-14 17:06:05.655328	2019-10-14 17:06:05.655328
+48	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":14084,\\"groups\\":[{\\"title\\":\\"group 1\\",\\"card\\":[\\"98\\",\\"97\\"]}]}"	44	2019-10-15 11:31:32.703765	2019-10-15 11:31:32.703765
+49	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":9907,\\"groups\\":[{\\"title\\":\\"test3\\",\\"card\\":[\\"121\\"]},{\\"title\\":\\"test2\\",\\"card\\":[\\"120\\"]},{\\"title\\":\\"test\\",\\"card\\":[\\"122\\"]}]}"	49	2019-10-18 11:22:03.418027	2019-10-18 11:22:03.418027
+50	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":122281,\\"groups\\":[{\\"title\\":\\"Reporting\\",\\"card\\":[\\"108\\",\\"105\\",\\"109\\",\\"117\\",\\"110\\",\\"118\\"]},{\\"title\\":\\"Campaigns\\",\\"card\\":[\\"106\\",\\"107\\",\\"113\\"]},{\\"title\\":\\"Help\\",\\"card\\":[\\"119\\"]},{\\"title\\":\\"Account\\",\\"card\\":[\\"116\\",\\"111\\",\\"112\\",\\"114\\",\\"115\\"]}]}"	48	2019-10-21 11:48:30.614991	2019-10-21 11:48:30.614991
+51	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":117688,\\"groups\\":[{\\"title\\":\\"Overview\\",\\"card\\":[\\"105\\",\\"118\\",\\"119\\"]},{\\"title\\":\\"Settings\\",\\"card\\":[\\"106\\",\\"113\\",\\"114\\",\\"115\\",\\"112\\"]},{\\"title\\":\\"Users\\",\\"card\\":[\\"111\\",\\"116\\"]},{\\"title\\":\\"Monitor\\",\\"card\\":[\\"117\\",\\"110\\",\\"108\\",\\"109\\",\\"107\\"]}]}"	48	2019-10-21 11:50:53.015199	2019-10-21 11:50:53.015199
+52	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":115570,\\"groups\\":[{\\"title\\":\\"Settings\\",\\"card\\":[\\"115\\",\\"116\\",\\"111\\",\\"114\\",\\"112\\",\\"113\\"]},{\\"title\\":\\"Reporting\\",\\"card\\":[\\"110\\",\\"108\\",\\"109\\",\\"117\\",\\"118\\"]},{\\"title\\":\\"Campaigns\\",\\"card\\":[\\"105\\",\\"107\\",\\"106\\"]},{\\"title\\":\\"Help\\",\\"card\\":[\\"119\\"]}]}"	48	2019-10-21 11:53:16.599436	2019-10-21 11:53:16.599436
+54	\N	"{\\"name\\":\\"testJSONname\\",\\"time\\":6105,\\"groups\\":[{\\"title\\":\\"tes1\\",\\"card\\":[\\"123\\",\\"124\\"]}]}"	50	2019-10-29 12:03:27.697105	2019-10-29 12:03:27.697105
+\.
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: zsoltkacso
+--
+
+COPY public.schema_migrations (version) FROM stdin;
+20190619122711
+20190619122713
+20190619123433
+20190619123434
+20190619123435
+20190619123436
+20190619123437
+20190523110600
+20190523110952
+20190527095704
+20190527143143
+20190529110730
+20190613113322
+20190614114801
+20190612205149
+20190523111947
+20190612203832
+20190612205104
+20190601110600
+20190602095704
+20190603110730
+20190915160923
+20190915161119
+20190915165039
+20190919215725
+20190919220536
+20190923110456
+20190923110713
+\.
+
+
+--
+-- Data for Name: sjabloon_charges; Type: TABLE DATA; Schema: public; Owner: zsoltkacso
+--
+
+COPY public.sjabloon_charges (id, owner_id, processor, processor_id, amount, amount_refunded, card_type, card_last4, card_exp_month, card_exp_year, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: sjabloon_coupons; Type: TABLE DATA; Schema: public; Owner: zsoltkacso
+--
+
+COPY public.sjabloon_coupons (id, code, name, currency, max_redemptions, amount_off, percent_off, duration, duration_in_months, redeem_by, times_redeemed, is_valid, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: sjabloon_plans; Type: TABLE DATA; Schema: public; Owner: zsoltkacso
+--
+
+COPY public.sjabloon_plans (id, processor_id, amount, currency, nickname, trial_period_days, "interval", interval_count, product, features, "position", active, visible, created_at, updated_at) FROM stdin;
+1	plan_FHkW5br6rlHDFr	1499	usd	Monthly Premium	14	month	1	prod_FHkW31TDyYmfTs	{}	\N	t	t	2019-06-19 21:09:15.977061	2019-06-19 21:09:16.021333
+\.
+
+
+--
+-- Data for Name: sjabloon_subscriptions; Type: TABLE DATA; Schema: public; Owner: zsoltkacso
+--
+
+COPY public.sjabloon_subscriptions (id, owner_id, name, processor, processor_id, processor_plan, quantity, trial_ends_at, ends_at, created_at, updated_at) FROM stdin;
+1	2	default	stripe	sub_FHzB2eo7RFWQKR	plan_FHkW5br6rlHDFr	1	2019-07-04 12:17:34	\N	2019-06-20 12:17:34.978309	2019-06-20 12:17:34.978309
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: zsoltkacso
+--
+
+COPY public.users (id, email, encrypted_password, reset_password_token, reset_password_sent_at, remember_created_at, sign_in_count, current_sign_in_at, last_sign_in_at, current_sign_in_ip, last_sign_in_ip, confirmation_token, confirmed_at, confirmation_sent_at, unconfirmed_email, failed_attempts, unlock_token, locked_at, first_name, last_name, admin, communication_settings, created_at, updated_at, processor, processor_id, trial_ends_at, card_type, card_last4, card_exp_month, card_exp_year) FROM stdin;
+11	kaolti+r4rr@gmail.com	$2a$11$vQjGmURUxg/ewbEYn29iJOZ6oH2NAtxfMaUy0LIN/.14rvFHvKyCK	\N	\N	\N	1	2019-10-13 21:59:53.809775	2019-10-13 21:59:53.809775	::1	::1	\N	\N	\N	\N	0	\N	\N	zdffdasfdas	\N	f	\N	2019-10-13 21:59:53.807392	2019-10-13 21:59:53.810272	\N	\N	\N	\N	\N	\N	\N
+3	ancsa@cascnasdcas.com	$2a$11$BTIPhFwA.uo0BlAxp4KAiuXCU.U/peJaIlr3MeYvUuoRU224KnTcW	\N	\N	\N	0	\N	\N	\N	\N	\N	\N	\N	\N	0	\N	\N	ancsa	\N	f	\N	2019-07-04 11:04:52.919419	2019-07-04 11:04:52.919419	\N	\N	\N	\N	\N	\N	\N
+2	kaolti@yahoo.com	$2a$11$hg0qcX74rZsc/eSVF6M9KeGEmzZHPda.H2UA3TGZBks0OjLCcLp52	\N	\N	\N	0	\N	\N	\N	\N	\N	\N	\N	\N	0	\N	\N	fea	\N	f	\N	2019-06-19 21:09:55.002299	2019-08-28 11:22:37.542146	stripe	cus_FHzBH1MWLPdEuN	\N	Visa	0077	11	2023
+4	kaolti+test@gmail.com	$2a$11$6HXYsaXf4pXupObLC62BhuWY8LF7zfC/iu/HTGyeH6r3QPMJTfHpC	\N	\N	\N	0	\N	\N	\N	\N	\N	\N	\N	\N	0	\N	\N	test	name	f	\N	2019-08-28 11:23:05.236492	2019-08-28 11:23:05.236492	\N	\N	\N	\N	\N	\N	\N
+12	kaolti+yyyy@gmail.com	$2a$11$0w38c9ktjZ8BjREKWStDT.Ph8mbVXcJuCRur0KJem/ZSCVTqCQQJS	\N	\N	\N	1	2019-10-13 22:04:11.039551	2019-10-13 22:04:11.039551	::1	::1	\N	\N	\N	\N	0	\N	\N	zsijk	\N	f	\N	2019-10-13 22:04:11.034605	2019-10-13 22:04:11.040087	\N	\N	\N	\N	\N	\N	\N
+13	kaolti+uuu@gmail.com	$2a$11$NseHnZsoARyH7.PGiBSZy.bwS5h2piKGt2GjONZ90wRQccEwJMCqS	\N	\N	\N	1	2019-10-13 22:04:38.516048	2019-10-13 22:04:38.516048	::1	::1	\N	\N	\N	\N	0	\N	\N	asdfa	\N	f	\N	2019-10-13 22:04:37.260781	2019-10-13 22:04:38.517048	\N	\N	\N	\N	\N	\N	\N
+14	kaolti+ee@gmail.com	$2a$11$LhdICAwqjLeBmgPLzlS1.uQMdvejat6n38Ts.PqEUhMf3YjjIKn7.	\N	\N	\N	1	2019-10-13 22:11:46.410985	2019-10-13 22:11:46.410985	::1	::1	\N	\N	\N	\N	0	\N	\N	asdfa	\N	f	\N	2019-10-13 22:11:45.153423	2019-10-13 22:11:46.413002	\N	\N	\N	\N	\N	\N	\N
+15	kaolti+js@gmail.com	$2a$11$VysT1Gx4y16VOqP7ZfhU.uizi7E1BYffvVFF4Jp4DtTItTBGMtSr2	\N	\N	\N	1	2019-10-13 22:24:54.159634	2019-10-13 22:24:54.159634	::1	::1	\N	\N	\N	\N	0	\N	\N	John	Smith	f	\N	2019-10-13 22:24:52.69664	2019-10-13 22:24:54.160261	\N	\N	\N	\N	\N	\N	\N
+16	kaolti+jj@gmail.com	$2a$11$Ux1W7UPVGdtTwBYULror9.oChlTJJmMdsSL6/ixlTbU1HNXO.IkNC	\N	\N	\N	1	2019-10-13 22:26:59.596196	2019-10-13 22:26:59.596196	::1	::1	\N	\N	\N	\N	0	\N	\N	JJ	\N	f	\N	2019-10-13 22:26:58.36084	2019-10-13 22:26:59.597083	\N	\N	\N	\N	\N	\N	\N
+6	kaolti+testingemail@gmail.com	$2a$11$NET3gyGSGpC1Nfl7.UJ04uUu8LkW6wzzYaDRfNyetdlJx/B3nQ3sq	\N	\N	\N	0	\N	\N	\N	\N	\N	\N	\N	\N	0	\N	\N	zsk	\N	f	\N	2019-10-11 13:48:00.395043	2019-10-11 13:48:00.395043	\N	\N	\N	\N	\N	\N	\N
+1	kaolti@gmail.com	$2a$11$hoPx8o7bcb3FTyxzZjZl7.RV3yt5MnvGttgir3kSK05BAda6EnD6K	6aac567c96f975f7d78a88abfc8289b976c24a06125bcbe58c6e03fe01174a8c	2019-10-11 23:13:02.396594	\N	0	\N	\N	\N	\N	\N	\N	\N	\N	0	\N	\N	dsaf	fda	f	\N	2019-06-19 20:00:39.25086	2019-10-11 23:13:02.397221	\N	\N	\N	\N	\N	\N	\N
+5	kaolti+testtrial@gmail.com	$2a$11$7fByH3n4.cGmLy.9st8HX.C4SRAmWa2yzOccOfSfk7xotDTGwsvQi	0f0ca7a81639ceb9de804be62fdf4c7e92daefb6261ab4427d37117652d1da30	2019-10-13 17:57:53.886666	\N	0	\N	\N	\N	\N	\N	\N	\N	\N	0	\N	\N	dsadsa	eag	f	\N	2019-08-28 11:32:51.098226	2019-10-13 17:57:53.887269	\N	\N	\N	\N	\N	\N	\N
+7	kaolti+john@gmail.com	$2a$11$nBTLIT/TkDj8UWllvm4g2uFtlnH/fndyi0LUR.Er0dkYgB1pNxBy.	\N	\N	\N	0	\N	\N	\N	\N	\N	\N	\N	\N	0	\N	\N	John	Smith	f	\N	2019-10-13 18:21:34.467103	2019-10-13 18:21:34.467103	\N	\N	\N	\N	\N	\N	\N
+9	kaolti+rrr@gmail.com	$2a$11$aYyPmFaLqGghrHYKCEGnfu82bdsg4I6ePAkZRylakYEl6IS60V//W	\N	\N	\N	1	2019-10-13 21:58:29.273031	2019-10-13 21:58:29.273031	::1	::1	\N	\N	\N	\N	0	\N	\N	asd	\N	f	\N	2019-10-13 21:58:29.267457	2019-10-13 21:58:29.273819	\N	\N	\N	\N	\N	\N	\N
+17	kaolti+111@gmail.com	$2a$11$xbnCl/aYfSlvg.2v/BRkpeCvhHxP6z7FgGTjNgyKOAt/YtzRvawNK	\N	\N	\N	1	2019-10-22 22:30:34.409201	2019-10-22 22:30:34.409201	::1	::1	\N	\N	\N	\N	0	\N	\N	fdsafsa	\N	f	\N	2019-10-22 22:30:34.260546	2019-10-22 22:30:34.410192	\N	\N	\N	\N	\N	\N	\N
+18	kaolti+2123@gmail.com	$2a$11$L9ebNZf5M7eBmQZrbrW6LusSmP1MBcWu4So74./8V5e.2lUUQkF5u	\N	\N	\N	1	2019-10-28 12:57:18.69198	2019-10-28 12:57:18.69198	::1	::1	\N	\N	\N	\N	0	\N	\N	dfsafa	\N	f	\N	2019-10-28 12:57:18.591278	2019-10-28 12:57:18.692877	\N	\N	\N	\N	\N	\N	\N
+19	kaolti+first@gmail.com	$2a$11$3q4yRimf/G0PsSMkLc6n3e2ZqIWdnUvr0O8Ss1LxAX80FjHCEk/uy	\N	\N	\N	1	2019-10-29 11:09:37.730353	2019-10-29 11:09:37.730353	::1	::1	\N	\N	\N	\N	0	\N	\N	asdf	\N	t	\N	2019-10-27 11:09:37.614167	2019-10-29 11:09:37.731191	\N	\N	\N	\N	\N	\N	\N
+\.
+
+
+--
+-- Name: active_storage_attachments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zsoltkacso
+--
+
+SELECT pg_catalog.setval('public.active_storage_attachments_id_seq', 30, true);
+
+
+--
+-- Name: active_storage_blobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zsoltkacso
+--
+
+SELECT pg_catalog.setval('public.active_storage_blobs_id_seq', 30, true);
+
+
+--
+-- Name: cards_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zsoltkacso
+--
+
+SELECT pg_catalog.setval('public.cards_id_seq', 124, true);
+
+
+--
+-- Name: cardtests_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zsoltkacso
+--
+
+SELECT pg_catalog.setval('public.cardtests_id_seq', 50, true);
+
+
+--
+-- Name: friendly_id_slugs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zsoltkacso
+--
+
+SELECT pg_catalog.setval('public.friendly_id_slugs_id_seq', 1, false);
+
+
+--
+-- Name: results_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zsoltkacso
+--
+
+SELECT pg_catalog.setval('public.results_id_seq', 54, true);
+
+
+--
+-- Name: sjabloon_charges_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zsoltkacso
+--
+
+SELECT pg_catalog.setval('public.sjabloon_charges_id_seq', 1, false);
+
+
+--
+-- Name: sjabloon_coupons_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zsoltkacso
+--
+
+SELECT pg_catalog.setval('public.sjabloon_coupons_id_seq', 1, false);
+
+
+--
+-- Name: sjabloon_plans_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zsoltkacso
+--
+
+SELECT pg_catalog.setval('public.sjabloon_plans_id_seq', 1, true);
+
+
+--
+-- Name: sjabloon_subscriptions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zsoltkacso
+--
+
+SELECT pg_catalog.setval('public.sjabloon_subscriptions_id_seq', 1, true);
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: zsoltkacso
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 19, true);
+
+
+--
+-- Name: active_storage_attachments active_storage_attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.active_storage_attachments
+    ADD CONSTRAINT active_storage_attachments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: active_storage_blobs active_storage_blobs_pkey; Type: CONSTRAINT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.active_storage_blobs
+    ADD CONSTRAINT active_storage_blobs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.ar_internal_metadata
+    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: cards cards_pkey; Type: CONSTRAINT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.cards
+    ADD CONSTRAINT cards_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cardtests cardtests_pkey; Type: CONSTRAINT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.cardtests
+    ADD CONSTRAINT cardtests_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: friendly_id_slugs friendly_id_slugs_pkey; Type: CONSTRAINT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.friendly_id_slugs
+    ADD CONSTRAINT friendly_id_slugs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: results results_pkey; Type: CONSTRAINT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.results
+    ADD CONSTRAINT results_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: sjabloon_charges sjabloon_charges_pkey; Type: CONSTRAINT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.sjabloon_charges
+    ADD CONSTRAINT sjabloon_charges_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sjabloon_coupons sjabloon_coupons_pkey; Type: CONSTRAINT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.sjabloon_coupons
+    ADD CONSTRAINT sjabloon_coupons_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sjabloon_plans sjabloon_plans_pkey; Type: CONSTRAINT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.sjabloon_plans
+    ADD CONSTRAINT sjabloon_plans_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sjabloon_subscriptions sjabloon_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.sjabloon_subscriptions
+    ADD CONSTRAINT sjabloon_subscriptions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_active_storage_attachments_on_blob_id; Type: INDEX; Schema: public; Owner: zsoltkacso
+--
+
+CREATE INDEX index_active_storage_attachments_on_blob_id ON public.active_storage_attachments USING btree (blob_id);
+
+
+--
+-- Name: index_active_storage_attachments_uniqueness; Type: INDEX; Schema: public; Owner: zsoltkacso
+--
+
+CREATE UNIQUE INDEX index_active_storage_attachments_uniqueness ON public.active_storage_attachments USING btree (record_type, record_id, name, blob_id);
+
+
+--
+-- Name: index_active_storage_blobs_on_key; Type: INDEX; Schema: public; Owner: zsoltkacso
+--
+
+CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON public.active_storage_blobs USING btree (key);
+
+
+--
+-- Name: index_cards_on_cardtest_id; Type: INDEX; Schema: public; Owner: zsoltkacso
+--
+
+CREATE INDEX index_cards_on_cardtest_id ON public.cards USING btree (cardtest_id);
+
+
+--
+-- Name: index_cardtests_on_auth_token; Type: INDEX; Schema: public; Owner: zsoltkacso
+--
+
+CREATE UNIQUE INDEX index_cardtests_on_auth_token ON public.cardtests USING btree (auth_token);
+
+
+--
+-- Name: index_cardtests_on_uid; Type: INDEX; Schema: public; Owner: zsoltkacso
+--
+
+CREATE UNIQUE INDEX index_cardtests_on_uid ON public.cardtests USING btree (uid);
+
+
+--
+-- Name: index_cardtests_on_user_id; Type: INDEX; Schema: public; Owner: zsoltkacso
+--
+
+CREATE INDEX index_cardtests_on_user_id ON public.cardtests USING btree (user_id);
+
+
+--
+-- Name: index_friendly_id_slugs_on_slug_and_sluggable_type; Type: INDEX; Schema: public; Owner: zsoltkacso
+--
+
+CREATE INDEX index_friendly_id_slugs_on_slug_and_sluggable_type ON public.friendly_id_slugs USING btree (slug, sluggable_type);
+
+
+--
+-- Name: index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope; Type: INDEX; Schema: public; Owner: zsoltkacso
+--
+
+CREATE UNIQUE INDEX index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope ON public.friendly_id_slugs USING btree (slug, sluggable_type, scope);
+
+
+--
+-- Name: index_friendly_id_slugs_on_sluggable_type_and_sluggable_id; Type: INDEX; Schema: public; Owner: zsoltkacso
+--
+
+CREATE INDEX index_friendly_id_slugs_on_sluggable_type_and_sluggable_id ON public.friendly_id_slugs USING btree (sluggable_type, sluggable_id);
+
+
+--
+-- Name: index_results_on_cardtest_id; Type: INDEX; Schema: public; Owner: zsoltkacso
+--
+
+CREATE INDEX index_results_on_cardtest_id ON public.results USING btree (cardtest_id);
+
+
+--
+-- Name: index_sjabloon_charges_on_owner_id; Type: INDEX; Schema: public; Owner: zsoltkacso
+--
+
+CREATE INDEX index_sjabloon_charges_on_owner_id ON public.sjabloon_charges USING btree (owner_id);
+
+
+--
+-- Name: index_sjabloon_subscriptions_on_owner_id; Type: INDEX; Schema: public; Owner: zsoltkacso
+--
+
+CREATE INDEX index_sjabloon_subscriptions_on_owner_id ON public.sjabloon_subscriptions USING btree (owner_id);
+
+
+--
+-- Name: index_users_on_confirmation_token; Type: INDEX; Schema: public; Owner: zsoltkacso
+--
+
+CREATE UNIQUE INDEX index_users_on_confirmation_token ON public.users USING btree (confirmation_token);
+
+
+--
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: zsoltkacso
+--
+
+CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
+
+
+--
+-- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: zsoltkacso
+--
+
+CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING btree (reset_password_token);
+
+
+--
+-- Name: index_users_on_unlock_token; Type: INDEX; Schema: public; Owner: zsoltkacso
+--
+
+CREATE UNIQUE INDEX index_users_on_unlock_token ON public.users USING btree (unlock_token);
+
+
+--
+-- Name: cardtests fk_rails_4bdfaad9bb; Type: FK CONSTRAINT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.cardtests
+    ADD CONSTRAINT fk_rails_4bdfaad9bb FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: cards fk_rails_8a974c698d; Type: FK CONSTRAINT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.cards
+    ADD CONSTRAINT fk_rails_8a974c698d FOREIGN KEY (cardtest_id) REFERENCES public.cardtests(id);
+
+
+--
+-- Name: active_storage_attachments fk_rails_c3b3935057; Type: FK CONSTRAINT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.active_storage_attachments
+    ADD CONSTRAINT fk_rails_c3b3935057 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
+
+
+--
+-- Name: results fk_rails_c651103c5e; Type: FK CONSTRAINT; Schema: public; Owner: zsoltkacso
+--
+
+ALTER TABLE ONLY public.results
+    ADD CONSTRAINT fk_rails_c651103c5e FOREIGN KEY (cardtest_id) REFERENCES public.cardtests(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
