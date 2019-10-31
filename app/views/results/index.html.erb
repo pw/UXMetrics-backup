@@ -19,7 +19,7 @@
   <div class="max-w-6xl mx-auto clearfix py-6 flex items-center px-6">
     <div class="flex-1">
       <h1 class="font-bold text-gray-600 text-xl"><%= @cardtest.name %></h1>
-      <span class="text-gray-400 text-sm block">Created on <%= @cardtest.created_at.strftime("%F") %></span>
+      <span class="text-gray-400 text-sm block"><strong class="capitalize"><%= @cardtest.testtype %></strong> card test - created on <%= @cardtest.created_at.strftime("%F") %></span>
     </div>
     <div class="flex-2 text-right">
       <%= link_to "Back to overview", cardtests_url+"/"+@cardtest.uid+"/edit", class: "btn-small btn--primary" %>
@@ -33,14 +33,32 @@
 <div class="mt-16 max-w-6xl mx-auto flex pl-10 pr-10">
   <div class="w-2/3 p-4">
 
+    <% if @cardtest.testtype == "closed" %>
+      <h1 class="text-3xl mb-8">Groups used</h1>
+      <h4 class="-mt-8">Most people used <%= @mediangroups.to_i %>
+
+      <% if @mediangroups.to_i == 1%>
+      group<% else %>
+      groups<% end %>.</h4>
+    <% elsif @cardtest.testtype == "hybrid" %>
+      <h1 class="text-3xl mb-8">Groups used</h1>
+      <h4 class="-mt-8">Most people used <%= @mediangroups.to_i %>
+
+      <% if @mediangroups.to_i == 1%>
+      group<% else %>
+      groups<% end %>.</h4>
+    <% else %>
+      <h1 class="text-3xl mb-8">Groups created</h1>
+      <h4 class="-mt-8">Most people created <%= @mediangroups.to_i %>
+
+      <% if @mediangroups.to_i == 1%>
+      group<% else %>
+      groups<% end %>.</h4>
+    <% end %>
 
 
-    <h1 class="text-3xl mb-8">Groups created</h1>
-    <h4 class="-mt-8">Most people created <%= @mediangroups.to_i %>
 
-    <% if @mediangroups.to_i == 1%>
-    group<% else %>
-    groups<% end %>.</h4>
+
     <div id="bar-container" class="mb-32"></div>
 
 
@@ -66,7 +84,11 @@
         <%= @titleslist.count %>
       </p>
 
-      <h4 class="-mt-2 font-semibold px-2 text-center">Unique groups created</h4>
+      <% if @cardtest.testtype == "open" %>
+        <h4 class="-mt-2 font-semibold px-2 text-center">Unique groups created</h4>
+      <% else %>
+        <h4 class="-mt-2 font-semibold px-2 text-center">Unique groups used</h4>
+      <% end %>
 
     </div>
 
@@ -216,7 +238,17 @@
     <thead class="uppercase text-gray-900 text-xs leading-tight font-medium">
       <tr>
         <th data-type="text" data-sort-initial="true" width="200">Group name</th>
-        <th data-type="numeric">Created by</th>
+        <th data-type="numeric">
+        <% if @cardtest.testtype == "open" %>
+          Created by
+        <% elsif @cardtest.testtype == "closed" %>
+          Used by
+        <% else %>
+          Used by
+        <% end %>
+
+
+        </th>
         <th data-sort-ignore="true">Cards added</th>
         <th data-type="numeric">Number of times</th>
 

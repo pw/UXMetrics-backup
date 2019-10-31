@@ -212,7 +212,14 @@ function drawBasic() {
 
       var data = new google.visualization.DataTable();
       data.addColumn('string', 'Groups bucket');
-      data.addColumn('number', 'Number of people created');
+
+      if (testType == "open"){
+        data.addColumn('number', 'Number of people created');
+      } else {
+        data.addColumn('number', 'Number of people used');
+      }
+
+
       console.log(barData);
 
       data.addRows(barData);

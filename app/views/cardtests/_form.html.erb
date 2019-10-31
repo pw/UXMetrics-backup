@@ -111,7 +111,7 @@ Your contribution is essential in our journey to deliver improvements." %>
     </div>
   </div>
   <h4>Add your cards</h4>
-  <div data-controller = "nested-form">
+  <div data-controller = "nested-form" class="mb-32">
 
     <template data-target="nested-form.template">
       <%= form.fields_for :cards, Card.new, child_index: "NEW_RECORD" do |card| %>
