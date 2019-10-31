@@ -200,7 +200,7 @@ $(document).on('turbolinks:load', function(){
 
 
 
-    if(draggingItem == true && (currentMousePos.x - dragStart + 120 > 252) && fitComplete == true && inGroup == false && inList == false && inDropArea == false){
+    if(draggingItem == true && (currentMousePos.x - dragStart + 120 > 252) && fitComplete == true && inGroup == false && inList == false && inDropArea == false && testType != "closed"){
       // console.log("could dropm, inList IS: "+inList);
 
       // if($('.empty-column').length < 1 ){
@@ -747,7 +747,7 @@ $(document).on('turbolinks:load', function(){
 
     $(".used-column").removeClass("droparea");
 
-    if($('.empty-column').length < 1 ){
+    if($('.empty-column').length < 1 && testType != "closed"){
         console.log("adding temp elem");
       tempElement = '<div class="muuri-new-column mt-0 w-64 absolute rounded empty-column droparea">              <div class="column-holder">                <div class="group-header hidden bg-white p-2">                  <div class="muuri-handle inline-block text-xs text-gray-500"><i class="fa fa-arrows-alt"></i></div>                  <a href="#" class="name-link py-1 inline-block">Add a name</a>                  <input type="text" class="py-1 name-input w-full container-name input-small inline-block hidden" placeholder="Add a name for your group ..."/>                  <a href="#" class="delete-group float-right text-sm pt-1 pr-1"><i class="fa fa-trash" aria-hidden="true"></i></a>                </div>                  <div class="items p-2 h-32">                    </div>              </div>            </div>';
 
@@ -776,7 +776,7 @@ $(document).on('turbolinks:load', function(){
         // $grid.packery('layout');
       }
 
-      if ($(this).children().length == 0 && !$(this).parents(".muuri-new-column").hasClass('empty-column')){
+      if ($(this).children().length == 0 && !$(this).parents(".muuri-new-column").hasClass('empty-column') && !$(this).parents(".muuri-new-column").hasClass('fixedgroups')){
         console.log($(this).parents('.muuri-new-column'));
         console.log("this happens?");
         $(this).parents(".muuri-new-column").remove();

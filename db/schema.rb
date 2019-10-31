@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_23_110713) do
+ActiveRecord::Schema.define(version: 2019_10_30_212734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,8 @@ ActiveRecord::Schema.define(version: 2019_09_23_110713) do
     t.text "intro"
     t.text "outro"
     t.boolean "random"
+    t.text "fixedgroups"
+    t.string "testtype", default: "open", null: false
     t.index ["auth_token"], name: "index_cardtests_on_auth_token", unique: true
     t.index ["uid"], name: "index_cardtests_on_uid", unique: true
     t.index ["user_id"], name: "index_cardtests_on_user_id"

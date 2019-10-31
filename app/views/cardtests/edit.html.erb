@@ -131,11 +131,19 @@
               <input class="input" value="<%= @cardtest.name %>" disabled/>
             </div>
             <div class="field">
-              <h4>Test settings</h4>
+              <h4>Test type</h4>
               <ul>
-                <li class="font-normal text-sm text-gray-700 mt-1 mb-2">- <% if @cardtest.random %>Card order is randomized. <% else %> Card order is not randomized.<% end %></li>
+                <li class="font-normal text-sm text-gray-700 mt-1 mb-2">- Test is set to <strong><%= @cardtest.testtype %></strong>.</li>
               </ul>
+
+              <% if @cardtest.testtype == "closed" || @cardtest.testtype == "hybrid "%>
+              <p class="uppercase text-xs font-semibold tracking-wider mt-6 mb-2">Predefined groups</p>
+                <ul>
+                  <li class="text-sm"><%= simple_format(@cardtest.fixedgroups) %></li>
+                </ul>
+              <% end %>
             </div>
+
             <div class="field">
               <h4>Logo</h4>
 
@@ -169,6 +177,12 @@
           </div>
 
           <div class="tab-cards hidden">
+            <div class="field">
+              <h4>Card order</h4>
+              <ul>
+                <li class="font-normal text-sm text-gray-700 mt-1 mb-2">- <% if @cardtest.random %>Card order is randomized. <% else %> Card order is not randomized.<% end %></li>
+              </ul>
+            </div>
             <h4>Cards</h4>
             <div class="bg-white rounded shadow px-4 my-4">
 

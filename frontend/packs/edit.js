@@ -33,8 +33,40 @@ $(document).on('turbolinks:load', function() {
 
 
 
+  $('input[type=radio][name="cardtest[testtype]"]').change(function() {
+      if (this.value == 'closed') {
+        $(".fixedgroups").show();
+      }
+      else if (this.value == 'open') {
+        $(".fixedgroups").hide();
+      }
+      else if (this.value == 'hybrid') {
+        $(".fixedgroups").show();
+      }
+  });
+
+  console.log($('input[type=radio][name="cardtest[testtype]"]:checked').val());
+
+  if($('input[type=radio][name="cardtest[testtype]"]:checked').val() == "closed"){
+      console.log("asd1");
+      $(".fixedgroups").show();
+  } else if ($('input[type=radio][name="cardtest[testtype]"]:checked').val() == "open"){
+    console.log("asd");
+    // console.log($('input[type=radio][name="cardtest[testtype]"]').val());
+    // console.log($('input[type=radio][name="cardtest[testtype]"]').value);
+    $(".fixedgroups").hide();
+  } else if ($('input[type=radio][name="cardtest[testtype]"]:checked').val() == "hybrid"){
+      console.log("asd2");
+    $(".fixedgroups").show();
+  } else {
+    console.log("else");
+    // console.log($('input[type=radio][name="cardtest[testtype]"]').val());
+  }
+
+
   return unsaved = false;
   console.log(unsaved);
+
 });
 
 
@@ -42,6 +74,19 @@ $(document).on('turbolinks:load', function() {
 
 $(function() {
 
+
+
+  // $('input[type=radio][name="cardtest[testtype]"]').change(function() {
+  //     if (this.value == 'closed') {
+  //       $("fixedgroups").show();
+  //     }
+  //     else if (this.value == 'open') {
+  //       $("fixedgroups").hide();
+  //     }
+  //     else if (this.value == 'hybrid') {
+  //       $("fixedgroups").show();
+  //     }
+  // });
 
   $(".save-cardtest").click(function(e){
 

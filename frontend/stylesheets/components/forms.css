@@ -152,12 +152,13 @@ textarea:disabled {
   }
 }
 
-.checkbox {
+.checkbox, .radio {
 
   @apply text-sm;
+
 }
 
-input[type="checkbox"] {
+input[type="checkbox"], input[type="radio"] {
    @apply mr-1;
 }
 

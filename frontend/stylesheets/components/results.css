@@ -11,6 +11,10 @@
   @apply text-sm text-indigo-700 underline;
 }
 
+.fixedname {
+  @apply text-sm;
+}
+
 .ui-sortable-helper {
   z-index:999999;
 }

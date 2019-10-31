@@ -48,6 +48,8 @@ class CardtestsController < ApplicationController
     @cardtest = current_user.cardtests.new(cardtest_params)
     @cardtest.status = "draft"
 
+
+
     if @cardtest.intro == "" or !@cardtest.intro?
       @cardtest.intro = "Thank you for agreeing to help us, it shouldn't take more than 5 minutes!
 
@@ -133,7 +135,7 @@ Your contribution is essential in our journey to deliver improvements."
     # Only allow a trusted parameter "white list" through.
     def cardtest_params
 
-      params.require(:cardtest).permit(:name, :items, :user, :status, :uid, :logoimg, :intro, :outro, :random, cards_attributes: [:id, :name, :order, :_destroy])
+      params.require(:cardtest).permit(:name, :items, :user, :status, :uid, :logoimg, :intro, :outro, :random, :testtype, :fixedgroups, cards_attributes: [:id, :name, :order, :_destroy])
 
     end
 

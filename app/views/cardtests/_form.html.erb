@@ -11,13 +11,29 @@
 
     <%# form.text_field :status, class: "input", placeholder: "Status here"%>
   </div>
-  <div class="field">
-    <h4>Test settings</h4>
-    <div class="checkbox">
 
-      <%= form.check_box :random %>
-      <label for="randomize">Randomize card order in test</label>
+  <div class="field">
+    <h4>Test type</h4>
+    <p class="-mt-4 text-xs mb-4">Use closed card sorting if you have groups you want people to choose between.</p>
+
+    <div class="radio mt-4">
+
+      <%= form.radio_button :testtype, 'open', :checked => true %>
+      <%= form.label :testtype, 'Open card sort', :value => 'open' %>
+      <br/>
+      <%= form.radio_button :testtype, 'closed' %>
+      <%= form.label :testtype, 'Closed card sort', :value => 'closed' %>
+      <br/>
+      <%= form.radio_button :testtype, 'hybrid' %>
+      <%= form.label :testtype, 'Hybrid card sort', :value => 'hybrid' %>
+
     </div>
+
+    <div class="fixedgroups mt-4">
+      <%= form.label :fixedgroups, "Add predefined groups", class:"uppercase text-xs font-semibold tracking-wider" %>
+      <%= form.text_area :fixedgroups, class: "", required: false, placeholder: "Add one group per line, like: \nMust have \nNice to have \nNot needed" %>
+    </div>
+
   </div>
 
   <div class="field">
@@ -84,7 +100,17 @@ Your contribution is essential in our journey to deliver improvements." %>
 </div>
 
 <div class="tab-cards hidden">
-  <h4>Cards</h4>
+  <div class="field">
+    <h4>Card order</h4>
+    <p class="-mt-4 text-xs mb-4">Randomizing the card order eliminates bias towards cards at the top of list</p>
+    <div class="checkbox">
+
+      <%= form.check_box :random %>
+      <label for="randomize">Randomize card order in test</label>
+
+    </div>
+  </div>
+  <h4>Add your cards</h4>
   <div data-controller = "nested-form">
 
     <template data-target="nested-form.template">
