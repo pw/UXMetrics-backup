@@ -1,5 +1,10 @@
-<%= javascript_tag do %>
-  window.testType = "<%=raw @cardtest.testtype %>";
+
+<% if !@cardtest.testtype.nil? %>
+  <%= javascript_tag do %>
+    window.testType = "<%=raw @cardtest.testtype %>";
+  <% end %>
+<% else %>
+  window.testType = "open";
 <% end %>
 
 
