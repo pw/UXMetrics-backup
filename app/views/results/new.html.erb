@@ -72,7 +72,7 @@
         <!-- <div id="test-columns" class="relative flex-1 mt-5 mx-2"> -->
           <!-- <canvas style="width:1000px; height:1000px;"></canvas> -->
 
-          <% if @cardtest.fixedgroups.nil? %>
+          <% if !@cardtest.fixedgroups.nil? %>
             <% @fixedgroups = @cardtest.fixedgroups.split("\r\n") %>
           <% else %>
             <% @fixedgroups = [""] %>
