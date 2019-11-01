@@ -71,7 +71,14 @@
         <div id="test-columns" class="relative flex-1 mt-4 mx-2" style="">
         <!-- <div id="test-columns" class="relative flex-1 mt-5 mx-2"> -->
           <!-- <canvas style="width:1000px; height:1000px;"></canvas> -->
-          <% @fixedgroups = @cardtest.fixedgroups.split("\r\n") %>
+
+          <% if @cardtest.fixedgroups.nil? %>
+            <% @fixedgroups = @cardtest.fixedgroups.split("\r\n") %>
+          <% else %>
+            <% @fixedgroups = [""] %>
+          <% end %>
+
+
 
           <% if @fixedgroups.count < 1 || @cardtest.testtype == "open" %>
             <div class="helper text-center m-auto align-middle h-screen text-gray-500 font-bold pt-10">Drag items from the left here!</div>
