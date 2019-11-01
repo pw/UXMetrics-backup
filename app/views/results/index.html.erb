@@ -3,7 +3,13 @@
 <% @results.each do |result| %>
   <% dataCompiled.push(result.data.to_json)%>
 <% end %>
-<% @fixedgroups = @cardtest.fixedgroups.split("\r\n") %>
+
+
+<% if @cardtest.fixedgroups.nil? %>
+  <% @fixedgroups = @cardtest.fixedgroups.split("\r\n") %>
+<% else %>
+  <% @fixedgroups = [""] %>
+<% end %>
 
 <%= javascript_tag do %>
   window.testType = "<%=raw @cardtest.testtype %>";
