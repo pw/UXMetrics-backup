@@ -292,7 +292,12 @@
 
                 <%# add cards to nodesList%>
                 <%# <% @nodesList.push({:name => @cardtest.cards.find(card[0]).name}) %>
-                <% @linksList.push([title[:title], @cardtest.cards.find(card[0]).name, card[1], "<div class='p-2'><strong>"+@cardtest.cards.find(card[0]).name+"</strong>" + " grouped into <strong>"+title[:title]+"</strong><br/><br/> <strong>"+ card[1].to_s + "</strong> time(s)</div>" ]) %>
+                <% if title[:title] == @cardtest.cards.find(card[0]).name %>
+                  <% @linksList.push([title[:title], @cardtest.cards.find(card[0]).name+" ", card[1], "<div class='p-2'><strong>"+@cardtest.cards.find(card[0]).name+"</strong>" + " grouped into <strong>"+title[:title]+"</strong><br/><br/> <strong>"+ card[1].to_s + "</strong> time(s)</div>" ]) %>
+                <% else %>
+                  <% @linksList.push([title[:title], @cardtest.cards.find(card[0]).name, card[1], "<div class='p-2'><strong>"+@cardtest.cards.find(card[0]).name+"</strong>" + " grouped into <strong>"+title[:title]+"</strong><br/><br/> <strong>"+ card[1].to_s + "</strong> time(s)</div>" ]) %>
+                <% end %>
+
                 <%# <% @linksList.push({:source => groupIndex, :target => i, :value => card[1]}) %>
 
                 <li><%= @cardtest.cards.find(card[0]).name %></li>
@@ -323,7 +328,12 @@
     </tbody>
   </table>
 
+
+
   <%
+
+
+
 
 
   %>

@@ -31,7 +31,34 @@
 
     <div class="fixedgroups mt-4">
       <%= form.label :fixedgroups, "Add predefined groups", class:"uppercase text-xs font-semibold tracking-wider" %>
-      <%= form.text_area :fixedgroups, class: "", required: false, placeholder: "Add one group per line, like: \nMust have \nNice to have \nNot needed" %>
+      <div></div>
+      <div class="predefined-groups inline">
+        <% if !@cardtest.fixedgroups.nil? %>
+          <% @fixedgroups = @cardtest.fixedgroups.split("\r\n") %>
+          <% @fixedgroups.each do |group| %>
+            <div class="group-field item bg-white rounded p-2 mb-2 w-64 inline-block shadow mr-2">
+              <div class="field w-7/8 clearfix flex m-0">
+                <input class="input w-7/8 mr-2 text-sm" type="text" value="<%= group %>" placeholder="Enter a group name ...">
+                <a class="remove-predefined-group pt-2 w-1/8 text-red-400 hover:text-red-600" href="#"  tabindex="-1">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+            <% end %>
+        <% else %>
+
+        <% end %>
+      </div>
+      <a class="btn-small btn--primary add-predefined inline-block" href="#">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </a>
+
+
+
+      <%= form.hidden_field :fixedgroups, class: "", required: false, placeholder: "Add one group per line, e.g.: \nMust have \nNice to have \nNot needed" %>
+
+
+
     </div>
 
   </div>

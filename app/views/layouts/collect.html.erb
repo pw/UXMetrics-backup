@@ -9,7 +9,7 @@
 
   <% if request.original_url.include? "preview" %>
   <% preview = true %>
-    <div class="preview-bar bg-yellow-500 text-center py-2"><h5 class="my-2 text-sm"><i class="fa fa-eye mr-2" aria-hidden="true"></i> This is a preview of your test, results will not be saved.</h5></div>
+    <div class="preview-bar bg-yellow-500 text-center py-2 absolute w-full z-50"><h5 class="my-2 text-sm"><i class="fa fa-eye mr-2" aria-hidden="true"></i> This is a preview of your test, results will not be saved.</h5></div>
   <% end %>
   <div class="collect">
 
@@ -19,7 +19,7 @@
 
       <% if current_page?(action: 'new') == true %>
 
-      <div class="dashboard-nav-secondary clearfix">
+      <div class="dashboard-nav-secondary clearfix absolute w-full" style="<% if preview == true %>top:53px; <% end %> z-index: 9999;">
         <%# Example usage here: search, secondary navigation items, etc.  Do not forget to change the `justify-end` in `.dashboard-nav-secondary`. %>
         <%# link_to Rails.configuration.application_name, root_path, class: "dashboard-nav__logo" %>
         <% if @cardtest.logoimg.attached? %>

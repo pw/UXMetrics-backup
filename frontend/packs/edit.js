@@ -32,6 +32,25 @@ $(document).on('change', 'input', function() {
 $(document).on('turbolinks:load', function() {
 
 
+  $(document).on('click', '.remove-predefined-group', function(e) {
+    e.preventDefault();
+    $(this).parents(".group-field").remove();
+    $(".save-btn").show();
+  });
+
+  // $(".remove-predefined-group").click(function(e){
+  //   e.preventDefault();
+  //   $(this).parents(".group-field").remove();
+  // });
+
+  $(".add-predefined").click(function(e){
+    e.preventDefault();
+    var element = '<div class="group-field item bg-white rounded p-2 mb-2 w-64 inline-block shadow mr-2"><div class="field w-7/8 clearfix flex m-0"><input class="input w-7/8 mr-2 text-sm" type="text" value="" placeholder="Enter a group name ..."><a class="remove-predefined-group pt-2 w-1/8 text-red-400 hover:text-red-600" href="#"  tabindex="-1"><i class="fa fa-trash" aria-hidden="true"></i></a></div></div>';
+    $(".predefined-groups").append(element);
+    $(".save-btn").show();
+
+  });
+
 
   $('input[type=radio][name="cardtest[testtype]"]').change(function() {
       if (this.value == 'closed') {
@@ -70,7 +89,13 @@ $(document).on('turbolinks:load', function() {
 });
 
 
-
+function unique(list) {
+  var result = [];
+  $.each(list, function(i, e) {
+    if ($.inArray(e, result) == -1) result.push(e);
+  });
+  return result;
+}
 
 $(function() {
 
@@ -88,7 +113,24 @@ $(function() {
   //     }
   // });
 
+
+
   $(".save-cardtest").click(function(e){
+    var predGroups = [];
+    $("#cardtest_fixedgroups").val("");
+    $(".group-field input").each(function(){
+      predGroups.push($(this).val());
+
+    });
+    predGroups = unique(predGroups);
+
+    console.log(predGroups);
+    $.each(predGroups,function(){
+
+        $("#cardtest_fixedgroups").val($("#cardtest_fixedgroups").val() + this+"\n");
+    })
+
+
 
   });
 

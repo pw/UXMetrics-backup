@@ -9,7 +9,7 @@
 
     <div id="columns" class="relative">
 
-      <div class="card-columns flex">
+      <div class="card-columns flex h-screen" style="<% if request.original_url.include? "preview" %>padding-top: 125px;<% else %> padding-top: 72px;<% end %>">
 
         <div class="intial-column flex-none bg-gray-200 overflow-scroll">
           <div id="new-column" class="new-column m-2 w-64 mt-5 pb-20">

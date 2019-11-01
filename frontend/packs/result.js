@@ -426,11 +426,62 @@ $(document).on('turbolinks:load', function(){
       element = $(event.target);
 
       if(!$(element).val() == ""){
-        $(element).closest(".group-header").find(".name-link").text($(this).val());
-        $(element).hide();
-        $(element).closest(".group-header").find(".name-link").show();
-        $(element).closest(".group-header").find(".delete-group").show();
-        $(element).closest(".group-header").find(".muuri-handle").show();
+        console.log("fixednamething");
+        console.log($(element).val());
+        console.log($("p.fixedname").textContent);
+
+        var duplicate = false;
+
+        // $("p.fixedname").each(function() {
+        //   console.log($(this)[0].textContent);
+        //   if(($(element).val() == $(this)[0].textContent)){
+        //
+        //     duplicate = true;
+        //     return false;
+        //   }
+        //
+        // });
+
+        var dup_count = 0;
+        $(".name-input").each(function() {
+          // console.log($(this)[0].textContent);
+          if($(element).val() == $(this).val()){
+            console.log("found dup");
+            dup_count++;
+            if (dup_count > 1){
+              duplicate = true;
+              return false;
+            }
+
+          }
+
+        });
+
+
+
+        // console.log(ttt);
+
+        if (duplicate == false){
+          $(element).closest(".group-header").find(".name-link").text($(this).val());
+          $(element).hide();
+          $(element).closest(".group-header").find(".name-link").show();
+          $(element).closest(".group-header").find(".delete-group").show();
+          $(element).closest(".group-header").find(".muuri-handle").show();
+        } else {
+
+          $(".validation p").text("This group name is already in use, please use different name.");
+          $(".validation").css('display', 'flex');
+          $(element).focus();
+
+        }
+
+        // console.log($.inArray($(element).val(), $("p.fixedname").textContent));
+
+
+
+
+
+
       } else {
         $(element).closest(".group-header").find(".name-link").text("Add a name");
         $(element).hide();
