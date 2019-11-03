@@ -34,25 +34,57 @@ class ResultsController < ApplicationController
     @csv_string = CSV.generate do |csv|
       csv << ["participant", "response id", "cards", "groups", "created at", "time to complete"]
 
-      @resultgroups = []
+      @resultgroupswithid = []
       @resultdata = []
 
+
       @results.each do |resultGroup|
-        @resultgroups.push(JSON.parse(resultGroup.data)['groups'])
+
+        @resultgroupswithid.push([resultGroup.id, JSON.parse(resultGroup.data)['groups'], resultGroup.created_at, JSON.parse(resultGroup.data)['time']])
         @resultdata.push([resultGroup.id, resultGroup.created_at, JSON.parse(resultGroup.data)['time']])
+
       end
+
 
 
 
       @cardsByGroups = []
 
-      @cardtest.cards.sort_by(&:order).each do |card|
-        @cardsByGroups.push({"id":card.id,"name":card.name,"titles":get_group_titles_for_card(card.id)}.to_json)
+
+
+      # puts @resultgroupswithid
+      puts "start each"
+
+      @resultgroupswithid.each_with_index do |resultline, index|
+        puts resultline
+        @cardsByGroups = []
+        @cardtest.cards.sort_by(&:order).each do |card|
+          puts "TWICE PER RESULT"
+          @cardsByGroups.push({"id":card.id,"name":card.name,"titles":get_group_titles_for_card_for_result(card.id,resultline[0])}.to_json)
+        end
+        # csv << [index+1, @resultdata[index][0], JSON.parse(cardIdRow)["name"], JSON.parse(cardIdRow)["titles"].join(", "), @resultdata[index][1], get_duration_hrs_and_mins(@resultdata[index][2])]
+
+        @cardsByGroups.each_with_index do |cardIdRow|
+          csv << [index+1, resultline[0], JSON.parse(cardIdRow)["name"], JSON.parse(cardIdRow)["titles"].join(", "), resultline[2], get_duration_hrs_and_mins(resultline[3])]
+        end
+
+        puts "array built with groups per card per user"
+        puts @cardsByGroups
+
+
+
       end
 
-      @cardsByGroups.each_with_index do |cardIdRow, index|
-        csv << [index+1, @resultdata[index][0], JSON.parse(cardIdRow)["name"], JSON.parse(cardIdRow)["titles"].join(", "), @resultdata[index][1], get_duration_hrs_and_mins(@resultdata[index][2])]
-      end
+      # @resultgroupswithid.each_with_index do |resultline, index|
+      #
+      #   @cardsByGroups.each_with_index do |cardIdRow, index|
+      #     # puts cardIdRow
+      #
+      #     csv << [index+1, resultline[0], JSON.parse(cardIdRow)["name"], JSON.parse(cardIdRow)["titles"].join(", "), resultline[2], get_duration_hrs_and_mins(resultline[3])]
+      #
+      #   end
+      # end
+
 
     end
 
@@ -432,6 +464,37 @@ class ResultsController < ApplicationController
       end
 
       return @cardGroupTitles
+
+    end
+
+    def get_group_titles_for_card_for_result(cardId, resultId)
+      puts "GET GROUP TITLES FOR CARD CALLED"
+      # puts cardId
+      @cardGroupTitlesForResult = []
+
+      # puts "in function:"
+      # puts @resultgroupswithid[1]
+      # puts "starting each"
+
+      @resultgroupswithid.each do |groups|
+
+            groups[1].each do |group|
+              #puts group['card']
+              #puts group['card'].include?(cardId.to_s)
+
+              # puts "--"
+              # puts group
+              # puts "--"
+
+              if group['card'].length > 0 && group['card'].include?(cardId.to_s) && groups[0] == resultId
+
+                # puts "TRUE"
+                @cardGroupTitlesForResult.push(group['title'].capitalize);
+              end
+            end
+      end
+
+      return @cardGroupTitlesForResult
 
     end
 
