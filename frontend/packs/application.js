@@ -28,12 +28,18 @@ const sortable = require('jquery-ui/ui/widgets/sortable');
   var $ = require("jquery");
   require("jquery-ui");
 
+  var jQuery = require("jquery");
+  window.jQuery = $;
+  window.$ = $;
 
+const footable = require('footable/dist/footable.all.min');
 
 // $(document).on('load', function(){
 $(document).on('turbolinks:load', function(){
 
+  $(".admin-table").footable({
 
+  });
 
 
 console.log("App.js");
