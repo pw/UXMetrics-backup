@@ -1,4 +1,4 @@
-<div class="mt-16 max-w-4xl mx-auto">
+<div class="mt-16 px-16 w-full mx-auto">
 
   <h1 class="text-2xl mb-4">Total users: <%= @users.count %></h1>
   <h1 class="text-2xl mb-4">Total cardtests: <%= Cardtest.all.count %></h1>
@@ -6,14 +6,19 @@
 
 
 
-  <table>
-  <thead>
+  <table class="table text-sm">
+  <thead class="uppercase text-gray-900 text-xs leading-tight font-medium">
     <tr>
-      <td>First Name</td>
-      <td>Last Name</td>
-      <td>Email</td>
-      <td>Tests</td>
-      <td>Tests List</td>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Signed up date</th>
+      <th width="200">Days left of trial</th>
+      <th>Login counts</th>
+      <th>Last sign in at</th>
+      <th>Last sign in days ago</th>
+      <th>Tests</th>
+      <th>Tests List</th>
     </tr>
   </thead>
   <tbody>
@@ -22,6 +27,14 @@
       <td><%= user.first_name %></td>
       <td><%= user.last_name %></td>
       <td><%= user.email %></td>
+      <td><%= user.created_at %></td>
+      <td><%= 60-((Time.now - user.created_at)/1.day).round %> day(s)</td>
+      <td><%= user.sign_in_count %></td>
+      <td><%= user.current_sign_in_at %></td>
+      <td><% if user.current_sign_in_at? %>
+        <%= ((Time.now - user.current_sign_in_at)/1.day).round %>
+        <% end %> day(s) </td>
+      <td><%= user.current_sign_in_at %></td>
       <td><%= user.cardtests.all.count %></td>
       <td>
         <ul>
