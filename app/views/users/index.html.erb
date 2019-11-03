@@ -6,7 +6,7 @@
 
 
 
-  <table class="table text-sm admin-table">
+  <table data-page-size="5000" class="table text-sm admin-table">
   <thead class="uppercase text-gray-900 text-xs leading-tight font-medium">
     <tr>
       <th>First Name</th>
@@ -34,7 +34,7 @@
       <td><% if user.current_sign_in_at? %>
         <%= ((Time.now - user.current_sign_in_at)/1.day).round %>
         <% end %> day(s) </td>
-      <td><%= user.current_sign_in_at %></td>
+
       <td><%= user.cardtests.all.count %></td>
       <td>
         <ul>
