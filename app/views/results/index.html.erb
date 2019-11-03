@@ -29,6 +29,9 @@
     </div>
     <div class="flex-2 text-right">
       <%= link_to "Back to overview", cardtests_url+"/"+@cardtest.uid+"/edit", class: "btn-small btn--primary" %>
+      <%= link_to download_cardtest_results_path, class: "ml-2 btn-small btn--secondary", target: "_blank" do %>
+        <i class="mr-2 fa fa-download" aria-hidden="true"></i> Download Results
+      <% end %>
 
 
 

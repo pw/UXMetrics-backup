@@ -1,12 +1,68 @@
 class ResultsController < ApplicationController
-  before_action :set_result, only: [:show, :edit, :update, :destroy]
+  before_action :set_result, only: [:index, :show, :edit, :update, :destroy, :download]
   before_action :set_cardtest, except: [:new]
 
-
+  require "csv"
 
   layout "dashboard"
   # GET /results
+
+  def download
+
+    @cardtest = Cardtest.find_by(uid: params[:cardtest_uid])
+    @results = Result.where(cardtest_id: @cardtest.id)
+
+
+    # @csv_string = CSV.generate do |csv|
+    #   csv << ["test name", "response id", "groups", "cards", "created at", "time to complete"]
+    #
+      # @resultgroups = []
+    #   @resultdata = []
+      # @results.each do |resultGroup|
+      #   @resultgroups.push(JSON.parse(resultGroup.data)['groups'])
+      #   @resultdata.push([resultGroup.id, resultGroup.created_at, JSON.parse(resultGroup.data)['time']])
+      # end
+    #   @resultgroups.each_with_index do |groups,index|
+    #     g = groups.map{|e| {e.keys[0] => e.values[0].capitalize, e.keys[1] => e.values[1]}}
+    #     g.each do |group|
+    #       group['card'].map! {|id| Card.find(id).name}
+    #       csv << [@cardtest.name, @resultdata[index][0], group['title'], group['card'], @resultdata[index][1], get_duration_hrs_and_mins(@resultdata[index][2])]
+    #     end
+    #   end
+    # end
+
+    @csv_string = CSV.generate do |csv|
+      csv << ["participant", "response id", "cards", "groups", "created at", "time to complete"]
+
+      @resultgroups = []
+      @resultdata = []
+
+      @results.each do |resultGroup|
+        @resultgroups.push(JSON.parse(resultGroup.data)['groups'])
+        @resultdata.push([resultGroup.id, resultGroup.created_at, JSON.parse(resultGroup.data)['time']])
+      end
+
+
+
+      @cardsByGroups = []
+
+      @cardtest.cards.sort_by(&:order).each do |card|
+        @cardsByGroups.push({"id":card.id,"name":card.name,"titles":get_group_titles_for_card(card.id)}.to_json)
+      end
+
+      @cardsByGroups.each_with_index do |cardIdRow, index|
+        csv << [index+1, @resultdata[index][0], JSON.parse(cardIdRow)["name"], JSON.parse(cardIdRow)["titles"].join(", "), @resultdata[index][1], get_duration_hrs_and_mins(@resultdata[index][2])]
+      end
+
+    end
+
+    puts @csv_string
+
+    send_data @csv_string, filename: "#{@cardtest.name.to_s}-results.csv"
+  end
+
   def index
+
 
 
     @cardtest = Cardtest.find_by(uid: params[:cardtest_uid])
@@ -222,9 +278,16 @@ class ResultsController < ApplicationController
 
   end
 
+
+
+
+
+
   # GET /results/1
   def show
   end
+
+
 
   # GET /results/new
   def new
@@ -294,8 +357,18 @@ class ResultsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+
+    def restrict_access
+      redirect_to root_path, :alert => "Access denied"
+    end
+
     def set_result
-      @result = Result.find(params[:id])
+      # @result = Result.find(params[:id])
+
+      @cardtest = Cardtest.find_by(uid: params[:cardtest_uid])
+      restrict_access if @cardtest.user_id != current_user.id
+
+
     end
 
     # Only allow a trusted parameter "white list" through.

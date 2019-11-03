@@ -32,7 +32,11 @@ Rails.application.routes.draw do
   resources :cards
 
   resources :cardtests, param: :uid do
-    resources :results, param: :id
+    resources :results, param: :id do
+      collection do
+        get :download
+      end
+    end
     member do
       delete :delete_image_attachment
     end

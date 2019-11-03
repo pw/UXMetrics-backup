@@ -125,9 +125,15 @@ Your contribution is essential in our journey to deliver improvements."
 
   private
     # Use callbacks to share common setup or constraints between actions.
+
+    def restrict_access
+      redirect_to root_path, :alert => "Access denied"
+    end
+
     def set_cardtest
 
       @cardtest = Cardtest.find_by(uid: params[:uid])
+      restrict_access if @cardtest.user_id != current_user.id
       # @cardtest = Cardtest.find_by(slug: params[:slug])
       # @cardtest = Cardtest.find_by(slug: params[:slug])
     end
