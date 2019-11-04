@@ -398,7 +398,7 @@ class ResultsController < ApplicationController
       # @result = Result.find(params[:id])
 
       @cardtest = Cardtest.find_by(uid: params[:cardtest_uid])
-      restrict_access if @cardtest.user_id != current_user.id
+      restrict_access if @cardtest.user_id != current_user.id && !current_user.admin
 
 
     end

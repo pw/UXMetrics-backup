@@ -133,7 +133,7 @@ Your contribution is essential in our journey to deliver improvements."
     def set_cardtest
 
       @cardtest = Cardtest.find_by(uid: params[:uid])
-      restrict_access if @cardtest.user_id != current_user.id
+      restrict_access if @cardtest.user_id != current_user.id && !current_user.admin
       # @cardtest = Cardtest.find_by(slug: params[:slug])
       # @cardtest = Cardtest.find_by(slug: params[:slug])
     end
