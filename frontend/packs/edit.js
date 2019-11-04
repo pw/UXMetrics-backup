@@ -52,6 +52,17 @@ $(document).on('turbolinks:load', function() {
   });
 
 
+  // $('.card-input').keypress(function (e) {
+  //   console.log("keypress");
+  //   if (e.which == 13) {
+  //     console.log("enter");
+  //     $('.add-card-btn').trigger('click');
+  //     return false;    //<---- Add this line
+  //   }
+  // });
+
+
+
   $('input[type=radio][name="cardtest[testtype]"]').change(function() {
       if (this.value == 'closed') {
         $(".fixedgroups").show();

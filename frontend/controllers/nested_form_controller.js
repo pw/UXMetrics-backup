@@ -10,16 +10,31 @@ export default class extends Controller {
   }
 
   add_association(event){
-    event.preventDefault();
-    console.log("add");
-    var content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime())
-    //this.linksTarget.insertAdjacentHTML('beforeend', content)
-    $('#editable-cards').append(content);
-    //$("#target").focus();
-    $('#editable-cards .nested-field:last-child input').focus();
+
+
+    if (event.keyCode == 13) {
+      event.preventDefault();
+      var content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime())
+      //this.linksTarget.insertAdjacentHTML('beforeend', content)
+      $('#editable-cards').append(content);
+      //$("#target").focus();
+      $('#editable-cards .nested-field:last-child input').focus();
+    } else if (event.type == "click" ){
+      event.preventDefault();
+      console.log("add");
+      var content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime())
+      //this.linksTarget.insertAdjacentHTML('beforeend', content)
+      $('#editable-cards').append(content);
+      //$("#target").focus();
+      $('#editable-cards .nested-field:last-child input').focus();
+    }
+
+
+
   }
 
   add_association_t(event){
+
     event.preventDefault();
     console.log("add t");
     var content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime())
