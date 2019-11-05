@@ -256,9 +256,20 @@ class ResultsController < ApplicationController
 
     @cardsByGroups = []
 
-    @cardtest.cards.sort_by(&:order).each do |card|
-      @cardsByGroups.push({"id":card.id,"name":card.name,"titles":get_group_titles_for_card(card.id)}.to_json)
+    @cardtest.cards.each do |card|
+      puts card.name
     end
+
+    begin
+      @cardtest.cards.sort_by(&:order).each do |card|
+        puts card.name
+        @cardsByGroups.push({"id":card.id,"name":card.name,"titles":get_group_titles_for_card(card.id)}.to_json)
+      end
+    rescue => error
+      puts error.inspect
+    end
+
+
 
 
 
