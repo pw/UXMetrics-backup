@@ -9,17 +9,17 @@
       Use card sorting to gain insight into your user's mental models.
     </h2>
 
-    <div class="mt-8 text-center m-auto sm:w-5/6 w-full md:w-3/6 ">
+    <div class="mt-8 text-center m-auto sm:w-5/6 w-full md:w-4/6 ">
       <div class="fields-inline">
-        <div class="field w-2/3 mb-1">
+        <div class="field md:w-2/3 w-1/2 mb-1">
           <input type="text" id="email" class="input rounded-r-none w-full" style="padding-top:0.6rem !important;" placeholder="Your email address"/>
         </div>
-        <div class="field w-1/3 mb-1">
-          <%= link_to "Sign up", new_user_registration_path, class: "btn btn--primary rounded-l-none w-full", id:"homepage-signup"%>
+        <div class="field md:w-1/3 w-1/2 mb-1">
+          <%= link_to "Create account", new_user_registration_path, class: "btn btn--primary rounded-l-none w-full", id:"homepage-signup"%>
         </div>
       </div>
       <%# link_to "Start Free Trial", new_user_registration_path, class: "btn btn--primary-outline mr-4" %>
-      <p class="block ml-2 text-sm text-gray-200 mt-2">Free early access <span class="px-1">&bull;</span> No credit card</p>
+      <p class="block ml-2 text-sm text-gray-200 mt-2">2 month early access for the first 1,000 users<span class="px-1">&bull;</span> No credit card</p>
     </div>
   </div>
 
@@ -205,9 +205,9 @@
     <h3 class="mb-2 text-4xl leading-tight font-medium text-blue-100">Ready for more human understanding?</h3>
     <p class="text-lg text-blue-200">Try for free during early access.</p>
     <div class="mt-8">
-      <%= link_to "Sign up", new_user_registration_path, class: "nav__item btn btn--primary" %>
+      <%= link_to "Create account", new_user_registration_path, class: "nav__item btn btn--primary" %>
       <%# link_to "Start Free Trial", new_user_registration_path, class: "btn btn--primary-outline mr-4" %>
-      <span class="block text-xs text-blue-400 mt-2">Free early access &middot; No credit card</span>
+      <span class="block text-xs text-blue-400 mt-2">2 month early access for the first 1,000 users &middot; No credit card</span>
     </div>
   </div>
 </div>

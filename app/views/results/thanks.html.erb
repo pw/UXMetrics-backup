@@ -5,9 +5,15 @@
     <p class=""><%= simple_format(@cardtest.outro) %></p>
   </div>
 </div>
-<div class="text-center bottom-0 mb-8 absolute block w-full">
+<div class="text-center bottom-0 pt-8 pb-8 px-4 absolute block w-full bg-white">
 
-    <p class="text-xs text-gray-500 mb-4">This test was powered by <%= link_to image_tag(asset_pack_path("media/images/Userdrive-Logo.png"), size: "76x20", class: "ml-2 inline"), root_path, class: "text-center" %></p>
+
+
+    <p class="text-sm text-gray-700 mb-0">Create your own test for more human understanding: <%= link_to "Create card sort", root_path+"?source=tybutton", class:"ml-2 btn-small btn--primary" %></p>
+    <div class="w-1/12 border-t m-auto mt-6"></div>
+    <p class="text-xs text-gray-500 mt-6">Powered by <%= link_to image_tag(asset_pack_path("media/images/Userdrive-Logo.png"), size: "76x20", class: "ml-2 inline"), root_path+"?source=tylogo", class: "text-center" %></p>
+
+
 
 
 </div>
