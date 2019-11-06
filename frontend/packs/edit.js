@@ -129,7 +129,7 @@ $(function() {
   $(".save-cardtest").click(function(e){
 
 
-
+    e.preventDefault();
 
     var predGroups = [];
     $("#cardtest_fixedgroups").val("");
@@ -144,6 +144,8 @@ $(function() {
 
         $("#cardtest_fixedgroups").val($("#cardtest_fixedgroups").val() + this+"\n");
     })
+
+    $('.cardtest-form').submit();
 
 
 

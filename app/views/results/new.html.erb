@@ -38,7 +38,7 @@
             <% else %>
                     <% card_order_present = true %>
                         <% @cardtest.cards.each do |card| %>
-                          <% if card.order? %>
+                          <% if card.order.nil? %>
                           <% card_order_present = false %>
                           <% end %>
                         <% end %>
