@@ -92,11 +92,12 @@ if ($('#editable-cards').length>0){
   $(document).on('keypress', '.card-input', function(e) {
 
     console.log("keypresssss");
-    e.preventDefault;
+
 
 
     var keycode = (event.keyCode ? event.keyCode : event.which);
      if(keycode == '13'){
+       e.preventDefault();
        var itemsContainer = $('#editable-cards');
        itemsContainer.sortable( "refresh" );
        var itemsContainer = $('#editable-cards');

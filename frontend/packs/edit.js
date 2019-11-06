@@ -63,6 +63,23 @@ $(document).on('turbolinks:load', function() {
 
 
 
+
+  $(document).on('keypress', 'input[name="cardtest[name]"]', function(e) {
+
+
+
+
+
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+     if(keycode == '13'){
+       e.preventDefault();
+     }
+
+   });
+
+
+
+
   $('input[type=radio][name="cardtest[testtype]"]').change(function() {
       if (this.value == 'closed') {
         $(".fixedgroups").show();
