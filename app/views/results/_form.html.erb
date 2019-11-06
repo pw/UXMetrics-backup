@@ -6,9 +6,34 @@
 
   <div class="intial-column flex-none">
     <div class="new-column bg-indigo-500 m-6 w-64">
-      <%= form.fields_for :cards, @cardtest.cards.sort_by(&:order), include_id: false do |card| %>
-        <%= render "card_fields", form: card %>
-      <% end %>
+
+      <% card_order_present = true %>
+      
+          <% @cardtest.cards.each do |card| %>
+            <% if card.order? %>
+            <% card_order_present = false %>
+            <% end %>
+          <% end %>
+
+          <% if card_order_present == true %>
+
+            <%= form.fields_for :cards, @cardtest.cards.sort_by(&:order), include_id: false do |card| %>
+              <%= render "card_fields", form: card %>
+            <% end %>
+
+          <% else %>
+
+            <%= form.fields_for :cards, @cardtest.cards, include_id: false do |card| %>
+              <%= render "card_fields", form: card %>
+            <% end %>
+
+          <% end %>
+
+
+
+
+
+
     </div>
   </div>
   <!-- <div class="new-column bg-indigo-900 m-6 flex-1">

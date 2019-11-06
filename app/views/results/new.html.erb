@@ -36,27 +36,60 @@
               <% end %>
 
             <% else %>
-              <% @cardtest.cards.sort_by(&:order).each do |card| %>
+                    <% card_order_present = true %>
+                        <% @cardtest.cards.each do |card| %>
+                          <% if card.order? %>
+                          <% card_order_present = false %>
+                          <% end %>
+                        <% end %>
+
+                        <% if card_order_present == true %>
+
+                                <% @cardtest.cards.sort_by(&:order).each do |card| %>
 
 
-                    <div id="<%= card.id %>" class="item bg-white px-3 py-3 shadow m-2 rounded">
-                        <div class="hidden drag-handle"><i class="fa fa-arrows"></i></div>
-                        <%= content_tag :div, class:"nested-field" do %>
+                                      <div id="<%= card.id %>" class="item bg-white px-3 py-3 shadow m-2 rounded">
+                                          <div class="hidden drag-handle"><i class="fa fa-arrows"></i></div>
+                                          <%= content_tag :div, class:"nested-field" do %>
 
-                          <div class="field mb-0 text-sm cursor-default">
-                            <p><%= card.name %></p>
-                            <p class="hidden order"><%= card.order %></p>
-                          </div>
-
-
+                                            <div class="field mb-0 text-sm cursor-default">
+                                              <p><%= card.name %></p>
+                                              <p class="hidden order"><%= card.order %></p>
+                                            </div>
 
 
 
-                    <% end %>
-                    </div>
 
-              <% end %>
 
+                                      <% end %>
+                                      </div>
+
+                                <% end %>
+                          <% else %>
+
+
+                          <% @cardtest.cards.each do |card| %>
+
+
+                                <div id="<%= card.id %>" class="item bg-white px-3 py-3 shadow m-2 rounded">
+                                    <div class="hidden drag-handle"><i class="fa fa-arrows"></i></div>
+                                    <%= content_tag :div, class:"nested-field" do %>
+
+                                      <div class="field mb-0 text-sm cursor-default">
+                                        <p><%= card.name %></p>
+                                        <p class="hidden order"><%= card.order %></p>
+                                      </div>
+
+
+
+
+
+                                <% end %>
+                                </div>
+
+                          <% end %>
+
+                          <% end %>
             <% end %>
 
           </div>

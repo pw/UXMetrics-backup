@@ -6,18 +6,22 @@ export default class extends Controller {
   static targets = [ "links", "template"]
 
   connect() {
-
+    console.log("connected");
   }
 
   add_association(event){
 
 
+
+
+
     if (event.keyCode == 13) {
+
       event.preventDefault();
       var content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime())
       //this.linksTarget.insertAdjacentHTML('beforeend', content)
       $('#editable-cards').append(content);
-      //$("#target").focus();
+      // $("#target").focus();
       $('#editable-cards .nested-field:last-child input').focus();
     } else if (event.type == "click" ){
       event.preventDefault();
@@ -25,7 +29,7 @@ export default class extends Controller {
       var content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime())
       //this.linksTarget.insertAdjacentHTML('beforeend', content)
       $('#editable-cards').append(content);
-      //$("#target").focus();
+      // $("#target").focus();
       $('#editable-cards .nested-field:last-child input').focus();
     }
 

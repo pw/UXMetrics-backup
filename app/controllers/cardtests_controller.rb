@@ -70,6 +70,9 @@ Your contribution is essential in our journey to deliver improvements."
     #
     # @cardtest.slug = to_slug(name)
 
+    @cardtest.cards.each_with_index do |card, index|
+      card.order = index
+    end
 
 
 
@@ -91,6 +94,13 @@ Your contribution is essential in our journey to deliver improvements."
     #@cardtest = Cardtest.find_by(slug: params[:id])
     @cardtest = Cardtest.find_by(uid: params[:uid])
     # @cardtest.status = ActiveModel::Type::Boolean.new.cast(@cardtest.status)
+
+    @cardtest.cards.each_with_index do |card, index|
+      card.order = index
+      puts card.order
+    end
+
+
     if @cardtest.update(cardtest_params)
       # redirect_to cardtests_url, notice: 'Cardtest was successfully updated.'
 

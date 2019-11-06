@@ -127,6 +127,10 @@ $(function() {
 
 
   $(".save-cardtest").click(function(e){
+
+
+
+
     var predGroups = [];
     $("#cardtest_fixedgroups").val("");
     $(".group-field input").each(function(){
