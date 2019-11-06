@@ -8,9 +8,25 @@
       <%= result.hidden_field :data, class: "input", :value => "Default" %>
 
 
-      <% @cardtest.cards.sort_by(&:order).each do |card| %>
+      <% card_order_present = true %>
 
-      <% end %>
+          <% @cardtest.cards.each do |card| %>
+            <% if card.order? %>
+            <% card_order_present = false %>
+            <% end %>
+          <% end %>
+
+          <% if card_order_present == true %>
+            <% @cardtest.cards.sort_by(&:order).each do |card| %>
+
+            <% end %>
+          <% else %>
+            <% @cardtest.cards.each do |card| %>
+
+            <% end %>
+          <% end %>
+
+
 
       <%# <%= result.submit class: "btn btn--primary" %>
   </div>
