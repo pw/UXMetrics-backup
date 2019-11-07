@@ -9,6 +9,9 @@ const britecharts = require('britecharts/dist/bundled/britecharts.min');
 
 import {GoogleCharts} from 'google-charts';
 
+// var $ = require("jquery");
+var jQBridget = require('jquery-bridget');
+var Packery = require('packery');
 
 // require("d3-sankey/dist/d3-sankey.min");
 // import { sankey } from 'd3-sankey';
@@ -359,6 +362,18 @@ for (i=0; i < barData.length; i++) {
 
 //
 
+
+  var $grid = $('.grid').packery({
+    itemSelector: '.grid-item',
+    gutter: 10,
+    transitionDuration: 0
+  });
+
+
+  $(".tab").click(function(e){
+    $grid.packery();
+  });
+
   $(".table").footable({
 
   });
@@ -371,15 +386,35 @@ for (i=0; i < barData.length; i++) {
 
       console.log(tableActive);
 
-      if (tableActive == "cards"){
-        tableActive = "categories";
-        $('.cards-table').hide();
-        $('.categories-table').show();
-      } else {
-        tableActive = "cards";
+      if ($(this).text() == "View cards"){
+        $('.individual-results').hide();
         $('.categories-table').hide();
         $('.cards-table').show();
+      } else if ($(this).text() == "View groups") {
+        $('.individual-results').hide();
+        $('.cards-table').hide();
+        $('.categories-table').show();
+
+      } else if ($(this).text() == "Individual results") {
+
+
+        $('.cards-table').hide();
+        $('.categories-table').hide();
+        $('.individual-results').show();
+        $grid.packery();
+
       }
+
+      //
+      // if (tableActive == "cards"){
+      //   tableActive = "categories";
+      //   $('.cards-table').hide();
+      //   $('.categories-table').show();
+      // } else {
+      //   tableActive = "cards";
+      //   $('.categories-table').hide();
+      //   $('.cards-table').show();
+      // }
     }
 
   });

@@ -125,8 +125,9 @@
   <h1 class="text-3xl mb-8 float-left">Detailed analysis</h1>
 
   <div class="table-tabs text-center mb-8 float-right">
-    <a href="" class="font-semibold active mr-3">View cards</a>
-    <a href="" class="font-semibold ml-3">View groups</a>
+    <a href="" class="view-cards font-semibold active mr-3">View cards</a>
+    <a href="" class="view-groups font-semibold ml-3 mr-3">View groups</a>
+    <a href="" class="view-results font-semibold ml-3">Individual results</a>
   </div>
 
   <table data-page-size="5000" data-paging="false" class="table text-sm cards-table">
@@ -336,6 +337,76 @@
       <% end %>
     </tbody>
   </table>
+
+
+  <div class="individual-results hidden" style="clear:both;">
+
+
+
+
+      <div class="tabs-wrapper" data-controller="tabs" data-tabs-active-tab="tab--active-light">
+      <div class="tabs">
+
+
+        <% @results.each_with_index do |result,index| %>
+
+        <div class="tab tab--light" data-target="tabs.tab" data-action="click->tabs#change">
+          <h5 class="tab__heading tab__heading--light text-sm">
+            Result <%= index+1 %>
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" class="tab__icon"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"></path></svg>
+          </h5>
+        </div>
+
+        <% end %>
+
+      </div>
+
+<%
+      def get_duration_hrs_and_mins(milliseconds)
+        return '' unless milliseconds
+
+        hours, milliseconds   = milliseconds.divmod(1000 * 60 * 60)
+        minutes, milliseconds = milliseconds.divmod(1000 * 60)
+        seconds, milliseconds = milliseconds.divmod(1000)
+        if hours == 0 and minutes !=0
+          "#{minutes}m #{seconds}s"
+        elsif hours == 0 and minutes == 0
+          "#{seconds}s"
+        else
+          "#{hours}h #{minutes}m #{seconds}s"
+        end
+      end
+%>
+      <% @results.each do |result| %>
+
+        <div class="panel panel--light" data-target="tabs.panel">
+
+          <h5><%# result.created_at.strftime("%F") %>Time to complete: <%= get_duration_hrs_and_mins(JSON.parse(result.data)['time']) %></h5>
+
+          <div class="grid mb-8">
+
+            <% JSON.parse(result.data)['groups'].each do |g| %>
+              <div class="grid-item item bg-white px-3 py-3 shadow rounded w-64 rounded used-column">
+                <h4 class="mb-2 font-bold"><%= g['title'] %></h4>
+                <ul>
+                <% g['card'].each do |card| %>
+                  <li class="text-sm"><%= @cardtest.cards.find(card).name %></li>
+                <% end %>
+                </ul>
+              </div>
+            <% end %>
+            </div>
+        </div>
+
+      <% end %>
+
+      </div>
+
+
+
+  </div>
+
+
 
 
 
