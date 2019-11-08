@@ -87,6 +87,14 @@ mixpanel.init("4160d69af735e8e8eb5efdb4799aabe2");</script><!-- end Mixpanel -->
   fbq('init', '810153599416785');
   fbq('track', 'PageView');
 </script>
+<script>
+  function trackPageView() {
+    fbq('init', 'PIXEL_ID')
+    fbq('track', 'PageView')
+  }
+
+  document.addEventListener('turbolinks:load', trackPageView, true)
+</script>
 <noscript><img height="1" width="1" style="display:none"
   src="https://www.facebook.com/tr?id=810153599416785&ev=PageView&noscript=1"
 /></noscript>
