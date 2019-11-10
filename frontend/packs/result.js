@@ -900,12 +900,21 @@ $(document).on('turbolinks:load', function(){
 
       });
       // alert($("#new-column .item").length);
-      if ($("#new-column .item").length >= 1){
+
+      var m = (mandatory =="true");
+
+      // alert("mandatory: "+typeof(mandatory));
+      // alert("valition: "+validation);
+      // alert("length: "+ ($("#new-column .item").length >= 1));
+
+      if (($("#new-column .item").length >= 1) && m){
+        // alert("this shouldn't trigger now");
         // console.log($("#new-column .item").length);
         // console.log("still left to sort");
         validation = true;
         err = "notsorted";
       }
+      // alert("validtion: "+validation);
 
       if (validation == true){
         console.log("validation errors found");
