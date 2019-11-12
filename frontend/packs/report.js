@@ -7,6 +7,9 @@ window.$ = $;
 const d3 = require('d3/dist/d3');
 const britecharts = require('britecharts/dist/bundled/britecharts.min');
 
+
+
+
 import {GoogleCharts} from 'google-charts';
 
 // var $ = require("jquery");
@@ -422,6 +425,54 @@ for (i=0; i < barData.length; i++) {
   $(window).resize(function(){
     drawChart();
   });
+
+
+
+  $(".merge").click(function(e){
+    var selected = [];
+    $(".groups-listed table").empty();
+
+    $(".group-checkbox:checked").each(function() {
+      selected.push($(this).attr('name'));
+      var el = "<tr><td><input type='checkbox' id='"+$(this).attr('id')+"' name='"+$(this).attr('name')+"' checked/></td><td><strong>"+$(this).attr('name')+"</strong></td></tr>"
+      $(".groups-listed table").append(el);
+    });
+    console.log(selected);
+
+  });
+
+  $(".merge-form").on("submit", function(e){
+  // $(".merge-form").submit(function(e){
+  // alert("dsa");
+  e.preventDefault();
+    var mg = [];
+    mg[0] = $("#merged-name").val();
+    mg[1] = [];
+
+    $(".groups-listed input[type='checkbox']:checked").each(function() {
+      mg[1].push($(this).attr('name'));
+    });
+
+    $("#cardtest_mergedgroups").val("{"+JSON.stringify(mg)+"}");
+    // $("#cardtest_mergedgroups").val("['test']");
+
+    $.ajax({
+      url: this.action,
+      type: "post",
+      data: $(this).serialize(),
+      success: function(data) {
+        console.log(data)
+      },
+      error: function(data) {
+        alert("error");
+      }
+    });
+
+    e.preventDefault();
+
+    // this.submit();
+  });
+
 
 
 });

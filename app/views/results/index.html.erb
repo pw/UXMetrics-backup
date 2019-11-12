@@ -244,9 +244,55 @@
   <%# puts @titleslist %>
 
 
+<div data-controller="modal"  data-action="keydown@window->modal#closeWithKeyboard">
+<button data-action="click->modal#open" class="btn btn--primary-outline merge">Open Modal</button>
+<div data-target="modal.container" class="hidden">
+  <div data-target="modal.background" data-action="click->modal#closeBackground" class="modal-wrapper">
+    <div class="modal">
+
+      <div class="modal__content">
+        <div class="">
+          <input type="text" id="merged-name" placeholder="Name this new group ..."/>
+        </div>
+        <div class="field mb-2 groups-listed">
+          <table>
+
+          </table>
+          <%# @titleslist.each do |title| %>
+
+            <%# title[:title] %>
+
+          <%# end %>
+
+
+        </div>
+
+        <div class="field mb-0">
+          <%= @cardtest %>
+          <%= form_with(model: @cardtest, url: update_merged_cardtest_path(@cardtest), class: "merge-form p-4", data: { type: "json" }) do |form| %>
+          <%= render "shared/flash", flash: @cardtest.errors %>
+
+            <%= form.text_field :name, class: "input" %>
+            <%= form.text_field :mergedgroups, class: "input" %>
+            <%= form.submit "Merge selected", class: "btn btn--primary block text-center save-merged" %>
+
+          <% end %>
+
+        </div>
+
+        <svg class="modal__close" role="button" data-action="click->modal#close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
   <table data-page-size="5000" data-paging="false" class="table text-sm categories-table hidden">
     <thead class="uppercase text-gray-900 text-xs leading-tight font-medium">
       <tr>
+        <th><input type="checkbox" id="select-all-groups" name="select-all-groups"></th>
         <th data-type="text" data-sort-initial="true" width="200">Group name</th>
         <th data-type="numeric">
         <% if @cardtest.testtype == "open" %>
@@ -275,9 +321,19 @@
 
 
       <% @titleslist.each do |title| %>
+
+
+
       <%# <% @titlesList.each_with_index do |title, index| %>
           <tr>
-            <td><%= title[:title] %></td>
+            <td>
+              <input type="checkbox" id='<%= title[:title].gsub(/\s+/, "") %>', name='<%= title[:title] %>', class='group-checkbox'>
+            </td>
+            <td>
+
+
+
+              <%= @cardtest.mergedgroups.class %>
 
 
 
@@ -286,6 +342,12 @@
 
 
 
+              <%# @incl[0] %>
+              <% if @cardtest.mergedgroups.include?(title[:title]) %>
+                **
+              <% end %>
+              <strong><%= title[:title] %></strong>
+            </td>
 
 
             <td data-sort-value="<%= title[:createdby] %>">

@@ -252,6 +252,10 @@ class ResultsController < ApplicationController
       title[:cards] = title[:cards].group_by{|i| i}.map{|k,v| [k, v.count] }
     end
 
+
+    puts "----- TITLES LIST ------"
+    puts @titlesList
+
     @mediangroups = median(@groupsperresult)
 
     @cardsByGroups = []

@@ -38,6 +38,9 @@ Rails.application.routes.draw do
       end
     end
     member do
+      patch :update_merged
+    end
+    member do
       delete :delete_image_attachment
     end
 
