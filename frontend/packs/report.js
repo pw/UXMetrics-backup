@@ -445,15 +445,44 @@ for (i=0; i < barData.length; i++) {
   // $(".merge-form").submit(function(e){
   // alert("dsa");
   e.preventDefault();
-    var mg = [];
-    mg[0] = $("#merged-name").val();
-    mg[1] = [];
+
+    var mg = {
+      name: "",
+      groups: []
+    };
+
+    mg.name = $("#merged-name").val();
+    mg.groups = [];
 
     $(".groups-listed input[type='checkbox']:checked").each(function() {
-      mg[1].push($(this).attr('name'));
+      mg.groups.push($(this).attr('name'));
     });
 
-    $("#cardtest_mergedgroups").val("{"+JSON.stringify(mg)+"}");
+
+    if ($("#cardtest_mergedgroups").val() == ""){
+      // NO MERGED GROUPS YET, CREATE FIRST ONE
+      $("#cardtest_mergedgroups").val("["+JSON.stringify(mg)+"]");
+    } else {
+      // MERGED GROUPS EXIST, APPEND NEW ONE
+      var current_mg = JSON.parse($("#cardtest_mergedgroups").val());
+
+      console.log("parsed");
+      console.log(current_mg);
+
+      current_mg.push(mg);
+
+      console.log("appended");
+      console.log(current_mg);
+      console.log(JSON.stringify(current_mg));
+
+      $("#cardtest_mergedgroups").val(JSON.stringify(current_mg));
+
+    }
+
+
+
+    // $("#cardtest_mergedgroups").val("["+$("#cardtest_mergedgroups").val()+", "+JSON.stringify(mg)+"]");
+    // $("#cardtest_mergedgroups").val(JSON.stringify(mg));
     // $("#cardtest_mergedgroups").val("['test']");
 
     $.ajax({

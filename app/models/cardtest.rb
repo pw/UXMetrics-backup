@@ -6,7 +6,7 @@ class Cardtest < ApplicationRecord
   before_validation :mark_cards_for_destruction
 
 
-  serialize :mergedgroups, Array
+  # serialize :mergedgroups, JSON
 
   def mark_cards_for_destruction
     cards.each do |card|

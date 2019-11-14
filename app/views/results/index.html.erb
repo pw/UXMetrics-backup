@@ -318,35 +318,185 @@
       <% @linksList = Array.new %>
 
 
+      <% if @cardtest.mergedgroups.size > 0 %>
+        <% JSON.parse(@cardtest.mergedgroups).each do |mergedgroup| %>
+          <%# mergedgroup['name']%>
+        <% end %>
+
+
+
+        <% @mergedTitlesList = [] %>
+
+        <% @titleslist.each do |title| %>
+
+
+          <% mergedTitle = JSON.parse(@cardtest.mergedgroups).select {|m| m['groups'].include?(title[:title])} %>
+          <%# mergedTitle is the merged group with name and list of groups merged %>
+
+            <% if mergedTitle.size > 0 %>
+
+
+              <!-- <%= title[:title] %> is found in merged group with the title <%= mergedTitle[0]['name'] %> -->
+
+
+              <% @item = @titleslist.find { |u| u[:title] == mergedTitle[0]['name'] } %>
+
+
+              <% i = @titleslist.index(@item) %>
+
+              <!-- Index is: <%= i %> -->
+
+              <%# i index of the mergedTitle name in the original title list %>
+
+              <% if !i.nil? %>
+
+                    <!-- The index of the merged title - <%= mergedTitle[0]['name'] %> - in the titleslist is <%= i %>. the titleslist title is <%= @titleslist[i][:title] %> so we merge. -->
+
+                    <%# i is not nil if the merged group title is already in the title list, so need to merge data %>
+                    <% @titleslist[i][:createdby] = @titleslist[i][:createdby] + title[:createdby] %>
+
+
+
+                    <%# previous titles cards: %>
+                    <%# @titleslist[i][:cards] %>
+
+
+
+                    <% @titleslist[i][:cards] = @titleslist[i][:cards] + title[:cards] %>
+
+
+
+                    <% puts "new titles cards:" %>
+                    <% puts @titleslist[i][:cards] %>
+
+                    <% @newcards = [] %>
+                    <% @newcounts = [] %>
+                    <% @newcc = [] %>
+
+
+                    <% @titleslist[i][:cards].each do |card| %>
+
+                          <% @newcards.push(card[0]) %>
+                          <% @newcounts.push(card[1]) %>
+                          <% @newcc.push(card[1]) %>
+
+                          <% puts "pushing this: "+card[1].to_s %>
+
+                    <% end %>
+
+                    <% puts "cards:"%>
+                    <% puts @newcc %>
+
+                    <%# @newcc = @newcounts %>
+
+
+                    <!-- array of counts: -->
+
+                    <%# @newcc %>
+
+                    <% @newcards.each_with_index do |card, ii| %>
+                          <% @indexes = @newcards.size.times.select {|i| @newcards[i] == card} %>
+                          <!-- <br/>the indexes are: <%= @indexes %> -->
+
+
+                          <%# find @indexes of card occurences and summ the @newcounts values at those indexes %>
+
+                          <% @newcounts[ii] = 0 %>
+
+                          <%# summing counts: %>
+                          <%# <%= @newcc %>
+                          <% @indexes.each do |index|  %>
+                                <% @newcounts[ii] = @newcounts[ii] + @newcc[index] %>
+                                <%# @newcounts[ii] %> <%# @newcc[index] %>
+                          <% end %>
+
+                    <% end %>
+
+                    <% puts "new cards:" %>
+                    <% puts @newcards %>
+                    <% puts "new counts:" %>
+                    <% puts @newcounts %>
+
+
+                    <% @titleslist[i][:cards] = @newcards.zip(@newcounts).uniq %>
+                    <%# whats going on here: %>
+                    <%# @newcards.zip(@newcounts).uniq! %>
+
+                    <% puts "titleslist" %>
+                    <% puts @titleslist[i][:cards] %>
+
+                    <% puts "zipping result:" %>
+                    <% puts @newcards.zip(@newcounts).uniq %>
+
+                    <% title[:title] = "_/-deleted" %>
+
+              <% else %>
+
+                <!-- <br/>The merged title is not in the list yet, so we replace the current title from: <%= title[:title] %> to <%= mergedTitle[0]['name'] %>. -->
+                <%# the mergedtitle name is not in the title list, so need to replace the current title to the merged title%>
+                <% title[:title] = mergedTitle[0]['name'] %>
+              <% end %>
+
+            <% end %>
+
+
+
+
+        <% end %>
+
+        <% @titleslist.delete_if { |title| title[:title] == "_/-deleted" } %>
+
+        <% puts "final list of whatever"%>
+        <% puts @titleslist %>
+
+
+
+
+      <% end %>
+
+
+
+      <%# <%= JSON.parse(@cardtest.mergedgroups)['name'] %>
+      <br/>
+      <%# <%= JSON.parse(@cardtest.mergedgroups)['groups'] %>
+      <br/>
+
+
+
 
 
       <% @titleslist.each do |title| %>
 
 
+      <% if @cardtest.mergedgroups.size > 0 %>
+        <% mergedTitle = JSON.parse(@cardtest.mergedgroups).select {|m| m['name'].include?(title[:title])} %>
+      <% else %>
+        <% puts "ELSEEEEEEE "%>
+        <% mergedTitle = [] %>
+      <% end %>
 
       <%# <% @titlesList.each_with_index do |title, index| %>
           <tr>
             <td>
-              <input type="checkbox" id='<%= title[:title].gsub(/\s+/, "") %>', name='<%= title[:title] %>', class='group-checkbox'>
+              <% if mergedTitle.size > 0 %>
+
+              <% else %>
+                <input type="checkbox" id='<%= title[:title].gsub(/\s+/, "") %>', name='<%= title[:title] %>', class='group-checkbox'>
+              <% end %>
             </td>
             <td>
 
 
 
-              <%= @cardtest.mergedgroups.class %>
 
 
 
-
-
-
-
-
-              <%# @incl[0] %>
-              <% if @cardtest.mergedgroups.include?(title[:title]) %>
-                **
-              <% end %>
               <strong><%= title[:title] %></strong>
+
+                <% if mergedTitle.size > 0 %>
+                    <a href="#"><i class="mr-2 fa fa-object-group" aria-hidden="true"></i></a>
+                <% end %>
+
             </td>
 
 
