@@ -4,6 +4,8 @@ class ResultsController < ApplicationController
 
   require "csv"
 
+  require 'rinku'
+
   layout "dashboard"
   # GET /results
 
