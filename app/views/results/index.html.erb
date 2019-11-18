@@ -322,7 +322,7 @@
             <%# <%= form_with(model: @cardtest, local: true, url: update_merged_cardtest_path(@cardtest), class: "merge-form") do |form| %>
             <%= render "shared/flash", flash: @cardtest.errors %>
 
-              <%= form.text_field :mergedgroups, class: "input" %>
+              <%= form.hidden_field :mergedgroups, class: "input" %>
               <%= form.submit "Merge selected", class: "btn btn--primary block text-center save-merged mt-4" %>
 
             <% end %>
@@ -608,7 +608,7 @@
                                 <%= render "shared/flash", flash: @cardtest.errors %>
 
 
-                                  <%= form.text_field :mergedgroups, class: "input" %>
+                                  <%= form.hidden_field :mergedgroups, class: "input" %>
                                   <a href="#" class="delete-merged-btn text-red-600 pt-2 float-right"><i class="mr-2 fa fa-trash ml-1 text-xs" aria-hidden="true"></i>Break up group</a>
                                   <%= form.submit "Update", class: "float-left btn btn--primary block text-center update-individual-merged" %>
 

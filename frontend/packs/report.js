@@ -585,6 +585,10 @@ $('.open-individual-merged-group').click(function(e){
       validationCheckboxes = true;
     }
 
+    if(mg.name == ""){
+      validation = true;
+    }
+
 
     if ($(".merge-form #cardtest_mergedgroups").val() == ""){
       // NO MERGED GROUPS YET, CREATE FIRST ONE
@@ -750,6 +754,10 @@ $(".delete-merged-btn").click(function(e){
       validationCheckboxes = true;
     }
 
+    if(mg.name == ""){
+      validation = true;
+    }
+
     if ($(this).parents(".modal-individual").find(".individual-merge #cardtest_mergedgroups").val() == ""){
       // NO MERGED GROUPS YET, CREATE FIRST ONE
       $.each(titlesonly, function(index, value){
@@ -794,7 +802,7 @@ $(".delete-merged-btn").click(function(e){
           }
           console.log(group);
         });
-        
+
       });
 
       console.log("titlesonly");
