@@ -96,12 +96,26 @@ Your contribution is essential in our journey to deliver improvements."
     # @cardtest.status = ActiveModel::Type::Boolean.new.cast(@cardtest.status)
 
     if @cardtest.update(cardtest_params)
+    # if @cardtest.update()
       # redirect_to cardtests_url, notice: 'Cardtest was successfully updated.'
 
       redirect_to edit_cardtest_url, notice: 'Cardtest was successfully updated.'
       # render :edit
     else
       puts "update else"
+      render :edit
+    end
+  end
+
+  def update_merged
+
+    @cardtest = Cardtest.find_by(uid: params[:uid])
+
+
+    if @cardtest.update(cardtest_merged_params)
+      redirect_to cardtest_results_url(params[:uid])+"?tab=groups", notice: 'Groups were successfully updated.'
+    else
+      puts "update_merged else"
       render :edit
     end
   end
@@ -145,7 +159,15 @@ Your contribution is essential in our journey to deliver improvements."
     # Only allow a trusted parameter "white list" through.
     def cardtest_params
 
-      params.require(:cardtest).permit(:name, :items, :user, :status, :uid, :logoimg, :intro, :outro, :random, :testtype, :fixedgroups, cards_attributes: [:id, :name, :order, :_destroy])
+      params.require(:cardtest).permit(:name, :items, :user, :status, :uid, :logoimg, :intro, :outro, :random, :testtype, :fixedgroups, :mergedgroups, cards_attributes: [:id, :name, :order, :_destroy])
+      # params.require(:cardtest).permit(:name, :mergedgroups)
+
+    end
+
+    def cardtest_merged_params
+
+      params.require(:cardtest).permit(:mergedgroups)
+      # params.require(:cardtest).permit(:name, :mergedgroups)
 
     end
 

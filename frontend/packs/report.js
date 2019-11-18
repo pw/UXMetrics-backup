@@ -7,6 +7,13 @@ window.$ = $;
 const d3 = require('d3/dist/d3');
 const britecharts = require('britecharts/dist/bundled/britecharts.min');
 
+var current_mg_edited = {}
+var current_mg_edited_index = -1;
+var delete_mg = false;
+var current_mg = [];
+
+
+
 import {GoogleCharts} from 'google-charts';
 
 // var $ = require("jquery");
@@ -44,11 +51,35 @@ const footable = require('footable/dist/footable.all.min');
 
 var tableActive = "cards";
 
+$( document ).ready(function() {
+  var urlParams = new URLSearchParams(window.location.search);
+  // console.log(urlParams.get('tab'));
+  if (urlParams.get('tab') == "groups"){
+    // console.log("true");
+
+    $(".table-tabs a").removeClass("active");
+    $(".table-tabs a.view-groups").addClass("active");
+
+    $('.individual-results').hide();
+    $('.cards-table').hide();
+    $('.categories-table').show();
+    $('html, body').animate({
+      scrollTop: ($('.analysis').offset().top)
+    },500);
+
+
+
+
+  }
+});
+
 // $(document).on('turbolinks:load', function(){
 document.addEventListener("turbolinks:load", function() {
 
-console.log("turbolinks:load");
+
+// console.log("turbolinks:load");
 //console.log(dataCompiled);
+
 
 
 
@@ -58,7 +89,7 @@ GoogleCharts.load('current', {'packages':['sankey'], 'callback': drawChart});
 
 function drawChart() {
       drawBasic();
-      console.log("sankey");
+      // console.log("sankey");
        var data = new google.visualization.DataTable();
        data.addColumn('string', 'From');
        data.addColumn('string', 'To');
@@ -422,6 +453,456 @@ for (i=0; i < barData.length; i++) {
   $(window).resize(function(){
     drawChart();
   });
+
+
+$('.open-individual-merged-group').click(function(e){
+  e.preventDefault();
+});
+
+
+  $(document).on("change", "input.group-checkbox", function () {
+    // console.log("checkbox change");
+
+          if ($("input.group-checkbox:checked").length){
+              $(".merge-btn").show();
+
+          } else {
+            $(".merge-btn").hide();
+          }
+  });
+
+  // $(".groups-listed input[type='checkbox']").change(function() {
+  //
+  //
+  //   });
+
+
+  $(".merge-btn").click(function(e){
+    var selected = [];
+    $(".groups-listed ul").empty();
+
+    $(".group-checkbox:checked").each(function() {
+      selected.push($(this).attr('name'));
+      var el = "<li><input type='checkbox' id='"+$(this).attr('id')+"' name='"+$(this).attr('name')+"' checked/><strong>"+$(this).attr('name')+"</strong></li>"
+      $(".groups-listed ul").append(el);
+    });
+    // console.log(selected);
+
+    $('.validation-checkboxes').hide();
+    $('.validation').hide();
+    $('.validation-checkboxes').hide();
+    $('.validation-inuse').hide();
+    $('.validation-inuse-individual').hide();
+    $('.validation-checkboxes-individual').hide();
+
+  });
+
+
+  $(".open-individual-merged-group").click(function(e){
+    current_mg = JSON.parse($(".merge-form #cardtest_mergedgroups").val());
+
+    console.log("Up to date list of merged groups: ");
+    console.log(current_mg);
+
+    var mg = {}
+    mg.name = $(this).parent('div[data-controller="modal"]').find("#merged-name-individual").val();
+    console.log($(this).parent('div[data-controller="modal"]').find("#merged-name-individual"));
+    mg.groups = [];
+    // $(this).parents(".modal-individual").find(".groups-listed-individual input[type='checkbox']:checked").each(function() {
+    $(this).parent('div[data-controller="modal"]').find(".groups-listed-individual input[type='checkbox']").each(function() {
+      $(this).prop('checked', true);
+      // console.log("pushing items: "+$(this).attr('name'));
+      mg.groups.push($(this).attr('name'));
+    });
+    console.log("groups edited");
+    console.log(mg.groups);
+
+
+
+
+    // console.log("items:!!!!!!!!!!!!!!!!!!!!!");
+    // console.log(current_mg);
+    // console.log(mg);
+    // console.log(current_mg.indexOf(mg));
+
+
+    var pos = current_mg.findIndex(x => x.name === mg.name);
+
+    // console.log("position / index:");
+    // console.log(pos);
+
+    if (pos == -1 ){
+      // alert("not present");
+    } else {
+      // alert("present");
+      current_mg_edited = current_mg[pos];
+      console.log("Full: ");
+      console.log(current_mg);
+      console.log("Edited now: ");
+      console.log(current_mg_edited);
+      current_mg_edited_index = pos;
+
+    }
+
+    $('.validation-checkboxes').hide();
+    $('.validation-inuse').hide();
+    $('.validation-inuse-individual').hide();
+    $('.validation-checkboxes-individual').hide();
+
+  });
+
+
+
+  $(".save-merged").on("click", function(e){
+
+  });
+
+  $(".merge-form").on("submit", function(e){
+  // $(".merge-form").submit(function(e){
+  // alert("dsa");
+  e.preventDefault();
+
+
+    var validation = false;
+    var validationCheckboxes = false;
+
+    var mg = {
+      name: "",
+      groups: []
+    };
+
+    mg.name = $("#merged-name").val();
+    mg.groups = [];
+
+    $(".groups-listed input[type='checkbox']:checked").each(function() {
+      mg.groups.push($(this).attr('name'));
+    });
+
+
+    // console.log("length:  "+mg.groups.length);
+
+    if(mg.groups.length < 1){
+      validationCheckboxes = true;
+    }
+
+
+    if ($(".merge-form #cardtest_mergedgroups").val() == ""){
+      // NO MERGED GROUPS YET, CREATE FIRST ONE
+      $.each(titlesonly, function(index, value){
+        // console.log(value+" is not = to "+mg.name);
+
+        if (value == mg.name) {
+          validation = true;
+        }
+      });
+
+      if (validation == false){
+          $(".merge-form #cardtest_mergedgroups").val("["+JSON.stringify(mg)+"]");
+      }
+
+    } else {
+      // MERGED GROUPS EXIST, APPEND NEW ONE
+      var current_mg = JSON.parse($(".merge-form #cardtest_mergedgroups").val());
+
+      $.each(current_mg, function(index, value){
+        if (value.name == mg.name) {
+          validation = true;
+        }
+
+        console.log("showing groups from this group:"+value.name);
+        $.each(value.groups, function(index, group){
+          if (group == mg.name){
+            validation = true;
+          }
+          console.log(group);
+        });
+
+      });
+
+      $.each(titlesonly, function(index, value){
+        // console.log(value+" is not = to "+mg.name);
+
+        if (value == mg.name) {
+          validation = true;
+        }
+      });
+
+
+
+
+
+      // console.log("parsed");
+      // console.log(current_mg);
+
+
+      if (validation == false){
+          current_mg.push(mg);
+      }
+
+      // console.log("appended");
+      // console.log(current_mg);
+      // console.log(JSON.stringify(current_mg));
+
+      $(".merge-form #cardtest_mergedgroups").val(JSON.stringify(current_mg));
+
+    }
+
+
+
+    // $("#cardtest_mergedgroups").val("["+$("#cardtest_mergedgroups").val()+", "+JSON.stringify(mg)+"]");
+    // $("#cardtest_mergedgroups").val(JSON.stringify(mg));
+    // $("#cardtest_mergedgroups").val("['test']");
+
+
+
+    e.preventDefault();
+
+    if (validation == true || validationCheckboxes == true){
+
+      if (validation == true){
+        $('.validation-inuse').show();
+        $('.validation-checkboxes').hide();
+      }
+
+      if (validationCheckboxes == true){
+        $('.validation-checkboxes').show();
+        $('.validation-inuse').hide();
+      }
+
+      return false;
+
+    } else {
+
+      this.submit();
+      // $.post(this.action, $(this).serialize(), function(data) {
+      //      console.log("submitted fine");
+      //    },
+      //    'json' // I expect a JSON response
+      // );
+
+      // $.ajax({
+      //   url: this.action,
+      //   type: "post",
+      //   data: $(this).serialize(),
+      //   success: function(data) {
+      //     console.log(data)
+      //   },
+      //   error: function(data) {
+      //     alert("error");
+      //   }
+      // });
+
+    }
+    // return false;
+
+
+
+
+
+    // this.submit();
+  });
+
+$(".delete-merged-btn").click(function(e){
+  // current_mg.push(current_mg_edited);
+  current_mg.splice(current_mg_edited_index, 1);
+  $(".individual-merge #cardtest_mergedgroups").val(JSON.stringify(current_mg));
+  // $(".individual-merge #cardtest_mergedgroups").val("[]");
+  delete_mg = true;
+
+  $(".individual-merge").submit();
+
+});
+
+  $(".individual-merge").on("submit", function(e){
+  // $(".merge-form").submit(function(e){
+  // alert("dsa");
+  e.preventDefault();
+
+  if (delete_mg == true){
+    // alert("will submit");
+    // alert($(".individual-merge #cardtest_mergedgroups").val());
+    this.submit();
+    return false;
+  }
+
+
+    var validation = false;
+    var validationCheckboxes = false;
+
+    var mg = {
+      name: "",
+      groups: []
+    };
+
+    var editedMerged = {
+      name: "",
+      groups: []
+    }
+
+    mg.name = $(this).parents(".modal-individual").find("#merged-name-individual").val();
+    mg.groups = [];
+
+    $(this).parents(".modal-individual").find(".groups-listed-individual input[type='checkbox']:checked").each(function() {
+      mg.groups.push($(this).attr('name'));
+    });
+
+    if(mg.groups.length < 1){
+      validationCheckboxes = true;
+    }
+
+    if ($(this).parents(".modal-individual").find(".individual-merge #cardtest_mergedgroups").val() == ""){
+      // NO MERGED GROUPS YET, CREATE FIRST ONE
+      $.each(titlesonly, function(index, value){
+        // console.log(value+" is not = to "+mg.name);
+
+        if (value == mg.name) {
+          validation = true;
+        }
+      });
+
+      if (validation == false){
+          $(this).parents(".modal-individual").find(".individual-merge #cardtest_mergedgroups").val("["+JSON.stringify(mg)+"]");
+      }
+    } else {
+      // MERGED GROUPS EXIST, APPEND NEW ONE
+      var current_mg = JSON.parse($(this).parents(".modal-individual").find(".individual-merge #cardtest_mergedgroups").val());
+
+
+
+      // console.log("current_mg: ");
+      // console.log(current_mg);
+
+
+
+
+      $.each(current_mg, function(index, value){
+
+
+          // current_mg is the array of all the merged groups
+          // mg is the new merged group generated by the modal form
+          // current_mg_edited is the new merged group before changes
+
+        if (value.name == mg.name && current_mg_edited.name != mg.name) {
+          // console.log(value.name+" = "+mg.name+" and "+current_mg_edited.name+ " is not "+mg.name);
+          validation = true;
+        }
+
+        console.log("showing groups from this group:"+value.name);
+        $.each(value.groups, function(index, group){
+          if (group == mg.name){
+            validation = true;
+          }
+          console.log(group);
+        });
+        
+      });
+
+      console.log("titlesonly");
+      console.log(titlesonly);
+      console.log("mg");
+      console.log(mg);
+
+      $.each(titlesonly, function(index, value){
+        // console.log(value+" is not = to "+mg.name);
+
+        if (value == mg.name && current_mg_edited.name != mg.name) {
+          console.log(value+" = "+mg.name+" and "+current_mg_edited.name+ " is not "+mg.name);
+          validation = true;
+        }
+      });
+
+
+
+      // console.log("parsed");
+      // console.log(current_mg);
+
+      if (validation == false){
+        // console.log("--------------TTTTTT_--------------");
+        // console.log(current_mg_edited);
+        // console.log(current_mg_edited_index);
+        // alert(current_mg_edited_index);
+          if (current_mg_edited){
+            // console.log("replacing this:");
+            // console.log(current_mg[current_mg_edited_index]);
+            // console.log("with");
+            console.log("Updating merged group at index: "+current_mg_edited_index);
+            console.log("Replacing this one: ");
+            console.log(current_mg[current_mg_edited_index].groups);
+            console.log("With this one: ");
+            console.log(mg.groups);
+            current_mg[current_mg_edited_index] = mg;
+            // console.log(current_mg[current_mg_edited_index]);
+
+          } else {
+            console.log("adding new merged group?");
+              current_mg.push(mg);
+          }
+
+      }
+
+
+      // console.log("appended");
+      // console.log(current_mg);
+      // console.log(JSON.stringify(current_mg));
+
+      $(".individual-merge #cardtest_mergedgroups").val(JSON.stringify(current_mg));
+
+    }
+
+
+
+    // $("#cardtest_mergedgroups").val("["+$("#cardtest_mergedgroups").val()+", "+JSON.stringify(mg)+"]");
+    // $("#cardtest_mergedgroups").val(JSON.stringify(mg));
+    // $("#cardtest_mergedgroups").val("['test']");
+
+
+
+    e.preventDefault();
+
+    if (validation == true || validationCheckboxes == true){
+
+      if (validation == true){
+          $('.validation-inuse-individual').show();
+          $('.validation-checkboxes-individual').hide();
+      }
+      if (validationCheckboxes == true){
+        $('.validation-checkboxes-individual').show();
+        $('.validation-inuse-individual').hide();
+      }
+
+      return false;
+
+    } else {
+
+      this.submit();
+      // $.post(this.action, $(this).serialize(), function(data) {
+      //      console.log("submitted fine");
+      //    },
+      //    'json' // I expect a JSON response
+      // );
+
+      // $.ajax({
+      //   url: this.action,
+      //   type: "post",
+      //   data: $(this).serialize(),
+      //   success: function(data) {
+      //     console.log(data)
+      //   },
+      //   error: function(data) {
+      //     alert("error");
+      //   }
+      // });
+
+    }
+    // return false;
+
+
+
+
+
+    // this.submit();
+  });
+
 
 
 });

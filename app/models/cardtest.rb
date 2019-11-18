@@ -5,6 +5,9 @@ class Cardtest < ApplicationRecord
   accepts_nested_attributes_for :cards, allow_destroy:true
   before_validation :mark_cards_for_destruction
 
+
+  # serialize :mergedgroups, JSON
+
   def mark_cards_for_destruction
     cards.each do |card|
       if card.name.blank?
