@@ -11,13 +11,20 @@
   <% @fixedgroups = [""] %>
 <% end %>
 
+
+<% puts "titleslist "%>
+<% puts @titleslist %>
+<% @titlesonly = [] %>
+
+
 <%= javascript_tag do %>
   window.testType = "<%=raw @cardtest.testtype %>";
   window.fixedGroups = <%=raw @fixedgroups %>;
   window.dataCompiled = <%=raw dataCompiled %>;
   window.groupsPerResult = <%=raw @groupsperresult %>;
-<% end %>
 
+
+<% end %>
 
 
 
@@ -156,10 +163,39 @@
 
 
             <% pp "single card below:" %>
-            <% pp cardIdRow %>
+
             <h3><%= JSON.parse(cardIdRow)["name"] %></h3></td>
           <% pp "done" %>
           <td>
+
+
+
+            <% if @cardtest.mergedgroups.size > 0 %>
+
+            <% titlesWithMerged = []%>
+
+
+              <% JSON.parse(cardIdRow)['titles'].each do |title| %>
+                <% titlesGrouped = JSON.parse(@cardtest.mergedgroups).select {|m| m['groups'].include?(title)} %>
+                <% if titlesGrouped.size > 0 %>
+                  <%# titlesGrouped[0]['name'] %>
+
+                  <%# title = titlesGrouped[0]['name'] %>
+                  <% titlesWithMerged.push(titlesGrouped[0]['name']) %>
+                <% else %>
+                  <% titlesWithMerged.push(title) %>
+                <% end %>
+              <% end %>
+
+            <% end %>
+
+            
+            <% parsed = JSON.parse(cardIdRow) %>
+            <% parsed['titles'] = titlesWithMerged%>
+
+
+            <% cardIdRow = JSON.dump(parsed) %>
+
 
 
             <% titlesGroups = JSON.parse(cardIdRow)['titles'].partition{|v| v == "Unnamed"}
@@ -243,57 +279,68 @@
 
   <%# puts @titleslist %>
 
+<div class="categories-table hidden" style="clear:both;">
+  <div data-controller="modal"  data-action="keydown@window->modal#closeWithKeyboard" class="clearfix">
+    <span class="float-left merge-info text-gray-500 text-sm" style="line-height:37px;"><i class="fa fa-info-circle mr-2" aria-hidden="true"></i>Select conceptually similar groups to merge them.</span>
+  <button data-action="click->modal#open" class="btn-small btn--primary merge-btn float-right hidden">Merge selected groups</button>
+  <div data-target="modal.container" class="hidden">
+    <div data-target="modal.background" data-action="click->modal#closeBackground" class="modal-wrapper">
+      <div class="modal">
 
-<div data-controller="modal"  data-action="keydown@window->modal#closeWithKeyboard">
-<button data-action="click->modal#open" class="btn btn--primary-outline merge">Open Modal</button>
-<div data-target="modal.container" class="hidden">
-  <div data-target="modal.background" data-action="click->modal#closeBackground" class="modal-wrapper">
-    <div class="modal">
+        <div class="modal__content p-8">
 
-      <div class="modal__content">
-        <div class="">
-          <input type="text" id="merged-name" placeholder="Name this new group ..."/>
+          <div class="">
+            <h4>Choose a name</h4>
+          </div>
+          <div class="">
+            <input type="text" id="merged-name" placeholder="Merged group name ..." class="input"/>
+            <span class="validation-inuse text-sm text-red-600 hidden">This group name is already in use.</span>
+          </div>
+          <div class="mt-8">
+            <h4>Merge the groups selected below:</h4>
+          </div>
+          <div class="field mb-2 groups-listed">
+            <ul class="text-sm">
+
+            </ul>
+
+            <span class="validation-checkboxes text-sm text-red-600 hidden">Select groups to merge above.</span>
+            <%# @titleslist.each do |title| %>
+
+              <%# title[:title] %>
+
+            <%# end %>
+
+
+          </div>
+
+          <div class="field mb-0">
+
+            <%= form_with(model: @cardtest, local: true, url: update_merged_cardtest_path(@cardtest), class: "merge-form", data: { type: "json" }) do |form| %>
+            <%# <%= form_with(model: @cardtest, local: true, url: update_merged_cardtest_path(@cardtest), class: "merge-form") do |form| %>
+            <%= render "shared/flash", flash: @cardtest.errors %>
+
+              <%= form.text_field :mergedgroups, class: "input" %>
+              <%= form.submit "Merge selected", class: "btn btn--primary block text-center save-merged mt-4" %>
+
+            <% end %>
+
+          </div>
+
+          <svg class="modal__close" role="button" data-action="click->modal#close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
         </div>
-        <div class="field mb-2 groups-listed">
-          <table>
-
-          </table>
-          <%# @titleslist.each do |title| %>
-
-            <%# title[:title] %>
-
-          <%# end %>
-
-
-        </div>
-
-        <div class="field mb-0">
-          <%= @cardtest %>
-          <%= form_with(model: @cardtest, url: update_merged_cardtest_path(@cardtest), class: "merge-form p-4", data: { type: "json" }) do |form| %>
-          <%= render "shared/flash", flash: @cardtest.errors %>
-
-            <%= form.text_field :name, class: "input" %>
-            <%= form.text_field :mergedgroups, class: "input" %>
-            <%= form.submit "Merge selected", class: "btn btn--primary block text-center save-merged" %>
-
-          <% end %>
-
-        </div>
-
-        <svg class="modal__close" role="button" data-action="click->modal#close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
       </div>
     </div>
   </div>
-</div>
-</div>
+  </div>
 
 
 
-  <table data-page-size="5000" data-paging="false" class="table text-sm categories-table hidden">
+  <table data-page-size="5000" data-paging="false" class="table text-sm">
     <thead class="uppercase text-gray-900 text-xs leading-tight font-medium">
       <tr>
-        <th><input type="checkbox" id="select-all-groups" name="select-all-groups"></th>
-        <th data-type="text" data-sort-initial="true" width="200">Group name</th>
+        <th data-sort-ignore="true" width="50"><!--<input type="checkbox" id="select-all-groups" name="select-all-groups"> --></th>
+        <th data-type="text" data-sort-initial="true" width="200" style="padding-left:0px !important;">Group name</th>
         <th data-type="numeric">
         <% if @cardtest.testtype == "open" %>
           Created by
@@ -327,14 +374,27 @@
 
         <% @mergedTitlesList = [] %>
 
+
+        <% puts "WHOWHOWHOWHOWHOWHO" %>
+        <% puts @titleslist %>
+
+
+
         <% @titleslist.each do |title| %>
 
+        <%# {title:'2', cards:["268", 1]}%>
+        <%# {title:'G1', cards:[["265", 1], ["268", 1], ["269", 1], ["267", 1], ["266", 1]]}%>
 
           <% mergedTitle = JSON.parse(@cardtest.mergedgroups).select {|m| m['groups'].include?(title[:title])} %>
+
           <%# mergedTitle is the merged group with name and list of groups merged %>
+
+          <% puts "merged title" %>
+          <% puts mergedTitle %>
 
             <% if mergedTitle.size > 0 %>
 
+            <%# {name:'G1', groups:['2','G1']} %>
 
               <!-- <%= title[:title] %> is found in merged group with the title <%= mergedTitle[0]['name'] %> -->
 
@@ -343,6 +403,7 @@
 
 
               <% i = @titleslist.index(@item) %>
+              <%# index of {title:'2', cards:["268", 1]}%>
 
               <!-- Index is: <%= i %> -->
 
@@ -350,7 +411,7 @@
 
               <% if !i.nil? %>
 
-                    <!-- The index of the merged title - <%= mergedTitle[0]['name'] %> - in the titleslist is <%= i %>. the titleslist title is <%= @titleslist[i][:title] %> so we merge. -->
+                    <!-- The index of the merged title - <%= mergedTitle[0]['name'] %> - in the titleslist is <%= i %>. the titleslist title is <%= @titleslist[i][:title] %> so we merge. %> -->
 
                     <%# i is not nil if the merged group title is already in the title list, so need to merge data %>
                     <% @titleslist[i][:createdby] = @titleslist[i][:createdby] + title[:createdby] %>
@@ -457,19 +518,26 @@
 
 
       <%# <%= JSON.parse(@cardtest.mergedgroups)['name'] %>
-      <br/>
+
       <%# <%= JSON.parse(@cardtest.mergedgroups)['groups'] %>
-      <br/>
 
 
 
 
 
+      <%# @titleslist %>
       <% @titleslist.each do |title| %>
 
-
+      <% @titlesonly.push(title[:title]) %>
+      <% mergedTitle = [] %>
       <% if @cardtest.mergedgroups.size > 0 %>
-        <% mergedTitle = JSON.parse(@cardtest.mergedgroups).select {|m| m['name'].include?(title[:title])} %>
+        <!-- Title: <%= title[:title] %> -->
+        <% mergedTitle = JSON.parse(@cardtest.mergedgroups).select {|m| m['name'] == title[:title]} %>
+        <!-- <br/>
+        Found in this merged group: <%= mergedTitle %>
+        <br/>
+        ---
+        <br/> -->
       <% else %>
         <% puts "ELSEEEEEEE "%>
         <% mergedTitle = [] %>
@@ -484,7 +552,7 @@
                 <input type="checkbox" id='<%= title[:title].gsub(/\s+/, "") %>', name='<%= title[:title] %>', class='group-checkbox'>
               <% end %>
             </td>
-            <td>
+            <td style="padding-left:0px !important;">
 
 
 
@@ -494,7 +562,65 @@
               <strong><%= title[:title] %></strong>
 
                 <% if mergedTitle.size > 0 %>
-                    <a href="#"><i class="mr-2 fa fa-object-group" aria-hidden="true"></i></a>
+
+                    <div data-controller="modal" data-action="keydown@window->modal#closeWithKeyboard" class="inline">
+                      <a data-action="click->modal#open" href="#" class="open-individual-merged-group" style="color: #03B0FA;"><i class="mr-2 fa fa-object-group ml-1 text-xs" aria-hidden="true"></i></a>
+                      <div data-target="modal.container" class="hidden">
+                        <div data-target="modal.background" data-action="click->modal#closeBackground" class="modal-wrapper">
+                          <div class="modal-individual modal">
+
+                            <div class="modal__content p-8">
+                              <div class="">
+                                <h4>Choose a name</h4>
+                              </div>
+                              <div class="">
+                                <input type="text" id="merged-name-individual" placeholder="Merged group name ..." class="input" value="<%= title[:title] %>"/>
+                                <span class="validation-inuse-individual text-sm text-red-600 hidden">This group name is already in use.</span>
+
+                              </div>
+                              <div class="mt-8">
+                                <h4>Merge the groups selected below:</h4>
+                              </div>
+                              <div class="field mb-2 groups-listed-individual">
+                                <ul>
+                                  <% puts "merged title groups:" %>
+                                  <% puts mergedTitle.to_s %>
+                                  <% mergedTitle[0]['groups'].each do |originalGroup|%>
+
+                                    <li>
+
+                                        <input type='checkbox' id='' name='<%= originalGroup %>' checked/><strong><%= originalGroup %></strong>
+
+                                    </li>
+                                  <% end %>
+                                </ul>
+                                <span class="validation-checkboxes-individual text-sm text-red-600 hidden">Select groups to merge above.</span>
+
+
+
+                              </div>
+
+                              <div class="field mb-0">
+
+                                <%= form_with(model: @cardtest, local: true, url: update_merged_cardtest_path(@cardtest), class: "individual-merge", data: { type: "json" }) do |form| %>
+                                <%= render "shared/flash", flash: @cardtest.errors %>
+
+
+                                  <%= form.text_field :mergedgroups, class: "input" %>
+                                  <a href="#" class="delete-merged-btn text-red-600 pt-2 float-right"><i class="mr-2 fa fa-trash ml-1 text-xs" aria-hidden="true"></i>Break up group</a>
+                                  <%= form.submit "Update", class: "float-left btn btn--primary block text-center update-individual-merged" %>
+
+                                <% end %>
+
+                              </div>
+
+                              <svg class="modal__close" role="button" data-action="click->modal#close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                 <% end %>
 
             </td>
@@ -550,6 +676,7 @@
     </tbody>
   </table>
 
+</div>
 
   <div class="individual-results hidden" style="clear:both;">
 
@@ -646,7 +773,13 @@
     window.relationshipData = <%= raw @linksList %>;
   <% end %>
 
+  <% puts "titlesonly"
 
+  puts @titlesonly
+  %>
+  <%= javascript_tag do %>
+    window.titlesonly = <%=raw @titlesonly %>;
+  <% end %>
 
 </div>
 <div class="analysis mt-16 mx-auto pl-10 pr-10 max-w-6xl clearfix">

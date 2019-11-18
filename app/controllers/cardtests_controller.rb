@@ -113,7 +113,7 @@ Your contribution is essential in our journey to deliver improvements."
 
 
     if @cardtest.update(cardtest_merged_params)
-
+      redirect_to cardtest_results_url(params[:uid])+"?tab=groups", notice: 'Groups were successfully updated.'
     else
       puts "update_merged else"
       render :edit
