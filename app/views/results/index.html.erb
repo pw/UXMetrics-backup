@@ -172,29 +172,31 @@
 
             <% if @cardtest.mergedgroups.size > 0 %>
 
-            <% titlesWithMerged = []%>
+                  <% titlesWithMerged = []%>
 
 
-              <% JSON.parse(cardIdRow)['titles'].each do |title| %>
-                <% titlesGrouped = JSON.parse(@cardtest.mergedgroups).select {|m| m['groups'].include?(title)} %>
-                <% if titlesGrouped.size > 0 %>
-                  <%# titlesGrouped[0]['name'] %>
+                <% JSON.parse(cardIdRow)['titles'].each do |title| %>
+                  <% titlesGrouped = JSON.parse(@cardtest.mergedgroups).select {|m| m['groups'].include?(title)} %>
+                  <% if titlesGrouped.size > 0 %>
+                    <%# titlesGrouped[0]['name'] %>
 
-                  <%# title = titlesGrouped[0]['name'] %>
-                  <% titlesWithMerged.push(titlesGrouped[0]['name']) %>
-                <% else %>
-                  <% titlesWithMerged.push(title) %>
+                    <%# title = titlesGrouped[0]['name'] %>
+                    <% titlesWithMerged.push(titlesGrouped[0]['name']) %>
+                  <% else %>
+                    <% titlesWithMerged.push(title) %>
+                  <% end %>
                 <% end %>
-              <% end %>
+
+                <% parsed = JSON.parse(cardIdRow) %>
+                <% parsed['titles'] = titlesWithMerged%>
+
+
+                <% cardIdRow = JSON.dump(parsed) %>
 
             <% end %>
 
-            
-            <% parsed = JSON.parse(cardIdRow) %>
-            <% parsed['titles'] = titlesWithMerged%>
 
 
-            <% cardIdRow = JSON.dump(parsed) %>
 
 
 
