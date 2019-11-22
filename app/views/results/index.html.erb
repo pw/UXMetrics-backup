@@ -394,6 +394,8 @@
           <% puts "merged title" %>
           <% puts mergedTitle %>
 
+          <% puts "-------------------------- -------------------------- SEE THIS" %>
+
             <% if mergedTitle.size > 0 %>
 
             <%# {name:'G1', groups:['2','G1']} %>
@@ -414,7 +416,7 @@
               <% if !i.nil? %>
 
                     <!-- The index of the merged title - <%= mergedTitle[0]['name'] %> - in the titleslist is <%= i %>. the titleslist title is <%= @titleslist[i][:title] %> so we merge. %> -->
-
+                    <% puts "-------------------------- -------------------------- -------------------------- shouldn't SEE THIS" %>
                     <%# i is not nil if the merged group title is already in the title list, so need to merge data %>
                     <% @titleslist[i][:createdby] = @titleslist[i][:createdby] + title[:createdby] %>
 
@@ -636,9 +638,10 @@
               <% end %>
             </td>
             <td>
+        
               <ul>
 
-              <% title[:cards].each do |card| %>
+              <% title[:cards].sort_by{|k|k[1]}.reverse.each do |card| %>
 
                 <%# add cards to nodesList%>
                 <%# <% @nodesList.push({:name => @cardtest.cards.find(card[0]).name}) %>
@@ -656,7 +659,7 @@
             </td>
             <td>
               <ul>
-                <% title[:cards].each do |card| %>
+                <% title[:cards].sort_by{|k|k[1]}.reverse.each do |card| %>
                   <li>
                     <% if card[1] > 1 %>
                       <%= card[1] %> times</li>

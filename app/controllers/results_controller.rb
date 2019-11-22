@@ -185,15 +185,19 @@ class ResultsController < ApplicationController
                 # p @titleslist
 
 
-                createdby = 1
+
 
 
                 contains = @titleslist.detect{|g| g[:title] == group['title']}
 
                 if !contains.nil?
                   # puts "-------------------- CONTAINS -------------------"
-                  createdby = createdby+1
+
                   i = @titleslist.index(contains)
+
+                  # createdby = createdby+1 -- this keeps createdby at max 2
+                  createdby = @titleslist[i][:createdby] + 1
+
 
                   # p @titleslist[i]
 
@@ -216,6 +220,7 @@ class ResultsController < ApplicationController
 
                 else
                   # puts "-------------------- DOESN'T CONTAIN ------------"
+                  createdby = 1
                   @titleslist.push({"title":group['title'],"cards":group['card'], "createdby":createdby})
                 end
 
