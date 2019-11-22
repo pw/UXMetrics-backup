@@ -17,7 +17,9 @@
       <th data-type="numeric">Login counts</th>
       <th>Last sign in at</th>
       <th>Last sign in days ago</th>
+      <th>Total days active</th>
       <th>Tests</th>
+      <th>Total results</th>
       <th width="400">Tests List</th>
     </tr>
   </thead>
@@ -31,11 +33,25 @@
       <td><%= 60-((Time.now - user.created_at)/1.day).round %> day(s)</td>
       <td><%= user.sign_in_count %></td>
       <td><%= user.current_sign_in_at %></td>
+
+
+
       <td><% if user.current_sign_in_at? %>
         <%= ((Time.now - user.current_sign_in_at)/1.day).round %>
         <% end %> day(s) </td>
 
+      <td><% if user.current_sign_in_at? %>
+        <%= ((user.created_at - user.current_sign_in_at)/1.day).round %>
+        <% end %> day(s) </td>
+
+
+
       <td><%= user.cardtests.all.count %></td>
+      <% resultscount = 0 %>
+      <% user.cardtests.all.each do |test| %>
+        <% resultscount = resultscount + Result.where(cardtest_id: test.id).count %>
+      <% end %>
+      <td><%= resultscount %></td>
       <td>
         <ul>
         <% user.cardtests.all.each do |test| %>
