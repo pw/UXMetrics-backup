@@ -9,4 +9,13 @@ class Sjabloon::PricingController < ApplicationController
       monthly.
       order(position: :asc, amount: :asc)
   end
+
+  def expired
+    @plans = Sjabloon::Plan.
+      active.
+      visible.
+      monthly.
+      order(position: :asc, amount: :asc)
+  end
+
 end

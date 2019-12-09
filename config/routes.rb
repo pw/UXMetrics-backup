@@ -12,7 +12,14 @@ Rails.application.routes.draw do
   resource  :card,    controller: 'sjabloon/card',    only: [:update]
   resources :coupons, controller: 'sjabloon/coupons', only: [:index]
   resources :charges, controller: 'sjabloon/charges', only: [:show]
-  resource  :pricing, controller: 'sjabloon/pricing', only: [:show]
+  # resource  :pricing, controller: 'sjabloon/pricing', only: [:show]
+
+  resource :pricing, controller: 'sjabloon/pricing', only: [:show, :expired] do
+    member do
+      get :expired
+    end
+  end
+
   post '/webhooks/stripe', to: 'stripe_event/webhook#event'
 
   authenticated :user do

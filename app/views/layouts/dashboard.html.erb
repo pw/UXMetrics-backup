@@ -38,18 +38,63 @@
             <div data-target="dropdown.menu" class="dropdown__menu hidden">
               <div class="dropdown__items">
 
-                <% if current_user.created_at < 60.days.ago %>
+                <% if current_user.subscribed? %>
                   <%= link_to "Billing",  billing_path, class: "dropdown__item" %>
+                  <%# link_to "charge", charge_path, class: "dropdown__item" %>
+
                 <% end %>
+                <%# link_to "new billing", new_billing_path, class: "dropdown__item" %>
+                <%# link_to "billing", billing_path, class: "dropdown__item" %>
+                <%# link_to "billing plans", billing_plans_path, class: "dropdown__item" %>
+                <%# link_to "billing plan", billing_plan_path, class: "dropdown__item" %>
+                <%# link_to "coupons", coupons_path, class: "dropdown__item" %>
+                <%# link_to "charge", charge_path, class: "dropdown__item" %>
+                <%# link_to "pricing", pricing_path, class: "dropdown__item" %>
                 <%= link_to "Edit account",  edit_user_registration_path, class: "dropdown__item" %>
                 <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown__item" %>
               </div>
             </div>
           </div>
-          <% if current_user.created_at > 60.days.ago %>
-            <div class="trial float-right mt-1">
-              <span class="pill pill--tertiary" style="font-size:0.6rem"><%= 60-((Time.now - current_user.created_at)/1.day).round %> day(s) left of your trial</span>
-            </div>
+
+          <!-- Created at: <%= current_user.created_at %><br/>
+          Is there a trialend flag?: <%= current_user.trialend? %><br/>
+          trialend value: <%= current_user.trialend %><br/>
+          trialend less than 7 days ago? <%= current_user.created_at > 7.days.ago %><br/>
+          7 days ago is this: <%= 7.days.ago %><br/>
+          60 days ago is this: <%= 60.days.ago %><br/> -->
+
+          <%# current_user.subscribed? %>
+
+          <% if current_user.subscribed? == false %>
+
+                <% if current_user.trialend? && current_user.created_at > 7.days.ago %>
+                  <div class="trial float-right mt-1">
+                    <span class="pill pill--tertiary" style="font-size:0.6rem">
+                      <span class="pill pill--tertiary" style="font-size:0.6rem"><%= 7-((Time.now - current_user.created_at)/1.day).round %> day(s) left of your 7 day trial </span>
+                    </span>
+                  </div>
+                <% elsif current_user.trialend? %>
+                <div class="trial float-right mt-1">
+                  <span class="pill pill--secondary" style="font-size:0.6rem">
+                    Trial expired
+                  </span>
+                </div>
+                <% elsif current_user.created_at > 60.days.ago %>
+                  <div class="trial float-right mt-1">
+                    <span class="pill pill--tertiary" style="font-size:0.6rem"><%= 60-((Time.now - current_user.created_at)/1.day).round %> day(s) left of your trial </span>
+                  </div>
+                <% else %>
+                  <div class="trial float-right mt-1">
+                    <span class="pill pill--secondary" style="font-size:0.6rem">
+                      Early access has ended
+                    </span>
+                  </div>
+                <% end %>
+
+          <% else %>
+
+
+
           <% end %>
         </div>
       </div>
