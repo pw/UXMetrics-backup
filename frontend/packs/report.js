@@ -483,7 +483,7 @@ $('.open-individual-merged-group').click(function(e){
 
     $(".group-checkbox:checked").each(function() {
       selected.push($(this).attr('name'));
-      var el = "<li><input type='checkbox' id='"+$(this).attr('id')+"' name='"+$(this).attr('name')+"' checked/><strong>"+$(this).attr('name')+"</strong></li>"
+      var el = "<li><input type='checkbox' id='"+_.escape($(this).attr('id'))+"' name='"+_.escape($(this).attr('name'))+"' checked/><strong>"+$(this).attr('name')+"</strong></li>"
       $(".groups-listed ul").append(el);
     });
     // console.log(selected);
