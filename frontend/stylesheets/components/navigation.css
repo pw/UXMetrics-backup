@@ -42,7 +42,8 @@
 
 .nav__item {
   @apply mb-8;
-  @apply text-xl;
+  @apply text-base;
+  @apply font-bold;
 
   @screen sm {
     @apply mb-0;
