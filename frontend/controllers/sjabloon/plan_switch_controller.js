@@ -10,6 +10,7 @@ export default class extends Controller {
 
   toggle(event) {
     var currentInterval = event.target.dataset.planSwitchTargetValue
+    console.log(this)
     if (currentInterval == this.interval) return
 
     this.toggleAmounts()
@@ -52,4 +53,3 @@ export default class extends Controller {
     return this.data.get("interval")
   }
 }
-
