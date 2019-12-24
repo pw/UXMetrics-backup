@@ -20,7 +20,7 @@
           </div>
         </div>
         <%# link_to "Start Free Trial", new_user_registration_path, class: "btn btn--primary-outline mr-4" %>
-        <p class="block ml-2 text-sm text-gray-500 mt-2 hidden">7 day trial, then $29.99<span class="px-1">&bull;</span> 30 day money-back guarantee</p>
+        <p class="block ml-2 text-sm text-gray-500 mt-2 hidden">7 day trial, then $24<span class="px-1">&bull;</span> 30 day money-back guarantee</p>
       </div>
     </div>
     <div class="flex-1 text-center pt-6 md:w-3/5">
@@ -33,8 +33,8 @@
 </div>
 
 <div class="bg-white">
-  <div class="container max-w-5xl mx-auto px-4 pt-24">
-    <h2 class="mb-2 text-2xl font-semibold text-center pb-8">Card sorting on another level</h2>
+  <div class="container max-w-5xl mx-auto px-4 pt-24 text-center">
+    <h2 class="mb-2 text-2xl font-semibold text-center pb-8">Card sorting simplified</h2>
     <div class="flex flex-wrap">
       <div class="flex-1 text-center">
         <%= image_tag(asset_pack_path("media/images/setup.png"), class:"inline-block", style:"max-width:232px;") %>
@@ -53,6 +53,7 @@
         <h4 style="color:#718096;">Downloadable results</h4>
       </div>
     </div>
+    <a href="/features" class="underline pt-8 shadow-none" style="color:#03B0FA">View all features <i class="hidden fa fa-arrow-right text-sm" aria-hidden="true" style="color:#03B0FA"></i></a>
 
   </div>
 </div>
@@ -159,14 +160,21 @@
     </div> -->
     <div class="columns flex flex-wrap mb-6 mt-24 items-center">
 
-      <div class="w-full md:w-1/2 pb-8 px-12">
 
-        <h4 class="panel__heading panel__heading--light">Designers</h4>
-        <p class="panel__content">Let users drive the content structure of your designs.</p>
+      <div class="w-full md:hidden md:px-0 text-center mb-16">
+        <%# image_tag(asset_pack_path("media/images/Test.png")) %>
+        <%= image_tag(asset_pack_path("media/images/clip-list-is-empty.png"), style:"max-width:70%;", class:"inline-block") %>
+      </div>
+
+      <div class="w-full md:w-1/2 pb-8 px-6">
+
+        <h4 class="panel__heading panel__heading--light mb-6">Designers</h4>
+        <p class="panel__content">Make confident design decisions by relying on users to understand how they expect to see your content.<br/><br/> Userdrive let's you gather insight on how pieces of content relate to each other and which of them are most important for your users, ultimately helping you deliver a design driven by users.</p>
+
 
       </div>
 
-      <div class="w-full md:w-1/2 md:px-0 text-center">
+      <div class="w-full md:w-1/2 md:px-0 hidden md:block text-center">
         <%# image_tag(asset_pack_path("media/images/Test.png")) %>
         <%= image_tag(asset_pack_path("media/images/clip-list-is-empty.png"), style:"max-width:70%;", class:"inline-block") %>
       </div>
@@ -175,20 +183,15 @@
     </div>
     <div class="columns flex flex-wrap mb-6 mt-24 items-center">
 
-      <div class="w-full md:hidden pb-8">
 
-        <h4 class="panel__heading panel__heading--light">Information Architects</h4>
-        <p class="panel__content">Find out how many logical buckets your content can be grouped in and how difficult the task is.</p>
-
-      </div>
-      <div class="w-full md:w-1/2 md:px-0 text-center">
+      <div class="w-full md:w-1/2 md:px-0 text-center mb-16">
         <%= image_tag(asset_pack_path("media/images/clip-5.png"), class:"md:mt-8 inline-block", style:"max-width:70%;") %>
         <%# image_tag(asset_pack_path("media/images/Report Overview.png"), class:"md:mt-8") %>
       </div>
-      <div class="w-full hidden md:w-1/2 md:block">
+      <div class="w-full md:w-1/2 md:block px-6">
 
-        <h4 class="panel__heading panel__heading--light">Information Architects</h4>
-        <p class="panel__content">Find out how many logical buckets your content can be grouped in and how difficult the task is.</p>
+        <h4 class="panel__heading panel__heading--light mb-6">Information Architects</h4>
+        <p class="panel__content">Find out how users classify the information in your domain and use the insight to create usable website structures. <br/><br/>Userdrive also helps you identify the words and phrases people associate with your content and how long they take to complete the test.</p>
 
       </div>
 
@@ -198,13 +201,18 @@
     </div>
     <div class="columns flex flex-wrap mb-6 mt-24 items-center">
 
-      <div class="w-full md:w-1/2 pb-8">
+      <div class="w-full md:w-1/2 md:hidden text-center mb-16">
+        <%= image_tag(asset_pack_path("media/images/clip-education.png"), style:"max-width:70%;", class:"inline-block") %>
+        <%# image_tag(asset_pack_path("media/images/Report Table.png")) %>
+      </div>
 
-        <h4 class="panel__heading panel__heading--light">Product managers</h4>
-        <p class="panel__content">All the grouping data with agreement score to help you identify patterns in mental models.</p>
+      <div class="w-full md:w-1/2 pb-8 px-6">
+
+        <h4 class="panel__heading panel__heading--light mb-6">Product managers</h4>
+        <p class="panel__content">Make data-informed decisions when prioritizing features by asking users to rank them by importance. <br/><br/>Find out what the most important stories are for your MVP and drive consensus within your team by running a card sort for user story mapping.</p>
 
       </div>
-      <div class="w-full md:w-1/2 md:px-0 text-center">
+      <div class="w-full md:w-1/2 md:px-0 hidden md:block text-center">
         <%= image_tag(asset_pack_path("media/images/clip-education.png"), style:"max-width:70%;", class:"inline-block") %>
         <%# image_tag(asset_pack_path("media/images/Report Table.png")) %>
       </div>
@@ -236,32 +244,7 @@
   </div>
 </div>
 
-<div class="bg-white hidden">
-  <div class="container max-w-5xl mx-auto py-8 sm:py-32 px-4">
-    <p class="hidden mb-2 text-sm font-medium uppercase tracking-wider text-blue-500">The mission</p>
-    <h3 class="text-4xl leading-tight font-bold text-center">What can you do with Userdrive?</h3>
 
-
-    <div class="flex mt-16 w-3/4 m-auto">
-      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
-        <h4 class="mb-0 font-bold">Validate navigation hierarchy</h4>
-      </div>
-      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
-        <h4 class="mb-0 font-bold">Prioritize new features</h4>
-      </div>
-    </div>
-    <div class="flex w-3/4 m-auto">
-      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
-        <h4 class="mb-0 font-bold">Categorize products</h4>
-      </div>
-      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
-        <h4 class="mb-0 font-bold">Prioritize new features</h4>
-      </div>
-    </div>
-
-
-  </div>
-</div>
 
 <div>
   <p class="mb-2 text-sm font-medium uppercase tracking-wider text-blue-400 text-center">Join more than 500 people from businesses like</p>
@@ -332,6 +315,77 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="bg-white">
+  <div class="container max-w-5xl mx-auto py-8 sm:py-32 px-4">
+    <p class="hidden mb-2 text-sm font-medium uppercase tracking-wider text-blue-500">The mission</p>
+    <h3 class="text-4xl leading-tight font-bold text-center">What can you do with Userdrive?</h3>
+
+
+    <div class="flex flex-col-reverse mt-8 md:w-3/4 w-full m-auto md:flex-row">
+      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+
+        <h4 class="mb-0 font-bold text-sm inline">Validate navigation hierarchy</h4>
+      </div>
+      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+
+        <h4 class="mb-0 font-bold text-sm inline">Find words and phrases that speak to users</h4>
+      </div>
+    </div>
+    <div class="flex flex-col-reverse md:w-3/4 w-full m-auto md:flex-row">
+      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+
+        <h4 class="mb-0 font-bold text-sm inline">Organize product categories</h4>
+      </div>
+      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+
+        <h4 class="mb-0 font-bold text-sm inline">Organise knowledge base content</h4>
+      </div>
+    </div>
+    <div class="flex flex-col-reverse md:w-3/4 w-full m-auto md:flex-row">
+      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+
+        <h4 class="mb-0 font-bold text-sm inline">Prioritize projects within initiatives</h4>
+      </div>
+      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+
+        <h4 class="mb-0 font-bold text-sm inline">Organise website content</h4>
+      </div>
+    </div>
+    <div class="flex flex-col-reverse md:w-3/4 w-full m-auto md:flex-row">
+      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+
+        <h4 class="mb-0 font-bold text-sm inline">Prioritize new features</h4>
+      </div>
+      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+
+        <h4 class="mb-0 font-bold text-sm inline">Find key pieces of content for your landing page</h4>
+      </div>
+    </div>
+    <div class="flex flex-col-reverse md:w-3/4 w-full m-auto md:flex-row">
+      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+
+        <h4 class="mb-0 font-bold text-sm inline">Find the tasks most important for your users</h4>
+      </div>
+      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+
+        <h4 class="mb-0 font-bold text-sm inline">Understand differences between user groups</h4>
+      </div>
+    </div>
+
+
   </div>
 </div>
 

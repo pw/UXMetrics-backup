@@ -5,23 +5,23 @@
 
     <div class="nav__items"  data-target="navigation.items">
       <% if user_signed_in? %>
-    
+
       <%= link_to "new billing", new_billing_path, class: "nav__item nav__link" %>
       <%= link_to "billing", billing_path, class: "nav__item nav__link" %>
       <%= link_to "billing plans", billing_plans_path, class: "nav__item nav__link" %>
-      <%= link_to "billing plan", billing_plan_path, class: "nav__item nav__link" %>
+      <%# link_to "billing plan", billing_plan_path, class: "nav__item nav__link" %>
       <%= link_to "coupons", coupons_path, class: "nav__item nav__link" %>
-      <%= link_to "charge", charge_path, class: "nav__item nav__link" %>
+      <%# link_to "charge", charge_path, class: "nav__item nav__link" %>
       <%= link_to "pricing", pricing_path, class: "nav__item nav__link" %>
       <%= link_to "edit account", edit_user_registration_path, class: "nav__item nav__link" %>
       <%= link_to "log out", destroy_user_session_path, method: :delete, class: "nav__item nav__link" %>
     <% else %>
 
       <%= link_to "Features", features_path, class: "nav__item nav__link ml-2" %>
-      <%= link_to "Pricing", "pricing_path", class: "nav__item nav__link ml-2" %>
-      <%= link_to "Resources", resources_path, class: "nav__item nav__link ml-2" %>
+      <%= link_to "Pricing", "/pricing", class: "nav__item nav__link ml-2" %>
+      <%= link_to "Resources", resources_path, class: "nav__item nav__link ml-2 hidden" %>
       <%= link_to "Log in", new_user_session_path, class: "nav__item nav__link ml-2" %>
-      <%= link_to "Create account", new_user_registration_path, class: "nav__item btn btn--primary" %>
+      <%= link_to "Try it free", new_user_registration_path, class: "nav__item btn btn--primary" %>
     <% end %>
     </div>
 

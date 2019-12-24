@@ -14,7 +14,7 @@
 
     <div class="field">
       <%= f.label :email %>
-      <% if request.original_url.split("?")[1].present? %>
+      <% if request.original_url.split("?")[1].present? && request.original_url.split("?")[1].exclude?("plan") %>
         <%= f.email_field :email, placeholder: "Your email", autocomplete: "email", class: "input", value:request.original_url.split("?")[1] %>
       <% else %>
         <%= f.email_field :email, placeholder: "Your email", autocomplete: "email", class: "input" %>

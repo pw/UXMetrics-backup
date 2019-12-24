@@ -6,7 +6,7 @@
     <p class="mb-8 text-lg text-gray-700 text-center">To continue using Userdrive activate a paid plan below.</p>
   <% else %>
     <h1 class="text-3xl mb-4 text-center">Your early access has ended.</h1>
-    <p class="mb-8 text-lg text-gray-700 text-center">We hope you enjoyed Userdrive and appreciate your input in it's development.<br/>To continue using Userdrive activate a paid plan below.</p>
+    <p class="mb-8 text-lg text-gray-700 text-center">We hope you enjoyed Userdrive and we appreciate your input in it's development.<br/>To continue using Userdrive activate a paid plan below.</p>
   <% end %>
 
 
@@ -88,5 +88,17 @@
         <%= tag.code "You can fetch your subscription plans from Stripe by running `rake stripe:fetch:plans` from the console. Be sure you have your Stripe credentials added and your products + pricing plans set up in your Stripe account." if Rails.env.development? %>
       <% end %>
     </div>
+  </div>
+
+  <div class="faqs mt-8 mb-24  px-8">
+    <p class="mb-2 text-sm font-medium uppercase tracking-wider text-blue-500 mb-8">Common questions</p>
+    <h2 class="text-2xl font-bold">Do you offer discounts?</h2>
+    <p>Yes, if you pay for a full year you get 2 months for free. We also offer free accounts for teachers and students. <a href="mailto:support@userdrive.co?cc=zsolt@userdrive.co&subject=Education%20discount">Get in touch</a> for more details.</p>
+
+    <h2 class="text-2xl font-bold mt-10">Will I be charged when my trial is up?</h2>
+    <p>No. We don't ask for payment details upfront. We'll only need your payment information when your 7 trial expires and you want to continue using Userdrive.</p>
+
+    <h2 class="text-2xl font-bold mt-10">Can I cancel at any time?</h2>
+    <p>Yes. There's no minimum contract and you can cancel at any time.</p>
   </div>
 </div>

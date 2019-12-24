@@ -12,7 +12,7 @@
   @apply text-gray-400;
 
   @screen sm {
-    @apply flex-row;
+    
   }
 }
 
@@ -44,4 +44,3 @@
     @apply underline;
   }
 }
-

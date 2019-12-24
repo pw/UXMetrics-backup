@@ -31,6 +31,8 @@ class Sjabloon::PricingController < ApplicationController
       visible.
       monthly.
       order(position: :asc, amount: :asc)
+
+      render layout: "dashboard"
   end
 
 end
