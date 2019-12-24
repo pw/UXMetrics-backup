@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "UX-card5 <kaolti@gmail.com>"
+  default from: "Userdrive <support@userdrive.co>"
   layout 'mailer'
 end
