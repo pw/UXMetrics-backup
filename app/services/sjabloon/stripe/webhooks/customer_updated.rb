@@ -3,6 +3,7 @@ module Sjabloon
     module Webhooks
       class CustomerUpdated
         def call(event)
+          
           object = event.data.object
           owner  = AppConfig.billing["payer_class"].constantize.find_by(
             processor:    "stripe",
@@ -17,4 +18,3 @@ module Sjabloon
     end
   end
 end
-

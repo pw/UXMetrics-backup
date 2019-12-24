@@ -12,13 +12,26 @@ Rails.application.routes.draw do
   resource  :card,    controller: 'sjabloon/card',    only: [:update]
   resources :coupons, controller: 'sjabloon/coupons', only: [:index]
   resources :charges, controller: 'sjabloon/charges', only: [:show]
-  resource  :pricing, controller: 'sjabloon/pricing', only: [:show]
+  # resource  :pricing, controller: 'sjabloon/pricing', only: [:show]
+
+
+
   post '/webhooks/stripe', to: 'stripe_event/webhook#event'
 
   authenticated :user do
     root to: 'cardtests#index'
+    # resource  :pricing, controller: 'sjabloon/pricing', only: [:show]
+    resource :pricing, controller: 'sjabloon/pricing', only: [:show, :expired] do
+      member do
+        get :expired
+      end
+    end
+    # get '/pricing', to: 'pages#pricing'
   end
   devise_for :users, path: "/", path_names: { sign_up: "signup", sign_in: "login", sign_out: "logout", edit: "edit" }, controllers: { masquerades: "admin/masquerades" }
+  get '/resources', to: 'pages#resources'
+  get '/pricing', to: 'pages#pricing'
+  get '/features', to: 'pages#features'
   get '/privacy', to: 'pages#privacy'
   get '/terms', to: 'pages#terms'
   get '/contact', to: 'pages#contact'

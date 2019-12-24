@@ -1,8 +1,15 @@
 <% content_for :page_title, "Billing" %>
 
 <div class="mt-16 max-w-2xl mx-auto">
-  <h1 class="text-3xl mb-4 text-center">Your trial has ended</h1>
-  <p class="mb-8 text-lg text-gray-700 text-center">To continue using Userdrive activate a paid plan below.</p>
+  <% if current_user.trialend? %>
+    <h1 class="text-3xl mb-4 text-center">Your trial has expired.</h1>
+    <p class="mb-8 text-lg text-gray-700 text-center">To continue using Userdrive activate a paid plan below.</p>
+  <% else %>
+    <h1 class="text-3xl mb-4 text-center">Your early access has ended.</h1>
+    <p class="mb-8 text-lg text-gray-700 text-center">We hope you enjoyed Userdrive and we appreciate your input in it's development.<br/>To continue using Userdrive activate a paid plan below.</p>
+  <% end %>
+
+
 
   <div data-controller="sjabloon--plan-switch" data-sjabloon--plan-switch-interval="month">
     <%= tag.div class: "flex justify-center mb-6" do %>
@@ -94,5 +101,4 @@
     <h2 class="text-2xl font-bold mt-10">Can I cancel at any time?</h2>
     <p>Yes. There's no minimum contract and you can cancel at any time.</p>
   </div>
-
 </div>

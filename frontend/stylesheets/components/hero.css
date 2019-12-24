@@ -1,23 +1,24 @@
 .hero {
   @apply relative;
   /* background: radial-gradient(1270.42px at 0% 0%, #f7fafc 0%, #ffffff 100%); */
-  background: radial-gradient(1270.42px at 0% 0%, #14355F 0%, #2C5282 100%);
+  /* background: radial-gradient(1270.42px at 0% 0%, #14355F 0%, #2C5282 100%); */
+  background:white;
 }
 
 .hero__content {
   @apply px-4 pt-4 pb-4 mx-auto max-w-5xl;
 
   @screen sm {
-    @apply pt-32 pb-24;
+    @apply pt-10 pb-10;
   }
 }
 
 .banner {
 
-  @apply pt-16 pb-10;
+  @apply pt-10 pb-10;
 
   @screen md {
-    @apply pt-32 pb-24;
+    @apply pt-10 pb-10;
   }
 }
 
@@ -34,17 +35,17 @@
 
 .hero__heading {
   @apply mb-3 w-full;
-  @apply text-3xl leading-tight font-bold text-center;
-  @apply text-white;
+  @apply text-4xl leading-tight font-bold text-left;
+  color: #2d3748;
   @screen sm {
     @apply w-full;
-    @apply text-5xl;
+    @apply text-4xl;
   }
 }
 
 .hero__subheading {
   @apply w-full mb-16;
-  @apply text-xl font-normal text-gray-600 text-center;
+  @apply text-lg font-normal text-gray-600 text-left;
 
   @screen md {
     @apply mb-16;
@@ -52,7 +53,7 @@
 
   @screen sm {
     @apply w-full;
-    @apply text-2xl;
+    @apply text-lg;
     @apply mb-2;
   }
 

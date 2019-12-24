@@ -1,3 +1,7 @@
+div[role="alert"] {
+  color:red !important;
+  margin-top:10px;
+}
 .field {
   @apply w-full;
   @apply mb-10;

@@ -28,6 +28,12 @@ class CardtestsController < ApplicationController
     @cardtest = Cardtest.new
     @cardtest.cards.new
     @cardtest.status = false
+
+
+    # if current_user.subscribed? == false
+    #   puts "subscribed false"
+    #   redirect_to pricing_path
+    # end
   end
 
   # GET /cardtests/1/edit
@@ -95,16 +101,53 @@ Your contribution is essential in our journey to deliver improvements."
     @cardtest = Cardtest.find_by(uid: params[:uid])
     # @cardtest.status = ActiveModel::Type::Boolean.new.cast(@cardtest.status)
 
+    puts "--------------------------------------------------CURRENT STATUS:"
+    puts @cardtest.status
+
+    puts "-------------new status:"
+
+    # puts cardtest_params[:status]
+
+    puts "statuses:"
+    puts "subscribed? " + current_user.subscribed?.to_s
+    puts "wants to publish? " + cardtest_params[:status].to_s
+    puts "is it the new trial? " + current_user.trialend?.to_s
+    puts "created more than 7 days ago? " + (current_user.created_at < 7.days.ago).to_s
+    puts "created more than 60 days ago? " + (current_user.created_at < 60.days.ago).to_s
+
+
+    if current_user.subscribed? == false
+
+      if cardtest_params[:status] == "published"
+
+        if current_user.trialend? && current_user.created_at < 7.days.ago
+          puts "on new trial and expired"
+          redirect_to expired_pricing_path and return
+        end
+
+        if !current_user.trialend? && current_user.created_at < 60.days.ago
+          puts "on old trial and expired"
+          redirect_to expired_pricing_path and return
+        end
+
+      end
+
+    end
+
     if @cardtest.update(cardtest_params)
     # if @cardtest.update()
       # redirect_to cardtests_url, notice: 'Cardtest was successfully updated.'
 
       redirect_to edit_cardtest_url, notice: 'Cardtest was successfully updated.'
       # render :edit
+
     else
       puts "update else"
       render :edit
     end
+
+
+
   end
 
   def update_merged
@@ -186,7 +229,7 @@ Your contribution is essential in our journey to deliver improvements."
       if current_user.created_at < 60.days.ago
         if current_user.subscribed? == false
           puts "subscribed false"
-          redirect_to pricing_path
+          # redirect_to pricing_path
         end
       end
 

@@ -1,5 +1,25 @@
 <footer class="footer-wrapper">
   <div class="footer container max-w-5xl mx-auto">
+
+    <p class="block"><strong>Useful links:&nbsp; </strong> <%= link_to "Pricing", pricing_path %>, <%= link_to "Features", features_path %>, <%= link_to "Terms and Conditions", terms_path %>, <%= link_to "Privacy Policy", privacy_path %></p>
+    <p class="block"><strong>Support:&nbsp; </strong> <a href="mailto:support@userdrive.co">Email</a>, <a href="https://twitter.com/userdrive" target="_blank">Twitter</a></p>
+    <p class="mt-2 block italic">Copyright © <%= Time.zone.now.strftime("%Y") %> <%= Rails.configuration.application_name %>.</p>
+
+
+
+
+
+
+
+  </div>
+</footer>
+
+
+
+
+
+<footer class="footer-wrapper hidden">
+  <div class="footer container max-w-5xl mx-auto">
     <div class="footer__items">
       <%= link_to Rails.configuration.application_name, root_path, class: "text-sm text-gray-300 font-semibold uppercase tracking-wider" %>
       <p class="mt-2 text-xs text-gray-400">© <%= Time.zone.now.strftime("%Y") %></p>
@@ -47,13 +67,18 @@
     </ul>
 
     <div class="footer__items">
+
       Created by <a href="https://twitter.com/kaolti" target="_blank">@kaolti</a>
     </div>
-    <ul class="footer__items hidden">
+
+
+
+    <ul class="footer__items">
       <%= tag.h6 "Features", class: "footer__item footer__heading" %>
 
       <li class="footer__item">
-        <%= link_to "Feature 1", "#", class: "footer__link" %>
+        <%= link_to "Features", features_path, class: "footer__link" %>
+
       </li>
       <li class="footer__item">
         <%= link_to "Feature 2", "#", class: "footer__link" %>
