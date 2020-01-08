@@ -23,6 +23,8 @@ $(document).on('change', 'textarea', function() {
   $(".save-btn").show();
 });
 
+
+
 $(document).on('change', 'input', function() {
   unsaved = true;
   console.log("unsaved to true");
@@ -61,6 +63,10 @@ $(document).on('turbolinks:load', function() {
       $($(event.target)).parents(".nested-field").find(".name-holder").addClass("w-10/12");
       $($(event.target)).parents(".nested-field").find(".name-holder").removeClass("w-11/12");
       $($(event.target)).parents(".nested-field").find(".add-description").show();
+
+      unsaved = true;
+      console.log("unsaved to true");
+      $(".save-btn").show();
 
     }
   });
