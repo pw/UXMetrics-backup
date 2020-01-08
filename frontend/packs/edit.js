@@ -38,6 +38,34 @@ $(document).on('turbolinks:load', function() {
     $(".save-btn").show();
   });
 
+  $(document).on('click', '.add-description', function(e) {
+    e.preventDefault();
+    $(this).hide();
+    $(this).parents(".nested-field").find(".description-holder").removeClass("w-10/12");
+    $(this).parents(".nested-field").find(".description-holder").addClass("w-11/12");
+    $(this).parents(".nested-field").find(".name-holder").removeClass("w-10/12");
+    $(this).parents(".nested-field").find(".name-holder").addClass("w-11/12");
+    $(this).parents(".nested-field").find(".description-holder").show();
+
+  });
+
+  $("body").on('click', function(e){
+    if($(event.target).is('.remove-description')){
+      console.log($(this).find(".description-holder"));
+      e.preventDefault();
+
+      $($(event.target)).parents(".description-holder").children('.card-description').val("");
+      $($(event.target)).parents(".description-holder").hide();
+      $($(event.target)).parents(".description-holder").addClass("w-10/12");
+      $($(event.target)).parents(".description-holder").removeClass("w-11/12");
+      $($(event.target)).parents(".nested-field").find(".name-holder").addClass("w-10/12");
+      $($(event.target)).parents(".nested-field").find(".name-holder").removeClass("w-11/12");
+      $($(event.target)).parents(".nested-field").find(".add-description").show();
+
+    }
+  });
+
+
   // $(".remove-predefined-group").click(function(e){
   //   e.preventDefault();
   //   $(this).parents(".group-field").remove();

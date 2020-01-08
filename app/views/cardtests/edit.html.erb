@@ -189,8 +189,14 @@
               <ul>
                 <% @cardtest.cards.sort_by(&:order).each_with_index do |card, index| %>
 
-                <li class="<% if @cardtest.cards.length > index+1 %>border-b<% end %> py-4">
-                  <span class="text-blue-400"><%= index+1 %><%= ". "%></span><%= card.name %>
+                <li class="<% if @cardtest.cards.length > index+1 %>border-b<% end %> py-4 clearfix">
+                  <div class="float-left w-1/12 text-blue-500">
+                    <%= index+1 %><%= ". "%>
+                  </div>
+                  <div class="float-left w-11/12">
+                    <span class="text-gray-700"><strong><%= card.name %></strong></span><br/>
+                    <span class="text-gray-500 text-sm"><%= card.description %></span>
+                  </div>
 
                 </li>
                 <% end %>

@@ -28,11 +28,11 @@
 }
 
 .column-holder .ui-sortable-placeholder {
-  @apply bg-gray-200 m-2 h-10 rounded;
+  @apply bg-gray-200 m-2 rounded;
 }
 
 .new-column .ui-sortable-placeholder {
-  @apply bg-gray-100 m-2 h-10 rounded;
+  @apply bg-gray-100 m-2 rounded;
 }
 
 .packery-drop-placeholder {

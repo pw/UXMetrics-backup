@@ -146,19 +146,34 @@ Your contribution is essential in our journey to deliver improvements." %>
           #render "card_fields", form:card
 
 
-          content_tag :div, id:card.index, class:"nested-field item bg-white rounded shadow p-4 my-4 flex", data: {new_record: form.object.new_record?} do %>
+          content_tag :div, id:card.index, class:"nested-field item bg-white rounded shadow p-4 my-4", data: {new_record: form.object.new_record?} do %>
+          <div class="clearfix">
+              <div class="w-full clearfix m-0 float-left">
+              <div class="drag-handle cursor-move pt-2 text-gray-400 hover:text-gray-600 float-left"><i class="fa fa-sort" aria-hidden="true"></i></div>
 
-              <div class="drag-handle cursor-move w-1/8 pt-2 text-gray-400 hover:text-gray-600"><i class="fa fa-sort" aria-hidden="true"></i></div>
 
-
-                <div class="field w-7/8 clearfix flex m-0">
+                <div class="w-10/12 float-left name-holder">
                   <%= card.text_field :name, class: "input w-7/8 mx-3 card-input", placeholder: "Enter card name ...", data: {action: "keypress->nested-form#add_association"}, required: true %>
-                  <%= link_to "Remove", data: { action: "click->nested-form#remove_association"}, class: "pt-2 w-1/8 text-red-400 hover:text-red-600" do %>
+                </div>
+
+                  <a href="#" class="add-description relative pt-2 float-left text-blue-500 ml-5" style="padding-left:10px;">
+                    <i class="fa fa-plus" aria-hidden="true" style="font-size: 10px; top: 14px; margin-right: -2px; left: 0px; position: absolute;"></i>
+                    <i class="fa fa-align-left" aria-hidden="true"></i>
+                  </a>
+                  <%= link_to "Remove", data: { action: "click->nested-form#remove_association"}, class: "float-right pt-2 text-red-400 hover:text-red-600" do %>
                     <i class="fa fa-trash" aria-hidden="true"></i>
                   <% end %>
 
-                </div>
 
+
+                </div>
+                </div>
+                <div class="">
+                    <div class="field w-10/12 block m-0 mx-2 description-holder hidden">
+                      <%= card.text_area :description, class: "card-description mt-4 w-7/8 mx-3 block card-input input h-24", placeholder: "Enter card description ..."  %>
+                      <a href="#" class="remove-description link text-sm text-blue-500 text-underline mx-3">Remove description</a>
+                    </div>
+                </div>
 
                 <%= card.hidden_field :order %>
                 <%= card.hidden_field :_destroy %>
@@ -185,16 +200,62 @@ Your contribution is essential in our journey to deliver improvements." %>
       <% if card_order_present == true %>
         <%= form.fields_for(:cards, @cardtest.cards.sort_by(&:order), include_id: false) do |card| %>
 
-              <%= content_tag :div, id:card.index, class:"nested-field item bg-white rounded shadow p-4 my-4 flex", data: {new_record: form.object.new_record?} do %>
-                  <div class="drag-handle cursor-move w-1/8 pt-2 text-gray-400 hover:text-gray-600"><i class="fa fa-sort" aria-hidden="true"></i></div>
-                    <div class="field w-7/8 clearfix flex m-0">
-                      <%= card.text_field :name, class: "input w-7/8 mx-3 card-input", placeholder: "Enter card name ..." , data: {action: "keypress->nested-form#add_association"}, required: true%>
-                      <%= card.hidden_field :id %>
+              <%= content_tag :div, id:card.index, class:"nested-field item bg-white rounded shadow p-4 my-4", data: {new_record: form.object.new_record?} do %>
+                <div class="clearfix">
+                    <div class="w-full clearfix m-0 float-left">
+                      <div class="drag-handle cursor-move pt-2 text-gray-400 hover:text-gray-600 float-left"><i class="fa fa-sort" aria-hidden="true"></i></div>
 
-                      <%= link_to "Remove", data: { action: "click->nested-form#remove_association"}, class: "pt-2 w-1/8 text-red-400 hover:text-red-600" do %>
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                      <% end %>
-                    </div>
+
+
+                      <% if card.object.description == '' %>
+
+                        <div class="w-10/12 float-left name-holder">
+                          <%= card.text_field :name, class: "input w-7/8 mx-3 card-input", placeholder: "Enter card name ..." , data: {action: "keypress->nested-form#add_association"}, required: true%>
+                          <%= card.hidden_field :id %>
+                        </div>
+
+
+                        <a href="#" class="add-description relative pt-2 float-left text-blue-500 ml-5" style="padding-left:10px;">
+                          <i class="fa fa-plus" aria-hidden="true" style="font-size: 10px; top: 14px; margin-right: -2px; left: 0px; position: absolute;"></i>
+                          <i class="fa fa-align-left" aria-hidden="true"></i>
+                        </a>
+                        <%= link_to "Remove", data: { action: "click->nested-form#remove_association"}, class: "float-right pt-2 text-red-400 hover:text-red-600" do %>
+                          <i class="fa fa-trash" aria-hidden="true"></i>
+                        <% end %>
+                      </div>
+                      </div>
+                      <div class="">
+                          <div class="field w-10/12 block m-0 mx-2 description-holder hidden">
+                            <%= card.text_area :description, class: "card-description mt-4 w-7/8 mx-3 block card-input input h-24", placeholder: "Enter card description ..."  %>
+                            <a href="#" class="remove-description link text-sm text-blue-500 text-underline mx-3">Remove description</a>
+                          </div>
+                      </div>
+
+                    <% else %>
+
+                        <div class="w-11/12 float-left name-holder">
+                          <%= card.text_field :name, class: "input w-7/8 mx-3 card-input", placeholder: "Enter card name ..." , data: {action: "keypress->nested-form#add_association"}, required: true%>
+                          <%= card.hidden_field :id %>
+                        </div>
+
+                        <a href="#" class="add-description relative pt-2 float-left text-blue-500 ml-5" style="display:none; padding-left:10px;">
+                          <i class="fa fa-plus" aria-hidden="true" style="font-size: 10px; top: 14px; margin-right: -2px; left: 0px; position: absolute;"></i>
+                          <i class="fa fa-align-left" aria-hidden="true"></i>
+                        </a>
+                        <%= link_to "Remove", data: { action: "click->nested-form#remove_association"}, class: "float-right pt-2 text-red-400 hover:text-red-600" do %>
+                          <i class="fa fa-trash" aria-hidden="true"></i>
+                        <% end %>
+                      </div>
+                      </div>
+                      <div class="">
+                          <div class="field w-11/12 block m-0 mx-2 description-holder">
+                            <%= card.text_area :description, class: "card-description mt-4 w-7/8 mx-3 block card-input input h-24", placeholder: "Enter card description ..."  %>
+                            <a href="#" class="remove-description link text-sm text-blue-500 text-underline mx-3">Remove description</a>
+                          </div>
+                      </div>
+
+                    <% end %>
+
                     <%= card.hidden_field :order %>
                     <%= card.hidden_field :_destroy %>
               <% end %>
@@ -204,15 +265,31 @@ Your contribution is essential in our journey to deliver improvements." %>
 
       <%= form.fields_for(:cards, @cardtest.cards, include_id: false) do |card| %>
 
-            <%= content_tag :div, id:card.index, class:"nested-field item bg-white rounded shadow p-4 my-4 flex", data: {new_record: form.object.new_record?} do %>
-                <div class="drag-handle cursor-move w-1/8 pt-2 text-gray-400 hover:text-gray-600"><i class="fa fa-sort" aria-hidden="true"></i></div>
-                  <div class="field w-7/8 clearfix flex m-0">
-                    <%= card.text_field :name, class: "input w-7/8 mx-3 card-input", placeholder: "Enter card name ..." , data: {action: "keypress->nested-form#add_association"}, required: true%>
-                    <%= card.hidden_field :id %>
+            <%= content_tag :div, id:card.index, class:"nested-field item bg-white rounded shadow p-4 my-4", data: {new_record: form.object.new_record?} do %>
+              <div class="clearfix">
 
-                    <%= link_to "Remove", data: { action: "click->nested-form#remove_association"}, class: "pt-2 w-1/8 text-red-400 hover:text-red-600" do %>
+                  <div class="w-full clearfix m-0 float-left">
+                    <div class="drag-handle cursor-move pt-2 text-gray-400 hover:text-gray-600 float-left"><i class="fa fa-sort" aria-hidden="true"></i></div>
+                    <div class="w-10/12 float-left name-holder">
+                      <%= card.text_field :name, class: "input mx-3 card-input w-full", placeholder: "Enter card name ..." , data: {action: "keypress->nested-form#add_association"}, required: true%>
+                      <%= card.hidden_field :id %>
+                    </div>
+                    <a href="#" class="add-description relative pt-2 float-left text-blue-500 ml-5" style="padding-left:10px;">
+                      <i class="fa fa-plus" aria-hidden="true" style="font-size: 10px; top: 14px; margin-right: -2px; left: 0px; position: absolute;"></i>
+                      <i class="fa fa-align-left" aria-hidden="true"></i>
+                    </a>
+                    <%= link_to "Remove", data: { action: "click->nested-form#remove_association"}, class: "float-right pt-2 text-red-400 hover:text-red-600" do %>
                       <i class="fa fa-trash" aria-hidden="true"></i>
                     <% end %>
+                  </div>
+                  </div>
+                  <div class="">
+
+                    <div class="field w-10/12 block m-0 mx-2 description-holder hidden">
+                      <%= card.text_area :description, class: "card-description mt-4 w-7/8 mx-3 block card-input input h-24", placeholder: "Enter card description ..."  %>
+                      <a href="#" class="remove-description link text-sm text-blue-500 text-underline mx-3">Remove description</a>
+                    </div>
+
                   </div>
                   <%= card.hidden_field :order %>
                   <%= card.hidden_field :_destroy %>

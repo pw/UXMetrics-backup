@@ -202,7 +202,7 @@ Your contribution is essential in our journey to deliver improvements."
     # Only allow a trusted parameter "white list" through.
     def cardtest_params
 
-      params.require(:cardtest).permit(:name, :items, :user, :status, :uid, :logoimg, :intro, :outro, :random, :testtype, :fixedgroups, :mergedgroups, cards_attributes: [:id, :name, :order, :_destroy])
+      params.require(:cardtest).permit(:name, :items, :user, :status, :uid, :logoimg, :intro, :outro, :random, :testtype, :fixedgroups, :mergedgroups, cards_attributes: [:id, :name, :description, :order, :_destroy])
       # params.require(:cardtest).permit(:name, :mergedgroups)
 
     end

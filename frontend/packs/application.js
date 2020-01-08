@@ -22,6 +22,9 @@ import "../../node_modules/britecharts/dist/css/britecharts.css"
 import 'd3/dist/d3';
 import 'britecharts/dist/bundled/britecharts.min';
 
+
+import 'tippy.js/dist/tippy.css';
+
 const sortable = require('jquery-ui/ui/widgets/sortable');
 
 
@@ -33,6 +36,8 @@ const sortable = require('jquery-ui/ui/widgets/sortable');
   window.$ = $;
 
 const footable = require('footable/dist/footable.all.min');
+
+
 
 // $(document).on('load', function(){
 $(document).on('turbolinks:load', function(){

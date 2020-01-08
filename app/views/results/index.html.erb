@@ -164,7 +164,13 @@
 
             <% pp "single card below:" %>
 
-            <h3><%= JSON.parse(cardIdRow)["name"] %></h3></td>
+            <h3 class="inline bold"><%= JSON.parse(cardIdRow)["name"] %></h3>
+            <% if @cardtest.cards.find(JSON.parse(cardIdRow)["id"]).description != '' %>
+              <a data-tippy-content="<%= @cardtest.cards.find(JSON.parse(cardIdRow)["id"]).description %>" class="ml-1 inline text-gray-500 description-icon"><i class="fa fa-align-left" aria-hidden="true"></i></a>
+            <% end %>
+
+
+          </td>
           <% pp "done" %>
           <td>
 
@@ -638,7 +644,7 @@
               <% end %>
             </td>
             <td>
-        
+
               <ul>
 
               <% title[:cards].sort_by{|k|k[1]}.reverse.each do |card| %>
@@ -653,7 +659,11 @@
 
                 <%# <% @linksList.push({:source => groupIndex, :target => i, :value => card[1]}) %>
 
-                <li><%= @cardtest.cards.find(card[0]).name %></li>
+                <li><%= @cardtest.cards.find(card[0]).name %>
+                  <% if @cardtest.cards.find(card[0]).description != '' %>
+                    <a data-tippy-content="<%= @cardtest.cards.find(card[0]).description %>" class="ml-1 text-gray-500 description-icon"><i class="fa fa-align-left" aria-hidden="true"></i></a>
+                  <% end %>
+                  </li>
               <% end %>
             </ul>
             </td>
@@ -734,7 +744,13 @@
                 <h4 class="mb-2 font-bold"><%= g['title'] %></h4>
                 <ul>
                 <% g['card'].each do |card| %>
-                  <li class="text-sm"><%= @cardtest.cards.find(card).name %></li>
+                  <li class="text-sm"><%= @cardtest.cards.find(card).name %>
+
+                    <% if @cardtest.cards.find(card).description != '' %>
+                      <a data-tippy-content="<%= @cardtest.cards.find(card).description %>" class="ml-1 text-gray-500 description-icon"><i class="fa fa-align-left" aria-hidden="true"></i></a>
+                    <% end %>
+
+                  </li>
                 <% end %>
                 </ul>
               </div>

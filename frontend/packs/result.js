@@ -614,7 +614,8 @@ $(document).on('turbolinks:load', function(){
 
     },
     appendTo: 'body',
-    placeholder: "ui-sortable-placeholder"
+    // placeholder: "ui-sortable-placeholder"
+    tolerance: 'pointer'
 
   }
 
@@ -781,7 +782,8 @@ $(document).on('turbolinks:load', function(){
 
     },
     appendTo: 'body',
-    placeholder: "ui-sortable-placeholder"
+    // placeholder: "ui-sortable-placeholder"
+    tolerance: 'pointer'
 
   }
 

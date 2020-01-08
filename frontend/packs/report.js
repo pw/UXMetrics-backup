@@ -44,7 +44,7 @@ const miniTooltip = require('britecharts/src/charts/mini-tooltip');
 var _ = require('lodash');
 
 
-
+import tippy from 'tippy.js';
 
 
 const footable = require('footable/dist/footable.all.min');
@@ -75,6 +75,9 @@ $( document ).ready(function() {
 
 // $(document).on('turbolinks:load', function(){
 document.addEventListener("turbolinks:load", function() {
+
+
+  tippy(".description-icon");
 
 
 // console.log("turbolinks:load");
