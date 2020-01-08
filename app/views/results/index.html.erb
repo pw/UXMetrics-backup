@@ -165,7 +165,7 @@
             <% pp "single card below:" %>
 
             <h3 class="inline bold"><%= JSON.parse(cardIdRow)["name"] %></h3>
-            <% if @cardtest.cards.find(JSON.parse(cardIdRow)["id"]).description != '' %>
+            <% if @cardtest.cards.find(JSON.parse(cardIdRow)["id"]).description != '' && !@cardtest.cards.find(JSON.parse(cardIdRow)["id"]).description.nil? %>
               <a data-tippy-content="<%= @cardtest.cards.find(JSON.parse(cardIdRow)["id"]).description %>" class="ml-1 inline text-gray-500 description-icon"><i class="fa fa-align-left" aria-hidden="true"></i></a>
             <% end %>
 
@@ -660,7 +660,7 @@
                 <%# <% @linksList.push({:source => groupIndex, :target => i, :value => card[1]}) %>
 
                 <li><%= @cardtest.cards.find(card[0]).name %>
-                  <% if @cardtest.cards.find(card[0]).description != '' %>
+                  <% if @cardtest.cards.find(card[0]).description != '' && !@cardtest.cards.find(card[0]).description.nil? %>
                     <a data-tippy-content="<%= @cardtest.cards.find(card[0]).description %>" class="ml-1 text-gray-500 description-icon"><i class="fa fa-align-left" aria-hidden="true"></i></a>
                   <% end %>
                   </li>
@@ -746,7 +746,7 @@
                 <% g['card'].each do |card| %>
                   <li class="text-sm"><%= @cardtest.cards.find(card).name %>
 
-                    <% if @cardtest.cards.find(card).description != '' %>
+                    <% if @cardtest.cards.find(card).description != '' && !@cardtest.cards.find(card).description.nil? %>
                       <a data-tippy-content="<%= @cardtest.cards.find(card).description %>" class="ml-1 text-gray-500 description-icon"><i class="fa fa-align-left" aria-hidden="true"></i></a>
                     <% end %>
 

@@ -207,7 +207,7 @@ Your contribution is essential in our journey to deliver improvements." %>
 
 
 
-                      <% if card.object.description == '' %>
+                      <% if card.object.description == '' ||  card.object.description.nil? %>
 
                         <div class="w-10/12 float-left name-holder">
                           <%= card.text_field :name, class: "input w-7/8 mx-3 card-input", placeholder: "Enter card name ..." , data: {action: "keypress->nested-form#add_association"}, required: true%>
