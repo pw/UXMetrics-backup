@@ -8,8 +8,7 @@ class Sjabloon::PricingController < ApplicationController
     @plans = Sjabloon::Plan.
       active.
       visible.
-      monthly.
-      order(position: :asc, amount: :asc)
+      order(position: :desc, amount: :desc)
 
     render layout: "dashboard"
   end
@@ -18,8 +17,7 @@ class Sjabloon::PricingController < ApplicationController
     @plans = Sjabloon::Plan.
       active.
       visible.
-      monthly.
-      order(position: :asc, amount: :asc)
+      order(position: :desc, amount: :desc)
 
 
     render layout: false
@@ -29,8 +27,7 @@ class Sjabloon::PricingController < ApplicationController
     @plans = Sjabloon::Plan.
       active.
       visible.
-      monthly.
-      order(position: :asc, amount: :asc)
+      order(position: :desc, amount: :desc)
 
       render layout: "dashboard"
   end

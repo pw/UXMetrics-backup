@@ -4,8 +4,7 @@ class PagesController < ApplicationController
     @plans = Sjabloon::Plan.
       active.
       visible.
-      monthly.
-      order(position: :asc, amount: :asc)
+      order(position: :desc, amount: :desc)
   end
 
 end
