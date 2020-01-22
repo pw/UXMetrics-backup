@@ -31,32 +31,77 @@
 
   <!-- <div class="hero__image"></div> -->
 </div>
-
 <div class="bg-white">
-  <div class="container max-w-5xl mx-auto px-4 pt-24 text-center">
-    <h2 class="mb-2 text-2xl font-semibold text-center pb-8">Card sorting simplified</h2>
-    <div class="flex flex-wrap">
-      <div class="flex-1 text-center">
-        <%= image_tag(asset_pack_path("media/images/setup.png"), class:"inline-block", style:"max-width:232px;") %>
-        <h4 style="color:#718096;">Quick setup</h4>
+  <div class="container max-w-5xl mx-auto py-8 sm:py-32 sm:pb-8 px-4">
+    <p class="hidden mb-2 text-sm font-medium uppercase tracking-wider text-blue-500">The mission</p>
+    <h3 class="text-4xl leading-tight font-bold text-center">What can you do with Userdrive?</h3>
+
+
+    <div class="flex flex-col-reverse mt-8 md:w-3/4 w-full m-auto md:flex-row">
+      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+
+        <h4 class="mb-0 font-bold text-sm inline">Validate navigation hierarchy</h4>
       </div>
-      <div class="flex-1 text-center">
-        <%= image_tag(asset_pack_path("media/images/branding.png"), class:"inline-block", style:"max-width:232px;") %>
-        <h4 style="color:#718096;">Custom branding</h4>
-      </div>
-      <div class="flex-1 text-center">
-        <%= image_tag(asset_pack_path("media/images/reporting.png"), class:"inline-block", style:"max-width:232px;") %>
-        <h4 style="color:#718096;">Simple reporting</h4>
-      </div>
-      <div class="flex-1 text-center">
-        <%= image_tag(asset_pack_path("media/images/download.png"), class:"inline-block", style:"max-width:232px;") %>
-        <h4 style="color:#718096;">Downloadable results</h4>
+      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+
+        <h4 class="mb-0 font-bold text-sm inline">Find words and phrases that speak to users</h4>
       </div>
     </div>
-    <a href="/features" class="underline pt-8 shadow-none" style="color:#03B0FA">View all features <i class="hidden fa fa-arrow-right text-sm" aria-hidden="true" style="color:#03B0FA"></i></a>
+    <div class="flex flex-col-reverse md:w-3/4 w-full m-auto md:flex-row">
+      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+
+        <h4 class="mb-0 font-bold text-sm inline">Organize product categories</h4>
+      </div>
+      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+
+        <h4 class="mb-0 font-bold text-sm inline">Organise knowledge base content</h4>
+      </div>
+    </div>
+    <div class="flex flex-col-reverse md:w-3/4 w-full m-auto md:flex-row">
+      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+
+        <h4 class="mb-0 font-bold text-sm inline">Prioritize projects within initiatives</h4>
+      </div>
+      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+
+        <h4 class="mb-0 font-bold text-sm inline">Organise website content</h4>
+      </div>
+    </div>
+    <div class="flex flex-col-reverse md:w-3/4 w-full m-auto md:flex-row">
+      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+
+        <h4 class="mb-0 font-bold text-sm inline">Prioritize new features</h4>
+      </div>
+      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+
+        <h4 class="mb-0 font-bold text-sm inline">Find key pieces of content for your landing page</h4>
+      </div>
+    </div>
+    <div class="flex flex-col-reverse md:w-3/4 w-full m-auto md:flex-row">
+      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+
+        <h4 class="mb-0 font-bold text-sm inline">Find the tasks most important for your users</h4>
+      </div>
+      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+
+        <h4 class="mb-0 font-bold text-sm inline">Understand differences between user groups</h4>
+      </div>
+    </div>
+
 
   </div>
 </div>
+
 
 <div class="bg-white container max-w-5xl mx-auto flex flex-wrap mb-24 mt-24 px-4 hidden">
 
@@ -140,7 +185,7 @@
 </div>
 
 <div class="bg-white" style="">
-  <div class="container max-w-5xl mx-auto py-8 sm:py-32 px-4">
+  <div class="container max-w-5xl mx-auto py-8 sm:py-32 sm:pt-16 px-4">
     <p class="mb-2 text-sm font-medium uppercase tracking-wider text-blue-400 text-center">Who is <%= Rails.configuration.application_name %> for?</p>
     <!-- <h3 class="mb-12 text-4xl leading-tight font-semibold text-gray-100 text-center">Getting better at understanding humans</h3> -->
     <h3 class="hidden mb-12 text-4xl leading-tight font-semibold text-gray-100 text-center">Userdrive let's you run card sorting tests<span class="hidden" style="color:#27C366">*</span><br/> and analyze results</h3>
@@ -319,72 +364,27 @@
 </div>
 
 <div class="bg-white">
-  <div class="container max-w-5xl mx-auto py-8 sm:py-32 px-4">
-    <p class="hidden mb-2 text-sm font-medium uppercase tracking-wider text-blue-500">The mission</p>
-    <h3 class="text-4xl leading-tight font-bold text-center">What can you do with Userdrive?</h3>
-
-
-    <div class="flex flex-col-reverse mt-8 md:w-3/4 w-full m-auto md:flex-row">
-      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
-
-        <h4 class="mb-0 font-bold text-sm inline">Validate navigation hierarchy</h4>
+  <div class="container max-w-5xl mx-auto px-4 pt-24 text-center pb-12">
+    <h2 class="mb-2 text-2xl font-semibold text-center pb-8">Card sorting simplified</h2>
+    <div class="flex flex-wrap">
+      <div class="flex-1 text-center">
+        <%= image_tag(asset_pack_path("media/images/setup.png"), class:"inline-block", style:"max-width:232px;") %>
+        <h4 style="color:#718096;">Quick setup</h4>
       </div>
-      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
-
-        <h4 class="mb-0 font-bold text-sm inline">Find words and phrases that speak to users</h4>
+      <div class="flex-1 text-center">
+        <%= image_tag(asset_pack_path("media/images/branding.png"), class:"inline-block", style:"max-width:232px;") %>
+        <h4 style="color:#718096;">Custom branding</h4>
       </div>
-    </div>
-    <div class="flex flex-col-reverse md:w-3/4 w-full m-auto md:flex-row">
-      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
-
-        <h4 class="mb-0 font-bold text-sm inline">Organize product categories</h4>
+      <div class="flex-1 text-center">
+        <%= image_tag(asset_pack_path("media/images/reporting.png"), class:"inline-block", style:"max-width:232px;") %>
+        <h4 style="color:#718096;">Simple reporting</h4>
       </div>
-      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
-
-        <h4 class="mb-0 font-bold text-sm inline">Organise knowledge base content</h4>
+      <div class="flex-1 text-center">
+        <%= image_tag(asset_pack_path("media/images/download.png"), class:"inline-block", style:"max-width:232px;") %>
+        <h4 style="color:#718096;">Downloadable results</h4>
       </div>
     </div>
-    <div class="flex flex-col-reverse md:w-3/4 w-full m-auto md:flex-row">
-      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
-
-        <h4 class="mb-0 font-bold text-sm inline">Prioritize projects within initiatives</h4>
-      </div>
-      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
-
-        <h4 class="mb-0 font-bold text-sm inline">Organise website content</h4>
-      </div>
-    </div>
-    <div class="flex flex-col-reverse md:w-3/4 w-full m-auto md:flex-row">
-      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
-
-        <h4 class="mb-0 font-bold text-sm inline">Prioritize new features</h4>
-      </div>
-      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
-
-        <h4 class="mb-0 font-bold text-sm inline">Find key pieces of content for your landing page</h4>
-      </div>
-    </div>
-    <div class="flex flex-col-reverse md:w-3/4 w-full m-auto md:flex-row">
-      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
-
-        <h4 class="mb-0 font-bold text-sm inline">Find the tasks most important for your users</h4>
-      </div>
-      <div class="flex-1 bg-blue-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
-
-        <h4 class="mb-0 font-bold text-sm inline">Understand differences between user groups</h4>
-      </div>
-    </div>
-
+    <a href="/features" class="block underline pt-4 shadow-none" style="color:#03B0FA">View all features <i class="hidden fa fa-arrow-right text-sm" aria-hidden="true" style="color:#03B0FA"></i></a>
 
   </div>
 </div>
