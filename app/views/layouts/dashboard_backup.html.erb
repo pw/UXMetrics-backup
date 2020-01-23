@@ -5,6 +5,17 @@
 </head>
 
 <body class="w-full h-full <%= body_class(yield(:body_class)) %>">
+
+  <script>
+    if (window.analytics) {
+      window.analytics.page();
+      analytics.identify('#{current_user.id}', {
+        name: '#{current_user.name}',
+        email: '#{current_user.email}',
+      });
+    }
+  </script>
+
   <%= render "shared/flash" %>
   <div class="dashboard">
     <div class="dashboard-nav">
@@ -84,5 +95,3 @@
   </div>
 </body>
 </html>
-
-
