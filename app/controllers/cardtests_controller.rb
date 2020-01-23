@@ -85,6 +85,10 @@ Your contribution is essential in our journey to deliver improvements."
     if @cardtest.save
       redirect_to edit_cardtest_path(@cardtest), notice: 'Cardtest was successfully created.'
 
+      Analytics.track(
+      user_id: current_user.id,
+      event: 'Created cardtest')
+
       if @cardtests.count == 1
         UserNotifierMailer.send_first_cardtest_email(current_user, @cardtest).deliver_later
       end
@@ -122,13 +126,27 @@ Your contribution is essential in our journey to deliver improvements."
 
         if current_user.trialend? && current_user.created_at < 7.days.ago
           puts "on new trial and expired"
+
+          Analytics.track(
+          user_id: current_user.id,
+          event: 'Shown pricing - 7 day')
+
           redirect_to expired_pricing_path and return
         end
 
         if !current_user.trialend? && current_user.created_at < 60.days.ago
           puts "on old trial and expired"
+
+          Analytics.track(
+          user_id: current_user.id,
+          event: 'Shown pricing - 60 day')
+
           redirect_to expired_pricing_path and return
         end
+
+        Analytics.track(
+        user_id: current_user.id,
+        event: 'Published cardtest')
 
       end
 

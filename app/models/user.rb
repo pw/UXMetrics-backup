@@ -17,9 +17,15 @@ class User < ApplicationRecord
   end
 
 
-  after_create :send_welcome_mail
+  after_create :send_welcome_mail, :after_database_authentication
 
   def send_welcome_mail
+
+
+    Analytics.track(
+    user_id: self.id,
+    event: 'Signed Up')
+
     puts "!!!!!!!!!!!!!!!sellf is below!!!!!!!!!!!!!!!"
     puts self
     UserNotifierMailer.send_signup_email(self).deliver_later
@@ -32,6 +38,13 @@ class User < ApplicationRecord
         '$last_name'        => self.last_name,
         '$email'            => self.email
     }, ip = 0, {'$ignore_time' => 'true'});
+
+    puts "login"
+
+    Analytics.identify(
+    user_id: self.id,
+    traits: { email: "#{ self.email }", first_name: "#{ self.first_name }", last_name: "#{ self.last_name }", logins: "#{ self.sign_in_count }", trial: "#{ self.trialend }" });
+
   end
 
 end

@@ -17,6 +17,9 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'mini_racer', platforms: :ruby
 gem 'mixpanel-ruby', '~> 2.2', '>= 2.2.1'
 
+#segment
+gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
+
 gem 'rinku', '~> 2.0', '>= 2.0.2'
 
 # Use CoffeeScript for .coffee assets and views

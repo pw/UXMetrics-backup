@@ -44,6 +44,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    analytics-ruby (2.0.13)
     arel (9.0.0)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
@@ -308,6 +309,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  analytics-ruby (~> 2.0.0)
   bootsnap (>= 1.1.0)
   byebug
   coffee-rails (~> 4.2)
