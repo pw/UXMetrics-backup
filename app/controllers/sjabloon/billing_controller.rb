@@ -24,6 +24,10 @@ class Sjabloon::BillingController < ApplicationController
       coupon: coupon_code
     )
 
+    Analytics.track(
+    user_id: current_user.id,
+    event: 'Subscribed!!!!!!!!!')
+
     redirect_to billing_path, notice: "You are successfully subscribed"
   rescue StandardError => e
     redirect_to new_billing_path(plan: params[:plan_id]), alert: e.message
