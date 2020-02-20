@@ -1,8 +1,8 @@
 module Sjabloon
   module Stripe
     module Env
-      ::Stripe.api_key             = Rails.application.credentials.dig(Rails.env.to_sym, :stripe, :private_key)
-      ::StripeEvent.signing_secret = Rails.application.credentials.dig(Rails.env.to_sym, :stripe, :signing_secret)
+      ::Stripe.api_key             = ENV['STRIPE_SECRET_KEY']
+      ::StripeEvent.signing_secret = ENV['STRIPE_SIGNING_SECRET']
     end
   end
 end
