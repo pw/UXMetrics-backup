@@ -2,10 +2,10 @@ default: &default
   billing:
     payer_class: "User"
     # These lines will appear on your customer's receipts
-    business_name: "Userdrive"
-    product_name: "Userdrive"
+    business_name: "UXOps"
+    product_name: "UXOps"
     business_address: "96c Winter Road, Portsmouth, PO4 8DP, United Kingdom"
-    support_email: "support@userdrive.co"
+    support_email: "support@uxops.com"
     send_emails: true
     emails:
       receipt_subject: "Payment receipt"
