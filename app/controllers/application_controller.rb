@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
 
   def default_url_options
     if Rails.env.production?
-      Rails.application.routes.default_url_options = { host: "www.userdrive.co", protocol: 'https' }
+      Rails.application.routes.default_url_options = { host: "www.uxops.com", protocol: 'https' }
     elsif Rails.env.development?
       Rails.application.routes.default_url_options = { host: 'localhost:5000', protocol: 'http' }
     end

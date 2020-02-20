@@ -27,9 +27,9 @@ Bundler.require(*Rails.groups)
 
 module UxCard6
   class Application < Rails::Application
-    config.application_naked_domain = 'userdrive.co'
-    config.application_domain = 'https://www.userdrive.co'
-    config.application_name = 'Userdrive'
+    config.application_naked_domain = 'uxops.com'
+    config.application_domain = 'https://www.uxops.com'
+    config.application_name = 'UXOps'
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
     config.exceptions_app = self.routes
