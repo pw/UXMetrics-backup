@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :masquerade_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :redirect_to_new_domain
 
   def current_payer
     # 'Current' method to refer to for Stripe methods (eg. `.subscription`, etc)
@@ -26,5 +27,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def redirect_to_new_domain
+    uri = URI.parse request.url
+
+    if Rails.env.production? && (uri.host != 'www.uxops.com')
+      uri.host = 'www.uxops.com'
+      redirect_to uri.to_s, status: 301
+    end
+
+    return true
+  end
 
 end
