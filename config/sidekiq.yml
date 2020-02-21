@@ -4,6 +4,6 @@
 :queues:
   - default
   - mailers
-  - userdrive_development_mailers
-  - userdrive_production_mailers
-  - userdrive_production_default
+  - uxops_development_mailers
+  - uxops_production_mailers
+  - uxops_production_default
