@@ -1,6 +1,6 @@
 :root {
-  --brandColor: theme("colors.blue.500");
-  --brandColorDark: theme("colors.blue.700");
+  --brandColor: theme("colors.indigo.500");
+  --brandColorDark: theme("colors.indigo.700");
   --secondaryBrandColor: theme("colors.green.600");
   --secondaryBrandColorDark: theme("colors.green.700");
   --textColor: theme("colors.gray.800");
