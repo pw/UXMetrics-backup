@@ -1,11 +1,11 @@
-<%= form_with(model: cardtest, local: true, class: "cardtest-form p-4") do |form| %>
+<%= form_with(model: cardtest, local: true, class: "cardtest-form") do |form| %>
 <%= render "shared/flash", flash: cardtest.errors %>
 
 <div class="tab-setup">
   <div class="field">
-    <h4>Test name</h4>
+    <h4>Name</h4>
     <%# <%= form.label :name %>
-    <%= form.text_field :name, class: "input", placeholder: "Add a name for your test ...", required: true %>
+    <%= form.text_field :name, class: "input", placeholder: "Add a name for your card sort ...", required: true %>
 
     <!-- <input type="text" id="share-link" class="input rounded-r-none" value="<%= request.base_url %>/collect/<%= @cardtest.auth_token %>?preview"/> -->
 
@@ -13,19 +13,19 @@
   </div>
 
   <div class="field">
-    <h4>Test type</h4>
+    <h4>Type</h4>
     <p class="-mt-4 text-xs mb-4">Use closed card sorting if you have groups you want people to choose between.</p>
 
     <div class="radio mt-4">
 
       <%= form.radio_button :testtype, 'open', :checked => true %>
-      <%= form.label :testtype, 'Open card sort', :value => 'open' %>
+      <%= form.label :testtype, 'Open Sort', :value => 'open' %>
       <br/>
       <%= form.radio_button :testtype, 'closed' %>
-      <%= form.label :testtype, 'Closed card sort', :value => 'closed' %>
+      <%= form.label :testtype, 'Closed Sort', :value => 'closed' %>
       <br/>
       <%= form.radio_button :testtype, 'hybrid' %>
-      <%= form.label :testtype, 'Hybrid card sort', :value => 'hybrid' %>
+      <%= form.label :testtype, 'Hybrid Sort', :value => 'hybrid' %>
 
     </div>
 

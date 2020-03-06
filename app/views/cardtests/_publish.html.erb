@@ -8,11 +8,18 @@
 
   <% begin %>
     <% if cardtest.status == "draft" %>
-      <h4 class="mt-2 mb-3 font-semibold px-2 text-center">👍 Nice one, your cardtest has been created!</h4>
+      <h4 class="mt-2 mb-3 font-semibold px-2 text-center">👍 Your card sort has been created!</h4>
         <p class="text-sm text-center py-2 mb-4">When you are ready to publish it just hit the button below!</p>
 
       <%= form.submit class: "btn btn--primary w-full", value:"Publish", id:"publish-test"%>
       <p class="text-xs text-center py-2"><strong>Note:</strong> You won't be able to make any changes once the test is published.</p>
+      <div class="border-t">
+        <% if @cardtest.persisted? %>
+          <span class="ml-3 shadow-sm rounded-md">
+            <%= link_to 'Delete This Sort', { action: :destroy, uid: @cardtest.uid }, method: :delete, data: { confirm: 'Are you sure? This is permanent and cannot be undone.' }, class: "block text-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-50 focus:outline-none focus:border-red-300 focus:shadow-outline-red active:bg-red-200 transition ease-in-out duration-150" %>
+          </span>
+        <% end %>
+      </div>
     <% elsif cardtest.status == "published" %>
 
     <h4 class="mt-2 mb-6 font-semibold px-2 text-center">🎉 Your cardtest is <span class="text-green-700">published</span> and accepting responses.</h1>
@@ -29,11 +36,20 @@
       </div>
 
       <p class="copied-text hidden mt-0 mb-4 text-sm text-green-600 text-center">Share link copied to your clipboard.</p>
-
-      <%= form.submit class: "btn btn--tertiary w-full end-test hidden", value:"End test", id:"publish-test" %>
+      <div class="mt-8">
+        <%= form.submit class: "btn btn--tertiary w-full end-test hidden", value:"End test", id:"publish-test" %>
+        <a href="#" class="end-t mb-4 block text-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md shadow-sm text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">End This Sort</a>
+        <% if @cardtest.persisted? %>
+          <%= link_to 'Delete This Sort', { action: :destroy, uid: @cardtest.uid }, method: :delete, data: { confirm: 'Are you sure? This is permanent and cannot be undone.' }, class: "block text-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md shadow-sm text-red-700 bg-red-100 hover:bg-red-50 focus:outline-none focus:border-red-300 focus:shadow-outline-red active:bg-red-200 transition ease-in-out duration-150" %>
+        <% end %>
+      </div>
     <% else %>
-    <h4 class="mt-2 mb-2 font-semibold px-2 text-center">🏁 Your cardtest has <span class="text-red-500">ended</span>.</h1>
-
+    <h4 class="mt-2 mb-2 font-semibold px-2 text-center">🏁 Your cardtest has <span class="text-red-500">ended</span>.</h4>
+    <div class="mt-8">
+      <% if @cardtest.persisted? %>
+        <%= link_to 'Delete This Sort', { action: :destroy, uid: @cardtest.uid }, method: :delete, data: { confirm: 'Are you sure? This is permanent and cannot be undone.' }, class: "block text-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md shadow-sm text-red-700 bg-red-100 hover:bg-red-50 focus:outline-none focus:border-red-300 focus:shadow-outline-red active:bg-red-200 transition ease-in-out duration-150" %>
+      <% end %>
+    </div>
 
     <% end %>
   <% rescue => ex %>

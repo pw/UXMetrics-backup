@@ -20,7 +20,7 @@ unsaved = false;
 $(document).on('change', 'textarea', function() {
   unsaved = true;
   console.log("unsaved to true");
-  $(".save-btn").show();
+  $(".save-btn").removeClass( "opacity-50" );
 });
 
 
@@ -28,7 +28,7 @@ $(document).on('change', 'textarea', function() {
 $(document).on('change', 'input', function() {
   unsaved = true;
   console.log("unsaved to true");
-  $(".save-btn").show();
+  $(".save-btn").removeClass( "opacity-50" );
 });
 
 $(document).on('turbolinks:load', function() {
@@ -37,7 +37,7 @@ $(document).on('turbolinks:load', function() {
   $(document).on('click', '.remove-predefined-group', function(e) {
     e.preventDefault();
     $(this).parents(".group-field").remove();
-    $(".save-btn").show();
+    $(".save-btn").removeClass( "opacity-50" );
   });
 
   $(document).on('click', '.add-description', function(e) {
@@ -66,7 +66,7 @@ $(document).on('turbolinks:load', function() {
 
       unsaved = true;
       console.log("unsaved to true");
-      $(".save-btn").show();
+      $(".save-btn").removeClass( "opacity-50" );
 
     }
   });
@@ -81,7 +81,7 @@ $(document).on('turbolinks:load', function() {
     e.preventDefault();
     var element = '<div class="group-field item bg-white rounded p-2 mb-2 w-64 inline-block shadow mr-2"><div class="field w-7/8 clearfix flex m-0"><input class="input w-7/8 mr-2 text-sm" type="text" value="" placeholder="Enter a group name ..."><a class="remove-predefined-group pt-2 w-1/8 text-red-400 hover:text-red-600" href="#"  tabindex="-1"><i class="fa fa-trash" aria-hidden="true"></i></a></div></div>';
     $(".predefined-groups").append(element);
-    $(".save-btn").show();
+    $(".save-btn").removeClass( "opacity-50" );
 
   });
 
@@ -310,7 +310,7 @@ $(function() {
     // console.log($(this).find("#publish-test"));
     if($(this).find("#publish-test").hasClass("end-test") && $(this).find('#status-field').val() == "published"){
 
-      var choice = confirm("Are you sure you want to end your test?");
+      var choice = confirm("Are you sure you want to end this card sort?");
 
       if (choice == true){
 
