@@ -28,783 +28,774 @@
 
 
 
-<div class="subhead border-t border-gray-200 bg-white pl-10 pr-10">
-  <div class="max-w-6xl mx-auto clearfix py-6 flex items-center px-6">
-    <div class="flex-1">
-      <h1 class="font-bold text-gray-600 text-xl"><%= @cardtest.name %></h1>
-      <span class="text-gray-400 text-sm block"><strong class="capitalize"><%= @cardtest.testtype %></strong> card test - created on <%= @cardtest.created_at.strftime("%F") %></span>
-    </div>
-    <div class="flex-2 text-right">
-      <%= link_to "Back to overview", cardtests_url+"/"+@cardtest.uid+"/edit", class: "btn-small btn--primary" %>
-      <%= link_to download_cardtest_results_path, class: "ml-2 btn-small btn--secondary", target: "_blank" do %>
-        <i class="mr-2 fa fa-download" aria-hidden="true"></i> Download Results
-      <% end %>
-
-
-
+<div class="py-6 border-b">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="md:flex md:items-center md:justify-between">
+      <div class="flex-1 min-w-0">
+        <h1 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:leading-9 sm:truncate">
+          <%= @cardtest.name %>
+        </h1>
+        <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap">
+          <div class="mt-2 mr-6 flex items-center text-sm leading-5 text-gray-500">
+            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+            </svg>
+            Created on <%= @cardtest.created_at.strftime("%m/%d/%Y") %>
+          </div>
+          <div class="mt-2 flex items-center text-sm leading-5 text-gray-500">
+            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M7 9C7 7.89543 7.89543 7 9 7H15C16.1046 7 17 7.89543 17 9V15C17 16.1046 16.1046 17 15 17H9C7.89543 17 7 16.1046 7 15V9Z"/>
+              <path d="M5 3C3.89543 3 3 3.89543 3 5V11C3 12.1046 3.89543 13 5 13L5 5H13C13 3.89543 12.1046 3 11 3H5Z"/>
+            </svg>
+            <%= (@cardtest.testtype).capitalize %> Sort
+          </div>
+        </div>
+      </div>
+      <span class="shadow-sm rounded-md">
+        <%= link_to cardtests_url+"/"+@cardtest.uid+"/edit", {class: "inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:shadow-outline focus:border-blue-300 transition duration-150 ease-in-out"} do %>
+          <svg class="-ml-1 mr-2 h-5 w-5 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.70711 16.7071C9.31658 17.0976 8.68342 17.0976 8.29289 16.7071L2.29289 10.7071C1.90237 10.3166 1.90237 9.68342 2.29289 9.29289L8.29289 3.29289C8.68342 2.90237 9.31658 2.90237 9.70711 3.29289C10.0976 3.68342 10.0976 4.31658 9.70711 4.70711L5.41421 9H17C17.5523 9 18 9.44772 18 10C18 10.5523 17.5523 11 17 11L5.41421 11L9.70711 15.2929C10.0976 15.6834 10.0976 16.3166 9.70711 16.7071Z"/>
+          </svg>
+          Back to Overview
+        <% end %>
+      </span>
+      <span class="ml-3 shadow-sm rounded-md">
+        <%= link_to download_cardtest_results_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out", target: "_blank" do %>
+          <svg class="-ml-1 mr-2 h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M3 17C3 16.4477 3.44772 16 4 16H16C16.5523 16 17 16.4477 17 17C17 17.5523 16.5523 18 16 18H4C3.44772 18 3 17.5523 3 17ZM6.29289 9.29289C6.68342 8.90237 7.31658 8.90237 7.70711 9.29289L9 10.5858L9 3C9 2.44772 9.44771 2 10 2C10.5523 2 11 2.44771 11 3L11 10.5858L12.2929 9.29289C12.6834 8.90237 13.3166 8.90237 13.7071 9.29289C14.0976 9.68342 14.0976 10.3166 13.7071 10.7071L10.7071 13.7071C10.5196 13.8946 10.2652 14 10 14C9.73478 14 9.48043 13.8946 9.29289 13.7071L6.29289 10.7071C5.90237 10.3166 5.90237 9.68342 6.29289 9.29289Z"/>
+          </svg>
+          Download Results
+        <% end %>
+      </span>
     </div>
   </div>
 </div>
 
-<div class="mt-16 max-w-6xl mx-auto flex pl-10 pr-10">
-  <div class="w-2/3 p-4">
+<main class="py-6">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-wrap items-end mb-16">
+      <div class="w-full md:w-1/3 xl:w-2/5 md:pr-16">
 
-    <% if @cardtest.testtype == "closed" %>
-      <h1 class="text-3xl mb-8">Groups used</h1>
-      <h4 class="-mt-8">Most people used <%= @mediangroups.to_i %>
+        <div class="py-4 bg-white rounded shadow px-4 my-4">
 
-      <% if @mediangroups.to_i == 1%>
-      group<% else %>
-      groups<% end %>.</h4>
-    <% elsif @cardtest.testtype == "hybrid" %>
-      <h1 class="text-3xl mb-8">Groups used</h1>
-      <h4 class="-mt-8">Most people used <%= @mediangroups.to_i %>
+          <p class="font-semibold px-2 text-center text-4xl text-green-600">
+            <%= @results.count %>
+          </p>
+          <h4 class="-mt-2 font-semibold px-2 text-center">Results</h4>
 
-      <% if @mediangroups.to_i == 1%>
-      group<% else %>
-      groups<% end %>.</h4>
-    <% else %>
-      <h1 class="text-3xl mb-8">Groups created</h1>
-      <h4 class="-mt-8">Most people created <%= @mediangroups.to_i %>
+        </div>
+        <div class="py-4 bg-white rounded shadow px-4 my-4">
 
-      <% if @mediangroups.to_i == 1%>
-      group<% else %>
-      groups<% end %>.</h4>
+
+          <p class="font-semibold px-2 text-center text-4xl text-green-600">
+            <%= @titleslist.count %>
+          </p>
+
+          <% if @cardtest.testtype == "open" %>
+            <h4 class="-mt-2 font-semibold px-2 text-center">Unique groups created</h4>
+          <% else %>
+            <h4 class="-mt-2 font-semibold px-2 text-center">Unique groups used</h4>
+          <% end %>
+
+        </div>
+
+        <div class="py-4 bg-white rounded shadow px-4 my-4">
+
+          <p class="font-semibold px-2 text-center text-4xl text-green-600">
+              <%= @mediantime %>
+          </p>
+
+          <h4 class="-mt-2 font-semibold px-2 text-center">Median time to complete</h4>
+
+        </div>
+
+      </div>
+      <div class="w-full md:w-2/3 xl:w-3/5">
+
+        <% if @cardtest.testtype == "closed" %>
+          <h2 class="text-2xl mb-2">Groups Used</h2>
+          <h4 class="mb-4">Most people used <%= @mediangroups.to_i %>
+
+          <% if @mediangroups.to_i == 1%>
+          group<% else %>
+          groups<% end %>.</h4>
+        <% elsif @cardtest.testtype == "hybrid" %>
+          <h2 class="text-2xl mb-8">Groups Used</h2>
+          <h4 class="mb-4">Most people used <%= @mediangroups.to_i %>
+
+          <% if @mediangroups.to_i == 1%>
+          group<% else %>
+          groups<% end %>.</h4>
+        <% else %>
+          <h2 class="text-2xl mb-8">Groups Created</h2>
+          <h4 class="mb-4">Most people created <%= @mediangroups.to_i %>
+
+          <% if @mediangroups.to_i == 1%>
+          group<% else %>
+          groups<% end %>.</h4>
+        <% end %>
+
+        <div id="bar-container"></div>
+
+      </div>
+
+    </div>
+
+    <div class="flex flex-wrap">
+      <div class="analysis w-full mb-16">
+
+        <h2 class="text-2xl mb-4">Detailed Analysis</h2>
+
+        <div class="table-tabs mb-8">
+          <a href="" class="view-cards font-semibold active mr-3">Cards</a>
+          <a href="" class="view-groups font-semibold ml-3 mr-3">Groups</a>
+          <a href="" class="view-results font-semibold ml-3">Individual Results</a>
+        </div>
+        <div class="overflow-x-auto">
+          <table data-page-size="5000" data-paging="false" class="table text-sm cards-table">
+            <thead class="uppercase text-gray-900 text-xs leading-tight font-medium">
+              <tr>
+                <th data-type="text" data-sort-initial="true">Card name</th>
+                <th data-sort-ignore="true" width="200">Sorted into</th>
+                <th data-sort-ignore="true" width="100"></th>
+                <th data-type="numeric">Percentage of people sorted</th>
+                <th data-type="numberic">Agreement score
+                  <!-- <i class="fa fa-info-circle" aria-hidden="true"></i> -->
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+
+
+              <% pp "all cards below:" %>
+              <% pp @cardsByGroups %>
+              <% @cardsByGroups.each do |cardIdRow| %>
+                <tr>
+
+
+                  <% pp "name:" %>
+                  <td>
+
+
+                    <% pp "single card below:" %>
+
+                    <h3 class="inline bold"><%= JSON.parse(cardIdRow)["name"] %></h3>
+                    <% if @cardtest.cards.find(JSON.parse(cardIdRow)["id"]).description != '' && !@cardtest.cards.find(JSON.parse(cardIdRow)["id"]).description.nil? %>
+                      <a data-tippy-content="<%= @cardtest.cards.find(JSON.parse(cardIdRow)["id"]).description %>" class="ml-1 inline text-gray-500 description-icon"><i class="fa fa-align-left" aria-hidden="true"></i></a>
+                    <% end %>
+
+
+                  </td>
+                  <% pp "done" %>
+                  <td>
+
+
+
+                    <% if @cardtest.mergedgroups.size > 0 %>
+
+                          <% titlesWithMerged = []%>
+
+
+                        <% JSON.parse(cardIdRow)['titles'].each do |title| %>
+                          <% titlesGrouped = JSON.parse(@cardtest.mergedgroups).select {|m| m['groups'].include?(title)} %>
+                          <% if titlesGrouped.size > 0 %>
+                            <%# titlesGrouped[0]['name'] %>
+
+                            <%# title = titlesGrouped[0]['name'] %>
+                            <% titlesWithMerged.push(titlesGrouped[0]['name']) %>
+                          <% else %>
+                            <% titlesWithMerged.push(title) %>
+                          <% end %>
+                        <% end %>
+
+                        <% parsed = JSON.parse(cardIdRow) %>
+                        <% parsed['titles'] = titlesWithMerged%>
+
+
+                        <% cardIdRow = JSON.dump(parsed) %>
+
+                    <% end %>
+
+
+
+
+
+
+                    <% titlesGroups = JSON.parse(cardIdRow)['titles'].partition{|v| v == "Unnamed"}
+                      # Separating titles into Unnamed and NOT, because we want Unnamed at the bottom and not grouped
+                      if titlesGroups.count == 2
+                        unnamedList = titlesGroups[0]
+                        titlesGroups[0] = titlesGroups[0].map{|k,v| [k, 1] }
+                        titlesGroups[1] = titlesGroups[1].group_by{|i| i}.map{|k,v| [k, v.count]}
+                        groups = titlesGroups[1].sort_by{|k|k[1]}.reverse + titlesGroups[0]
+                        # puts titlesGroups[1]
+                        # puts titlesGroups[0]
+                      else
+                        groups = titlesGroups[0].sort_by{|k|k[1]}.reverse
+                      end
+                    %>
+                    <ul class="categories-list">
+                      <%# <% JSON.parse(cardIdRow)["titles"].each do |group| %>
+                      <%# <% titlesGrouped = JSON.parse(cardIdRow)['titles'].group_by{|i| i}.map{|k,v| [k, v.count] } %>
+
+                      <%# <% titlesGrouped = JSON.parse(cardIdRow)['titles'].group_by{|i| i}.select{|title|title !='Unnamed'}.map{|k,v| [k, v.count] } %>
+
+                      <%# titlesGrouped %>
+                      <% groups.each do |element| %>
+                        <li><%= element[0] %>
+
+                        </li>
+
+                      <% end %>
+
+                    </ul>
+                  </td>
+                  <td>
+                    <% titlesGroups = JSON.parse(cardIdRow)['titles'].partition{|v| v == "Unnamed"}
+                      # Separating titles into Unnamed and NOT, because we want Unnamed at the bottom and not grouped
+                      if titlesGroups.count == 2
+                        unnamedList = titlesGroups[0]
+                        titlesGroups[0] = titlesGroups[0].map{|k,v| [k, 1] }
+                        titlesGroups[1] = titlesGroups[1].group_by{|i| i}.map{|k,v| [k, v.count]}
+                        groups = titlesGroups[1].sort_by{|k|k[1]}.reverse + titlesGroups[0]
+                        # puts titlesGroups[1]
+                        # puts titlesGroups[0]
+                      else
+                        groups = titlesGroups[0].sort_by{|k|k[1]}.reverse
+                      end
+                    %>
+                    <ul class="counts-list">
+                      <% groups.each do |element| %>
+                      <li><%= element[1] %>
+                        <% if element[1] == 1 %>
+                          time
+                        <% else %>
+                          times
+                        <% end %></li>
+                      <% end %>
+                    </ul>
+                  </td>
+                  <td data-sort-value="<%= JSON.parse(cardIdRow)['sortedpercent']*100 %>">
+                    <%= JSON.parse(cardIdRow)['sortedpercent'] %>%
+                  </td>
+                  <td data-sort-value="<%= JSON.parse(cardIdRow)['agreementscore'] %>">
+                    <%= JSON.parse(cardIdRow)['agreementscore'] %>%
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+
+          </table>
+          <% uniqueTitles = [] %>
+          <% finalTitles = [] %>
+
+          <% puts "resultgroups count: "+ @resultgroups.count.to_s %>
+
+          <%# puts @titleslist %>
+
+          <div class="categories-table hidden" style="clear:both;">
+            <div data-controller="modal"  data-action="keydown@window->modal#closeWithKeyboard" class="clearfix">
+              <span class="float-left merge-info text-gray-500 text-sm" style="line-height:37px;"><i class="fa fa-info-circle mr-2" aria-hidden="true"></i>Select conceptually similar groups to merge them.</span>
+            <button data-action="click->modal#open" class="btn-small btn--primary merge-btn float-right hidden">Merge selected groups</button>
+            <div data-target="modal.container" class="hidden">
+              <div data-target="modal.background" data-action="click->modal#closeBackground" class="modal-wrapper">
+                <div class="modal">
+
+                  <div class="modal__content p-8">
+
+                    <div class="">
+                      <h4>Choose a name</h4>
+                    </div>
+                    <div class="">
+                      <input type="text" id="merged-name" placeholder="Merged group name ..." class="input"/>
+                      <span class="validation-inuse text-sm text-red-600 hidden">This group name is already in use.</span>
+                    </div>
+                    <div class="mt-8">
+                      <h4>Merge the groups selected below:</h4>
+                    </div>
+                    <div class="field mb-2 groups-listed">
+                      <ul class="text-sm">
+
+                      </ul>
+
+                      <span class="validation-checkboxes text-sm text-red-600 hidden">Select groups to merge above.</span>
+                      <%# @titleslist.each do |title| %>
+
+                        <%# title[:title] %>
+
+                      <%# end %>
+
+
+                    </div>
+
+                    <div class="field mb-0">
+
+                      <%= form_with(model: @cardtest, local: true, url: update_merged_cardtest_path(@cardtest), class: "merge-form", data: { type: "json" }) do |form| %>
+                      <%# <%= form_with(model: @cardtest, local: true, url: update_merged_cardtest_path(@cardtest), class: "merge-form") do |form| %>
+                      <%= render "shared/flash", flash: @cardtest.errors %>
+
+                        <%= form.hidden_field :mergedgroups, class: "input" %>
+                        <%= form.submit "Merge selected", class: "btn btn--primary block text-center save-merged mt-4" %>
+
+                      <% end %>
+
+                    </div>
+
+                    <svg class="modal__close" role="button" data-action="click->modal#close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <table data-page-size="5000" data-paging="false" class="table text-sm">
+            <thead class="uppercase text-gray-900 text-xs leading-tight font-medium">
+              <tr>
+                <th data-sort-ignore="true" width="50"><!--<input type="checkbox" id="select-all-groups" name="select-all-groups"> --></th>
+                <th data-type="text" data-sort-initial="true" width="200" style="padding-left:0px !important;">Group name</th>
+                <th data-type="numeric">
+                <% if @cardtest.testtype == "open" %>
+                  Created by
+                <% elsif @cardtest.testtype == "closed" %>
+                  Used by
+                <% else %>
+                  Used by
+                <% end %>
+
+
+                </th>
+                <th data-sort-ignore="true">Cards added</th>
+                <th data-type="numeric">Number of times</th>
+
+
+              </tr>
+            </thead>
+            <tbody>
+              <%# Create json data for relationship graph %>
+
+
+              <% @linksList = Array.new %>
+
+
+              <% if @cardtest.mergedgroups.size > 0 %>
+                <% JSON.parse(@cardtest.mergedgroups).each do |mergedgroup| %>
+                  <%# mergedgroup['name']%>
+                <% end %>
+
+
+
+                <% @mergedTitlesList = [] %>
+
+
+                <% puts "WHOWHOWHOWHOWHOWHO" %>
+                <% puts @titleslist %>
+
+
+
+                <% @titleslist.each do |title| %>
+
+                <%# {title:'2', cards:["268", 1]}%>
+                <%# {title:'G1', cards:[["265", 1], ["268", 1], ["269", 1], ["267", 1], ["266", 1]]}%>
+
+                  <% mergedTitle = JSON.parse(@cardtest.mergedgroups).select {|m| m['groups'].include?(title[:title])} %>
+
+                  <%# mergedTitle is the merged group with name and list of groups merged %>
+
+                  <% puts "merged title" %>
+                  <% puts mergedTitle %>
+
+                  <% puts "-------------------------- -------------------------- SEE THIS" %>
+
+                    <% if mergedTitle.size > 0 %>
+
+                    <%# {name:'G1', groups:['2','G1']} %>
+
+                      <!-- <%= title[:title] %> is found in merged group with the title <%= mergedTitle[0]['name'] %> -->
+
+
+                      <% @item = @titleslist.find { |u| u[:title] == mergedTitle[0]['name'] } %>
+
+
+                      <% i = @titleslist.index(@item) %>
+                      <%# index of {title:'2', cards:["268", 1]}%>
+
+                      <!-- Index is: <%= i %> -->
+
+                      <%# i index of the mergedTitle name in the original title list %>
+
+                      <% if !i.nil? %>
+
+                            <!-- The index of the merged title - <%= mergedTitle[0]['name'] %> - in the titleslist is <%= i %>. the titleslist title is <%= @titleslist[i][:title] %> so we merge. %> -->
+                            <% puts "-------------------------- -------------------------- -------------------------- shouldn't SEE THIS" %>
+                            <%# i is not nil if the merged group title is already in the title list, so need to merge data %>
+                            <% @titleslist[i][:createdby] = @titleslist[i][:createdby] + title[:createdby] %>
+
+
+
+                            <%# previous titles cards: %>
+                            <%# @titleslist[i][:cards] %>
+
+
+
+                            <% @titleslist[i][:cards] = @titleslist[i][:cards] + title[:cards] %>
+
+
+
+                            <% puts "new titles cards:" %>
+                            <% puts @titleslist[i][:cards] %>
+
+                            <% @newcards = [] %>
+                            <% @newcounts = [] %>
+                            <% @newcc = [] %>
+
+
+                            <% @titleslist[i][:cards].each do |card| %>
+
+                                  <% @newcards.push(card[0]) %>
+                                  <% @newcounts.push(card[1]) %>
+                                  <% @newcc.push(card[1]) %>
+
+                                  <% puts "pushing this: "+card[1].to_s %>
+
+                            <% end %>
+
+                            <% puts "cards:"%>
+                            <% puts @newcc %>
+
+                            <%# @newcc = @newcounts %>
+
+
+                            <!-- array of counts: -->
+
+                            <%# @newcc %>
+
+                            <% @newcards.each_with_index do |card, ii| %>
+                                  <% @indexes = @newcards.size.times.select {|i| @newcards[i] == card} %>
+                                  <!-- <br/>the indexes are: <%= @indexes %> -->
+
+
+                                  <%# find @indexes of card occurences and summ the @newcounts values at those indexes %>
+
+                                  <% @newcounts[ii] = 0 %>
+
+                                  <%# summing counts: %>
+                                  <%# <%= @newcc %>
+                                  <% @indexes.each do |index|  %>
+                                        <% @newcounts[ii] = @newcounts[ii] + @newcc[index] %>
+                                        <%# @newcounts[ii] %> <%# @newcc[index] %>
+                                  <% end %>
+
+                            <% end %>
+
+                            <% puts "new cards:" %>
+                            <% puts @newcards %>
+                            <% puts "new counts:" %>
+                            <% puts @newcounts %>
+
+
+                            <% @titleslist[i][:cards] = @newcards.zip(@newcounts).uniq %>
+                            <%# whats going on here: %>
+                            <%# @newcards.zip(@newcounts).uniq! %>
+
+                            <% puts "titleslist" %>
+                            <% puts @titleslist[i][:cards] %>
+
+                            <% puts "zipping result:" %>
+                            <% puts @newcards.zip(@newcounts).uniq %>
+
+                            <% title[:title] = "_/-deleted" %>
+
+                      <% else %>
+
+                        <!-- <br/>The merged title is not in the list yet, so we replace the current title from: <%= title[:title] %> to <%= mergedTitle[0]['name'] %>. -->
+                        <%# the mergedtitle name is not in the title list, so need to replace the current title to the merged title%>
+                        <% title[:title] = mergedTitle[0]['name'] %>
+                      <% end %>
+
+                    <% end %>
+
+
+
+
+                <% end %>
+
+                <% @titleslist.delete_if { |title| title[:title] == "_/-deleted" } %>
+
+                <% puts "final list of whatever"%>
+                <% puts @titleslist %>
+
+
+
+
+              <% end %>
+
+
+
+              <%# <%= JSON.parse(@cardtest.mergedgroups)['name'] %>
+
+              <%# <%= JSON.parse(@cardtest.mergedgroups)['groups'] %>
+
+
+
+
+
+              <%# @titleslist %>
+              <% @titleslist.each do |title| %>
+
+              <% @titlesonly.push(title[:title]) %>
+              <% mergedTitle = [] %>
+              <% if @cardtest.mergedgroups.size > 0 %>
+                <!-- Title: <%= title[:title] %> -->
+                <% mergedTitle = JSON.parse(@cardtest.mergedgroups).select {|m| m['name'] == title[:title]} %>
+                <!-- <br/>
+                Found in this merged group: <%= mergedTitle %>
+                <br/>
+                ---
+                <br/> -->
+              <% else %>
+                <% puts "ELSEEEEEEE "%>
+                <% mergedTitle = [] %>
+              <% end %>
+
+              <%# <% @titlesList.each_with_index do |title, index| %>
+                  <tr>
+                    <td>
+                      <% if mergedTitle.size > 0 %>
+
+                      <% else %>
+                        <input type="checkbox" id='<%= title[:title].gsub(/\s+/, "") %>', name='<%= title[:title] %>', class='group-checkbox'>
+                      <% end %>
+                    </td>
+                    <td style="padding-left:0px !important;">
+
+
+
+
+
+
+                      <strong><%= title[:title] %></strong>
+
+                        <% if mergedTitle.size > 0 %>
+
+                            <div data-controller="modal" data-action="keydown@window->modal#closeWithKeyboard" class="inline">
+                              <a data-action="click->modal#open" href="#" class="open-individual-merged-group" style="color: #03B0FA;"><i class="mr-2 fa fa-object-group ml-1 text-xs" aria-hidden="true"></i></a>
+                              <div data-target="modal.container" class="hidden">
+                                <div data-target="modal.background" data-action="click->modal#closeBackground" class="modal-wrapper">
+                                  <div class="modal-individual modal">
+
+                                    <div class="modal__content p-8">
+                                      <div class="">
+                                        <h4>Choose a name</h4>
+                                      </div>
+                                      <div class="">
+                                        <input type="text" id="merged-name-individual" placeholder="Merged group name ..." class="input" value="<%= title[:title] %>"/>
+                                        <span class="validation-inuse-individual text-sm text-red-600 hidden">This group name is already in use.</span>
+
+                                      </div>
+                                      <div class="mt-8">
+                                        <h4>Merge the groups selected below:</h4>
+                                      </div>
+                                      <div class="field mb-2 groups-listed-individual">
+                                        <ul>
+                                          <% puts "merged title groups:" %>
+                                          <% puts mergedTitle.to_s %>
+                                          <% mergedTitle[0]['groups'].each do |originalGroup|%>
+
+                                            <li>
+
+                                                <input type='checkbox' id='' name='<%= originalGroup %>' checked/><strong><%= originalGroup %></strong>
+
+                                            </li>
+                                          <% end %>
+                                        </ul>
+                                        <span class="validation-checkboxes-individual text-sm text-red-600 hidden">Select groups to merge above.</span>
+
+
+
+                                      </div>
+
+                                      <div class="field mb-0">
+
+                                        <%= form_with(model: @cardtest, local: true, url: update_merged_cardtest_path(@cardtest), class: "individual-merge", data: { type: "json" }) do |form| %>
+                                        <%= render "shared/flash", flash: @cardtest.errors %>
+
+
+                                          <%= form.hidden_field :mergedgroups, class: "input" %>
+                                          <a href="#" class="delete-merged-btn text-red-600 pt-2 float-right"><i class="mr-2 fa fa-trash ml-1 text-xs" aria-hidden="true"></i>Break up group</a>
+                                          <%= form.submit "Update", class: "float-left btn btn--primary block text-center update-individual-merged" %>
+
+                                        <% end %>
+
+                                      </div>
+
+                                      <svg class="modal__close" role="button" data-action="click->modal#close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                        <% end %>
+
+                    </td>
+
+
+                    <td data-sort-value="<%= title[:createdby] %>">
+                      <% if title[:createdby] > 1%>
+                        <%= title[:createdby] %> respondents
+                      <% else %>
+                        <%= title[:createdby] %> respondent
+                      <% end %>
+                    </td>
+                    <td>
+
+                      <ul>
+
+                      <% title[:cards].sort_by{|k|k[1]}.reverse.each do |card| %>
+
+                        <%# add cards to nodesList%>
+                        <%# <% @nodesList.push({:name => @cardtest.cards.find(card[0]).name}) %>
+                        <% if title[:title] == @cardtest.cards.find(card[0]).name %>
+                          <% @linksList.push([title[:title]+" group:", @cardtest.cards.find(card[0]).name+" ", card[1], "<div class='p-2'><strong>"+@cardtest.cards.find(card[0]).name+"</strong>" + " grouped into <strong>"+title[:title]+"</strong><br/><br/> <strong>"+ card[1].to_s + "</strong> time(s)</div>" ]) %>
+                        <% else %>
+                          <% @linksList.push([title[:title]+" group:", @cardtest.cards.find(card[0]).name, card[1], "<div class='p-2'><strong>"+@cardtest.cards.find(card[0]).name+"</strong>" + " grouped into <strong>"+title[:title]+"</strong><br/><br/> <strong>"+ card[1].to_s + "</strong> time(s)</div>" ]) %>
+                        <% end %>
+
+                        <%# <% @linksList.push({:source => groupIndex, :target => i, :value => card[1]}) %>
+
+                        <li><%= @cardtest.cards.find(card[0]).name %>
+                          <% if @cardtest.cards.find(card[0]).description != '' && !@cardtest.cards.find(card[0]).description.nil? %>
+                            <a data-tippy-content="<%= @cardtest.cards.find(card[0]).description %>" class="ml-1 text-gray-500 description-icon"><i class="fa fa-align-left" aria-hidden="true"></i></a>
+                          <% end %>
+                          </li>
+                      <% end %>
+                    </ul>
+                    </td>
+                    <td>
+                      <ul>
+                        <% title[:cards].sort_by{|k|k[1]}.reverse.each do |card| %>
+                          <li>
+                            <% if card[1] > 1 %>
+                              <%= card[1] %> times</li>
+                            <% else %>
+                              <%= card[1] %> time</li>
+                            <% end %>
+
+
+                        <% end %>
+                      </ul>
+                    </td>
+
+
+                  </tr>
+
+
+
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="individual-results hidden" style="clear:both;">
+
+        <div class="tabs-wrapper" data-controller="tabs" data-tabs-active-tab="tab--active-light">
+          <div class="tabs">
+
+            <% @results.each_with_index do |result,index| %>
+
+              <div class="tab tab--light" data-target="tabs.tab" data-action="click->tabs#change">
+                <h5 class="tab__heading tab__heading--light text-sm">
+                  Result <%= index+1 %>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" class="tab__icon"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"></path></svg>
+                </h5>
+            </div>
+
+            <% end %>
+        </div>
+
+        <%
+        def get_duration_hrs_and_mins(milliseconds)
+          return '' unless milliseconds
+
+          hours, milliseconds   = milliseconds.divmod(1000 * 60 * 60)
+          minutes, milliseconds = milliseconds.divmod(1000 * 60)
+          seconds, milliseconds = milliseconds.divmod(1000)
+          if hours == 0 and minutes !=0
+            "#{minutes}m #{seconds}s"
+          elsif hours == 0 and minutes == 0
+            "#{seconds}s"
+          else
+            "#{hours}h #{minutes}m #{seconds}s"
+          end
+        end
+        %>
+
+        <% @results.each do |result| %>
+
+          <div class="panel panel--light" data-target="tabs.panel">
+
+            <h5><%# result.created_at.strftime("%F") %>Time to complete: <%= get_duration_hrs_and_mins(JSON.parse(result.data)['time']) %></h5>
+
+            <div class="grid mb-8">
+
+              <% JSON.parse(result.data)['groups'].each do |g| %>
+                <div class="grid-item item bg-white px-3 py-3 shadow rounded w-64 rounded used-column">
+                  <h4 class="mb-2 font-bold"><%= g['title'] %></h4>
+                  <ul>
+                  <% g['card'].each do |card| %>
+                    <li class="text-sm"><%= @cardtest.cards.find(card).name %>
+
+                      <% if @cardtest.cards.find(card).description != '' && !@cardtest.cards.find(card).description.nil? %>
+                        <a data-tippy-content="<%= @cardtest.cards.find(card).description %>" class="ml-1 text-gray-500 description-icon"><i class="fa fa-align-left" aria-hidden="true"></i></a>
+                      <% end %>
+
+                    </li>
+                  <% end %>
+                  </ul>
+                </div>
+              <% end %>
+            </div>
+          </div>
+
+        <% end %>
+
+        </div>
+
+      </div>
+
+    <%
+
+    %>
+    <% puts "list:" %>
+
+    <% @linksList.each do |link| %>
+
+      <% puts link[0] %>
+
+      <% puts link[1] %>
+
+
     <% end %>
 
 
+    <%= javascript_tag do %>
+      window.relationshipData = <%= raw @linksList %>;
+    <% end %>
 
+    <% puts "titlesonly"
 
-    <div id="bar-container" class="mb-32"></div>
-
-
-
-
-
-
-  </div>
-  <div class="w-1/3 p-4">
-
-    <div class="py-4 bg-white rounded shadow px-4 my-4">
-
-      <p class="font-semibold px-2 text-center text-4xl text-green-600">
-        <%= @results.count %>
-      </p>
-      <h4 class="-mt-2 font-semibold px-2 text-center">Results</h4>
+    puts @titlesonly
+    %>
+    <%= javascript_tag do %>
+      window.titlesonly = <%=raw @titlesonly %>;
+    <% end %>
 
     </div>
-    <div class="py-4 bg-white rounded shadow px-4 my-4">
-
-
-      <p class="font-semibold px-2 text-center text-4xl text-green-600">
-        <%= @titleslist.count %>
-      </p>
-
-      <% if @cardtest.testtype == "open" %>
-        <h4 class="-mt-2 font-semibold px-2 text-center">Unique groups created</h4>
-      <% else %>
-        <h4 class="-mt-2 font-semibold px-2 text-center">Unique groups used</h4>
-      <% end %>
-
-    </div>
-
-    <div class="py-4 bg-white rounded shadow px-4 my-4">
-
-      <p class="font-semibold px-2 text-center text-4xl text-green-600">
-          <%= @mediantime %>
-      </p>
-
-      <h4 class="-mt-2 font-semibold px-2 text-center">Median time to complete</h4>
-
-    </div>
-
-
-
-
-
-
-</div>
-
-</div>
-
-<div class="analysis mt-16 mx-auto pl-10 pr-10 max-w-6xl clearfix">
-
-  <h1 class="text-3xl mb-8 float-left">Detailed analysis</h1>
-
-  <div class="table-tabs text-center mb-8 float-right">
-    <a href="" class="view-cards font-semibold active mr-3">View cards</a>
-    <a href="" class="view-groups font-semibold ml-3 mr-3">View groups</a>
-    <a href="" class="view-results font-semibold ml-3">Individual results</a>
   </div>
-
-  <table data-page-size="5000" data-paging="false" class="table text-sm cards-table">
-    <thead class="uppercase text-gray-900 text-xs leading-tight font-medium">
-      <tr>
-        <th data-type="text" data-sort-initial="true">Card name</th>
-        <th data-sort-ignore="true" width="200">Sorted into</th>
-        <th data-sort-ignore="true" width="100"></th>
-        <th data-type="numeric">Percentage of people sorted</th>
-        <th data-type="numberic">Agreement score
-          <!-- <i class="fa fa-info-circle" aria-hidden="true"></i> -->
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-
-
-      <% pp "all cards below:" %>
-      <% pp @cardsByGroups %>
-      <% @cardsByGroups.each do |cardIdRow| %>
-        <tr>
-
-
-          <% pp "name:" %>
-          <td>
-
-
-            <% pp "single card below:" %>
-
-            <h3 class="inline bold"><%= JSON.parse(cardIdRow)["name"] %></h3>
-            <% if @cardtest.cards.find(JSON.parse(cardIdRow)["id"]).description != '' && !@cardtest.cards.find(JSON.parse(cardIdRow)["id"]).description.nil? %>
-              <a data-tippy-content="<%= @cardtest.cards.find(JSON.parse(cardIdRow)["id"]).description %>" class="ml-1 inline text-gray-500 description-icon"><i class="fa fa-align-left" aria-hidden="true"></i></a>
-            <% end %>
-
-
-          </td>
-          <% pp "done" %>
-          <td>
-
-
-
-            <% if @cardtest.mergedgroups.size > 0 %>
-
-                  <% titlesWithMerged = []%>
-
-
-                <% JSON.parse(cardIdRow)['titles'].each do |title| %>
-                  <% titlesGrouped = JSON.parse(@cardtest.mergedgroups).select {|m| m['groups'].include?(title)} %>
-                  <% if titlesGrouped.size > 0 %>
-                    <%# titlesGrouped[0]['name'] %>
-
-                    <%# title = titlesGrouped[0]['name'] %>
-                    <% titlesWithMerged.push(titlesGrouped[0]['name']) %>
-                  <% else %>
-                    <% titlesWithMerged.push(title) %>
-                  <% end %>
-                <% end %>
-
-                <% parsed = JSON.parse(cardIdRow) %>
-                <% parsed['titles'] = titlesWithMerged%>
-
-
-                <% cardIdRow = JSON.dump(parsed) %>
-
-            <% end %>
-
-
-
-
-
-
-            <% titlesGroups = JSON.parse(cardIdRow)['titles'].partition{|v| v == "Unnamed"}
-              # Separating titles into Unnamed and NOT, because we want Unnamed at the bottom and not grouped
-              if titlesGroups.count == 2
-                unnamedList = titlesGroups[0]
-                titlesGroups[0] = titlesGroups[0].map{|k,v| [k, 1] }
-                titlesGroups[1] = titlesGroups[1].group_by{|i| i}.map{|k,v| [k, v.count]}
-                groups = titlesGroups[1].sort_by{|k|k[1]}.reverse + titlesGroups[0]
-                # puts titlesGroups[1]
-                # puts titlesGroups[0]
-              else
-                groups = titlesGroups[0].sort_by{|k|k[1]}.reverse
-              end
-            %>
-            <ul class="categories-list">
-              <%# <% JSON.parse(cardIdRow)["titles"].each do |group| %>
-              <%# <% titlesGrouped = JSON.parse(cardIdRow)['titles'].group_by{|i| i}.map{|k,v| [k, v.count] } %>
-
-              <%# <% titlesGrouped = JSON.parse(cardIdRow)['titles'].group_by{|i| i}.select{|title|title !='Unnamed'}.map{|k,v| [k, v.count] } %>
-
-              <%# titlesGrouped %>
-              <% groups.each do |element| %>
-                <li><%= element[0] %>
-
-                </li>
-
-              <% end %>
-
-            </ul>
-          </td>
-          <td>
-            <% titlesGroups = JSON.parse(cardIdRow)['titles'].partition{|v| v == "Unnamed"}
-              # Separating titles into Unnamed and NOT, because we want Unnamed at the bottom and not grouped
-              if titlesGroups.count == 2
-                unnamedList = titlesGroups[0]
-                titlesGroups[0] = titlesGroups[0].map{|k,v| [k, 1] }
-                titlesGroups[1] = titlesGroups[1].group_by{|i| i}.map{|k,v| [k, v.count]}
-                groups = titlesGroups[1].sort_by{|k|k[1]}.reverse + titlesGroups[0]
-                # puts titlesGroups[1]
-                # puts titlesGroups[0]
-              else
-                groups = titlesGroups[0].sort_by{|k|k[1]}.reverse
-              end
-            %>
-            <ul class="counts-list">
-              <% groups.each do |element| %>
-              <li><%= element[1] %>
-                <% if element[1] == 1 %>
-                  time
-                <% else %>
-                  times
-                <% end %></li>
-              <% end %>
-            </ul>
-          </td>
-          <td data-sort-value="<%= JSON.parse(cardIdRow)['sortedpercent']*100 %>">
-            <%= JSON.parse(cardIdRow)['sortedpercent'] %>%
-          </td>
-          <td data-sort-value="<%= JSON.parse(cardIdRow)['agreementscore'] %>">
-            <%= JSON.parse(cardIdRow)['agreementscore'] %>%
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-
-  </table>
-  <% uniqueTitles = [] %>
-  <% finalTitles = [] %>
-
-
-  <% puts "resultgroups count: "+ @resultgroups.count.to_s %>
-
-
-
-
-
-
-
-
-
-  <%# puts @titleslist %>
-
-<div class="categories-table hidden" style="clear:both;">
-  <div data-controller="modal"  data-action="keydown@window->modal#closeWithKeyboard" class="clearfix">
-    <span class="float-left merge-info text-gray-500 text-sm" style="line-height:37px;"><i class="fa fa-info-circle mr-2" aria-hidden="true"></i>Select conceptually similar groups to merge them.</span>
-  <button data-action="click->modal#open" class="btn-small btn--primary merge-btn float-right hidden">Merge selected groups</button>
-  <div data-target="modal.container" class="hidden">
-    <div data-target="modal.background" data-action="click->modal#closeBackground" class="modal-wrapper">
-      <div class="modal">
-
-        <div class="modal__content p-8">
-
-          <div class="">
-            <h4>Choose a name</h4>
-          </div>
-          <div class="">
-            <input type="text" id="merged-name" placeholder="Merged group name ..." class="input"/>
-            <span class="validation-inuse text-sm text-red-600 hidden">This group name is already in use.</span>
-          </div>
-          <div class="mt-8">
-            <h4>Merge the groups selected below:</h4>
-          </div>
-          <div class="field mb-2 groups-listed">
-            <ul class="text-sm">
-
-            </ul>
-
-            <span class="validation-checkboxes text-sm text-red-600 hidden">Select groups to merge above.</span>
-            <%# @titleslist.each do |title| %>
-
-              <%# title[:title] %>
-
-            <%# end %>
-
-
-          </div>
-
-          <div class="field mb-0">
-
-            <%= form_with(model: @cardtest, local: true, url: update_merged_cardtest_path(@cardtest), class: "merge-form", data: { type: "json" }) do |form| %>
-            <%# <%= form_with(model: @cardtest, local: true, url: update_merged_cardtest_path(@cardtest), class: "merge-form") do |form| %>
-            <%= render "shared/flash", flash: @cardtest.errors %>
-
-              <%= form.hidden_field :mergedgroups, class: "input" %>
-              <%= form.submit "Merge selected", class: "btn btn--primary block text-center save-merged mt-4" %>
-
-            <% end %>
-
-          </div>
-
-          <svg class="modal__close" role="button" data-action="click->modal#close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
-        </div>
-      </div>
+  <div class="flex flex-wrap">
+    <div class="analysis w-full">
+      <h2 class="text-2xl mb-8">Grouping Visualization</h2>
+      <div id="sankey" class="mb-12"></div>
     </div>
   </div>
-  </div>
-
-
-
-  <table data-page-size="5000" data-paging="false" class="table text-sm">
-    <thead class="uppercase text-gray-900 text-xs leading-tight font-medium">
-      <tr>
-        <th data-sort-ignore="true" width="50"><!--<input type="checkbox" id="select-all-groups" name="select-all-groups"> --></th>
-        <th data-type="text" data-sort-initial="true" width="200" style="padding-left:0px !important;">Group name</th>
-        <th data-type="numeric">
-        <% if @cardtest.testtype == "open" %>
-          Created by
-        <% elsif @cardtest.testtype == "closed" %>
-          Used by
-        <% else %>
-          Used by
-        <% end %>
-
-
-        </th>
-        <th data-sort-ignore="true">Cards added</th>
-        <th data-type="numeric">Number of times</th>
-
-
-      </tr>
-    </thead>
-    <tbody>
-      <%# Create json data for relationship graph %>
-
-
-      <% @linksList = Array.new %>
-
-
-      <% if @cardtest.mergedgroups.size > 0 %>
-        <% JSON.parse(@cardtest.mergedgroups).each do |mergedgroup| %>
-          <%# mergedgroup['name']%>
-        <% end %>
-
-
-
-        <% @mergedTitlesList = [] %>
-
-
-        <% puts "WHOWHOWHOWHOWHOWHO" %>
-        <% puts @titleslist %>
-
-
-
-        <% @titleslist.each do |title| %>
-
-        <%# {title:'2', cards:["268", 1]}%>
-        <%# {title:'G1', cards:[["265", 1], ["268", 1], ["269", 1], ["267", 1], ["266", 1]]}%>
-
-          <% mergedTitle = JSON.parse(@cardtest.mergedgroups).select {|m| m['groups'].include?(title[:title])} %>
-
-          <%# mergedTitle is the merged group with name and list of groups merged %>
-
-          <% puts "merged title" %>
-          <% puts mergedTitle %>
-
-          <% puts "-------------------------- -------------------------- SEE THIS" %>
-
-            <% if mergedTitle.size > 0 %>
-
-            <%# {name:'G1', groups:['2','G1']} %>
-
-              <!-- <%= title[:title] %> is found in merged group with the title <%= mergedTitle[0]['name'] %> -->
-
-
-              <% @item = @titleslist.find { |u| u[:title] == mergedTitle[0]['name'] } %>
-
-
-              <% i = @titleslist.index(@item) %>
-              <%# index of {title:'2', cards:["268", 1]}%>
-
-              <!-- Index is: <%= i %> -->
-
-              <%# i index of the mergedTitle name in the original title list %>
-
-              <% if !i.nil? %>
-
-                    <!-- The index of the merged title - <%= mergedTitle[0]['name'] %> - in the titleslist is <%= i %>. the titleslist title is <%= @titleslist[i][:title] %> so we merge. %> -->
-                    <% puts "-------------------------- -------------------------- -------------------------- shouldn't SEE THIS" %>
-                    <%# i is not nil if the merged group title is already in the title list, so need to merge data %>
-                    <% @titleslist[i][:createdby] = @titleslist[i][:createdby] + title[:createdby] %>
-
-
-
-                    <%# previous titles cards: %>
-                    <%# @titleslist[i][:cards] %>
-
-
-
-                    <% @titleslist[i][:cards] = @titleslist[i][:cards] + title[:cards] %>
-
-
-
-                    <% puts "new titles cards:" %>
-                    <% puts @titleslist[i][:cards] %>
-
-                    <% @newcards = [] %>
-                    <% @newcounts = [] %>
-                    <% @newcc = [] %>
-
-
-                    <% @titleslist[i][:cards].each do |card| %>
-
-                          <% @newcards.push(card[0]) %>
-                          <% @newcounts.push(card[1]) %>
-                          <% @newcc.push(card[1]) %>
-
-                          <% puts "pushing this: "+card[1].to_s %>
-
-                    <% end %>
-
-                    <% puts "cards:"%>
-                    <% puts @newcc %>
-
-                    <%# @newcc = @newcounts %>
-
-
-                    <!-- array of counts: -->
-
-                    <%# @newcc %>
-
-                    <% @newcards.each_with_index do |card, ii| %>
-                          <% @indexes = @newcards.size.times.select {|i| @newcards[i] == card} %>
-                          <!-- <br/>the indexes are: <%= @indexes %> -->
-
-
-                          <%# find @indexes of card occurences and summ the @newcounts values at those indexes %>
-
-                          <% @newcounts[ii] = 0 %>
-
-                          <%# summing counts: %>
-                          <%# <%= @newcc %>
-                          <% @indexes.each do |index|  %>
-                                <% @newcounts[ii] = @newcounts[ii] + @newcc[index] %>
-                                <%# @newcounts[ii] %> <%# @newcc[index] %>
-                          <% end %>
-
-                    <% end %>
-
-                    <% puts "new cards:" %>
-                    <% puts @newcards %>
-                    <% puts "new counts:" %>
-                    <% puts @newcounts %>
-
-
-                    <% @titleslist[i][:cards] = @newcards.zip(@newcounts).uniq %>
-                    <%# whats going on here: %>
-                    <%# @newcards.zip(@newcounts).uniq! %>
-
-                    <% puts "titleslist" %>
-                    <% puts @titleslist[i][:cards] %>
-
-                    <% puts "zipping result:" %>
-                    <% puts @newcards.zip(@newcounts).uniq %>
-
-                    <% title[:title] = "_/-deleted" %>
-
-              <% else %>
-
-                <!-- <br/>The merged title is not in the list yet, so we replace the current title from: <%= title[:title] %> to <%= mergedTitle[0]['name'] %>. -->
-                <%# the mergedtitle name is not in the title list, so need to replace the current title to the merged title%>
-                <% title[:title] = mergedTitle[0]['name'] %>
-              <% end %>
-
-            <% end %>
-
-
-
-
-        <% end %>
-
-        <% @titleslist.delete_if { |title| title[:title] == "_/-deleted" } %>
-
-        <% puts "final list of whatever"%>
-        <% puts @titleslist %>
-
-
-
-
-      <% end %>
-
-
-
-      <%# <%= JSON.parse(@cardtest.mergedgroups)['name'] %>
-
-      <%# <%= JSON.parse(@cardtest.mergedgroups)['groups'] %>
-
-
-
-
-
-      <%# @titleslist %>
-      <% @titleslist.each do |title| %>
-
-      <% @titlesonly.push(title[:title]) %>
-      <% mergedTitle = [] %>
-      <% if @cardtest.mergedgroups.size > 0 %>
-        <!-- Title: <%= title[:title] %> -->
-        <% mergedTitle = JSON.parse(@cardtest.mergedgroups).select {|m| m['name'] == title[:title]} %>
-        <!-- <br/>
-        Found in this merged group: <%= mergedTitle %>
-        <br/>
-        ---
-        <br/> -->
-      <% else %>
-        <% puts "ELSEEEEEEE "%>
-        <% mergedTitle = [] %>
-      <% end %>
-
-      <%# <% @titlesList.each_with_index do |title, index| %>
-          <tr>
-            <td>
-              <% if mergedTitle.size > 0 %>
-
-              <% else %>
-                <input type="checkbox" id='<%= title[:title].gsub(/\s+/, "") %>', name='<%= title[:title] %>', class='group-checkbox'>
-              <% end %>
-            </td>
-            <td style="padding-left:0px !important;">
-
-
-
-
-
-
-              <strong><%= title[:title] %></strong>
-
-                <% if mergedTitle.size > 0 %>
-
-                    <div data-controller="modal" data-action="keydown@window->modal#closeWithKeyboard" class="inline">
-                      <a data-action="click->modal#open" href="#" class="open-individual-merged-group" style="color: #03B0FA;"><i class="mr-2 fa fa-object-group ml-1 text-xs" aria-hidden="true"></i></a>
-                      <div data-target="modal.container" class="hidden">
-                        <div data-target="modal.background" data-action="click->modal#closeBackground" class="modal-wrapper">
-                          <div class="modal-individual modal">
-
-                            <div class="modal__content p-8">
-                              <div class="">
-                                <h4>Choose a name</h4>
-                              </div>
-                              <div class="">
-                                <input type="text" id="merged-name-individual" placeholder="Merged group name ..." class="input" value="<%= title[:title] %>"/>
-                                <span class="validation-inuse-individual text-sm text-red-600 hidden">This group name is already in use.</span>
-
-                              </div>
-                              <div class="mt-8">
-                                <h4>Merge the groups selected below:</h4>
-                              </div>
-                              <div class="field mb-2 groups-listed-individual">
-                                <ul>
-                                  <% puts "merged title groups:" %>
-                                  <% puts mergedTitle.to_s %>
-                                  <% mergedTitle[0]['groups'].each do |originalGroup|%>
-
-                                    <li>
-
-                                        <input type='checkbox' id='' name='<%= originalGroup %>' checked/><strong><%= originalGroup %></strong>
-
-                                    </li>
-                                  <% end %>
-                                </ul>
-                                <span class="validation-checkboxes-individual text-sm text-red-600 hidden">Select groups to merge above.</span>
-
-
-
-                              </div>
-
-                              <div class="field mb-0">
-
-                                <%= form_with(model: @cardtest, local: true, url: update_merged_cardtest_path(@cardtest), class: "individual-merge", data: { type: "json" }) do |form| %>
-                                <%= render "shared/flash", flash: @cardtest.errors %>
-
-
-                                  <%= form.hidden_field :mergedgroups, class: "input" %>
-                                  <a href="#" class="delete-merged-btn text-red-600 pt-2 float-right"><i class="mr-2 fa fa-trash ml-1 text-xs" aria-hidden="true"></i>Break up group</a>
-                                  <%= form.submit "Update", class: "float-left btn btn--primary block text-center update-individual-merged" %>
-
-                                <% end %>
-
-                              </div>
-
-                              <svg class="modal__close" role="button" data-action="click->modal#close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                <% end %>
-
-            </td>
-
-
-            <td data-sort-value="<%= title[:createdby] %>">
-              <% if title[:createdby] > 1%>
-                <%= title[:createdby] %> respondents
-              <% else %>
-                <%= title[:createdby] %> respondent
-              <% end %>
-            </td>
-            <td>
-
-              <ul>
-
-              <% title[:cards].sort_by{|k|k[1]}.reverse.each do |card| %>
-
-                <%# add cards to nodesList%>
-                <%# <% @nodesList.push({:name => @cardtest.cards.find(card[0]).name}) %>
-                <% if title[:title] == @cardtest.cards.find(card[0]).name %>
-                  <% @linksList.push([title[:title]+" group:", @cardtest.cards.find(card[0]).name+" ", card[1], "<div class='p-2'><strong>"+@cardtest.cards.find(card[0]).name+"</strong>" + " grouped into <strong>"+title[:title]+"</strong><br/><br/> <strong>"+ card[1].to_s + "</strong> time(s)</div>" ]) %>
-                <% else %>
-                  <% @linksList.push([title[:title]+" group:", @cardtest.cards.find(card[0]).name, card[1], "<div class='p-2'><strong>"+@cardtest.cards.find(card[0]).name+"</strong>" + " grouped into <strong>"+title[:title]+"</strong><br/><br/> <strong>"+ card[1].to_s + "</strong> time(s)</div>" ]) %>
-                <% end %>
-
-                <%# <% @linksList.push({:source => groupIndex, :target => i, :value => card[1]}) %>
-
-                <li><%= @cardtest.cards.find(card[0]).name %>
-                  <% if @cardtest.cards.find(card[0]).description != '' && !@cardtest.cards.find(card[0]).description.nil? %>
-                    <a data-tippy-content="<%= @cardtest.cards.find(card[0]).description %>" class="ml-1 text-gray-500 description-icon"><i class="fa fa-align-left" aria-hidden="true"></i></a>
-                  <% end %>
-                  </li>
-              <% end %>
-            </ul>
-            </td>
-            <td>
-              <ul>
-                <% title[:cards].sort_by{|k|k[1]}.reverse.each do |card| %>
-                  <li>
-                    <% if card[1] > 1 %>
-                      <%= card[1] %> times</li>
-                    <% else %>
-                      <%= card[1] %> time</li>
-                    <% end %>
-
-
-                <% end %>
-              </ul>
-            </td>
-
-
-          </tr>
-
-
-
-      <% end %>
-    </tbody>
-  </table>
-
-</div>
-
-  <div class="individual-results hidden" style="clear:both;">
-
-
-
-
-      <div class="tabs-wrapper" data-controller="tabs" data-tabs-active-tab="tab--active-light">
-      <div class="tabs">
-
-
-        <% @results.each_with_index do |result,index| %>
-
-        <div class="tab tab--light" data-target="tabs.tab" data-action="click->tabs#change">
-          <h5 class="tab__heading tab__heading--light text-sm">
-            Result <%= index+1 %>
-            <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" class="tab__icon"><path d="M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z"></path></svg>
-          </h5>
-        </div>
-
-        <% end %>
-
-      </div>
-
-<%
-      def get_duration_hrs_and_mins(milliseconds)
-        return '' unless milliseconds
-
-        hours, milliseconds   = milliseconds.divmod(1000 * 60 * 60)
-        minutes, milliseconds = milliseconds.divmod(1000 * 60)
-        seconds, milliseconds = milliseconds.divmod(1000)
-        if hours == 0 and minutes !=0
-          "#{minutes}m #{seconds}s"
-        elsif hours == 0 and minutes == 0
-          "#{seconds}s"
-        else
-          "#{hours}h #{minutes}m #{seconds}s"
-        end
-      end
-%>
-      <% @results.each do |result| %>
-
-        <div class="panel panel--light" data-target="tabs.panel">
-
-          <h5><%# result.created_at.strftime("%F") %>Time to complete: <%= get_duration_hrs_and_mins(JSON.parse(result.data)['time']) %></h5>
-
-          <div class="grid mb-8">
-
-            <% JSON.parse(result.data)['groups'].each do |g| %>
-              <div class="grid-item item bg-white px-3 py-3 shadow rounded w-64 rounded used-column">
-                <h4 class="mb-2 font-bold"><%= g['title'] %></h4>
-                <ul>
-                <% g['card'].each do |card| %>
-                  <li class="text-sm"><%= @cardtest.cards.find(card).name %>
-
-                    <% if @cardtest.cards.find(card).description != '' && !@cardtest.cards.find(card).description.nil? %>
-                      <a data-tippy-content="<%= @cardtest.cards.find(card).description %>" class="ml-1 text-gray-500 description-icon"><i class="fa fa-align-left" aria-hidden="true"></i></a>
-                    <% end %>
-
-                  </li>
-                <% end %>
-                </ul>
-              </div>
-            <% end %>
-            </div>
-        </div>
-
-      <% end %>
-
-      </div>
-
-
-
-  </div>
-
-
-
-
-
-  <%
-
-
-
-
-
-  %>
-<% puts "list:" %>
-
-<% @linksList.each do |link| %>
-
-  <% puts link[0] %>
-
-  <% puts link[1] %>
-
-
-<% end %>
-
-
-
-  <%= javascript_tag do %>
-    window.relationshipData = <%= raw @linksList %>;
-  <% end %>
-
-  <% puts "titlesonly"
-
-  puts @titlesonly
-  %>
-  <%= javascript_tag do %>
-    window.titlesonly = <%=raw @titlesonly %>;
-  <% end %>
-
-</div>
-<div class="analysis mt-16 mx-auto pl-10 pr-10 max-w-6xl clearfix">
-  <h1 class="text-3xl mb-8">Grouping visualization</h1>
-  <div id="sankey" class="mb-12">
-  </div>
-</div>
+</main>

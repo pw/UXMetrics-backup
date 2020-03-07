@@ -420,16 +420,16 @@ for (i=0; i < barData.length; i++) {
 
       console.log(tableActive);
 
-      if ($(this).text() == "View cards"){
+      if ($(this).text() == "Cards"){
         $('.individual-results').hide();
         $('.categories-table').hide();
         $('.cards-table').show();
-      } else if ($(this).text() == "View groups") {
+      } else if ($(this).text() == "Groups") {
         $('.individual-results').hide();
         $('.cards-table').hide();
         $('.categories-table').show();
 
-      } else if ($(this).text() == "Individual results") {
+      } else if ($(this).text() == "Individual Results") {
 
 
         $('.cards-table').hide();

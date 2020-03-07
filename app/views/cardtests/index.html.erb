@@ -84,13 +84,22 @@
                       </div>
                     </div>
                     <div class="mt-2 sm:flex sm:justify-between">
-                      <div class="mt-2 flex items-center text-sm leading-5 text-gray-500 sm:mt-0">
-                        <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
-                        </svg>
-                        <span>
-                          Created on <%= cardtest.created_at.strftime("%m/%d/%Y") %>
-                        </span>
+                      <div class="sm:flex">
+                        <div class="mr-6 flex items-center text-sm leading-5 text-gray-500">
+                          <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                          </svg>
+                          <span>
+                            Created on <%= cardtest.created_at.strftime("%m/%d/%Y") %>
+                          </span>
+                        </div>
+                        <div class="mt-2 flex items-center text-sm leading-5 text-gray-500 sm:mt-0">
+                          <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M7 9C7 7.89543 7.89543 7 9 7H15C16.1046 7 17 7.89543 17 9V15C17 16.1046 16.1046 17 15 17H9C7.89543 17 7 16.1046 7 15V9Z"/>
+                            <path d="M5 3C3.89543 3 3 3.89543 3 5V11C3 12.1046 3.89543 13 5 13L5 5H13C13 3.89543 12.1046 3 11 3H5Z"/>
+                          </svg>
+                          <%= (cardtest.testtype).capitalize %> Sort
+                        </div>
                       </div>
                     </div>
                   </div>
