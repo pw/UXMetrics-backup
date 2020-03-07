@@ -5,7 +5,7 @@
   <div class="field">
     <h4>Name</h4>
     <%# <%= form.label :name %>
-    <%= form.text_field :name, class: "input", placeholder: "Add a name for your card sort ...", required: true %>
+    <%= form.text_field :name, class: "input", placeholder: "Add a descriptive name for your card sort ...", required: true %>
 
     <!-- <input type="text" id="share-link" class="input rounded-r-none" value="<%= request.base_url %>/collect/<%= @cardtest.auth_token %>?preview"/> -->
 
@@ -14,7 +14,6 @@
 
   <div class="field">
     <h4>Type</h4>
-    <p class="-mt-4 text-xs mb-4">Use closed card sorting if you have groups you want people to choose between.</p>
 
     <div class="radio mt-4">
 
@@ -65,7 +64,7 @@
 
   <div class="field">
     <h4>Logo</h4>
-    <p class="-mt-4 text-xs mb-4">Upload a custom logo for this test</p>
+    <p class="-mt-4 text-xs mb-4">Upload a custom logo for this card sort</p>
 
 
     <% puts "asddsa" %>
@@ -88,8 +87,8 @@
 
   </div>
   <div class="field">
-    <h4>Test introduction</h4>
-    <p class="-mt-4 text-xs mb-4">Greet your test respondents with a custom introduction</p>
+    <h4>Participant Instructions</h4>
+    <p class="-mt-4 text-xs mb-4">Greet your card sort participants with a custom introduction</p>
 
     <% if cardtest.intro == "" or !cardtest.intro? %>
       <%= form.text_area :intro, class: "intro-text", required: false,
@@ -97,14 +96,14 @@
 
 The left column contains cards that we'd like you to categorize into groups that make sense to you. You can do this by dragging them into the area on the right.
 
-Don't worry, there is no right or wrong answer, just do what makes sense to you." %>
+Don't worry, there is no right or wrong answer, just do what makes sense to you," %>
 
     <% else %>
       <%= form.text_area :intro, class: "intro-text", required: false %>
     <% end %>
   </div>
   <div class="field">
-    <h4>Thank you message</h4>
+    <h4>Thank You Message</h4>
     <p class="-mt-4 text-xs mb-4">Custom thank you message to show respondents upon completion</p>
 
     <% if cardtest.outro == ""  or !cardtest.outro? %>
@@ -128,12 +127,12 @@ Your contribution is essential in our journey to deliver improvements." %>
 
 <div class="tab-cards hidden">
   <div class="field">
-    <h4>Card order</h4>
+    <h4>Card Order</h4>
     <p class="-mt-4 text-xs mb-4">Randomizing the card order eliminates bias towards cards at the top of list</p>
     <div class="checkbox">
 
       <%= form.check_box :random %>
-      <label for="randomize">Randomize card order in test</label>
+      <label for="randomize">Randomize card order</label>
 
     </div>
   </div>

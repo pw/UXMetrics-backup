@@ -130,11 +130,11 @@
         <div class="locked-tabs p-4">
           <div class="tab-setup">
             <div class="field">
-              <h4>Test name</h4>
+              <h4>Name</h4>
               <input class="input" value="<%= @cardtest.name %>" disabled/>
             </div>
             <div class="field">
-              <h4>Test type</h4>
+              <h4>Type</h4>
               <ul>
                 <li class="font-normal text-sm text-gray-700 mt-1 mb-2">- Test is set to <strong><%= @cardtest.testtype %></strong>.</li>
               </ul>
@@ -166,13 +166,13 @@
 
             </div>
             <div class="field">
-              <h4>Test introduction</h4>
+              <h4>Participant Instructions</h4>
               <ul>
                 <li class="font-normal text-sm text-gray-700 mt-1 mb-2"><%= simple_format(@cardtest.intro) %></li>
               </ul>
             </div>
             <div class="field">
-              <h4>Thank you message</h4>
+              <h4>Thank You Message</h4>
               <ul>
                 <li class="font-normal text-sm text-gray-700 mt-1 mb-2"><%= simple_format(@cardtest.outro) %></li>
               </ul>
@@ -181,7 +181,7 @@
 
           <div class="tab-cards hidden">
             <div class="field">
-              <h4>Card order</h4>
+              <h4>Card Order</h4>
               <ul>
                 <li class="font-normal text-sm text-gray-700 mt-1 mb-2">- <% if @cardtest.random %>Card order is randomized. <% else %> Card order is not randomized.<% end %></li>
               </ul>
