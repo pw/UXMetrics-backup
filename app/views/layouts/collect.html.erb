@@ -9,7 +9,7 @@
 
   <% if request.original_url.include? "preview" %>
   <% preview = true %>
-    <div class="preview-bar bg-yellow-500 text-center py-2 absolute w-full z-50"><h5 class="my-2 text-sm"><i class="fa fa-eye mr-2" aria-hidden="true"></i> This is a preview of your test, results will not be saved.</h5></div>
+    <div class="preview-bar bg-orange-100 text-orange-800 text-center py-2 absolute w-full z-50"><h5 class="my-2 text-sm"><i class="fa fa-eye mr-2" aria-hidden="true"></i> This is a preview of your card sort. Results will not be saved.</h5></div>
   <% end %>
   <div class="collect">
 
@@ -19,24 +19,32 @@
 
       <% if current_page?(action: 'new') == true %>
 
-      <div class="dashboard-nav-secondary clearfix absolute w-full" style="<% if preview == true %>top:53px; <% end %> z-index: 9999;">
+      <div class="absolute flex items-center justify-between w-full bg-white shadow px-4 sm:px-6 lg:px-8" style="<% if preview == true %>top:53px; <% end %> z-index: 9999;">
+      <div class="flex justify-between h-16">
+      <div class="flex">
+      <div class="flex-shrink-0 flex items-center">
         <%# Example usage here: search, secondary navigation items, etc.  Do not forget to change the `justify-end` in `.dashboard-nav-secondary`. %>
         <%# link_to Rails.configuration.application_name, root_path, class: "dashboard-nav__logo" %>
         <% if @cardtest.logoimg.attached? %>
-          <%= image_tag(url_for(@cardtest.logoimg), id: "logo--uploaded", class: "dashboard-nav__logo", style: 'max-height:40px !important; width:auto; display:table-cell; vertical-align:middle;') %>
+          <%= image_tag(url_for(@cardtest.logoimg), id: "logo--uploaded", class: "h-8 w-auto", style: 'max-height:40px !important; width:auto; display:table-cell; vertical-align:middle;') %>
         <% else %>
-          <%= image_tag(asset_pack_path("media/images/uxops-logo.svg"), size: "76x39", class: "dashboard-nav__logo") %>
+          <%= image_tag(asset_pack_path("media/images/uxops-logo.svg"), size: "76x39", class: "") %>
         <% end %>
-
-        <a href="#" class="submit-result float-right btn btn--primary">Submit</a>
+      </div>
+      <div class="flex">
+        <span class="sm:ml-3 shadow-sm rounded-md">
+          <a href="#" class="submit-result float-right inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-green-500 hover:bg-green-400 focus:outline-none focus:shadow-outline-green focus:border-green-600 transition duration-150 ease-in-out">
+            <svg class="-ml-1 mr-2 h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM13.7071 8.70711C14.0976 8.31658 14.0976 7.68342 13.7071 7.29289C13.3166 6.90237 12.6834 6.90237 12.2929 7.29289L9 10.5858L7.70711 9.29289C7.31658 8.90237 6.68342 8.90237 6.29289 9.29289C5.90237 9.68342 5.90237 10.3166 6.29289 10.7071L8.29289 12.7071C8.68342 13.0976 9.31658 13.0976 9.70711 12.7071L13.7071 8.70711Z"/>
+            </svg>
+            Finish
+          </a>
+        </span>
         <div data-controller="modal"  data-action="keydown@window->modal#closeWithKeyboard">
-        <a href="#" data-action="click->modal#open" class="mr-3 float-right btn btn--secondary">View Instructions</a>
+        <a href="#" data-action="click->modal#open" class="mr-3 float-right px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:shadow-outline focus:border-blue-300 transition duration-150 ease-in-out">Instructions</a>
         <div data-target="modal.container" class="">
           <div data-target="modal.background" data-action="click->modal#closeBackground" class="modal-wrapper">
             <div class="modal">
-
-
-
 
               <div class="modal__content">
                 <h3 class="modal__header mb-4">Instructions</h3>
@@ -78,9 +86,9 @@
           </div>
           </div>
         </div>
-
-
-
+      </div>
+      </div>
+      </div>
       </div>
 
       <% else %>

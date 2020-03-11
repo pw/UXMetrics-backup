@@ -71,4 +71,7 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
+  get "/treetests/*page" => "treetests#show"
+  get "/treetests", to: "treetests#index"
+
 end

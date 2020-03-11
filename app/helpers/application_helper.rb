@@ -22,5 +22,6 @@
       tag.span "#{user.first_name.first}", class: class_name
     end
   end
+
 end
 

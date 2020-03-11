@@ -154,9 +154,9 @@ Your contribution is essential in our journey to deliver improvements."
 
     if @cardtest.update(cardtest_params)
     # if @cardtest.update()
-      # redirect_to cardtests_url, notice: 'Cardtest was successfully updated.'
+      # redirect_to cardtests_url, notice: 'Card sort was successfully updated.'
 
-      redirect_to edit_cardtest_url, notice: 'Cardtest was successfully updated.'
+      redirect_to edit_cardtest_url, notice: 'Card sort was successfully updated.'
       # render :edit
 
     else
@@ -188,7 +188,7 @@ Your contribution is essential in our journey to deliver improvements."
     @cardtest.cards.destroy_all
     @cardtest.results.destroy_all
     @cardtest.destroy
-    redirect_to cardtests_url, notice: 'Cardtest was successfully destroyed.'
+    redirect_to cardtests_url, notice: 'Card sort was successfully deleted.'
   end
 
   def delete_image_attachment
