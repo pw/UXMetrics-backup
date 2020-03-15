@@ -74,4 +74,7 @@ Rails.application.routes.draw do
   get "/treetests/*page" => "treetests#show"
   get "/treetests", to: "treetests#index"
 
+  get "/treetest_participants/*page" => "treetest_participants#show"
+  get "/treetest_participants", to: "treetest_participants#index"
+
 end

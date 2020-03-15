@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= render "shared/head" %>
+</head>
+
+<body class="<%= body_class(yield(:body_class)) %>">
+
+  <script>
+    if (window.analytics) {
+      window.analytics.page();
+    }
+  </script>
+
+  <%= render "shared/flash" %>
+
+  <%= yield %>
+</body>
+</html>

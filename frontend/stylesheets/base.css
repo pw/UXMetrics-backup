@@ -30,6 +30,15 @@ p {
   @apply leading-normal;
   @apply font-normal;
   @apply text-gray-600;
+  @apply mt-4;
+}
+
+ol {
+  @apply mt-4;
+}
+
+li {
+  @apply mt-4;
 }
 
 article p {
