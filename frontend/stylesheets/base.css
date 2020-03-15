@@ -33,14 +33,6 @@ p {
   @apply mt-4;
 }
 
-ol {
-  @apply mt-4;
-}
-
-li {
-  @apply mt-4;
-}
-
 article p {
   @apply mb-4;
 }
