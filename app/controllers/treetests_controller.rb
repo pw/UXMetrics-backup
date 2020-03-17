@@ -1,6 +1,11 @@
 class TreetestsController < ApplicationController
-    def show
-        render template: "treetests/#{params[:page]}"
-    end
-    layout 'dashboard'
-  end  
+  layout 'dashboard'
+
+  def new 
+  end
+
+
+  def page2
+    render 'treetests/new-tree'
+  end
+end  
