@@ -1,0 +1,405 @@
+<div class="py-6 border-b">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="md:flex md:items-center md:justify-between">
+      <div class="flex-1 min-w-0">
+        <h1 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:leading-9 sm:truncate">
+          Tree Test Name
+        </h1>
+        <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap">
+          <div class="mt-2 mr-6 flex items-center text-sm leading-5 text-gray-500">
+            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+            </svg>
+            Created on 03/30/2020
+          </div>
+        </div>
+      </div>
+      <span class="shadow-sm rounded-md">
+        <a href="#" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:shadow-outline focus:border-blue-300 transition duration-150 ease-in-out">
+          <svg class="-ml-1 mr-2 h-5 w-5 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.70711 16.7071C9.31658 17.0976 8.68342 17.0976 8.29289 16.7071L2.29289 10.7071C1.90237 10.3166 1.90237 9.68342 2.29289 9.29289L8.29289 3.29289C8.68342 2.90237 9.31658 2.90237 9.70711 3.29289C10.0976 3.68342 10.0976 4.31658 9.70711 4.70711L5.41421 9H17C17.5523 9 18 9.44772 18 10C18 10.5523 17.5523 11 17 11L5.41421 11L9.70711 15.2929C10.0976 15.6834 10.0976 16.3166 9.70711 16.7071Z"/>
+          </svg>
+          Back to Overview
+        </a>
+      </span>
+      <span class="ml-3 shadow-sm rounded-md">
+        <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out", target: "_blank">
+          <svg class="-ml-1 mr-2 h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M3 17C3 16.4477 3.44772 16 4 16H16C16.5523 16 17 16.4477 17 17C17 17.5523 16.5523 18 16 18H4C3.44772 18 3 17.5523 3 17ZM6.29289 9.29289C6.68342 8.90237 7.31658 8.90237 7.70711 9.29289L9 10.5858L9 3C9 2.44772 9.44771 2 10 2C10.5523 2 11 2.44771 11 3L11 10.5858L12.2929 9.29289C12.6834 8.90237 13.3166 8.90237 13.7071 9.29289C14.0976 9.68342 14.0976 10.3166 13.7071 10.7071L10.7071 13.7071C10.5196 13.8946 10.2652 14 10 14C9.73478 14 9.48043 13.8946 9.29289 13.7071L6.29289 10.7071C5.90237 10.3166 5.90237 9.68342 6.29289 9.29289Z"/>
+          </svg>
+          Download Results
+        </a>
+      </span>
+    </div>
+  </div>
+</div>
+<main class="py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap items-end mb-16">
+            <div class="w-full md:w-1/3 xl:w-2/5 md:pr-16">
+                <div class="py-4 bg-white rounded shadow px-4 my-4">
+
+                    <p class="font-semibold px-2 text-center text-4xl text-indigo-600">
+                        3
+                    </p>
+                    <h4 class="-mt-2 font-semibold px-2 text-center text-gray-500">Results</h4>
+        
+                </div>
+                <div class="py-4 bg-white rounded shadow px-4 my-4">
+        
+                    <p class="font-semibold px-2 text-center text-4xl text-indigo-600">
+                        80%
+                    </p>
+        
+                    <h4 class="-mt-2 font-semibold px-2 text-center text-gray-500">Average success score</h4>
+        
+                </div>
+        
+                <div class="py-4 bg-white rounded shadow px-4 my-4">
+        
+                    <p class="font-semibold px-2 text-center text-4xl text-indigo-600">
+                        3m 22s
+                    </p>
+        
+                    <h4 class="-mt-2 font-semibold px-2 text-center text-gray-500">Median time to complete</h4>
+        
+                </div>
+            </div>
+            <div class="w-full md:w-2/3 xl:w-3/5">
+                <h2 class="text-2xl mb-6">Score Breakdown (All Tasks)</h2>
+                <%= image_tag(asset_pack_path("media/images/aggregate_score@2x.png"), class: "block w-2/3") %>
+            </div>
+        </div>
+        <div class="flex flex-wrap">
+            <div class="w-full mb-16">
+                <h2 class="text-2xl mb-4">Detailed Analysis</h2>
+                <div x-data="{ tab: 'tasks' }">
+                <div class="mb-6">
+                  <div class="block">
+                    <div class="border-b border-gray-200 text-gray-500">
+                      <nav class="-mb-px flex">
+                        <button 
+                          x-on:click="tab = 'tasks'"
+                          x-bind:class="{ 'border-indigo-500 text-indigo-600 focus:outline-none focus:text-indigo-800 focus:border-indigo-700': tab === 'tasks' }"
+                          class="md:w-1/5 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm leading-5">
+                          Tasks
+                        </button>
+                        <button 
+                          x-on:click="tab = 'participants'"
+                          x-bind:class="{ 'border-indigo-500 text-indigo-600 focus:outline-none focus:text-indigo-800 focus:border-indigo-700': tab === 'participants' }"
+                          class="md:w-1/5 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm leading-5">
+                          Individual Results
+                        </button>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+                <div x-show="tab === 'tasks'">
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="border-b border-gray-200 px-4 py-5 sm:px-6">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                Task 1
+                            </h3>
+                            <p class="mt-1 text-sm leading-5 text-gray-500">
+                                Imagine that you want to update your credit card details. Where would you find that?
+                            </p>
+                        </div>
+                        <div class="px-4 py-5 sm:p-6">
+                            <div class="flex flex-wrap">
+                                <div class="w-full md:w-1/2 md:pr-6">
+                                    <div class="w-full bg-gray-100 overflow-x-auto rounded-md h-8 px-2 py-1 mb-2">
+                                        <span class="ml-2 block text-sm leading-5 text-gray-700">
+                                            <ul class="flex flex-no-wrap">
+                                                <li class="flex-none">
+                                                Home
+                                                </li>
+                                                <span class="mx-2">
+                                                &rarr;
+                                                </span>
+                                                <li class="flex-none">
+                                                Example Category 1
+                                                </li>
+                                                <span class="mx-2">
+                                                &rarr;
+                                                </span>
+                                                <li class="flex-none text-green-500 font-bold">
+                                                Example Child A
+                                                </li>
+                                            </ul>
+                                        </span>
+                                    </div>
+                                    <div class="max-w-4xl mx-auto">
+                                        <div class="rounded-lg bg-white sm:grid sm:grid-cols-3">
+                                            <div class="border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r">
+                                            <p class="text-2xl leading-none font-semibold text-indigo-600">
+                                                73%
+                                            </p>
+                                            <p class="mt-2 text-md leading-6 font-medium text-gray-500">
+                                                Success Score
+                                            </p>
+                                            </div>
+                                            <div class="border-t border-b border-gray-100 p-6 text-center sm:border-0 sm:border-l sm:border-r">
+                                            <p class="text-2xl leading-none font-semibold text-indigo-600">
+                                                65%
+                                            </p>
+                                            <p class="mt-2 text-md leading-6 font-medium text-gray-500">
+                                                Directness
+                                            </p>
+                                            </div>
+                                            <div class="border-t border-gray-100 p-6 text-center sm:border-0 sm:border-l">
+                                            <p class="text-2xl leading-none font-semibold text-indigo-600">
+                                                25s
+                                            </p>
+                                            <p class="mt-2 text-md leading-6 font-medium text-gray-500">
+                                                Median Time
+                                            </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="w-full md:w-1/2 self-start">
+                                    <p class="mb-2 text-md leading-6 font-medium text-gray-500">
+                                        Score Breakdown
+                                    </p>
+                                    <%= image_tag(asset_pack_path("media/images/success_score@2x.png"), class: "block w-full mb-6") %>
+                                    <p class="mt-1 text-sm leading-5 text-gray-500">
+                                        <span class="inline-block h-3 w-3 bg-green-500"></span> 46% of participants navigated directly to the correct link.
+                                    </p>
+                                    <p class="mt-1 text-sm leading-5 text-gray-500">
+                                        <span class="inline-block h-3 w-3 bg-green-300"></span> 27% of participants navigated indirectly to the correct link.
+                                    </p>
+                                    <p class="mt-1 text-sm leading-5 text-gray-500">
+                                        <span class="inline-block h-3 w-3 bg-red-500"></span> 19% of participants navigated directly to an incorrect link.
+                                    </p>
+                                    <p class="mt-1 text-sm leading-5 text-gray-500">
+                                        <span class="inline-block h-3 w-3 bg-red-300"></span> 8% of participants navigated indirectly to an incorrect link.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div x-show="tab === 'participants'">
+                    <div class="flex flex-col">
+                        <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+                            <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
+                                <table class="min-w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                                Participant
+                                            </th>
+                                            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                                Success Score
+                                            </th>
+                                            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                                Time Taken
+                                            </th>
+                                            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                                Tasks Completed
+                                            </th>
+                                            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="bg-white">
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
+                                            Participant 1
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                90%
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                1m 48s
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                100%
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+                                                <a href="#" class="text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline">View</a>
+                                            </td>
+                                        </tr>
+                                        <tr class="bg-gray-50">
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
+                                                Participant 2
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                81%
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                2m 02s
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                100%
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+                                                <a href="#" class="text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline">View</a>
+                                            </td>
+                                        </tr>
+                                        <tr class="bg-white">
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
+                                                Participant 3
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                39%
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                5m 42s
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                100%
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+                                                <a href="#" class="text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline">View</a>
+                                            </td>
+                                        </tr>
+                                        <tr class="bg-gray-50">
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
+                                                Participant 4
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                77%
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                1m 57s
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                100%
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+                                                <a href="#" class="text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline">View</a>
+                                            </td>
+                                        </tr>
+                                        <tr class="bg-white">
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
+                                                Participant 5
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                68%
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                2m 01s
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                100%
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+                                                <a href="#" class="text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline">View</a>
+                                            </td>
+                                        </tr>
+                                        <tr class="bg-gray-50">
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
+                                                Participant 6
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                81%
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                2m 02s
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                100%
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+                                                <a href="#" class="text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline">View</a>
+                                            </td>
+                                        </tr>
+                                        <tr class="bg-white">
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
+                                                Participant 7
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                39%
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                5m 42s
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                100%
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+                                                <a href="#" class="text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline">View</a>
+                                            </td>
+                                        </tr>
+                                        <tr class="bg-gray-50">
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
+                                                Participant 8
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                77%
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                1m 57s
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                100%
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+                                                <a href="#" class="text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline">View</a>
+                                            </td>
+                                        </tr>
+                                        <tr class="bg-white">
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
+                                                Participant 9
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                68%
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                2m 01s
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                100%
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+                                                <a href="#" class="text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline">View</a>
+                                            </td>
+                                        </tr>
+                                        <tr class="bg-gray-50">
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
+                                                Participant 10
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                77%
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                1m 57s
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                                100%
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+                                                <a href="#" class="text-indigo-600 hover:text-indigo-900 focus:outline-none focus:underline">View</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+                                    <div class="hidden sm:block">
+                                        <p class="text-sm leading-5 text-gray-700">
+                                        Showing
+                                        <span class="font-medium">1</span>
+                                        to
+                                        <span class="font-medium">10</span>
+                                        of
+                                        <span class="font-medium">20</span>
+                                        results
+                                        </p>
+                                    </div>
+                                    <div class="flex-1 flex justify-between sm:justify-end">
+                                        <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+                                        Previous
+                                        </a>
+                                        <a href="#" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+                                        Next
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
