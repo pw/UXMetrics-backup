@@ -36,7 +36,7 @@
 <main class="py-6">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-wrap items-end mb-16">
-            <div class="w-full md:w-1/3 xl:w-2/5 md:pr-16">
+            <div class="w-full md:w-1/3 xl:w-2/5 md:pr-16 self-center">
                 <div class="py-4 bg-white rounded shadow px-4 my-4">
 
                     <p class="font-semibold px-2 text-center text-4xl text-indigo-600">
@@ -65,68 +65,80 @@
         
                 </div>
             </div>
-            <div class="w-full md:w-2/3 xl:w-3/5 self-start">
+            <div class="w-full md:w-2/3 xl:w-3/5 self-center">
                 <h2 class="text-2xl mb-4">
                     Aggregate Score Breakdown (All Tasks)
                 </h2>
                 <%= image_tag(asset_pack_path("media/images/success_score.svg"), class: "block w-full mb-6") %>
                 <div class="flex mb-4">
                     <div class="flex-initial mr-2">
-                        <span class="inline-block h-5 w-5 rounded-full bg-green-500"></span>
+                        <span class="inline-flex items-center justify-center h-12 w-12 rounded-full bg-green-500">
+                            <span class="text-md font-medium leading-none text-white">46%</span>
+                        </span>
                     </div>
-                    <div class="flex-initial">
+                    <div class="flex self-center">
                         <p class="text-md leading-5 text-gray-500">
-                            46% navigated directly to correct links.
+                            Participants navigated directly to correct links 46% of the time.
                         </p>
                     </div>
                 </div>
                 <div class="flex mb-4">
                     <div class="flex-initial mr-2">
-                        <span class="inline-block h-5 w-5 rounded-full bg-green-300"></span>
+                        <span class="inline-flex items-center justify-center h-12 w-12 rounded-full bg-green-300">
+                            <span class="text-md font-medium leading-none text-white">27%</span>
+                        </span>
                     </div>
-                    <div class="flex-initial">
+                    <div class="flex self-center">
                         <p class="text-md leading-5 text-gray-500">
-                            27% navigated indirectly to correct links.
+                            Participants navigated indirectly to correct links 27% of the time.
                         </p>
                     </div>
                 </div>
                 <div class="flex mb-4">
                     <div class="flex-initial mr-2">
-                        <span class="inline-block h-5 w-5 rounded-full bg-red-500"></span>
+                        <span class="inline-flex items-center justify-center h-12 w-12 rounded-full bg-red-500">
+                            <span class="text-md font-medium leading-none text-white">19%</span>
+                        </span>
                     </div>
-                    <div class="flex-initial">
+                    <div class="flex self-center">
                         <p class="text-md leading-5 text-gray-500">
-                            19% navigated directly to incorrect links.
+                            Participants navigated directly to incorrect links 19% of the time.
                         </p>
                     </div>
                 </div>
                 <div class="flex mb-4">
                     <div class="flex-initial mr-2">
-                        <span class="inline-block h-5 w-5 rounded-full bg-red-300"></span>
+                        <span class="inline-flex items-center justify-center h-12 w-12 rounded-full bg-red-300">
+                            <span class="text-md font-medium leading-none text-white">8%</span>
+                        </span>
                     </div>
-                    <div class="flex-initial">
+                    <div class="flex self-center">
                         <p class="text-md leading-5 text-gray-500">
-                            8% navigated indirectly to incorrect links.
+                            Participants navigated indirectly to incorrect links 8% of the time.
                         </p>
                     </div>
                 </div>
                 <div class="flex mb-4">
                     <div class="flex-initial mr-2">
-                        <span class="inline-block h-5 w-5 rounded-full bg-gray-500"></span>
+                        <span class="inline-flex items-center justify-center h-12 w-12 rounded-full bg-gray-500">
+                            <span class="text-md font-medium leading-none text-white">2%</span>
+                        </span>
                     </div>
-                    <div class="flex-initial">
+                    <div class="flex self-center">
                         <p class="text-md leading-5 text-gray-500">
-                            2% directly skipped tasks.
+                            Participants directly skipped tasks 2% of the time.
                         </p>
                     </div>
                 </div>
                 <div class="flex mb-4">
                     <div class="flex-initial mr-2">
-                        <span class="inline-block h-5 w-5 rounded-full bg-gray-300"></span>
+                        <span class="inline-flex items-center justify-center h-12 w-12 rounded-full bg-gray-300">
+                            <span class="text-md font-medium leading-none text-gray-500">1%</span>
+                        </span>
                     </div>
-                    <div class="flex-initial">
+                    <div class="flex self-center">
                         <p class="text-md leading-5 text-gray-500">
-                            1% indirectly skipped tasks.
+                            Participants indirectly skipped tasks 1% of the time.
                         </p>
                     </div>
                 </div>
