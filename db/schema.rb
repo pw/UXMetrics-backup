@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_24_172421) do
+ActiveRecord::Schema.define(version: 2020_03_28_002124) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,6 +148,30 @@ ActiveRecord::Schema.define(version: 2019_12_24_172421) do
     t.index ["owner_id"], name: "index_sjabloon_subscriptions_on_owner_id"
   end
 
+  create_table "tree_test_tasks", force: :cascade do |t|
+    t.bigint "tree_test_id"
+    t.text "instructions"
+    t.jsonb "correct_choice"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tree_test_id"], name: "index_tree_test_tasks_on_tree_test_id"
+  end
+
+  create_table "tree_tests", force: :cascade do |t|
+    t.string "name"
+    t.text "participant_instructions"
+    t.text "thank_you_message"
+    t.boolean "randomize_tree_order"
+    t.jsonb "tree"
+    t.boolean "randomize_task_order"
+    t.boolean "allow_skip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status", default: "draft"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_tree_tests_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -190,4 +214,5 @@ ActiveRecord::Schema.define(version: 2019_12_24_172421) do
   add_foreign_key "cards", "cardtests"
   add_foreign_key "cardtests", "users"
   add_foreign_key "results", "cardtests"
+  add_foreign_key "tree_tests", "users"
 end

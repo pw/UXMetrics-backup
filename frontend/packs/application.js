@@ -257,3 +257,20 @@ if ($("#homepage-signup")){
 });
 
 import "controllers"
+
+import TurbolinksAdapter from 'vue-turbolinks'
+import Vue from 'vue/dist/vue.esm'
+import VueNestable from 'vue-nestable'
+import NewTreeTest from '../vue/tree_tests/new.vue'
+import EditTreeTest from '../vue/tree_tests/edit.vue'
+
+Vue.use(VueNestable)
+Vue.use(TurbolinksAdapter)
+
+Vue.component('tree-test-new', NewTreeTest)
+Vue.component('tree-test-edit', EditTreeTest)
+document.addEventListener('turbolinks:load', function() { 
+  const app = new Vue({
+    el: '[data-behavior="vue"]',
+  })
+})
