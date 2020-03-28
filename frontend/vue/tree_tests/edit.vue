@@ -166,11 +166,11 @@
               <div class="mb-6 flex items-center">
                 <Slider v-model="tree_test.randomize_tree_order" @input="saveProperty('randomize_tree_order')" :disabled="tree_test.status != 'draft'" label="Randomize tree order for participants"/>
               </div>
-              <vue-nestable v-model="tree" @input="saveTree" :hooks="{ 'beforeMove': beforeMove}">
+              <vue-nestable v-model="tree" :hooks="{ 'beforeMove': beforeMove}" @change="saveTree">
                 <vue-nestable-handle
                   slot-scope="{ item }"
                   :item="item">
-                  <TreeNode @remove="remove" @add="add" :item="item" v-model="item.text" :tree="tree" @blur="saveTree" :placeholder_text="item.placeholder_text" :disabled="tree_test.status != 'draft'" />
+                  <TreeNode @remove="remove" @add="add" @blur="saveTree" :item="item" v-model="item.text" :tree="tree" :placeholder_text="item.placeholder_text" :disabled="tree_test.status != 'draft'" />
                 </vue-nestable-handle>
               </vue-nestable>              
             </div>
@@ -278,6 +278,7 @@ export default {
     saveTree() {
       var data = new FormData 
       data.append('tree_test[tree]', JSON.stringify(this.tree))
+      data.append('tree_test[current_tree_index]', this.tree_test.current_tree_index)      
       Rails.ajax({
         url: '/tree_tests/' + this.tree_test.id,
         type: 'PATCH', 
@@ -295,12 +296,14 @@ export default {
         data: data
       })      
     },
-    add: function(id) {
-      this.node_index += 1
+    add(id) {
+      this.tree_test.current_tree_index += 1
       this.addToArray(this.tree, id)
+      this.saveTree()
     },
-    remove: function(id) {
+    remove(id) {
       this.removeFromArray(this.tree, id)
+      this.saveTree()
     },
     addToArray(array, id) {
       var index = array.findIndex(i => i.id == id)
@@ -313,7 +316,7 @@ export default {
         })
     },
     addChild(node) {
-      node.children.push({id: this.node_index, children: []})
+      node.children.push({id: this.tree_test.current_tree_index, children: []})
     },
     removeFromArray(array, id) {
       var index = array.findIndex(i => i.id == id)
@@ -368,8 +371,11 @@ export default {
       })
     },
     beforeMove(dragItem, pathFrom, pathTo) {
-      console.log('beforeMove')
+      if(this.tree_test.status == 'draft') {
+        return true
+      } else {
       return false
+      }
     } 
   },
   components: { Nav, TextInput, TextArea, Slider, TreeNode, Task }

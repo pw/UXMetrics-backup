@@ -30,7 +30,7 @@ export default {
   props: {
     placeholder_text: String, 
     item: Object,
-    tree: Object, 
+    tree: Array, 
     value: String, 
     disabled: {
       type: Boolean,

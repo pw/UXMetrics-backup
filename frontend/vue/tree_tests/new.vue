@@ -159,6 +159,7 @@ export default {
       data.append('tree_test[randomize_task_order]', this.randomizeTaskOrder)
       data.append('tree_test[allow_skip]', this.allowSkip)
       data.append('tree_test[tree]', JSON.stringify(this.tree))
+      data.append('tree_test[current_tree_index]', this.node_index)
       this.tasks.forEach((task, index) => {
         data.append('tree_test[tree_test_tasks_attributes][' + index + '][instructions]', task.instructions) 
         data.append('tree_test[tree_test_tasks_attributes][' + index + '][correct_choice]', JSON.stringify(task.correctChoice))       

@@ -79,7 +79,7 @@
         </div>
 
         <div id="tree" class="mt-6" v-show="treeVisible">
-          <ChoiceTreeNode @toggleCorrectChoice="toggleCorrectChoice" v-for="element in tree" :key="id" :element="element" :margin="0" :correct_choice="correctChoice" />
+          <ChoiceTreeNode @toggleCorrectChoice="toggleCorrectChoice" v-for="element in tree" :key="id" :element="element" :margin="0" :correct_choice="correctChoiceLocal" />
         </div>
 
       </div>      
