@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_28_192017) do
+ActiveRecord::Schema.define(version: 2020_03_28_225028) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,12 +148,32 @@ ActiveRecord::Schema.define(version: 2020_03_28_192017) do
     t.index ["owner_id"], name: "index_sjabloon_subscriptions_on_owner_id"
   end
 
+  create_table "tree_test_participant_results", force: :cascade do |t|
+    t.bigint "tree_test_participant_id"
+    t.bigint "tree_test_task_id"
+    t.integer "time"
+    t.integer "choice"
+    t.boolean "skip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tree_test_participant_id"], name: "index_tree_test_participant_results_on_tree_test_participant_id"
+    t.index ["tree_test_task_id"], name: "index_tree_test_participant_results_on_tree_test_task_id"
+  end
+
+  create_table "tree_test_participants", force: :cascade do |t|
+    t.bigint "tree_test_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tree_test_id"], name: "index_tree_test_participants_on_tree_test_id"
+  end
+
   create_table "tree_test_tasks", force: :cascade do |t|
     t.bigint "tree_test_id"
     t.text "instructions"
     t.jsonb "correct_choice"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "task_number"
     t.index ["tree_test_id"], name: "index_tree_test_tasks_on_tree_test_id"
   end
 
@@ -170,6 +190,8 @@ ActiveRecord::Schema.define(version: 2020_03_28_192017) do
     t.string "status", default: "draft"
     t.bigint "user_id"
     t.integer "current_tree_index"
+    t.string "auth_token"
+    t.index ["auth_token"], name: "index_tree_tests_on_auth_token"
     t.index ["user_id"], name: "index_tree_tests_on_user_id"
   end
 
@@ -215,5 +237,8 @@ ActiveRecord::Schema.define(version: 2020_03_28_192017) do
   add_foreign_key "cards", "cardtests"
   add_foreign_key "cardtests", "users"
   add_foreign_key "results", "cardtests"
+  add_foreign_key "tree_test_participant_results", "tree_test_participants"
+  add_foreign_key "tree_test_participant_results", "tree_test_tasks"
+  add_foreign_key "tree_test_participants", "tree_tests"
   add_foreign_key "tree_tests", "users"
 end

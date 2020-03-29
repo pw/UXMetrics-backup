@@ -29,7 +29,7 @@
       <div class="mb-6 flex items-center">
         <Slider v-model="randomizeTreeOrder" label="Randomize tree order for participants"/>
       </div>
-      <vue-nestable v-model="tree">
+      <vue-nestable :hooks="{'beforeMove': beforeMove}" v-model="tree">
         <vue-nestable-handle
           slot-scope="{ item }"
           :item="item">
@@ -163,6 +163,7 @@ export default {
       this.tasks.forEach((task, index) => {
         data.append('tree_test[tree_test_tasks_attributes][' + index + '][instructions]', task.instructions) 
         data.append('tree_test[tree_test_tasks_attributes][' + index + '][correct_choice]', JSON.stringify(task.correctChoice))       
+        data.append('tree_test[tree_test_tasks_attributes][' + index + '][task_number]', task.id)        
       })
 
       Rails.ajax({
@@ -171,88 +172,15 @@ export default {
         data: data,
         dataType: 'json'
       })
+    },
+    beforeMove({dragItem, pathFrom, pathTo}) {
+      if(pathTo.length == 1) {
+        return false
+      } else {
+        return true
+      }
     }
   },
   components: { Nav, Step, TextInput, TextArea, Slider, TreeNode, Task }
 }
 </script>
-<style scoped>
-  ol, ul {
-    padding-left: 20px;
-  }
-  .nestable {
-    position: relative;
-  }
-  .nestable-rtl {
-    direction: rtl;
-  }
-  .nestable .nestable-list {
-    margin: 0;
-    padding: 0 0 0 40px;
-    list-style-type: none;
-  }
-  .nestable-rtl .nestable-list {
-    padding: 0 40px 0 0;
-  }
-  .nestable > .nestable-list {
-    padding: 0;
-  }
-  .nestable-item,
-  .nestable-item-copy {
-    margin: 10px 0 0;
-  }
-  .nestable-item:first-child,
-  .nestable-item-copy:first-child {
-    margin-top: 0;
-  }
-  .nestable-item .nestable-list,
-  .nestable-item-copy .nestable-list {
-    margin-top: 10px;
-  }
-  .nestable-item {
-    position: relative;
-  }
-  .nestable-item.is-dragging .nestable-list {
-    pointer-events: none;
-  }
-  .nestable-item.is-dragging * {
-    opacity: 0;
-    filter: alpha(opacity=0);
-  }
-  .nestable-item.is-dragging:before {
-    content: ' ';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(106, 127, 233, 0.274);
-    border: 1px dashed rgb(73, 100, 241);
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-  }
-  .nestable-drag-layer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    pointer-events: none;
-  }
-  .nestable-rtl .nestable-drag-layer {
-    left: auto;
-    right: 0;
-  }
-  .nestable-drag-layer > .nestable-list {
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 0;
-    background-color: rgba(106, 127, 233, 0.274);
-  }
-  .nestable-rtl .nestable-drag-layer > .nestable-list {
-    padding: 0;
-  }
-  .nestable [draggable="true"] {
-    cursor: move;
-  }
-</style>

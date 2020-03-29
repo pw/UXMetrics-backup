@@ -1,0 +1,23 @@
+/* Application.css is based off the ITCSS methodology by Harry Roberts. */
+/* It starts with low-specifity selectors to high-specifity selectors. */
+/* The naming convention used is BEM. */
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+
+@import "settings";
+@import "base";
+@import "objects";
+@import "animations";
+@import "components";
+@import "thanks";
+
+@import "tailwindcss/utilities";
+
+@import url('https://rsms.me/inter/inter.css');
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}

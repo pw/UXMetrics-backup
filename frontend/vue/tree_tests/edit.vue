@@ -56,7 +56,7 @@
                 <div>
                   <div class="mt-1 flex rounded-md shadow-sm">
                     <div class="relative flex-grow focus-within:z-10">
-                      <input id="email" class="form-input block w-full rounded-none rounded-l-md transition ease-in-out duration-150 sm:text-sm sm:leading-5" placeholder="http://localhost:5000/collect/5qwdlodm" />
+                      <input id="email" class="form-input block w-full rounded-none rounded-l-md transition ease-in-out duration-150 sm:text-sm sm:leading-5" :value="tree_test.collect_url" />
                     </div>
                     <button class="-ml-px relative inline-flex items-center px-4 py-2 text-sm leading-5 font-medium rounded-r-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
                       <svg class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
@@ -222,10 +222,15 @@ export default {
     return {
       tree_test: this.data[0],
       tree: JSON.parse(this.data[0].tree),
-      tab: 'settings',
-      tasks_index: this.data[0].tree_test_tasks.slice(-1)[0].id + 1     
+      tab: 'settings',    
     }
   },  
+  computed: {
+    tasks_index: function() {
+      var task_indices = this.data[0].tree_test_tasks.map(task => task.task_number)
+      return (Math.max(...task_indices) + 1)
+    }
+  },
   methods: {
     publish() {
       var r = confirm('Are you sure?')
@@ -338,6 +343,7 @@ export default {
       var data = new FormData 
       data.append('tree_test[tree_test_tasks_attributes][0][instructions]', task.instructions)      
       data.append('tree_test[tree_test_tasks_attributes][0][correct_choice]', task.correct_choice)
+      data.append('tree_test[tree_test_tasks_attributes][0][task_number]', task.id)      
       Rails.ajax({
         url: '/tree_tests/' + this.tree_test.id,
         type: 'PATCH', 
@@ -363,7 +369,7 @@ export default {
     saveCorrectChoiceToServer(task_index){
       var data = new FormData 
       data.append('tree_test[tree_test_tasks_attributes][0][id]', this.tree_test.tree_test_tasks[task_index].id)
-      data.append('tree_test[tree_test_tasks_attributes][0][correct_choice]', JSON.stringify(this.tree_test.tree_test_tasks[task_index].correctChoice))
+      data.append('tree_test[tree_test_tasks_attributes][0][correct_choice]', JSON.stringify(this.tree_test.tree_test_tasks[task_index].correctChoice))      
       Rails.ajax({
         url: '/tree_tests/' + this.tree_test.id,
         type: 'PATCH', 

@@ -68,6 +68,10 @@ Rails.application.routes.draw do
 
   get 'collect/:auth_token', to: 'results#new'
 
+  get 'collect_tt/:auth_token', to: 'tree_test_participants#new', as: :tree_test_collect
+
+  get 'collect_tt/:auth_token/:preview', to: 'tree_test_participants#new', as: :tree_test_collect_preview
+
   require 'sidekiq/web'
   authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
