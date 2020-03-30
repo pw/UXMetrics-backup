@@ -60,6 +60,8 @@ Rails.application.routes.draw do
   end
 
   resources :tree_tests
+  resources :tree_test_tasks
+  resources :tree_test_participants
 
   get 'collect/:auth_token/thanks', to: 'results#thanks', as: :thanks
   post 'cardtests/:auth_token/results', to: 'results#create'

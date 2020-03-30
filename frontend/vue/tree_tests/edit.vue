@@ -182,7 +182,19 @@
               <div class="mb-6 flex items-center">
                 <Slider v-model="tree_test.allow_skip" @input="saveProperty('allow_skip')" :disabled="tree_test.status != 'draft'" label="Allow participants to skip tasks if they get stuck"/>
               </div>
-              <Task v-for="(task, index) in tree_test.tree_test_tasks" :key="task.id" :id="task.id" :index="index" :tree="tree" v-model="task.instructions" :correctChoice="JSON.parse(task.correct_choice)" :disabled="tree_test.status != 'draft'" @removeTask="removeTask" @saveCorrectChoice="saveCorrectChoice" @saveTask="saveTask" />
+              <Task 
+              v-for="(task, index) in tree_test.tree_test_tasks" 
+              :key="task.id" 
+              :id="task.id" 
+              :index="index" 
+              :tree="tree" 
+              v-model="task.instructions" 
+              :correctChoice="task.tree_test_task_correct_choices" 
+              :disabled="tree_test.status != 'draft'" 
+              @removeTask="removeTask" 
+              @saveCorrectChoice="saveCorrectChoice" 
+              @saveTask="saveTask" 
+              />
               <span class="shadow-sm rounded-md" v-show="tree_test.status == 'draft'">
                 <button @click="addTask" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
                   <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
@@ -333,22 +345,19 @@ export default {
             this.removeFromArray(element.children, id)
         })
     },
-    addTask() {
-      var task = {
-        id: this.tasks_index, 
-        instructions: 'Task instructions (e.g. "Imagine that you want to update your credit card details. Where would you find that?")', 
-        correct_choice: JSON.stringify([])
-      }
-      this.tree_test.tree_test_tasks.push(task)
+    addTask() {      
       var data = new FormData 
-      data.append('tree_test[tree_test_tasks_attributes][0][instructions]', task.instructions)      
-      data.append('tree_test[tree_test_tasks_attributes][0][correct_choice]', task.correct_choice)
-      data.append('tree_test[tree_test_tasks_attributes][0][task_number]', task.id)      
+      data.append('tree_test_task[tree_test_id]', this.tree_test.id)       
+      data.append('tree_test_task[task_number]', this.tasks_index)       
+      var tree_test = this.tree_test 
       Rails.ajax({
-        url: '/tree_tests/' + this.tree_test.id,
-        type: 'PATCH', 
-        data: data
-      })      
+        url: '/tree_test_tasks',
+        type: 'POST', 
+        data: data,
+        success: function(data){
+          tree_test.tree_test_tasks.push(data)
+        }
+      })     
     },
     removeTask(index) {
       var task = this.tree_test.tree_test_tasks.splice(index, 1)[0]
@@ -364,14 +373,18 @@ export default {
     saveCorrectChoice(task_id, correctChoice) {
       var index = this.tree_test.tree_test_tasks.findIndex(i => i.id == task_id)
       this.tree_test.tree_test_tasks[index].correctChoice = correctChoice
-      this.saveCorrectChoiceToServer(index)
+      this.saveCorrectChoiceToServer(task_id, correctChoice)
     },
-    saveCorrectChoiceToServer(task_index){
+    saveCorrectChoiceToServer(task_id, correctChoice){
       var data = new FormData 
-      data.append('tree_test[tree_test_tasks_attributes][0][id]', this.tree_test.tree_test_tasks[task_index].id)
-      data.append('tree_test[tree_test_tasks_attributes][0][correct_choice]', JSON.stringify(this.tree_test.tree_test_tasks[task_index].correctChoice))      
+      data.append('tree_test_task[id]', task_id)
+      correctChoice.forEach((choice, choice_index)  => {
+        data.append('tree_test_task[tree_test_task_correct_choices_attributes][' + choice_index + '][node]', choice.node)
+        data.append('tree_test_task[tree_test_task_correct_choices_attributes][' + choice_index + '][path]', choice.path)
+      })
+      
       Rails.ajax({
-        url: '/tree_tests/' + this.tree_test.id,
+        url: '/tree_test_tasks/' + task_id,
         type: 'PATCH', 
         data: data
       })

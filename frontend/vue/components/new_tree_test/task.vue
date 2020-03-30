@@ -44,38 +44,26 @@
           </span>
         </div>
 
-        <div class="flex items-center justify-between w-full bg-gray-100 overflow-x-auto rounded-md h-8 px-2 py-1" v-show="!treeVisible && correctSelected" v-if="correctChoiceLocal.length == 1">
-          <span class="ml-2 block text-sm leading-5 text-gray-700">
-            <ul class="flex flex-no-wrap pl-0">
-              <li v-for="heir in correctChoiceLocal[0].lineage" class="flex-none">
-                {{ heir }}
-                <span class="mx-2">
-                  &rarr;
-                </span>                
-              </li>
-              <li class="flex-none text-green-500 font-bold">
-                {{ correctChoiceLocal[0].text }}
-              </li>
-            </ul>
-          </span>
-        </div>
-
-        <div v-else v-show="!treeVisible && correctSelected" class="flex flex-wrap">
-          <div class="w-full bg-gray-100 overflow-x-auto rounded-md h-8 px-2 py-1 mb-2" v-for="choice in correctChoiceLocal">
+        <div v-show="!treeVisible && correctSelected" class="flex flex-wrap">        
+          <div 
+          class="flex items-center justify-between w-full bg-gray-100 overflow-x-auto rounded-md h-8 px-2 py-1" 
+          v-for="choice in correctChoiceLocal"
+          >
             <span class="ml-2 block text-sm leading-5 text-gray-700">
               <ul class="flex flex-no-wrap pl-0">
-                <li class="flex-none" v-for="heir in choice.lineage">
+                <li 
+                v-for="(heir, index) in choice.path.split(',')"
+                :class="{'text-green-500 font-bold': (index == (choice.path.split(',').length - 1))}"
+                class="flex-none">
                   {{ heir }}
-                  <span class="mx-2">
+                  <span v-show="index != (choice.path.split(',').length - 1)" class="mx-2">
                     &rarr;
-                  </span>                  
-                </li>
-                <li class="flex-none text-green-500 font-bold">
-                  {{ choice.text }}
+                  </span>                
                 </li>
               </ul>
             </span>
-          </div>            
+          </div>
+
         </div>
 
         <div id="tree" class="mt-6" v-show="treeVisible">
@@ -119,9 +107,9 @@ export default {
   },
   methods: {
     toggleCorrectChoice(id, lineage, text) {
-      var index = this.correctChoiceLocal.findIndex(i => i.id == id)
+      var index = this.correctChoiceLocal.findIndex(i => i.node == id)
       if(index == -1) {
-        this.correctChoiceLocal.push({id: id, lineage: lineage, text: text})
+        this.correctChoiceLocal.push({node: id, path: lineage.concat([text]).join(',')})
       } else {
         this.correctChoiceLocal.splice(index, 1)
       }

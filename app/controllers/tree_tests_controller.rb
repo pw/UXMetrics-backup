@@ -20,7 +20,7 @@ class TreeTestsController < ApplicationController
   end
 
   def edit
-    @tree_test = current_user.tree_tests.where(id: params[:id]).includes(:tree_test_tasks)
+    @tree_test = current_user.tree_tests.where(id: params[:id]).includes(tree_test_tasks: :tree_test_task_correct_choices)
   end
 
   def update
@@ -36,6 +36,6 @@ class TreeTestsController < ApplicationController
   private 
 
   def tree_test_params
-    params.require(:tree_test).permit(:name, :participant_instructions, :thank_you_message, :randomize_tree_order, :tree, :current_tree_index, :randomize_task_order, :allow_skip, :status, tree_test_tasks_attributes: [:instructions, :correct_choice, :id, :_destroy])
+    params.require(:tree_test).permit(:name, :participant_instructions, :thank_you_message, :randomize_tree_order, :tree, :current_tree_index, :randomize_task_order, :allow_skip, :status, tree_test_tasks_attributes: [:instructions, :task_number, :id, :_destroy, tree_test_task_correct_choices_attributes: [:node, :path]])
   end
 end  

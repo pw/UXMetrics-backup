@@ -116,9 +116,17 @@
           </div>
         </div>
         <div v-show="step == 'tasks'" class="mt-6 md:w-1/2">
-          <MenuNode :element="tree[0]" :key="tree[0].id" :margin="0" :collapsed="false" @toggleChildMenuItem="menuOpen" />
+          <MenuNode 
+          @setChoice="setChoice" 
+          @setLastPath="setLastPath"
+          @addToNavigationHistory="addToNavigationHistory" 
+          :element="tree[0]" 
+          :randomizeTreeOrder="tree_test.randomize_tree_order" 
+          :margin="0" 
+          :collapsed="false" 
+          />
         </div>
-        <div class="mt-12 text-center">
+        <div v-show="tree_test.allow_skip" class="mt-12 text-center">
           <a v-show="step == 'tasks'" @click="skipTask" class="text-sm text-gray-500 underline">
             Skip This Task
           </a>
@@ -146,20 +154,15 @@
         current_task_index: 0,
         results: [],
         current_task_start: undefined,
+        current_task_id: undefined,
         task_skipped: false,
         choice: undefined,
-        openChildMenuItem: -1
+        openChildMenuItem: -1,
+        last_path: [JSON.parse(this.data.tree)[0].text],
+        navigation_history: [JSON.parse(this.data.tree)[0].text]
       }
     },
     methods: {
-      menuOpen(id) {
-        console.log('menuOpen')
-        if(this.openChildMenuItem == id) {
-          this.openChildMenuItem = -1
-        } else {
-          this.openChildMenuItem = id
-        }
-      },        
       next() {
         switch(this.step) {
           case 'intro':
@@ -174,6 +177,16 @@
             break
         }
       },
+      setChoice(id) {
+        this.choice = id
+        this.next()
+      },
+      setLastPath(lineage) {
+        this.last_path = lineage
+      },
+      addToNavigationHistory(node_name) {
+        this.navigation_history.push(node_name)
+      },
       skipTask() {
         this.task_skipped = true
         this.next()
@@ -182,6 +195,7 @@
         this.endTask()
         if(this.current_task_index === (this.tasks.length - 1)) {
           this.step = 'thanks'
+          this.saveResults()
         } else {
           this.current_task_index += 1
           this.startTask()
@@ -189,17 +203,35 @@
       },
       startTask() {
         this.current_task_start = new Date
+        this.current_task_id = this.tasks[this.current_task_index].id
         this.choice = undefined
         this.task_skipped = false
       },
       endTask() {
         var endTime = new Date
-        var timeElapsed = (this.current_task_start - endTime)
+        var timeElapsed = (endTime - this.current_task_start)
         var result = {
           elapsed_time: timeElapsed,
-          choice: this.choice
+          choice: this.choice,
+          task_id: this.current_task_id,
+          skip: this.task_skipped
         }
         this.results.push(result)
+      },
+      saveResults() {
+        var data = new FormData
+        this.results.forEach((result, index) => {
+          data.append('tree_test_participant[tree_test_id]', this.tree_test.id)          
+          data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][tree_test_task_id]', result.task_id)
+          data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][time]', result.elapsed_time)          
+          data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][choice]', result.choice)
+          data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][skip]', result.skip)
+        })
+        Rails.ajax({
+          url: '/tree_test_participants',
+          type: 'POST', 
+          data: data,
+        })
       }
     }
   }

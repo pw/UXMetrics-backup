@@ -30,7 +30,7 @@ export default {
       this.$emit('toggleCorrectChoice', id, lineage, text)
     },
     isSelected(id) {
-      var index = this.correct_choice.findIndex(i => i.id == id)
+      var index = this.correct_choice.findIndex(i => i.node == id)
       if(index == -1) {
         return false
       } else {

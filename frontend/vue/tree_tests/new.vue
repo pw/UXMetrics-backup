@@ -162,8 +162,11 @@ export default {
       data.append('tree_test[current_tree_index]', this.node_index)
       this.tasks.forEach((task, index) => {
         data.append('tree_test[tree_test_tasks_attributes][' + index + '][instructions]', task.instructions) 
-        data.append('tree_test[tree_test_tasks_attributes][' + index + '][correct_choice]', JSON.stringify(task.correctChoice))       
         data.append('tree_test[tree_test_tasks_attributes][' + index + '][task_number]', task.id)        
+        task.correctChoice.forEach((choice, choice_index) => {
+          data.append('tree_test[tree_test_tasks_attributes][' + index + '][tree_test_task_correct_choices_attributes][' + choice_index + '][node]', choice.node)
+          data.append('tree_test[tree_test_tasks_attributes][' + index + '][tree_test_task_correct_choices_attributes][' + choice_index + '][path]', choice.path)
+        })     
       })
 
       Rails.ajax({
