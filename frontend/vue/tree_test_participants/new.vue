@@ -123,7 +123,8 @@
           :element="tree[0]" 
           :randomizeTreeOrder="tree_test.randomize_tree_order" 
           :margin="0" 
-          :collapsed="false" 
+          :collapsed="false"
+          :key="menu_node_key"
           />
         </div>
         <div v-show="tree_test.allow_skip" class="mt-12 text-center">
@@ -139,7 +140,7 @@
 <script>
   import Rails from '@rails/ujs'
   import MenuNode from '../components/tree_test_participants/collapsible_menu_node.vue'
-
+  var _ = require('lodash');
   export default {
     props: {
       data: Object,
@@ -148,7 +149,7 @@
     data() {
       return {
         tree_test: this.data,
-        tasks: this.data.tree_test_tasks,
+        tasks: undefined,
         tree: JSON.parse(this.data.tree),
         step: 'intro',
         current_task_index: 0,
@@ -159,8 +160,12 @@
         choice: undefined,
         openChildMenuItem: -1,
         last_path: [JSON.parse(this.data.tree)[0].text],
-        navigation_history: [JSON.parse(this.data.tree)[0].text]
+        navigation_history: [JSON.parse(this.data.tree)[0].text],
+        menu_node_key: 0
       }
+    },
+    created: function() {
+      this.tasks = _.shuffle(this.data.tree_test_tasks)
     },
     methods: {
       next() {
@@ -198,6 +203,7 @@
           this.saveResults()
         } else {
           this.current_task_index += 1
+          this.menu_node_key += 1
           this.startTask()
         }        
       },
@@ -206,6 +212,8 @@
         this.current_task_id = this.tasks[this.current_task_index].id
         this.choice = undefined
         this.task_skipped = false
+        this.navigation_history = [this.tree[0].text]
+
       },
       endTask() {
         var endTime = new Date
@@ -214,7 +222,8 @@
           elapsed_time: timeElapsed,
           choice: this.choice,
           task_id: this.current_task_id,
-          skip: this.task_skipped
+          skip: this.task_skipped,
+          path: this.navigation_history
         }
         this.results.push(result)
       },
@@ -226,6 +235,7 @@
           data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][time]', result.elapsed_time)          
           data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][choice]', result.choice)
           data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][skip]', result.skip)
+          data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][path]', result.path)          
         })
         Rails.ajax({
           url: '/tree_test_participants',
