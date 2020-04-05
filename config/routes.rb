@@ -59,6 +59,10 @@ Rails.application.routes.draw do
 
   end
 
+  resources :tree_tests
+  resources :tree_test_tasks
+  resources :tree_test_participants
+
   get 'collect/:auth_token/thanks', to: 'results#thanks', as: :thanks
   post 'cardtests/:auth_token/results', to: 'results#create'
   post 'collect/:auth_token/results', to: 'results#create'
@@ -66,15 +70,13 @@ Rails.application.routes.draw do
 
   get 'collect/:auth_token', to: 'results#new'
 
+  get 'collect_tt/:auth_token', to: 'tree_test_participants#new', as: :tree_test_collect
+
+  get 'collect_tt/:auth_token/:preview', to: 'tree_test_participants#new', as: :tree_test_collect_preview
+
   require 'sidekiq/web'
   authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end
-
-  get "/treetests/*page" => "treetests#show"
-  get "/treetests", to: "treetests#index"
-
-  get "/treetest_participants/*page" => "treetest_participants#show"
-  get "/treetest_participants", to: "treetest_participants#index"
 
 end
