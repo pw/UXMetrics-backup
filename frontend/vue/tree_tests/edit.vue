@@ -22,7 +22,7 @@
               </div>
             </div>
 
-            <div v-show="tree_test.status == 'published'" class="bg-white shadow sm:rounded-lg text-center mb-6">
+            <div v-show="tree_test.status == 'published' && tree_test.test_results_count == 0" class="bg-white shadow sm:rounded-lg text-center mb-6">
               <div class="px-4 py-5 sm:p-6">
                 <p class="text-sm text-center py-2">
                   We'll email when you get your first result.
@@ -30,13 +30,16 @@
               </div>
             </div>     
 
-            <div v-show="tree_test.status == 'published' || tree_test.status == 'ended' " class="bg-white shadow sm:rounded-lg text-center mb-6">
+            <div v-show="tree_test.status == 'published' && tree_test.test_results_count != 0" class="bg-white shadow sm:rounded-lg text-center mb-6">
               <div class="px-4 py-5 sm:p-6">
-                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">
-                  103 Test Result(s)
+                <h3 v-if="tree_test.test_results_count == 1" class="text-lg leading-6 font-medium text-gray-900 mb-4">
+                  1 Test Result
                 </h3>
+                <h3 v-else class="text-lg leading-6 font-medium text-gray-900 mb-4">
+                  {{ tree_test.test_results_count }} Test Results
+                </h3>                
                 <div class="fields-inline items-end">
-                  <a class="block w-full text-center px-6 py-3 rounded-md shadow-sm border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150" href="/treetests/report">
+                  <a class="block w-full text-center px-6 py-3 rounded-md shadow-sm border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150" :href="'/tree_tests/' + tree_test.id + '/report'">
                     View Report
                   </a>                
                 </div>

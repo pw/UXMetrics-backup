@@ -20,6 +20,7 @@
           @setChoice="setChoice"
           @setLastPath="setLastPath"
           @addToNavigationHistory="addToNavigationHistory"
+          @markAsIndirect="markAsIndirect"
           v-for="child in children" 
           :element="child" 
           :randomizeTreeOrder="randomizeTreeOrder"
@@ -95,10 +96,15 @@
       }, 
       addToNavigationHistory(node_name){
         this.$emit('addToNavigationHistory', node_name)
-      },    
+      },  
+      markAsIndirect() {
+        this.$emit('markAsIndirect')
+      }, 
       toggle() {
         if(this.collapsedLocal) {
           this.$emit('addToNavigationHistory', this.element.text)
+        } else {
+          this.$emit('markAsIndirect')
         }
         this.collapsedLocal = !this.collapsedLocal
         this.$emit('toggleChildMenuItem', this.element.id)

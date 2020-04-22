@@ -120,6 +120,7 @@
           @setChoice="setChoice" 
           @setLastPath="setLastPath"
           @addToNavigationHistory="addToNavigationHistory" 
+          @markAsIndirect="markAsIndirect"
           :element="tree[0]" 
           :randomizeTreeOrder="tree_test.randomize_tree_order" 
           :margin="0" 
@@ -161,7 +162,8 @@
         openChildMenuItem: -1,
         last_path: [JSON.parse(this.data.tree)[0].text],
         navigation_history: [JSON.parse(this.data.tree)[0].text],
-        menu_node_key: 0
+        menu_node_key: 0,
+        direct: true
       }
     },
     created: function() {
@@ -192,8 +194,14 @@
       addToNavigationHistory(node_name) {
         this.navigation_history.push(node_name)
       },
+      markAsIndirect(){
+        this.direct = false
+      },
       skipTask() {
         this.task_skipped = true
+        if(this.navigation_history.length != 1) {
+          this.direct = false
+        }
         this.next()
       },
       nextTask() {
@@ -223,7 +231,8 @@
           choice: this.choice,
           task_id: this.current_task_id,
           skip: this.task_skipped,
-          path: this.navigation_history
+          path: this.navigation_history,
+          direct: this.direct
         }
         this.results.push(result)
       },
@@ -235,7 +244,8 @@
           data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][time]', result.elapsed_time)          
           data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][choice]', result.choice)
           data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][skip]', result.skip)
-          data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][path]', result.path)          
+          data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][path]', result.path)   
+          data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][direct]', result.direct)                 
         })
         Rails.ajax({
           url: '/tree_test_participants',

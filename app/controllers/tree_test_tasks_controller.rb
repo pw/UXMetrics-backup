@@ -27,6 +27,24 @@ class TreeTestTasksController < ApplicationController
     end
   end
     
+  def outcome
+    tree_test_task = TreeTestTask.find(params[:id])
+
+    head :forbidden and return unless tree_test_task.tree_test.user == current_user
+
+    case params[:outcome]
+    when "indirect_correct"
+      render json: tree_test_task.results_summary_indirect_correct
+    when "direct_incorrect"
+      render json: tree_test_task.results_summary_direct_incorrect
+    when "indirect_incorrect"
+      render json: tree_test_task.results_summary_indirect_incorrect
+    when "indirect_skip"
+      render json: tree_test_task.results_summary_skipped_indirect
+    end
+    
+  end
+
   private
 
   def tree_test_task_params

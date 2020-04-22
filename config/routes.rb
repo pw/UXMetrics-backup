@@ -59,8 +59,12 @@ Rails.application.routes.draw do
 
   end
 
-  resources :tree_tests
-  resources :tree_test_tasks
+  resources :tree_tests do
+    get 'report', on: :member
+  end
+  resources :tree_test_tasks do
+    get 'outcome', on: :member
+  end
   resources :tree_test_participants
 
   get 'collect/:auth_token/thanks', to: 'results#thanks', as: :thanks

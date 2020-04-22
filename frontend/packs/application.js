@@ -263,12 +263,14 @@ import Vue from 'vue/dist/vue.esm'
 import VueNestable from 'vue-nestable'
 import NewTreeTest from '../vue/tree_tests/new.vue'
 import EditTreeTest from '../vue/tree_tests/edit.vue'
+import TreeTestReport from '../vue/tree_tests/report.vue'
 
 Vue.use(VueNestable)
 Vue.use(TurbolinksAdapter)
 
 Vue.component('tree-test-new', NewTreeTest)
 Vue.component('tree-test-edit', EditTreeTest)
+Vue.component('tree-test-report', TreeTestReport)
 document.addEventListener('turbolinks:load', function() { 
   const app = new Vue({
     el: '[data-behavior="vue"]',

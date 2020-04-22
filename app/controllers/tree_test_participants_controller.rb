@@ -17,6 +17,6 @@ class TreeTestParticipantsController < ApplicationController
 
   private
     def tree_test_participant_params
-      params.require(:tree_test_participant).permit(:tree_test_id,  tree_test_participant_results_attributes: [:tree_test_task_id, :time, :choice, :skip, :path])
+      params.require(:tree_test_participant).permit(:tree_test_id,  tree_test_participant_results_attributes: [:tree_test_task_id, :time, :choice, :skip, :path, :direct])
     end
 end
