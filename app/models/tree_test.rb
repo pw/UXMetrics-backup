@@ -7,6 +7,10 @@ class TreeTest < ApplicationRecord
 
   accepts_nested_attributes_for :tree_test_tasks, allow_destroy: true
 
+  def participants(offset = 0)
+    tree_test_participants.order(:id).limit(10).offset(offset)
+  end
+
   def percent_success
     return nil if tree_test_participants.count == 0
     tree_test_tasks.sum{|i| i.percent_success} / tree_test_tasks.count.to_f

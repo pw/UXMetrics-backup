@@ -49,7 +49,7 @@ class TreeTestTask < ApplicationRecord
   ### START Direct Correct ###
 
   def results_direct_correct
-    tree_test_participant_results.where(choice: correct_choices, direct: true)
+    tree_test_participant_results.where(choice: correct_choices, direct: true, skip: false)
   end
 
   def percent_navigated_directly_to_correct
@@ -65,7 +65,7 @@ class TreeTestTask < ApplicationRecord
   ### START INDIRECT CORRECT ###
 
   def results_indirect_correct
-    tree_test_participant_results.where(choice: correct_choices, direct: false)
+    tree_test_participant_results.where(choice: correct_choices, direct: false, skip: false)
   end
 
   def percent_navigated_indirectly_to_correct
@@ -92,7 +92,7 @@ class TreeTestTask < ApplicationRecord
   ### START DIRECT INCORRECT
 
   def results_direct_incorrect
-    tree_test_participant_results.where(direct: true).where.not(choice: correct_choices)    
+    tree_test_participant_results.where(direct: true, skip: false).where.not(choice: correct_choices)    
   end
 
   def percent_navigated_directly_to_incorrect
@@ -119,7 +119,7 @@ class TreeTestTask < ApplicationRecord
   ### START INDIRECT INCORRECT ###
 
   def results_indirect_incorrect
-    tree_test_participant_results.where(direct: false).where.not(choice: correct_choices)
+    tree_test_participant_results.where(direct: false, skip: false).where.not(choice: correct_choices)
   end
 
   def percent_navigated_indirectly_to_incorrect

@@ -27,14 +27,10 @@
                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5 text-gray-500">
                       <div class="flex w-full bg-gray-100 overflow-x-auto rounded-md h-8 px-2 py-1">
                         <span class="self-center ml-2 block text-sm leading-5 text-gray-700">
-                          <ul class="flex flex-no-wrap">
-                            <li 
-                            v-for="(node, index) in result[0].split(',')"
-                            :class="{ 'text-green-500 font-bold': index == (result[0].split(',').length - 1) }"
-                            class="flex-none">
-                                {{ node }}<span v-show="index != (result[0].split(',').length - 1)"class="mx-2">&rarr;</span>
-                            </li>         
-                          </ul>
+                          <NavigationHistory
+                          :navigation_history="result[0].split(',')"
+                          :outcome="outcome"
+                          />
                         </span>
                       </div>
                     </td>                             
@@ -57,12 +53,14 @@
 </template>
 
 <script>
+import NavigationHistory from './navigation_history.vue'
 export default {
   props: {
     task: Object,
     task_index: Number,
     outcome: String,
     outcome_summary: Array
-  }
+  },
+  components: { NavigationHistory }
 }
 </script>

@@ -218,8 +218,9 @@
       startTask() {
         this.current_task_start = new Date
         this.current_task_id = this.tasks[this.current_task_index].id
-        this.choice = undefined
+        this.choice = -1
         this.task_skipped = false
+        this.direct = true
         this.navigation_history = [this.tree[0].text]
 
       },

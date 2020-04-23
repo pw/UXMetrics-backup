@@ -23,7 +23,7 @@
             </span> 
           </div>  
           <div class="max-w-4xl mx-auto">
-            <div class="rounded-lg bg-white sm:grid sm:grid-cols-3">
+            <div class="rounded-lg bg-white sm:grid sm:grid-cols-3">  
               <div class="border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r">
                 <p class="text-2xl leading-none font-semibold text-indigo-600">{{ task.percent_success_formatted }}</p>
                 <p class="mt-2 text-md leading-6 font-medium text-gray-500">Success Score</p>
@@ -42,12 +42,12 @@
         <div class="w-full md:w-1/2 self-start">
           <p class="mb-2 text-md leading-6 font-medium text-gray-500">Score Breakdown</p>
           <div class="w-full mb-6 h-8">
-            <div class="h-8 bg-green-500" :style="{ width: task.percent_navigated_directly_to_correct_rounded + '%'}" style="width: %; display: inline-block; float: left;"></div>
-            <div class="h-8 bg-green-300" :style="{ width: task.percent_navigated_indirectly_to_correct_rounded + '%'}" style="display: inline-block; float: left;"></div>   
-            <div class="h-8 bg-red-500" :style="{ width: task.percent_navigated_directly_to_incorrect_rounded + '%'}" style="display: inline-block; float: left;"></div>   
-            <div class="h-8 bg-red-300" :style="{ width: task.percent_navigated_indirectly_to_incorrect_rounded + '%'}" style="display: inline-block; float: left;"></div>             
-            <div class="h-8 bg-gray-500" :style="{ width: task.percent_skipped_directly_rounded + '%'}" style="display: inline-block; float: left;"></div>
-            <div class="h-8 bg-gray-300" :style="{ width: task.percent_skipped_indirectly_rounded + '%'}" style="display: inline-block; float: left;"></div>  
+            <div class="h-8 bg-green-500" :style="{ width: Math.floor(task.percent_navigated_directly_to_correct_rounded) + '%'}" style="width: %; display: inline-block; float: left;"></div>
+            <div class="h-8 bg-green-300" :style="{ width: Math.floor(task.percent_navigated_indirectly_to_correct_rounded) + '%'}" style="display: inline-block; float: left;"></div>   
+            <div class="h-8 bg-red-500" :style="{ width: Math.floor(task.percent_navigated_directly_to_incorrect_rounded) + '%'}" style="display: inline-block; float: left;"></div>   
+            <div class="h-8 bg-red-300" :style="{ width: Math.floor(task.percent_navigated_indirectly_to_incorrect_rounded) + '%'}" style="display: inline-block; float: left;"></div>             
+            <div class="h-8 bg-gray-500" :style="{ width: Math.floor(task.percent_skipped_directly_rounded) + '%'}" style="display: inline-block; float: left;"></div>
+            <div class="h-8 bg-gray-300" :style="{ width: Math.floor(task.percent_skipped_indirectly_rounded) + '%'}" style="display: inline-block; float: left;"></div>  
           </div> 
 
           <div class="flex mb-3">
@@ -65,7 +65,10 @@
             </div>
             <div class="flex-initial">
               <p class="text-sm leading-5 text-gray-500">
-                <a @click="$emit('openTaskOutcomeModal', task.id, 'indirect_correct')">{{ task.percent_navigated_indirectly_to_correct_rounded }}% navigated indirectly</a> to the correct link(s).
+                <span v-if="task.percent_navigated_indirectly_to_correct_rounded === 0">{{ task.percent_navigated_indirectly_to_correct_rounded }}% navigated indirectly to the correct link(s).</span>
+                <span v-else>                
+                  <a @click="$emit('openTaskOutcomeModal', task.id, 'indirect_correct')">{{ task.percent_navigated_indirectly_to_correct_rounded }}% navigated indirectly</a> to the correct link(s).
+                </span>
               </p>
             </div>
           </div>           
@@ -76,7 +79,10 @@
             </div>
             <div class="flex-initial">
               <p class="text-sm leading-5 text-gray-500">
-                <a @click="$emit('openTaskOutcomeModal', task.id, 'direct_incorrect')">{{ task.percent_navigated_directly_to_incorrect_rounded }}% navigated directly</a> to an incorrect link.
+                <span v-if="task.percent_navigated_directly_to_incorrect_rounded === 0">{{ task.percent_navigated_directly_to_incorrect_rounded }}% navigated directly to an incorrect link.</span>
+                <span v-else>
+                  <a @click="$emit('openTaskOutcomeModal', task.id, 'direct_incorrect')">{{ task.percent_navigated_directly_to_incorrect_rounded }}% navigated directly</a> to an incorrect link.
+                </span>
               </p>
             </div>
           </div>                                   
@@ -86,7 +92,10 @@
             </div>
             <div class="flex-initial">
               <p class="text-sm leading-5 text-gray-500">
-                <a @click="$emit('openTaskOutcomeModal', task.id, 'indirect_incorrect')">{{ task.percent_navigated_indirectly_to_incorrect_rounded }}% navigated indirectly</a> to an incorrect link.
+                <span v-if="task.percent_navigated_indirectly_to_incorrect_rounded === 0">{{ task.percent_navigated_indirectly_to_incorrect_rounded }}% navigated indirectly to an incorrect link.</span>
+                <span v-else>
+                  <a @click="$emit('openTaskOutcomeModal', task.id, 'indirect_incorrect')">{{ task.percent_navigated_indirectly_to_incorrect_rounded }}% navigated indirectly</a> to an incorrect link.
+                </span>
               </p>
             </div>
           </div>
@@ -106,7 +115,10 @@
             </div>
             <div class="flex-initial">
               <p class="text-sm leading-5 text-gray-500">
-                <a @click="$emit('openTaskOutcomeModal', task.id, 'indirect_skip')">{{ task.percent_skipped_indirectly_rounded }}% indirectly skipped</a> this task.
+                <span v-if="task.percent_skipped_indirectly_rounded === 0">{{ task.percent_skipped_indirectly_rounded }}% indirectly skipped this task.</span>
+                <span v-else>
+                  <a @click="$emit('openTaskOutcomeModal', task.id, 'indirect_skip')">{{ task.percent_skipped_indirectly_rounded }}% indirectly skipped</a> this task.
+                </span>
               </p>
             </div>
           </div>
