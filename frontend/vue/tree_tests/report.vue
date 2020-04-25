@@ -51,8 +51,10 @@
 
             <div v-show="tab === 'participants'">
               <Participants 
-              :task="tasks"
+              :tasks="tasks"
               :participants="participants"
+              :total_participants="total_participants"
+              :tree_test_id="tree_test.id"
               @open="openParticipantModal"
               />        
             </div>
@@ -100,13 +102,13 @@ export default {
   data () {
     return {
       tree_test: this.data[0],
-      tab: 'tasks',
-      tasks: undefined,      
+      tab: 'tasks',     
       task_modal_open: false,
       modal_task_index: 0,
       modal_outcome: 'indirect_correct',
       task_outcome_summary: [],
       participants: this.data[0].participants,
+      total_participants: this.data[0].total_participants,
       participant_modal_open: false,
       participant: this.data[0].participants[0],
       participant_index: 1
@@ -128,8 +130,8 @@ export default {
         }
       })
     },
-    openParticipantModal(participant_id, index) {
-      this.participant = this.participants[index]
+    openParticipantModal(participant, index) {
+      this.participant = participant
       this.participant_index = index + 1
       this.participant_modal_open = true
     }

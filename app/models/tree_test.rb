@@ -8,7 +8,7 @@ class TreeTest < ApplicationRecord
   accepts_nested_attributes_for :tree_test_tasks, allow_destroy: true
 
   def participants(offset = 0)
-    tree_test_participants.order(:id).limit(10).offset(offset)
+    tree_test_participants.order(:id).limit(1).offset(offset)
   end
 
   def percent_success
@@ -77,7 +77,8 @@ class TreeTest < ApplicationRecord
       hash[:percent_navigated_directly_to_incorrect] = percent_navigated_directly_to_incorrect && (percent_navigated_directly_to_incorrect * 100).round(1)
       hash[:percent_navigated_indirectly_to_incorrect] = percent_navigated_indirectly_to_incorrect && (percent_navigated_indirectly_to_incorrect * 100).round(1)
       hash[:percent_skipped_directly] = percent_skipped_directly && (percent_skipped_directly * 100).round(1)
-      hash[:percent_skipped_indirectly] = percent_skipped_indirectly && (percent_skipped_indirectly * 100).round(1) 
+      hash[:percent_skipped_indirectly] = percent_skipped_indirectly && (percent_skipped_indirectly * 100).round(1)
+      hash[:total_participants] = tree_test_participants.count 
     end
   end
 end

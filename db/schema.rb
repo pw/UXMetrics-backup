@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_18_003421) do
+ActiveRecord::Schema.define(version: 2020_04_25_022958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -158,6 +158,7 @@ ActiveRecord::Schema.define(version: 2020_04_18_003421) do
     t.datetime "updated_at", null: false
     t.string "path"
     t.boolean "direct"
+    t.string "outcome"
     t.index ["tree_test_participant_id"], name: "index_tree_test_participant_results_on_tree_test_participant_id"
     t.index ["tree_test_task_id"], name: "index_tree_test_participant_results_on_tree_test_task_id"
   end
@@ -166,6 +167,7 @@ ActiveRecord::Schema.define(version: 2020_04_18_003421) do
     t.bigint "tree_test_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "participant_id"
     t.index ["tree_test_id"], name: "index_tree_test_participants_on_tree_test_id"
   end
 

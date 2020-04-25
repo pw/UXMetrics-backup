@@ -4,6 +4,13 @@ class TreeTestParticipant < ApplicationRecord
 
   accepts_nested_attributes_for :tree_test_participant_results
 
+  before_create do
+    if tree_test.tree_test_participants.count == 0
+      self.participant_id = 1
+    else
+      self.participant_id = tree_test.tree_test_participants.order(:participant_id).last.participant_id + 1
+    end
+  end
 
   def results_success
     tree_test_participant_results.select{|i| i.success? }

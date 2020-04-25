@@ -2,6 +2,10 @@ class TreeTestParticipantResult < ApplicationRecord
   belongs_to :tree_test_participant
   belongs_to :tree_test_task
 
+  before_create do
+    self.outcome = determine_outcome
+  end
+
   def success?
     correct_choices.include?(choice) && !skip
   end
@@ -27,7 +31,7 @@ class TreeTestParticipantResult < ApplicationRecord
     result    
   end
 
-  def outcome
+  def determine_outcome
     if success? && direct
       return 'direct_correct'
     elsif success? && !direct

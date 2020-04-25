@@ -1,22 +1,24 @@
 <template>
   <div>
     <div class="flex flex-wrap">
-      <select id="tasks" class="block w-full sm:w-1/3 lg:w-1/5 sm:mr-6 transition duration-150 ease-in-out sm:text-sm sm:leading-5 mb-6">
-        <option>All Tasks</option>
+      <select @change="filter" id="tasks" class="block w-full sm:w-1/3 lg:w-1/5 sm:mr-6 transition duration-150 ease-in-out sm:text-sm sm:leading-5 mb-6">
+        <option value="all">All Tasks</option>
         <option
         v-for="(task, index) in tasks"
+        :key="task.id"
+        :value="task.id"
         >
           Task {{ index + 1 }} 
         </option>
       </select>
-      <select id="outcomes" class="block w-full sm:w-1/3 lg:w-1/5 transition duration-150 ease-in-out sm:text-sm sm:leading-5 mb-6">
-        <option>All Outcomes</option>
-        <option>Direct Success</option>
-        <option>Indirect Success</option>
-        <option>Direct Failure</option>
-        <option>Indirect Failure</option>
-        <option>Direct Skip</option>
-        <option>Indirect Skip</option>
+      <select @change="filter" id="outcomes" class="block w-full sm:w-1/3 lg:w-1/5 transition duration-150 ease-in-out sm:text-sm sm:leading-5 mb-6">
+        <option value="all">All Outcomes</option>
+        <option value="direct_correct">Direct Success</option>
+        <option value="indirect_correct">Indirect Success</option>
+        <option value="direct_incorrect">Direct Failure</option>
+        <option value="indirect_correct">Indirect Failure</option>
+        <option value="direct_skip">Direct Skip</option>
+        <option value="indirect_skip">Indirect Skip</option>
       </select>
     </div>  
     <div class="flex flex-col">
@@ -35,10 +37,10 @@
             </thead>
             <tbody>
               <tr 
-              v-for="(participant, index) in participants"
+              v-for="(participant, index) in participants_local"
               :class="{'bg-white': (index % 2 == 0), 'bg-gray-50': (index % 2 != 0)}">
                 <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
-                  <a @click="$emit('open', participant.id, index)">Participant {{ index + 1 }}</a>
+                  <a @click="$emit('open', participant, participant.participant_id)">Participant {{ participant.participant_id }}</a>
                 </td>
                 <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
                   {{ participant.success_score }}%
@@ -51,7 +53,7 @@
                 </td>
                 <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium">
                   <span class="inline-flex rounded-md shadow-sm mr-2">
-                    <button @click="$emit('open', participant.id, index)" type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                    <button @click="$emit('open', participant, participant.participant_id)" type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
                       <svg class="-ml-0.5 mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M10 12C11.1046 12 12 11.1046 12 10C12 8.89543 11.1046 8 10 8C8.89544 8 8.00001 8.89543 8.00001 10C8.00001 11.1046 8.89544 12 10 12Z"/>
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M0.457764 10C1.73202 5.94291 5.52232 3 9.99997 3C14.4776 3 18.2679 5.94288 19.5422 9.99996C18.2679 14.0571 14.4776 17 9.99995 17C5.52232 17 1.73204 14.0571 0.457764 10ZM14 10C14 12.2091 12.2091 14 10 14C7.79087 14 6.00001 12.2091 6.00001 10C6.00001 7.79086 7.79087 6 10 6C12.2091 6 14 7.79086 14 10Z"/>
@@ -79,16 +81,87 @@
               </tr>
             </tbody>
           </table>     
+          <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+            <div class="hidden sm:block">
+              <p class="text-sm leading-5 text-gray-700">
+              Showing
+              <span class="font-medium">{{ offset + 1 }}</span>
+              to
+              <span class="font-medium">{{ offset + participants_local.length }}</span>
+              of
+              <span class="font-medium">{{ total_participants_local }}</span>
+              results
+              </p>
+            </div>
+            <div class="flex-1 flex justify-between sm:justify-end">
+              <a @click="previous" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+              Previous
+              </a>
+              <a @click="next" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+              Next
+              </a>
+            </div>
+          </div>          
       </div>   
     </div>   
   </div>
 </template>
 
 <script>
+import Rails from '@rails/ujs'
 export default {
   props: {
     tasks: Array,
-    participants: Array
+    participants: Array,
+    total_participants: Number,
+    tree_test_id: Number
+  },
+  data () {
+    return {
+      offset: 0,
+      participants_local: this.participants,
+      participants_archive: { 0: this.participants},
+      task_filter: 'all',
+      result_filter: 'all',
+      total_participants_local: this.total_participants
+    }
+  },
+  methods: {
+    next() {
+      this.offset += 1
+      Rails.ajax({
+        url: '/tree_tests/' + this.tree_test_id + '/participants?offset=' + this.offset + '&task=' + this.task_filter + '&result=' + this.result_filter,
+        type: 'GET',
+        success: (response) => {
+          this.participants_local = response['participants']
+          this.participants_archive[this.offset] = response['participants']
+        }
+      })
+    },
+    previous() {
+      this.offset -= 1
+      this.participants_local  = this.participants_archive[this.offset]
+    },
+    filter(element) {
+      var task_select = document.getElementById('tasks')
+      this.task_filter = task_select.options[task_select.selectedIndex].value
+
+    var result_select = document.getElementById('outcomes')
+      this.result_filter = result_select.options[result_select.selectedIndex].value
+
+      if(!((this.task_filter == 'all') ^ (this.result_filter == 'all'))) {
+        Rails.ajax({
+          url: '/tree_tests/' + this.tree_test_id + '/participants?task=' + this.task_filter + '&result=' + this.result_filter + '&offset=0',
+          type: 'GET',
+          success: (response) => {
+            this.offset = 0
+            this.participants_local = response['participants']
+            this.total_participants_local = response['total']
+            this.participants_archive = { 0: response['participants'] }
+          }
+        })
+      }             
+    }
   }
 }
 </script>

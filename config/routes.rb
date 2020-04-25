@@ -61,6 +61,7 @@ Rails.application.routes.draw do
 
   resources :tree_tests do
     get 'report', on: :member
+    get 'participants', on: :member
   end
   resources :tree_test_tasks do
     get 'outcome', on: :member
