@@ -12,6 +12,10 @@ class TreeTestParticipant < ApplicationRecord
     end
   end
 
+  before_save do
+    tree_test_participant_results.update_all(excluded: excluded)
+  end
+
   def results_success
     tree_test_participant_results.select{|i| i.success? }
   end

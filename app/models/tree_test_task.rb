@@ -9,12 +9,16 @@ class TreeTestTask < ApplicationRecord
     tree_test_task_correct_choices.map{|i| i.node}
   end
 
+  def all_results
+    tree_test_participant_results.where(excluded: false)
+  end
+
   def results_success
-    tree_test_participant_results.where(choice: correct_choices)
+    tree_test_participant_results.where(choice: correct_choices, excluded: false)
   end
 
   def percent_success    
-    results_success.count.to_f / tree_test_participant_results.count.to_f
+    results_success.count.to_f / all_results.count.to_f
   end
 
   def percent_success_formatted
@@ -22,7 +26,7 @@ class TreeTestTask < ApplicationRecord
   end
 
   def median_time
-    tree_test_participant_results.sum{|i| i.time}.to_f / tree_test_participant_results.count.to_f
+    all_results.sum{|i| i.time}.to_f / all_results.count.to_f
   end
 
   def median_time_formatted
@@ -39,7 +43,7 @@ class TreeTestTask < ApplicationRecord
   end
 
   def directness
-    tree_test_participant_results.select{|i| i.direct}.count.to_f / tree_test_participant_results.count.to_f
+    all_results.select{|i| i.direct}.count.to_f / all_results.count.to_f
   end
 
   def directness_formatted
@@ -49,11 +53,11 @@ class TreeTestTask < ApplicationRecord
   ### START Direct Correct ###
 
   def results_direct_correct
-    tree_test_participant_results.where(choice: correct_choices, direct: true, skip: false)
+    tree_test_participant_results.where(choice: correct_choices, direct: true, skip: false, excluded: false)
   end
 
   def percent_navigated_directly_to_correct
-    results_direct_correct.count.to_f / tree_test_participant_results.count.to_f
+    results_direct_correct.count.to_f / all_results.count.to_f
   end
 
   def percent_navigated_directly_to_correct_rounded
@@ -65,11 +69,11 @@ class TreeTestTask < ApplicationRecord
   ### START INDIRECT CORRECT ###
 
   def results_indirect_correct
-    tree_test_participant_results.where(choice: correct_choices, direct: false, skip: false)
+    tree_test_participant_results.where(choice: correct_choices, direct: false, skip: false, excluded: false)
   end
 
   def percent_navigated_indirectly_to_correct
-    results_indirect_correct.count.to_f / tree_test_participant_results.count.to_f
+    results_indirect_correct.count.to_f / all_results.count.to_f
   end  
 
   def percent_navigated_indirectly_to_correct_rounded
@@ -92,11 +96,11 @@ class TreeTestTask < ApplicationRecord
   ### START DIRECT INCORRECT
 
   def results_direct_incorrect
-    tree_test_participant_results.where(direct: true, skip: false).where.not(choice: correct_choices)    
+    tree_test_participant_results.where(direct: true, skip: false, excluded: false).where.not(choice: correct_choices)    
   end
 
   def percent_navigated_directly_to_incorrect
-    results_direct_incorrect.count.to_f / tree_test_participant_results.count.to_f
+    results_direct_incorrect.count.to_f / all_results.count.to_f
   end
 
   def percent_navigated_directly_to_incorrect_rounded
@@ -119,11 +123,11 @@ class TreeTestTask < ApplicationRecord
   ### START INDIRECT INCORRECT ###
 
   def results_indirect_incorrect
-    tree_test_participant_results.where(direct: false, skip: false).where.not(choice: correct_choices)
+    tree_test_participant_results.where(direct: false, skip: false, excluded: false).where.not(choice: correct_choices)
   end
 
   def percent_navigated_indirectly_to_incorrect
-    results_indirect_incorrect.count.to_f / tree_test_participant_results.count.to_f
+    results_indirect_incorrect.count.to_f / all_results.count.to_f
   end
 
   def percent_navigated_indirectly_to_incorrect_rounded
@@ -144,11 +148,11 @@ class TreeTestTask < ApplicationRecord
 
   ### START SKIPPED DIRECT ###
   def results_skipped_directly
-    tree_test_participant_results.where(skip: true, direct: true)
+    tree_test_participant_results.where(skip: true, direct: true, excluded: false)
   end
 
   def percent_skipped_directly
-    tree_test_participant_results.select{|i| i.skip && i.direct}.count.to_f / tree_test_participant_results.count.to_f
+    tree_test_participant_results.select{|i| i.skip && i.direct}.count.to_f / all_results.count.to_f
   end
 
   def percent_skipped_directly_rounded
@@ -158,11 +162,11 @@ class TreeTestTask < ApplicationRecord
 
   ### START SKIPPED INDIRECT ###
   def results_skipped_indirect
-    tree_test_participant_results.where(skip: true, direct: false)
+    tree_test_participant_results.where(skip: true, direct: false, excluded: false)
   end
 
   def percent_skipped_indirectly
-    results_skipped_indirect.count.to_f / tree_test_participant_results.count.to_f
+    results_skipped_indirect.count.to_f / all_results.count.to_f
   end
 
   def percent_skipped_indirectly_rounded
