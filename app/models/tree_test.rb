@@ -69,7 +69,7 @@ class TreeTest < ApplicationRecord
     super.tap do |hash|
       hash[:created_at_day] = created_at.strftime('%-m/%-d/%Y')
       hash[:collect_url] = Rails.application.routes.url_helpers.tree_test_collect_url(auth_token: auth_token, host: 'http://localhost:4000')
-      hash[:test_results_count] = tree_test_participants.count
+      hash[:test_results_count] = tree_test_participants.where(excluded: false).count
       hash[:percent_success] = percent_success && (percent_success * 100).round
       hash[:median_time] = median_time_formatted
       hash[:percent_navigated_directly_to_correct] = percent_navigated_directly_to_correct && (percent_navigated_directly_to_correct * 100).round(1)      

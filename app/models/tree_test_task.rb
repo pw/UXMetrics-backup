@@ -152,7 +152,7 @@ class TreeTestTask < ApplicationRecord
   end
 
   def percent_skipped_directly
-    tree_test_participant_results.select{|i| i.skip && i.direct}.count.to_f / all_results.count.to_f
+    results_skipped_directly.count.to_f / all_results.count.to_f
   end
 
   def percent_skipped_directly_rounded
