@@ -45,7 +45,7 @@ class TreeTestTask < ApplicationRecord
   def directness
     all_results.select{|i| i.direct}.count.to_f / all_results.count.to_f
   end
-
+  
   def directness_formatted
     "#{(directness * 100).round}%"
   end

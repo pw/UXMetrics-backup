@@ -12,4 +12,4 @@
   </div>
 <% end %>
 
-<tree-test-participant-new :data="<%= @tree_test.to_json(include: :tree_test_tasks) %>"/>
+<tree-test-participant-new :data="<%= @tree_test.to_json(include: :tree_test_tasks) %>" :preview="<%= params[:preview] ? 'true' : 'false' %>"/>

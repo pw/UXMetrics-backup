@@ -2,10 +2,10 @@ class TreeTest < ApplicationRecord
   belongs_to :user
   has_many :tree_test_tasks, dependent: :destroy
   has_many :tree_test_participants, dependent: :destroy
-  
-  has_secure_token :auth_token
 
   accepts_nested_attributes_for :tree_test_tasks, allow_destroy: true
+
+  before_create :add_auth_token
 
   def participants(offset = 0)
     tree_test_participants.order(:id).limit(1).offset(offset)
@@ -68,7 +68,7 @@ class TreeTest < ApplicationRecord
   def as_json(*)
     super.tap do |hash|
       hash[:created_at_day] = created_at.strftime('%-m/%-d/%Y')
-      hash[:collect_url] = Rails.application.routes.url_helpers.tree_test_collect_url(auth_token: auth_token, host: 'http://localhost:4000')
+      hash[:collect_url] = Rails.application.routes.url_helpers.tree_test_collect_url(auth_token: auth_token, host: ENV['CURRENT_HOST'])
       hash[:test_results_count] = tree_test_participants.where(excluded: false).count
       hash[:percent_success] = percent_success && (percent_success * 100).round
       hash[:median_time] = median_time_formatted
@@ -81,4 +81,13 @@ class TreeTest < ApplicationRecord
       hash[:total_participants] = tree_test_participants.count 
     end
   end
+
+  private 
+    def add_auth_token
+      auth_token = SecureRandom.alphanumeric(ENV['SHORTENER_STARTING_KEY_LENGTH'].to_i)
+      while TreeTest.find_by(auth_token: auth_token)
+        auth_token = SecureRandom.alphanumeric(auth_token.length + 1)
+      end
+      self.auth_token = auth_token
+    end  
 end

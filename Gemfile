@@ -73,6 +73,7 @@ gem 'premailer-rails', '~> 1.10', '>= 1.10.2'
 group :development do
   gem 'letter_opener', '~> 1.6'
   gem 'foreman', '~> 0.85.0'
+  gem 'dotenv-rails'
 end
 
 gem 'stripe', '~> 4.18.1'

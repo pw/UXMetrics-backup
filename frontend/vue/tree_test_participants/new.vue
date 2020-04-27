@@ -145,6 +145,7 @@
   export default {
     props: {
       data: Object,
+      preview: Boolean
     },
     components: { MenuNode },
     data() {
@@ -167,7 +168,11 @@
       }
     },
     created: function() {
-      this.tasks = _.shuffle(this.data.tree_test_tasks)
+      if(this.tree_test.randomize_tree_order) {
+        this.tasks = _.shuffle(this.data.tree_test_tasks)
+      } else {
+        this.tasks = this.data.tree_test_tasks
+      }
     },
     methods: {
       next() {
@@ -238,21 +243,23 @@
         this.results.push(result)
       },
       saveResults() {
-        var data = new FormData
-        this.results.forEach((result, index) => {
-          data.append('tree_test_participant[tree_test_id]', this.tree_test.id)          
-          data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][tree_test_task_id]', result.task_id)
-          data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][time]', result.elapsed_time)          
-          data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][choice]', result.choice)
-          data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][skip]', result.skip)
-          data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][path]', result.path)   
-          data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][direct]', result.direct)                 
-        })
-        Rails.ajax({
-          url: '/tree_test_participants',
-          type: 'POST', 
-          data: data,
-        })
+        if(!this.preview) {
+          var data = new FormData
+          this.results.forEach((result, index) => {
+            data.append('tree_test_participant[tree_test_id]', this.tree_test.id)          
+            data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][tree_test_task_id]', result.task_id)
+            data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][time]', result.elapsed_time)          
+            data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][choice]', result.choice)
+            data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][skip]', result.skip)
+            data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][path]', result.path)   
+            data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][direct]', result.direct)                 
+          })
+          Rails.ajax({
+            url: '/tree_test_participants',
+            type: 'POST', 
+            data: data,
+          })
+        }
       }
     }
   }
