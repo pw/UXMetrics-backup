@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav title="New Tree Test" :step.sync="step" :total_steps="total_steps" @save="save"/>
+    <Nav :title="title" :step.sync="step" :total_steps="total_steps" @save="save"/>
 
     <Step v-show="step == 1" current_step="1" :total_steps="total_steps" instructions="Let's start with the basics. Then we'll create your tree and tasks.">
       <form>
@@ -11,8 +11,8 @@
                   Logo
               </label>
               <div class="mt-2 flex items-center">
-                <span class="rounded-md shadow-sm">
-                  <button type="button" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
+                <span class="rounded-md shadow-sm">                  
+                  <button @click="openUpload" type="button" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
                       Choose File
                   </button>
                 </span>
@@ -106,7 +106,8 @@ export default {
             }]
           }]
         }
-      ],    
+      ], 
+      filestack_client: filestack.init('AuALnf2VzTPqJAkEOLar1z')   
     }
   },
   methods: {
@@ -126,6 +127,9 @@ export default {
           if(element.children !== undefined)
             this.addToArray(element.children, id)
         })
+    },
+    openUpload() {
+      this.filestack_client.picker().open()
     },
     addChild(node) {
       node.children.push({id: this.node_index, children: []})
@@ -181,6 +185,15 @@ export default {
         return false
       } else {
         return true
+      }
+    }
+  },
+  computed: {
+    title: function() {
+      if(this.step == 1) {
+        return 'New Tree Test'
+      } else {
+        return this.name
       }
     }
   },
