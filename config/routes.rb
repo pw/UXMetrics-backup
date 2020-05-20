@@ -63,15 +63,24 @@ Rails.application.routes.draw do
     get 'report', on: :member
     get 'participants', on: :member
   end
+
   resources :tree_test_tasks do
     get 'outcome', on: :member
   end
+
   resources :tree_test_participants
+
+  resources :card_sorts
+  resources :card_sort_groups
 
   get 'collect/:auth_token/thanks', to: 'results#thanks', as: :thanks
   post 'cardtests/:auth_token/results', to: 'results#create'
   post 'collect/:auth_token/results', to: 'results#create'
 
+  get "/cardsorts/*page" => "cardsorts#show"
+  get "/cardsorts", to: "cardsorts#index"
+  get "/cardsort_participants/*page" => "cardsort_participants#show"
+  get "/cardsort_participants", to: "cardsort_participants#index"
 
   get 'collect/:auth_token', to: 'results#new'
 

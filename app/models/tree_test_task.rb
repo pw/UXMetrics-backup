@@ -22,6 +22,7 @@ class TreeTestTask < ApplicationRecord
   end
 
   def percent_success_formatted
+    return nil if all_results.count == 0
     "#{(percent_success * 100).round}%"
   end
 
@@ -30,6 +31,7 @@ class TreeTestTask < ApplicationRecord
   end
 
   def median_time_formatted
+    return nil if all_results.count == 0
     result = ""
 
     if (minutes = median_time.to_i / 60000) != 0
@@ -47,6 +49,7 @@ class TreeTestTask < ApplicationRecord
   end
   
   def directness_formatted
+    return nil if all_results.count == 0
     "#{(directness * 100).round}%"
   end
 

@@ -10,9 +10,9 @@ class TreeTestsController < ApplicationController
     @tree_test = current_user.tree_tests.new(tree_test_params)
     if @tree_test.save
       redirect_to edit_tree_test_path(@tree_test)
-    else
-    end  
-
+    else 
+      head :internal_server_error
+    end
   end
 
   def index
@@ -52,6 +52,6 @@ class TreeTestsController < ApplicationController
   private 
 
   def tree_test_params
-    params.require(:tree_test).permit(:name, :participant_instructions, :thank_you_message, :randomize_tree_order, :tree, :current_tree_index, :randomize_task_order, :allow_skip, :status, tree_test_tasks_attributes: [:instructions, :task_number, :id, :_destroy, tree_test_task_correct_choices_attributes: [:node, :path]])
+    params.require(:tree_test).permit(:name, :logo_key, :participant_instructions, :thank_you_message, :randomize_tree_order, :tree, :current_tree_index, :randomize_task_order, :allow_skip, :status, tree_test_tasks_attributes: [:instructions, :task_number, :id, :_destroy, tree_test_task_correct_choices_attributes: [:node, :path]])
   end
 end  

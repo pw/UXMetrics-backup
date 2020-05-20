@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_26_013933) do
+ActiveRecord::Schema.define(version: 2020_05_20_000620) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,41 @@ ActiveRecord::Schema.define(version: 2020_04_26_013933) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "card_sort_cards", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.bigint "card_sort_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "order"
+    t.boolean "has_description"
+    t.index ["card_sort_id"], name: "index_card_sort_cards_on_card_sort_id"
+  end
+
+  create_table "card_sort_groups", force: :cascade do |t|
+    t.string "name"
+    t.bigint "card_sort_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "order"
+    t.index ["card_sort_id"], name: "index_card_sort_groups_on_card_sort_id"
+  end
+
+  create_table "card_sorts", force: :cascade do |t|
+    t.string "name"
+    t.string "logo_key"
+    t.text "participant_instructions"
+    t.text "thank_you_message"
+    t.string "sort_type"
+    t.boolean "randomize_card_order"
+    t.string "auth_token"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status", default: "draft"
+    t.index ["user_id"], name: "index_card_sorts_on_user_id"
   end
 
   create_table "cards", force: :cascade do |t|
@@ -207,6 +242,7 @@ ActiveRecord::Schema.define(version: 2020_04_26_013933) do
     t.bigint "user_id"
     t.integer "current_tree_index"
     t.string "auth_token"
+    t.string "logo_key"
     t.index ["auth_token"], name: "index_tree_tests_on_auth_token"
     t.index ["user_id"], name: "index_tree_tests_on_user_id"
   end
@@ -250,6 +286,9 @@ ActiveRecord::Schema.define(version: 2020_04_26_013933) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "card_sort_cards", "card_sorts"
+  add_foreign_key "card_sort_groups", "card_sorts"
+  add_foreign_key "card_sorts", "users"
   add_foreign_key "cards", "cardtests"
   add_foreign_key "cardtests", "users"
   add_foreign_key "results", "cardtests"

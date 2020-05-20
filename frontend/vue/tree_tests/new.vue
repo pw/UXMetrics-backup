@@ -2,7 +2,7 @@
   <div>
     <Nav :title="title" :step.sync="step" :total_steps="total_steps" @save="save"/>
 
-    <Step v-show="step == 1" current_step="1" :total_steps="total_steps" instructions="Let's start with the basics. Then we'll create your tree and tasks.">
+    <Step v-show="step == 1" current_step="1" :total_steps="total_steps" instructions="Let's start with the basics. Then we'll create your tree and tasks." :tips_background_styling="'bg-indigo-100'" :tips_border_styling="' border-indigo-500'" :tips_text_styling="'text-indigo-700'">
       <form>
         <div class="grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
             <TextInput id="name" label="Name" placeholder="Add a descriptive name for your tree test..." v-model="name"/>
@@ -11,7 +11,7 @@
                   Logo
               </label>
               <div class="mt-2 flex items-center">
-                <span class="rounded-md shadow-sm">                  
+                <span class="rounded-md shadow-sm">               
                   <button @click="openUpload" type="button" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
                       Choose File
                   </button>
@@ -25,7 +25,7 @@
       </form>
     </Step>
 
-    <Step v-show="step == 2" current_step="2" :total_steps="total_steps" instructions="Now let's set up your tree.">
+    <Step v-show="step == 2" current_step="2" :total_steps="total_steps" instructions="Now let's set up your tree." :tips_styling="'bg-indigo-100 border-indigo-500 text-indigo-700'">
       <div class="mb-6 flex items-center">
         <Slider v-model="randomizeTreeOrder" label="Randomize tree order for participants"/>
       </div>
@@ -68,6 +68,8 @@ import Slider from '../components/slider.vue'
 import TreeNode from '../components/new_tree_test/tree_node.vue'
 import Task from '../components/new_tree_test/task.vue'
 import Rails from '@rails/ujs'
+import * as filestack from 'filestack-js'
+const filestack_client = filestack.init('AuALnf2VzTPqJAkEOLar1z');
 
 export default {
   data () {
@@ -75,6 +77,15 @@ export default {
       step: 1,
       total_steps: 3,
       name: undefined, 
+      logo_key: undefined,
+      filestack_options: {
+        fromSources: ['local_file_system', 'url'],
+        transformations: {
+          crop: true, 
+          rotate: true
+        },
+        accept: ['image/*']        
+      },
       participant_instructions: "Thank you for agreeing to help us, it shouldn't take more than 5 minutes!\n\nDon't worry, there is no right or wrong answer, just do what makes sense to you.",
       thank_you_message: "Thanks for taking the time to help us.\n\nYour contribution is essential in our journey to deliver improvements.",
       randomizeTreeOrder: false,
@@ -106,8 +117,7 @@ export default {
             }]
           }]
         }
-      ], 
-      filestack_client: filestack.init('AuALnf2VzTPqJAkEOLar1z')   
+      ]  
     }
   },
   methods: {
@@ -127,9 +137,6 @@ export default {
           if(element.children !== undefined)
             this.addToArray(element.children, id)
         })
-    },
-    openUpload() {
-      this.filestack_client.picker().open()
     },
     addChild(node) {
       node.children.push({id: this.node_index, children: []})
@@ -153,10 +160,25 @@ export default {
     saveCorrectChoice(task_id, correctChoice) {
       var index = this.tasks.findIndex(i => i.id == task_id)
       this.tasks[index].correctChoice = correctChoice
-    }, 
+    },
+    openUpload() {
+      const options = {
+        fromSources: ['local_file_system', 'url'],
+        transformations: {
+          crop: true, 
+          rotate: true
+        },
+        accept: ['image/*'],
+        onUploadDone: (arg) => {
+          this.logo_key = arg.filesUploaded[0].key
+        }
+      }
+      filestack_client.picker(options).open()
+    },     
     save() {
       var data = new FormData
       data.append('tree_test[name]', this.name)
+      data.append('tree_test[logo_key]', this.logo_key)
       data.append('tree_test[participant_instructions]', this.participant_instructions)
       data.append('tree_test[thank_you_message]', this.thank_you_message)
       data.append('tree_test[randomize_tree_order]', this.randomizeTreeOrder)

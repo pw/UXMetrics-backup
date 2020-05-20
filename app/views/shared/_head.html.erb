@@ -28,8 +28,6 @@ fathom('trackPageview');
 
 <%= render "shared/social_media_meta_tags" %>
 
-<script src="https://static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
-
 <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
 
 <% if controller.controller_name == "results" && controller.action_name == "index" %>

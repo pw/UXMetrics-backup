@@ -12,6 +12,7 @@ class User < ApplicationRecord
 
   has_many :cardtests
   has_many :tree_tests
+  has_many :card_sorts
 
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later

@@ -5,6 +5,7 @@
         <div class="bg-indigo-100 sm:rounded-lg mb-6">
           <div class="px-4 py-5 sm:p-6">
             <div v-show="step == 'intro'">
+              <img :src="tree_test.logo_url">
               <h3 class="text-xl leading-6 font-medium text-gray-900 mb-4">
                 Welcome!
               </h3> 

@@ -12,17 +12,17 @@ class TreeTest < ApplicationRecord
   end
 
   def percent_success
-    return nil if tree_test_participants.count == 0
+    return nil if tree_test_participants.where(excluded: false).count == 0
     tree_test_tasks.sum{|i| i.percent_success} / tree_test_tasks.count.to_f
   end
 
   def median_time
-    return nil if tree_test_participants.count == 0
+    return nil if tree_test_participants.where(excluded: false).count == 0
     tree_test_tasks.sum{|i| i.median_time}
   end
 
   def median_time_formatted
-    return nil if tree_test_participants.count == 0
+    return nil if tree_test_participants.where(excluded: false).count == 0
     result = ""
 
     if (minutes = median_time.to_i / 60000) != 0
@@ -36,32 +36,32 @@ class TreeTest < ApplicationRecord
   end
 
   def percent_navigated_directly_to_correct
-    return nil if tree_test_participants.count == 0
+    return nil if tree_test_participants.where(excluded: false).count == 0
     tree_test_tasks.sum{|i| i.percent_navigated_directly_to_correct} / tree_test_tasks.count.to_f  
   end  
 
   def percent_navigated_indirectly_to_correct
-    return nil if tree_test_participants.count == 0
+    return nil if tree_test_participants.where(excluded: false).count == 0
     tree_test_tasks.sum{|i| i.percent_navigated_indirectly_to_correct} / tree_test_tasks.count.to_f  
   end  
 
   def percent_navigated_directly_to_incorrect
-    return nil if tree_test_participants.count == 0
+    return nil if tree_test_participants.where(excluded: false).count == 0
     tree_test_tasks.sum{|i| i.percent_navigated_directly_to_incorrect} / tree_test_tasks.count.to_f  
   end 
 
   def percent_navigated_indirectly_to_incorrect
-    return nil if tree_test_participants.count == 0
+    return nil if tree_test_participants.where(excluded: false).count == 0
     tree_test_tasks.sum{|i| i.percent_navigated_indirectly_to_incorrect} / tree_test_tasks.count.to_f  
   end  
 
   def percent_skipped_directly
-    return nil if tree_test_participants.count == 0
+    return nil if tree_test_participants.where(excluded: false).count == 0
     tree_test_tasks.sum{|i| i.percent_skipped_directly} / tree_test_tasks.count.to_f  
   end 
 
   def percent_skipped_indirectly
-    return nil if tree_test_participants.count == 0
+    return nil if tree_test_participants.where(excluded: false).count == 0
     tree_test_tasks.sum{|i| i.percent_skipped_indirectly} / tree_test_tasks.count.to_f  
   end
 
@@ -69,6 +69,7 @@ class TreeTest < ApplicationRecord
     super.tap do |hash|
       hash[:created_at_day] = created_at.strftime('%-m/%-d/%Y')
       hash[:collect_url] = Rails.application.routes.url_helpers.tree_test_collect_url(auth_token: auth_token, host: ENV['CURRENT_HOST'])
+      hash[:logo_url] = "https://#{ENV['LOGO_UPLOAD_ENDPOINT']}/#{logo_key}"
       hash[:test_results_count] = tree_test_participants.where(excluded: false).count
       hash[:percent_success] = percent_success && (percent_success * 100).round
       hash[:median_time] = median_time_formatted

@@ -6,7 +6,7 @@
 
     <div x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-5xl sm:w-full max-h-full overflow-y-auto">
       <div class="border-b border-gray-200 px-4 py-5 sm:px-6">
-        <h2 class="text-lg leading-6 font-medium text-gray-900">Participant {{ participant_index }}</h2>
+        <h2 class="text-lg leading-6 font-medium text-gray-900">Participant {{ participant.participant_id }}</h2>
       </div>
       <div class="px-4 py-5 sm:p-6">
         <h3 class="text-md leading-6 font-medium text-gray-900 mb-6">This participant took {{ participant.time_taken }} to complete all tasks and had a {{ participant.success_score }}% overall success score.</h3>

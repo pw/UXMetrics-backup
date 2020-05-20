@@ -61,7 +61,7 @@
                     <div class="relative flex-grow focus-within:z-10">
                       <input id="email" class="form-input block w-full rounded-none rounded-l-md transition ease-in-out duration-150 sm:text-sm sm:leading-5" :value="tree_test.collect_url" />
                     </div>
-                    <button class="-ml-px relative inline-flex items-center px-4 py-2 text-sm leading-5 font-medium rounded-r-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
+                    <button v-clipboard:copy="tree_test.collect_url" class="-ml-px relative inline-flex items-center px-4 py-2 text-sm leading-5 font-medium rounded-r-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
                       <svg class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M9 2C7.89543 2 7 2.89543 7 4V12C7 13.1046 7.89543 14 9 14H15C16.1046 14 17 13.1046 17 12V6.41421C17 5.88378 16.7893 5.37507 16.4142 5L14 2.58579C13.6249 2.21071 13.1162 2 12.5858 2H9Z"/>
                         <path d="M3 8C3 6.89543 3.89543 6 5 6V16H13C13 17.1046 12.1046 18 11 18H5C3.89543 18 3 17.1046 3 16V8Z"/>
@@ -152,7 +152,7 @@
                     </label>
                     <div class="mt-2 flex items-center">
                       <span class="rounded-md shadow-sm">
-                        <button type="button" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
+                        <button @click="openUpload" type="button" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
                             Choose File
                         </button>
                       </span>
@@ -226,6 +226,8 @@ import TextArea from '../components/new_tree_test/text_area.vue'
 import Slider from '../components/slider.vue'
 import TreeNode from '../components/new_tree_test/tree_node.vue'
 import Task from '../components/new_tree_test/task.vue'
+import * as filestack from 'filestack-js'
+const filestack_client = filestack.init('AuALnf2VzTPqJAkEOLar1z');
 
 export default {
   props: {
@@ -237,7 +239,7 @@ export default {
     return {
       tree_test: this.data[0],
       tree: JSON.parse(this.data[0].tree),
-      tab: 'settings',    
+      tab: 'settings'   
     }
   },  
   computed: {
@@ -286,6 +288,24 @@ export default {
         })        
       }      
     }, 
+    openUpload() {
+      if(this.tree_test.status !== 'draft') {
+        return 
+      }
+      const options = {
+        fromSources: ['local_file_system', 'url'],
+        transformations: {
+          crop: true, 
+          rotate: true
+        },
+        accept: ['image/*'],
+        onUploadDone: (arg) => {
+          this.tree_test.logo_key = arg.filesUploaded[0].key
+          this.saveProperty('logo_key')
+        }
+      }
+      filestack_client.picker(options).open()
+    },    
     saveProperty(property) {
       var data = new FormData 
       data.append('tree_test[' + property + ']', this.tree_test[property])
