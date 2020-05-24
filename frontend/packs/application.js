@@ -270,6 +270,7 @@ import TreeTestReport from '../vue/tree_tests/report.vue'
 
 import NewCardSort from '../vue/card_sorts/new.vue'
 import EditCardSort from '../vue/card_sorts/edit.vue'
+import CardSortReport from '../vue/card_sorts/report.vue'
 
 Vue.use(VueNestable)
 Vue.use(TurbolinksAdapter)
@@ -282,6 +283,7 @@ Vue.component('tree-test-report', TreeTestReport)
 
 Vue.component('card-sort-new', NewCardSort)
 Vue.component('card-sort-edit', EditCardSort)
+Vue.component('card-sort-report', CardSortReport)
 
 document.addEventListener('turbolinks:load', function() { 
   const app = new Vue({

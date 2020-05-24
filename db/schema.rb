@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_20_000620) do
+ActiveRecord::Schema.define(version: 2020_05_22_210136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,29 @@ ActiveRecord::Schema.define(version: 2020_05_20_000620) do
     t.datetime "updated_at", null: false
     t.integer "order"
     t.index ["card_sort_id"], name: "index_card_sort_groups_on_card_sort_id"
+  end
+
+  create_table "card_sort_participants", force: :cascade do |t|
+    t.bigint "card_sort_id"
+    t.integer "time"
+    t.boolean "excluded"
+    t.integer "participant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_sort_id"], name: "index_card_sort_participants_on_card_sort_id"
+  end
+
+  create_table "card_sort_sorts", force: :cascade do |t|
+    t.bigint "card_sort_id"
+    t.bigint "card_sort_participant_id"
+    t.bigint "card_sort_group_id"
+    t.bigint "card_sort_card_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_sort_card_id"], name: "index_card_sort_sorts_on_card_sort_card_id"
+    t.index ["card_sort_group_id"], name: "index_card_sort_sorts_on_card_sort_group_id"
+    t.index ["card_sort_id"], name: "index_card_sort_sorts_on_card_sort_id"
+    t.index ["card_sort_participant_id"], name: "index_card_sort_sorts_on_card_sort_participant_id"
   end
 
   create_table "card_sorts", force: :cascade do |t|
@@ -288,6 +311,11 @@ ActiveRecord::Schema.define(version: 2020_05_20_000620) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "card_sort_cards", "card_sorts"
   add_foreign_key "card_sort_groups", "card_sorts"
+  add_foreign_key "card_sort_participants", "card_sorts"
+  add_foreign_key "card_sort_sorts", "card_sort_cards"
+  add_foreign_key "card_sort_sorts", "card_sort_groups"
+  add_foreign_key "card_sort_sorts", "card_sort_participants"
+  add_foreign_key "card_sort_sorts", "card_sorts"
   add_foreign_key "card_sorts", "users"
   add_foreign_key "cards", "cardtests"
   add_foreign_key "cardtests", "users"

@@ -5,7 +5,7 @@
     <Step v-show="step == 1" current_step="1" :total_steps="total_steps" instructions="Let's start with the basics. Then we'll create your cards." :tips_background_styling="'bg-purple-100'" :tips_border_styling="'border-purple-500'" :tips_text_styling="'text-purple-700'">
       <form>
         <div class="grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
-          <TextInput id="name" label="Name" placeholder="Add a descriptive name for your tree test..." v-model="name"/>
+          <TextInput id="name" label="Name" placeholder="Add a descriptive name for your card sort..." v-model="name"/>
           <div class="sm:col-span-4">
             <label for="logo" class="block text-sm leading-5 font-medium text-gray-700">
                 Logo
@@ -139,7 +139,7 @@ export default {
     return {
       step: 1,
       total_steps: 2,
-      name: undefined, 
+      name: '', 
       logo_key: undefined,
       filestack_options: {
         fromSources: ['local_file_system', 'url'],
@@ -249,7 +249,7 @@ export default {
       data.append('card_sort[thank_you_message]', this.thank_you_message)
       data.append('card_sort[sort_type]', this.sort_type)      
       this.groups.forEach((group, index) => {
-        if((group.name === undefined) || (group.name === '')) {          
+        if(group.name === '') {          
         } else {
           data.append('card_sort[card_sort_groups_attributes][' + index + '][name]', group.name) 
           data.append('card_sort[card_sort_groups_attributes][' + index + '][order]', index)   

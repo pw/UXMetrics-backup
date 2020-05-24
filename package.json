@@ -39,6 +39,7 @@
     "vue-nestable": "^2.5.2",
     "vue-template-compiler": "^2.6.11",
     "vue-turbolinks": "^2.1.0",
+    "vuedraggable": "^2.23.2",
     "webpack": "^4.42.0"
   },
   "devDependencies": {

@@ -1,13 +1,13 @@
 <template>
   <div>
-    <Nav :name="tree_test.name" :created_at="tree_test.created_at_day" :id="tree_test.id" />
+    <Nav :name="tree_test.name" :created_at="tree_test.created_at_day" :id="tree_test.id" test_type="tree_test" />
 
     <main class="py-6">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="flex flex-wrap items-end mb-16">
           <div class="w-full md:w-1/3 xl:w-2/5 md:pr-16 self-center">
-            <Sidebar :tree_test="tree_test" />
+            <Sidebar :test="tree_test" middle_box_description="Average success score" :middle_box_value="tree_test.percent_success + '%'" />
           </div>
           <div class="w-full md:w-2/3 xl:w-3/5 self-center">
             <Chart :tree_test="tree_test" />

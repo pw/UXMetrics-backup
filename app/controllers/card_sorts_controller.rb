@@ -21,7 +21,7 @@ class CardSortsController < ApplicationController
   end
 
   def edit
-    @card_sort = current_user.card_sorts.where(id: params[:id]).includes(:card_sort_groups, :card_sort_cardps)
+    @card_sort = current_user.card_sorts.where(id: params[:id]).includes(:card_sort_groups, :card_sort_cards)
   end
 
   def update
@@ -34,9 +34,13 @@ class CardSortsController < ApplicationController
     redirect_to card_sorts_path
   end
 
+  def report
+    @card_sort = current_user.card_sorts.where(id: params[:id])
+  end
+
   private
 
   def card_sort_params
-    params.require(:card_sort).permit(:name, :logo_key, :participant_instructions, :thank_you_message, :sort_type, :status, :randomize_card_order, card_sort_groups_attributes: [:name, :order, :id, :_destroy], card_sort_cards_attributes: [:title, :description, :has_description, :order])
+    params.require(:card_sort).permit(:name, :logo_key, :participant_instructions, :thank_you_message, :sort_type, :status, :randomize_card_order, card_sort_groups_attributes: [:name, :order, :id, :_destroy], card_sort_cards_attributes: [:title, :description, :has_description, :order, :id])
   end
 end

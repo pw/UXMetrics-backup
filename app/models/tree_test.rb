@@ -16,6 +16,11 @@ class TreeTest < ApplicationRecord
     tree_test_tasks.sum{|i| i.percent_success} / tree_test_tasks.count.to_f
   end
 
+  def percent_success_rounded
+    return 0 if tree_test_participants.where(excluded: false).count == 0
+    (percent_success * 100).round
+  end
+
   def median_time
     return nil if tree_test_participants.where(excluded: false).count == 0
     tree_test_tasks.sum{|i| i.median_time}
@@ -71,7 +76,7 @@ class TreeTest < ApplicationRecord
       hash[:collect_url] = Rails.application.routes.url_helpers.tree_test_collect_url(auth_token: auth_token, host: ENV['CURRENT_HOST'])
       hash[:logo_url] = "https://#{ENV['LOGO_UPLOAD_ENDPOINT']}/#{logo_key}"
       hash[:test_results_count] = tree_test_participants.where(excluded: false).count
-      hash[:percent_success] = percent_success && (percent_success * 100).round
+      hash[:percent_success] = percent_success_rounded
       hash[:median_time] = median_time_formatted
       hash[:percent_navigated_directly_to_correct] = percent_navigated_directly_to_correct && (percent_navigated_directly_to_correct * 100).round(1)      
       hash[:percent_navigated_indirectly_to_correct] = percent_navigated_indirectly_to_correct && (percent_navigated_indirectly_to_correct * 100).round(1)      

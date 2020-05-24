@@ -69,9 +69,13 @@ Rails.application.routes.draw do
   end
 
   resources :tree_test_participants
-
-  resources :card_sorts
+  
+  resources :card_sorts do 
+    get 'report', on: :member
+  end
+  
   resources :card_sort_groups
+  resources :card_sort_cards
 
   get 'collect/:auth_token/thanks', to: 'results#thanks', as: :thanks
   post 'cardtests/:auth_token/results', to: 'results#create'
@@ -85,8 +89,10 @@ Rails.application.routes.draw do
   get 'collect/:auth_token', to: 'results#new'
 
   get 'collect_tt/:auth_token', to: 'tree_test_participants#new', as: :tree_test_collect
-
   get 'collect_tt/:auth_token/:preview', to: 'tree_test_participants#new', as: :tree_test_collect_preview
+
+  get 'collect_cs/:auth_token', to: 'card_sort_participants#new', as: :card_sort_collect
+  get 'collect_cs/:auth_token/:preview', to: 'card_sort_participants#new', as: :card_sort_collect_preview  
 
   require 'sidekiq/web'
   authenticate :user, lambda { |u| u.admin? } do
