@@ -1,210 +1,191 @@
 <%= content_for :body_class, "bg-white" %>
-
-<div class="hero">
-  <div class="container hero__content banner flex flex-col-reverse md:flex-row">
-    <div class="flex-none md:w-1/2 w-full pt-24">
-      <h1 class="hero__heading">
-        Card sorts and tree testing made easy
-      </h1>
-      <h2 class="hero__subheading">
-        Make more confident product decisions with time-tested user research and usability validation tools.
-      </h2>
-
-      <div class="mt-8 text-left m-auto w-full">
-        <div class="sm:flex">
-
-            <input type="text" id="email" class="appearance-none w-full px-5 py-3 border border-gray-300 text-base leading-6 rounded-md text-gray-900 bg-white placeholder-gray-500 focus:outline-none focus:shadow-outline focus:border-indigo-300 transition duration-150 ease-in-out sm:max-w-xs" placeholder="Your email address"/>
-
-          <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3 sm:flex-shrink-0">
-            <%= link_to "Get Started", new_user_registration_path, class: "w-full flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md btn--primary focus:outline-none focus:shadow-outline transition duration-150 ease-in-out", id:"homepage-signup"%>
-          </div>
-        </div>
-        <%# link_to "Start Free Trial", new_user_registration_path, class: "btn btn--primary-outline mr-4" %>
-        <p class="block text-sm text-gray-500 mt-3">Set up unlimited sorts and tests for free. Pay only when you publish!</p>
+<div class="my-8 mx-auto max-w-5xl px-4 sm:my-8 sm:px-6 md:my-16 lg:my-16 xl:my-24">
+  <div class="text-center">
+    <h1 class="text-4xl tracking-tight leading-10 font-extrabold text-gray-900 sm:text-5xl sm:leading-none md:text-6xl">
+      Budget-friendly
+      <br>
+      <span class="text-purple-600">user research tools</span>
+    </h1>
+    <p class="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
+      Make information architecture and product decisions with confidence. 
+      Create unlimited studies with as many participants as you want.
+    </p>
+    <div class="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8 mb-4">
+      <div class="rounded-md shadow">
+        <%= link_to "Get Started", new_user_registration_path, class: "w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:shadow-outline-purple transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10", id:"homepage-signup"%>
       </div>
     </div>
-    <div class="flex-1 text-center pt-6 md:w-1/2">
-      <%= image_tag(asset_pack_path("media/images/clip-programming.png"), class:"inline-block", style:"max-width:70%;") %>
-    </div>
-
+    <span class="block text-base text-purple-400">No credit card required</span>
   </div>
-
-  <!-- <div class="hero__image"></div> -->
+</div>
+<div class="bg-purple-100">
+  <div class="container max-w-5xl mx-auto py-8">
+    <div class="flex flex-col md:flex-row">
+      <div class="flex flex-1 w-full md:w-1/2 px-4 mb-8 md:mb-0">
+        <div class="w-full bg-white shadow sm:rounded-lg">
+          <div class="px-4 py-5 sm:p-6">
+            <%= image_tag(asset_pack_path("media/images/cardsorts.svg", class: "")) %>
+            <h3 class="text-xl leading-7 font-semibold text-gray-900">
+              Card Sorting
+            </h3>
+            <div class="mt-2 max-w-xl text-sm leading-5 text-gray-500">
+              <p class="text-base leading-6 text-gray-500">
+                Find out how users group and label things so you can make confident decisions about your content structure.
+              </p>
+            </div>
+            <div class="mt-5">
+              <button type="button" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-purple-700 bg-purple-100 hover:bg-purple-50 focus:outline-none focus:border-purple-300 focus:shadow-outline-purple active:bg-purple-200 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                View Features
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-1 w-full md:w-1/2 px-4">
+        <div class="w-full bg-white shadow sm:rounded-lg">
+          <div class="px-4 py-5 sm:p-6">
+            <%= image_tag(asset_pack_path("media/images/treetests.svg", class: "")) %>
+            <h3 class="text-xl leading-7 font-semibold text-gray-900">
+              Tree Testing
+            </h3>
+            <div class="mt-2 max-w-xl text-sm leading-5 text-gray-500">
+              <p class="text-base leading-6 text-gray-500">
+                Test and validate whether a navigation structure will work for your users.
+              </p>
+            </div>
+            <div class="mt-5">
+              <button type="button" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-purple-700 bg-purple-100 hover:bg-purple-50 focus:outline-none focus:border-purple-300 focus:shadow-outline-purple active:bg-purple-200 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+              View Features
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="py-12 bg-white">
+  <div class="container max-w-5xl mx-auto py-8 sm:py-16 sm:pb-8 px-4">
+    <div class="lg:grid lg:grid-cols-3 lg:gap-8">
+      <div>
+        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
+          <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <div class="mt-5">
+          <h5 class="text-lg leading-6 font-medium text-gray-900">Quick and easy setup</h5>
+          <p class="mt-2 text-base leading-6 text-gray-500">
+            Get your studies set up and ready to publish in minutes. Helpful tips are provided if you need them!
+          </p>
+        </div>
+      </div>
+      <div class="mt-10 lg:mt-0">
+        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
+          <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+            <path d="M5 3V7M3 5H7M6 17V21M4 19H8M13 3L15.2857 9.85714L21 12L15.2857 14.1429L13 21L10.7143 14.1429L5 12L10.7143 9.85714L13 3Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>          
+          </svg>
+        </div>
+        <div class="mt-5">
+          <h5 class="text-lg leading-6 font-medium text-gray-900">Great participant experience</h5>
+          <p class="mt-2 text-base leading-6 text-gray-500">
+            Fully responsive and mobile-friendly so your participants have a great experience on any device.
+          </p>
+        </div>
+      </div>
+      <div class="mt-10 lg:mt-0">
+        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
+          <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+            <path d="M11 3.05493C6.50005 3.55238 3 7.36745 3 12C3 16.9706 7.02944 21 12 21C16.6326 21 20.4476 17.5 20.9451 13H11V3.05493Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20.4878 9H15V3.5123C17.5572 4.41613 19.5839 6.44285 20.4878 9Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="mt-5">
+          <h5 class="text-lg leading-6 font-medium text-gray-900">Simple and clear reports</h5>
+          <p class="mt-2 text-base leading-6 text-gray-500">
+            Make sense of your results quickly with high-level metrics and the ability to dive deeper when needed.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="bg-white">
-  <div class="container max-w-5xl mx-auto py-8 sm:py-32 sm:pb-8 px-4">
-    <p class="hidden mb-2 text-sm font-medium uppercase tracking-wider text-indigo-500">The mission</p>
-    <h3 class="text-4xl leading-tight font-bold text-center">What can you do with UXOps?</h3>
+  <div class="container max-w-5xl mx-auto py-8 sm:py-16 sm:pb-8 px-4">
+    <p class="mb-2 text-sm font-medium uppercase tracking-wider text-purple-600 text-center">Unlock New Insights</p>
+    <h3 class="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10 text-center">Time-tested UX research methodologies</h3>
 
 
     <div class="flex flex-col-reverse mt-8 md:w-3/4 w-full m-auto md:flex-row">
-      <div class="flex-1 bg-indigo-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+      <div class="flex-1 bg-purple-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-400 mr-1" aria-hidden="true"></i>
 
-        <h4 class="mb-0 font-bold text-sm inline">Validate navigation hierarchy</h4>
+        <h4 class="mb-0 text-sm leading-6 font-bold text-gray-900 inline">Validate navigation hierarchy</h4>
       </div>
-      <div class="flex-1 bg-indigo-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+      <div class="flex-1 bg-purple-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-400 mr-1" aria-hidden="true"></i>
 
-        <h4 class="mb-0 font-bold text-sm inline">Find words and phrases that speak to users</h4>
-      </div>
-    </div>
-    <div class="flex flex-col-reverse md:w-3/4 w-full m-auto md:flex-row">
-      <div class="flex-1 bg-indigo-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
-
-        <h4 class="mb-0 font-bold text-sm inline">Organize product categories</h4>
-      </div>
-      <div class="flex-1 bg-indigo-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
-
-        <h4 class="mb-0 font-bold text-sm inline">Organize knowledge base content</h4>
+        <h4 class="mb-0 mb-0 text-sm leading-6 font-bold text-gray-900 inline inline">Find words and phrases that speak to users</h4>
       </div>
     </div>
     <div class="flex flex-col-reverse md:w-3/4 w-full m-auto md:flex-row">
-      <div class="flex-1 bg-indigo-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+      <div class="flex-1 bg-purple-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-400 mr-1" aria-hidden="true"></i>
 
-        <h4 class="mb-0 font-bold text-sm inline">Prioritize projects within initiatives</h4>
+        <h4 class="mb-0 mb-0 text-sm leading-6 font-bold text-gray-900 inline inline">Organize product categories</h4>
       </div>
-      <div class="flex-1 bg-indigo-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+      <div class="flex-1 bg-purple-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-400 mr-1" aria-hidden="true"></i>
 
-        <h4 class="mb-0 font-bold text-sm inline">Organize website content</h4>
-      </div>
-    </div>
-    <div class="flex flex-col-reverse md:w-3/4 w-full m-auto md:flex-row">
-      <div class="flex-1 bg-indigo-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
-
-        <h4 class="mb-0 font-bold text-sm inline">Prioritize new features</h4>
-      </div>
-      <div class="flex-1 bg-indigo-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
-
-        <h4 class="mb-0 font-bold text-sm inline">Find key content for your landing page</h4>
+        <h4 class="mb-0 mb-0 text-sm leading-6 font-bold text-gray-900 inline inline">Organize knowledge base content</h4>
       </div>
     </div>
     <div class="flex flex-col-reverse md:w-3/4 w-full m-auto md:flex-row">
-      <div class="flex-1 bg-indigo-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+      <div class="flex-1 bg-purple-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-400 mr-1" aria-hidden="true"></i>
 
-        <h4 class="mb-0 font-bold text-sm inline">Find the tasks most important for your users</h4>
+        <h4 class="mb-0 mb-0 text-sm leading-6 font-bold text-gray-900 inline inline">Prioritize projects within initiatives</h4>
       </div>
-      <div class="flex-1 bg-indigo-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-500 mr-1" aria-hidden="true"></i>
+      <div class="flex-1 bg-purple-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-400 mr-1" aria-hidden="true"></i>
 
-        <h4 class="mb-0 font-bold text-sm inline">Learn differences between user groups</h4>
-      </div>
-    </div>
-
-
-  </div>
-</div>
-
-
-<div class="bg-white container max-w-5xl mx-auto flex flex-wrap mb-24 mt-24 px-4 hidden">
-
-<p class="mb-2 text-sm font-medium uppercase tracking-wider text-indigo-500">Praised by pros</p>
-  <div class="testimonials">
-
-  <div class="testimonial">
-    <p class="testimonial__content">
-    “Finally an easy to use alternative to Omnisort!”
-    </p>
-
-    <div class="testimonial__author">
-      <img alt="avatar of this author" class="testimonial__author-avatar" src="https://images.unsplash.com/photo-1558898479-33c0057a5d12?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=1.5&w=140&h=140&q=80" />
-
-      <div class="ml-3">
-        <p class="testimonial__author-name">Paul Boag</p>
-
-        <a class="testimonial__author-link" href="https://twitter.com">@boagworks</a>
+        <h4 class="mb-0 mb-0 text-sm leading-6 font-bold text-gray-900 inline inline">Organize website content</h4>
       </div>
     </div>
-  </div>
+    <div class="flex flex-col-reverse md:w-3/4 w-full m-auto md:flex-row">
+      <div class="flex-1 bg-purple-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-400 mr-1" aria-hidden="true"></i>
 
-  <div class="testimonial">
-    <p class="testimonial__content">
-    “Semiotics paleo tofu tacos viral shoreditch ennui swag. Retro pok pok hammock woke distillery.”
-    </p>
+        <h4 class="mb-0 mb-0 text-sm leading-6 font-bold text-gray-900 inline inline">Prioritize new features</h4>
+      </div>
+      <div class="flex-1 bg-purple-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-400 mr-1" aria-hidden="true"></i>
 
-    <div class="testimonial__author">
-      <img alt="avatar of this author" class="testimonial__author-avatar" src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=1.5&w=140&h=140&q=80" />
-
-      <div class="ml-3">
-        <p class="testimonial__author-name">Mauricio Summerlin</p>
-
-        <a class="testimonial__author-link" href="https://twitter.com">@mauricio</a>
+        <h4 class="mb-0 mb-0 text-sm leading-6 font-bold text-gray-900 inline inline">Find key content for your landing page</h4>
       </div>
     </div>
-  </div>
+    <div class="flex flex-col-reverse md:w-3/4 w-full m-auto md:flex-row">
+      <div class="flex-1 bg-purple-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-400 mr-1" aria-hidden="true"></i>
 
-  <div class="testimonial">
-    <p class="testimonial__content">
-    “Twee cardigan hoodie drinking vinegar, lo-fi mustache bushwick hell of brooklyn etsy.”
-    </p>
-
-    <div class="testimonial__author">
-      <img alt="avatar of this author" class="testimonial__author-avatar" src="https://images.unsplash.com/photo-1500522144261-ea64433bbe27?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=1.5&w=140&h=140&q=80" />
-
-      <div class="ml-3">
-        <p class="testimonial__author-name">Alita Filkey</p>
-
-        <a class="testimonial__author-link" href="https://twitter.com">@alita_f</a>
+        <h4 class="mb-0 mb-0 text-sm leading-6 font-bold text-gray-900 inline inline">Find the tasks most important for your users</h4>
       </div>
-    </div>
-  </div>
-  </div>
+      <div class="flex-1 bg-purple-100 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-green-400 mr-1" aria-hidden="true"></i>
 
-
-
-</div>
-
-
-<div class="bg-white hidden">
-  <div class="container max-w-5xl mx-auto flex flex-wrap px-4">
-    <div class="w-full sm:w-1/3 pr-8 py-16 sm:py-16">
-      <span class="flex items-center justify-center w-12 h-12 mb-4 text-2xl font-bold text-gray-500 bg-indigo-500 rounded-full">1</span>
-      <h2 class="mb-2 text-2xl font-semibold">Create cardtest</h2>
-      <p class="text-lg text-gray-700">Add topics that you want people to categorize and label. These can be key pieces of content, navigation elements or product categories.</p>
-    </div>
-
-    <div class="w-full sm:w-1/3 pr-8 py-16 sm:py-16">
-      <span class="flex items-center justify-center w-12 h-12 mb-4 text-2xl font-bold text-gray-500 bg-purple-500 rounded-full">2</span>
-      <h2 class="mb-2 text-2xl font-semibold">Share your test</h2>
-      <p class="text-lg text-gray-700">Invite your users to complete the test by sending out a shareable link. Ideally you want at least 15 responses to notice correlations.</p>
-    </div>
-
-    <div class="w-full sm:w-1/3 py-8 sm:py-16">
-      <span class="flex items-center justify-center w-12 h-12 mb-4 text-2xl font-bold text-gray-500 bg-indigo-500 rounded-full">3</span>
-      <h2 class="mb-2 text-2xl font-semibold">Discover patterns</h2>
-      <p class="text-lg text-gray-700">Analyse your results using our report, pick up patterns on how users group and label your cards.</p>
+        <h4 class="mb-0 mb-0 text-sm leading-6 font-bold text-gray-900 inline inline">Learn differences between user groups</h4>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="bg-white" style="">
+<div class="bg-white">
   <div class="container max-w-5xl mx-auto py-8 sm:py-32 sm:pt-16 px-4">
-    <p class="mb-2 text-sm font-medium uppercase tracking-wider text-indigo-400 text-center">Who is <%= Rails.configuration.application_name %> for?</p>
-    <!-- <h3 class="mb-12 text-4xl leading-tight font-semibold text-gray-100 text-center">Getting better at understanding humans</h3> -->
-    <h3 class="hidden mb-12 text-4xl leading-tight font-semibold text-gray-100 text-center">UXOps lets you run card sorting tests<span class="hidden" style="color:#27C366">*</span><br/> and analyze results</h3>
+    <p class="mb-2 text-sm font-medium uppercase tracking-wider text-purple-600 text-center">Aha moments all around</p>
+    <h3 class="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10 text-center">Insights for the whole product team</h3>
 
-    <!-- <div class="columns flex flex-wrap mb-6 mt-24">
-
-      <div class="w-full md:w-1/2">
-
-        <h4 class="panel__heading panel__heading--dark">Together</h4>
-        <p class="panel__content">Keffiyeh locavore street art chartreuse fam pop-up. Etsy brooklyn jianbing cardigan. Intelligentsia cray marfa normcore.</p>
-
-      </div>
-      <div class="w-full md:w-1/2 px-12">
-        <%# image_tag(asset_pack_path("media/images/Create Test.png")) %>
-      </div>
-
-    </div> -->
     <div class="columns flex flex-wrap mb-6 mt-24 items-center">
-
 
       <div class="w-full md:hidden md:px-0 text-center mb-16">
         <%# image_tag(asset_pack_path("media/images/Test.png")) %>
@@ -213,21 +194,16 @@
 
       <div class="w-full md:w-1/2 pb-8 px-6">
 
-        <h4 class="panel__heading panel__heading--light mb-6">Designers</h4>
-        <p class="panel__content">Make confident design decisions by relying on users to understand how they expect to see your content.<br/><br/> UXOps lets you gather insight on how pieces of content relate to each other and which of them are most important for your users, ultimately helping you deliver a design driven by users.</p>
-
-
+        <h4 class="text-xl leading-7 font-semibold text-gray-900 mb-6">Designers</h4>
+        <p class="text-base leading-6 text-gray-500">Make confident design decisions by relying on users to understand how they expect to see your content.<br/><br/> UXOps lets you gather insight on how pieces of content relate to each other and which of them are most important for your users, ultimately helping you deliver a design driven by users.</p>
       </div>
 
       <div class="w-full md:w-1/2 md:px-0 hidden md:block text-center">
         <%# image_tag(asset_pack_path("media/images/Test.png")) %>
         <%= image_tag(asset_pack_path("media/images/clip-list-is-empty.png"), style:"max-width:70%;", class:"inline-block") %>
       </div>
-
-
     </div>
     <div class="columns flex flex-wrap mb-6 mt-24 items-center">
-
 
       <div class="w-full md:w-1/2 md:px-0 text-center mb-16">
         <%= image_tag(asset_pack_path("media/images/clip-5.png"), class:"md:mt-8 inline-block", style:"max-width:70%;") %>
@@ -235,14 +211,10 @@
       </div>
       <div class="w-full md:w-1/2 md:block px-6">
 
-        <h4 class="panel__heading panel__heading--light mb-6">Information Architects</h4>
-        <p class="panel__content">Find out how users classify the information in your domain and use the insight to create usable website structures. <br/><br/>UXOps also helps you identify the words and phrases people associate with your content and how long they take to complete the test.</p>
+        <h4 class="text-xl leading-7 font-semibold text-gray-900 mb-6">Information Architects</h4>
+        <p class="text-base leading-6 text-gray-500">Find out how users classify the information in your domain and use the insight to create usable website structures. <br/><br/>UXOps also helps you identify the words and phrases people associate with your content and how long they take to complete the test.</p>
 
       </div>
-
-
-
-
     </div>
     <div class="columns flex flex-wrap mb-6 mt-24 items-center">
 
@@ -253,47 +225,21 @@
 
       <div class="w-full md:w-1/2 pb-8 px-6">
 
-        <h4 class="panel__heading panel__heading--light mb-6">Product Managers</h4>
-        <p class="panel__content">Make data-informed decisions when prioritizing features by asking users to rank them by importance. <br/><br/>Find out what the most important stories are for your MVP and drive consensus within your team by running a card sort for user story mapping.</p>
+        <h4 class="text-xl leading-7 font-semibold text-gray-900 mb-6">Product Managers</h4>
+        <p class="text-base leading-6 text-gray-500">Make data-informed decisions when prioritizing features by asking users to rank them by importance. <br/><br/>Find out what the most important stories are for your MVP and drive consensus within your team by running a card sort for user story mapping.</p>
 
       </div>
       <div class="w-full md:w-1/2 md:px-0 hidden md:block text-center">
         <%= image_tag(asset_pack_path("media/images/clip-education.png"), style:"max-width:70%;", class:"inline-block") %>
         <%# image_tag(asset_pack_path("media/images/Report Table.png")) %>
       </div>
-
     </div>
-    <div class="columns flex flex-wrap mb-6 mt-24 items-center hidden">
-
-      <div class="w-full md:hidden pb-8">
-
-        <h4 class="panel__heading panel__heading--dark">Visual connections</h4>
-        <p class="panel__content">Easily identify the most common groups and connections made.</p>
-
-      </div>
-      <div class="w-full md:w-3/4 md:px-32">
-        <%= image_tag(asset_pack_path("media/images/Report Sankey.png")) %>
-      </div>
-      <div class="w-full hidden md:w-1/4 md:block">
-
-        <h4 class="panel__heading panel__heading--dark">Visual connections</h4>
-        <p class="panel__content">Easily identify the most common groups and connections made.</p>
-
-      </div>
-
-
-
-
-    </div>
-
   </div>
 </div>
 
-
-
-<div>
-  <p class="mb-2 text-sm font-medium uppercase tracking-wider text-indigo-400 text-center">Join more than 500 people from businesses like</p>
-  <div class="bg-white container max-w-5xl mx-auto flex flex-wrap px-2 mb-6 mt-6 clients px-4">
+<div class="bg-white">
+  <p class="mb-8 text-sm font-medium uppercase tracking-wider text-purple-600 text-center">Join the user research party</p>
+  <div class="bg-white container max-w-5xl mx-auto flex flex-wrap px-2 mb-8 clients px-4">
 
     <div class="flex-1 text-center" style="line-height: 100px;">
       <%= image_tag(asset_pack_path("media/images/disney.png"), style: "display:inline-block; max-width:60%;") %>
@@ -312,91 +258,17 @@
     </div>
   </div>
 </div>
-<div class="hidden bg-white">
-  <div class="container max-w-5xl mx-auto py-8 sm:py-32 px-4">
-    <p class="mb-2 text-sm font-medium uppercase tracking-wider text-indigo-500">1,234 customers (and counting) can't be wrong</p>
-    <h3 class="text-4xl leading-tight font-medium">People <span class="text-red-400">♥</span> <%= Rails.configuration.application_name %></h3>
 
-    <div class="testimonials">
-      <div class="testimonial">
-        <p class="testimonial__content">
-        “Selfies direct trade swag next level, pickled photo booth vexillologist kombucha subway tile ennui. Semiotics cardigan tote bag, banjo readymade man bun iceland VHS ugh brunch sriracha pitchfork.”
-        </p>
-
-        <div class="testimonial__author">
-          <%= image_tag "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=d5849d81af587a09dbcf3f11f6fa122f", alt: "avatar of this author", class: "testimonial__author-avatar" %>
-          <div class="ml-3">
-            <p class="testimonial__author-name">Jae Gwozdz</p>
-            <%= link_to "@jaegwozdz", "https://twitter.com", class: "testimonial__author-link" %>
-          </div>
-        </div>
-      </div>
-
-      <div class="testimonial">
-        <p class="testimonial__content">
-        “Semiotics paleo tofu tacos viral shoreditch ennui swag. Retro pok pok hammock woke distillery mumblecore air plant migas paleo waistcoat. Humblebrag fam chambray next level.”
-        </p>
-
-        <div class="testimonial__author">
-          <%= image_tag "https://images.unsplash.com/photo-1476900966873-ab290e38e3f7?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=fe0976a79ece0ee8effca4cab4527ae2", alt: "avatar of this author", class: "testimonial__author-avatar" %>
-          <div class="ml-3">
-            <p class="testimonial__author-name">Mauricio Summerlin</p>
-            <%= link_to "@mauricio", "https://twitter.com", class: "testimonial__author-link" %>
-          </div>
-        </div>
-      </div>
-
-      <div class="testimonial">
-        <p class="testimonial__content">
-        “Twee cardigan hoodie drinking vinegar, lo-fi mustache bushwick hell of brooklyn etsy. Polaroid food truck cloud bread art party, drinking vinegar normcore literally vape migas forage yr +1 asymmetrical coloring book bitters.”
-        </p>
-
-        <div class="testimonial__author">
-          <%= image_tag "https://images.unsplash.com/photo-1498529381350-89c2e7ccc430?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=f6143f1f2142185de1e1e3d955f729ec", alt: "avatar of this author", class: "testimonial__author-avatar" %>
-          <div class="ml-3">
-            <p class="testimonial__author-name">Alita Filkey</p>
-            <%= link_to "@alita_f", "https://twitter.com", class: "testimonial__author-link" %>
-          </div>
-        </div>
+<div class="bg-purple-100">
+  <div class="max-w-screen-xl mx-auto text-center py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 mb-8">
+      Set up your first study
+    </h2>
+    <div class="flex justify-center mb-4">
+      <div class="inline-flex rounded-md shadow">
+        <%= link_to "Get Started", new_user_registration_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
       </div>
     </div>
-  </div>
-</div>
-
-<div class="bg-white">
-  <div class="container max-w-5xl mx-auto px-4 pt-24 text-center pb-12">
-    <h2 class="mb-2 text-2xl font-semibold text-center pb-8">Card sorting simplified</h2>
-    <div class="flex flex-wrap">
-      <div class="flex-1 text-center">
-        <%= image_tag(asset_pack_path("media/images/setup.png"), class:"inline-block", style:"max-width:232px;") %>
-        <h4 style="color:#718096;">Quick setup</h4>
-      </div>
-      <div class="flex-1 text-center">
-        <%= image_tag(asset_pack_path("media/images/branding.png"), class:"inline-block", style:"max-width:232px;") %>
-        <h4 style="color:#718096;">Custom branding</h4>
-      </div>
-      <div class="flex-1 text-center">
-        <%= image_tag(asset_pack_path("media/images/reporting.png"), class:"inline-block", style:"max-width:232px;") %>
-        <h4 style="color:#718096;">Simple reporting</h4>
-      </div>
-      <div class="flex-1 text-center">
-        <%= image_tag(asset_pack_path("media/images/download.png"), class:"inline-block", style:"max-width:232px;") %>
-        <h4 style="color:#718096;">Downloadable results</h4>
-      </div>
-    </div>
-    <a href="/features" class="block underline pt-4 shadow-none" style="color:#03B0FA">View all features <i class="hidden fa fa-arrow-right text-sm" aria-hidden="true" style="color:#03B0FA"></i></a>
-
-  </div>
-</div>
-
-<div class="bg-indigo-100" style="">
-  <div class="container max-w-5xl mx-auto text-center py-8 sm:py-32 px-4">
-    <h3 class="mb-2 text-4xl leading-tight font-bold text-gray-800">Start testing today</h3>
-    <p class="text-lg text-indigo-400">Understand your users and create something they love.</p>
-    <div class="mt-8">
-      <%= link_to "Get started", new_user_registration_path, class: "nav__item btn btn--primary" %>
-      <%# link_to "Start Free Trial", new_user_registration_path, class: "btn btn--primary-outline mr-4" %>
-      <span class="hidden block text-xs text-indigo-400 mt-2">2 month early access for the first 1,000 users &middot; No credit card</span>
-    </div>
+    <span class="block text-base text-purple-400">No credit card required</span>
   </div>
 </div>

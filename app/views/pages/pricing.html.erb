@@ -1,154 +1,271 @@
 <%= content_for :body_class, "bg-white" %>
 
-<div class="mt-16 max-w-2xl mx-auto">
-  <h1 class="text-3xl mb-4 text-center">Simple pricing.</h1>
-  <p class="mb-8 text-lg text-gray-700 text-center px-4">Get started with a <strong>7 day free trial</strong> - no credit card required.</p>
-
-  <div data-controller="sjabloon--plan-switch" data-sjabloon--plan-switch-interval="month">
-
-
-    <div class="flex mb-4 justify-center flex-col sm:flex-row">
-
-
-      <% if @plans.each do |plan| %>
-
-
-        <div class="flex flex-col h-full w-full sm:w-1/2 <% if plan.nickname == "Yearly" %>mr-4<% end %> p-4 bg-gray-200 rounded sm:mt-0 mt-4">
-          <header class="py-4 text-left px-4 mb-4 text-left">
-            <h2 class="mb-0 text-base font-bold text-gray-700 mb-2 hidden">UXOps <%= plan.nickname %></h2>
-
-            <% if plan.nickname == "Yearly" %>
-              <div class="block bg-green-400 text-white font-bold text-sm p-2 rounded px-3 mx-auto -mt-8 rounded-t-none absolute" style=" width:120px; text-align:center;">BEST VALUE</div>
-            <% end %>
-
-            <h3 class="flex items-center mt-8">
-              <span class="inline-block mr-0 text-5xl font-extrabold text-center">$</span>
-              <% if plan.nickname == "Yearly" %>
-                <span class="text-5xl font-extrabold" data-target="sjabloon--plan-switch.amount" data-plan-switch-month-amount="<%= plan.price %>" data-plan-switch-year-amount="<%= annual_price_for(plan.id) %>">8</span>
-
-              <% else %>
-                <span class="text-5xl font-extrabold" data-target="sjabloon--plan-switch.amount" data-plan-switch-month-amount="<%= plan.price %>" data-plan-switch-year-amount="<%= annual_price_for(plan.id) %>"><%= plan.price %></span>
-
-              <% end %>
-            </h3>
-            <% if plan.nickname == "Yearly" %>
-              <span class="block text-base text-gray-500 -mt-2" data-target="sjabloon--plan-switch.interval">monthly - <strong>$<%= plan.price %> billed annually</strong></span>
-            <% else %>
-              <span class="block text-base text-gray-500 -mt-2" data-target="sjabloon--plan-switch.interval"><%= plan.interval %>ly</span>
-            <% end %>
-          </header>
-          <ul class="list-reset">
-            <% plan.features.each do |key, value| %>
-              <li class="flex items-center mb-2 text-xl text-gray-700">
-                <%= embedded_svg("checkmark.svg", class: "inline-block flex-shrink-0 w-8 h-8 mr-4 p-2 bg-green-200 text-green-700 fill-current rounded-full") %>
-                <%= plan_item(key, value) %>
-              </li>
-            <% end %>
-          </ul>
-          <% if plan.nickname == "Yearly" %>
-            <!-- <ul class="list-reset">
-              <li class="flex items-center text-sm font-bold text-gray-700 bg-gray-200 px-2 py-1 rounded">
-                <%= embedded_svg("checkmark.svg", class: "inline-block flex-shrink-0 w-8 h-8 mr-1 p-2 text-green-500 fill-current rounded-full") %>
-                All features
-              </li>
-              <li class="flex items-center text-sm font-bold text-gray-700 bg-gray-200 px-2 py-1 rounded">
-                <%= embedded_svg("checkmark.svg", class: "inline-block flex-shrink-0 w-8 h-8 mr-1 p-2 text-green-500 fill-current rounded-full") %>
-                Unlimited tests
-              </li>
-              <li class="flex items-center text-sm font-bold text-gray-700 bg-gray-200 px-2 py-1 rounded">
-                <%= embedded_svg("checkmark.svg", class: "inline-block flex-shrink-0 w-8 h-8 mr-1 p-2 text-green-500 fill-current rounded-full") %>
-                Unlimited results
-              </li>
-              <li class="flex items-center text-sm font-bold text-gray-700 bg-gray-200 px-2 py-1 rounded">
-                <%= embedded_svg("checkmark.svg", class: "inline-block flex-shrink-0 w-8 h-8 mr-1 p-2 text-green-500 fill-current rounded-full") %>
-                Custom logo
-              </li>
-              <li class="flex items-center text-sm font-bold text-gray-700 bg-gray-200 px-2 py-1 rounded">
-                <%= embedded_svg("checkmark.svg", class: "inline-block flex-shrink-0 w-8 h-8 mr-1 p-2 text-green-500 fill-current rounded-full") %>
-                Excellent support
-              </li>
-            </ul> -->
-          <% else %>
-
-          <!-- <ul class="list-reset">
-            <li class="flex items-center text-sm font-bold text-gray-700 bg-gray-200 px-2 py-1 rounded">
-              <%= embedded_svg("checkmark.svg", class: "inline-block flex-shrink-0 w-8 h-8 mr-1 p-2 text-green-500 fill-current rounded-full") %>
-              All features
-            </li>
-            <li class="flex items-center text-sm font-bold text-gray-700 bg-gray-200 px-2 py-1 rounded">
-              <%= embedded_svg("checkmark.svg", class: "inline-block flex-shrink-0 w-8 h-8 mr-1 p-2 text-green-500 fill-current rounded-full") %>
-              5 tests / month
-            </li>
-            <li class="flex items-center text-sm font-bold text-gray-700 bg-gray-200 px-2 py-1 rounded">
-              <%= embedded_svg("checkmark.svg", class: "inline-block flex-shrink-0 w-8 h-8 mr-1 p-2 text-green-500 fill-current rounded-full") %>
-              Unlimited results
-            </li>
-            <li class="flex items-center text-sm font-bold text-gray-700 bg-gray-200 px-2 py-1 rounded">
-              <%= embedded_svg("checkmark.svg", class: "inline-block flex-shrink-0 w-8 h-8 mr-1 p-2 text-green-500 fill-current rounded-full") %>
-              Custom logo
-            </li>
-            <li class="flex items-center text-sm font-bold text-gray-700 bg-gray-200 px-2 py-1 rounded">
-              <%= embedded_svg("checkmark.svg", class: "inline-block flex-shrink-0 w-8 h-8 mr-1 p-2 text-green-500 fill-current rounded-full") %>
-              Excellent support
-            </li>
-          </ul> -->
-
-          <% end %>
-
-          <div class="mt-4">
-            <%= plan_button(plan.id) %>
-
-
-            <%= tag.span "Starts with a #{plan.trial_period_days}-day trial period", class: "block mt-1 text-sm text-center text-gray-700" if plan.has_trial_period? %>
+<div class="bg-purple-100">
+  <div class="pt-12 sm:pt-16 lg:pt-24">
+    <div class="max-w-screen-xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto lg:max-w-none">
+        <h2 class="mb-2 text-sm font-medium uppercase tracking-wider text-purple-600 text-center">
+          Pricing
+        </h2>
+        <p class="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10 text-center">
+          Powerful and <span class="underline">affordable</span> user research tools
+        </p>
+        <p class="mt-2 text-xl leading-7 text-gray-500">
+          No credit card required, choose a plan only when you're ready to publish!
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="mt-8 pb-6 bg-gray-50 sm:mt-12 sm:pb-8 lg:mt-16 lg:pb-12">
+    <div class="relative">
+      <div class="absolute inset-0 h-3/4 bg-purple-100"></div>
+      <div class="relative z-10 max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md mx-auto lg:max-w-5xl lg:grid lg:grid-cols-2 lg:gap-5">
+          <div class="rounded-lg shadow-lg overflow-hidden">
+            <div class="px-6 py-8 bg-white sm:p-10 sm:pb-6">
+              <div>
+                <span class="inline-flex px-4 py-1 rounded-full text-sm leading-5 font-semibold tracking-wide uppercase bg-purple-100 text-purple-600">
+                  Monthly
+                </span>
+              </div>
+              <div class="mt-4 flex items-baseline text-6xl leading-none font-extrabold">
+                $49
+                <span class="ml-1 text-2xl leading-8 font-medium text-gray-500">
+                  /mo
+                </span>
+              </div>
+              <p class="mt-5 text-lg leading-7 text-gray-500">
+                Maximum flexibility for occasional UX research. Simply pause your subscription between projects.
+              </p>
+            </div>
+            <div class="px-6 pt-6 pb-8 bg-gray-50 sm:p-10 sm:pt-6">
+              <ul>
+                <li class="flex items-start">
+                  <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-green-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                  </div>
+                  <p class="ml-3 text-base leading-6 text-gray-700">
+                    <strong>Unlimited card sorts and tree tests</strong>
+                  </p>
+                </li>
+                <li class="mt-4 flex items-start">
+                  <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-green-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                  </div>
+                  <p class="ml-3 text-base leading-6 text-gray-700">
+                  <strong>Unlimited participant results</strong>
+                  </p>
+                </li>
+                <li class="mt-4 flex items-start">
+                  <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-green-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                  </div>
+                  <p class="ml-3 text-base leading-6 text-gray-700">
+                    Custom branding
+                  </p>
+                </li>
+                <li class="mt-4 flex items-start">
+                  <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-green-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                  </div>
+                  <p class="ml-3 text-base leading-6 text-gray-700">
+                    Lifetime report access
+                  </p>
+                </li>
+                <li class="mt-4 flex items-start">
+                  <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-green-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                  </div>
+                  <p class="ml-3 text-base leading-6 text-gray-700">
+                    Download results to CSV
+                  </p>
+                </li>
+                <li class="mt-4 flex items-start">
+                  <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-green-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                  </div>
+                  <p class="ml-3 text-base leading-6 text-gray-700">
+                    Works on any device
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="mt-4 rounded-lg shadow-lg overflow-hidden lg:mt-0">
+            <div class="px-6 py-8 bg-white sm:p-10 sm:pb-6">
+              <div>
+                <span class="inline-flex px-4 py-1 rounded-full text-sm leading-5 font-semibold tracking-wide uppercase bg-purple-100 text-purple-600">
+                  Annual
+                </span>
+                <span class="inline-flex py-1 text-sm leading-5 font-semibold tracking-wide uppercase text-green-400">
+                  Save 50%
+                </span>
+              </div>
+              <div class="mt-4 flex items-baseline text-6xl leading-none font-extrabold">
+                $299
+                <span class="ml-1 text-2xl leading-8 font-medium text-gray-500">
+                  /yr
+                </span>
+              </div>
+              <p class="mt-5 text-lg leading-7 text-gray-500">
+                Maximum value for ongoing UX research. Great for agencies, consultants and enterprise product teams.
+              </p>
+            </div>
+            <div class="px-6 pt-6 pb-8 bg-gray-50 sm:p-10 sm:pt-6">
+              <ul>
+                <li class="flex items-start">
+                  <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-green-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                  </div>
+                  <p class="ml-3 text-base leading-6 text-gray-700">
+                    <strong>Unlimited card sorts and tree tests</strong>
+                  </p>
+                </li>
+                <li class="mt-4 flex items-start">
+                  <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-green-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                  </div>
+                  <p class="ml-3 text-base leading-6 text-gray-700">
+                  <strong>Unlimited participant results</strong>
+                  </p>
+                </li>
+                <li class="mt-4 flex items-start">
+                  <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-green-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                  </div>
+                  <p class="ml-3 text-base leading-6 text-gray-700">
+                    Custom branding
+                  </p>
+                </li>
+                <li class="mt-4 flex items-start">
+                  <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-green-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                  </div>
+                  <p class="ml-3 text-base leading-6 text-gray-700">
+                    Lifetime report access
+                  </p>
+                </li>
+                <li class="mt-4 flex items-start">
+                  <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-green-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                  </div>
+                  <p class="ml-3 text-base leading-6 text-gray-700">
+                    Download results to CSV
+                  </p>
+                </li>
+                <li class="mt-4 flex items-start">
+                  <div class="flex-shrink-0">
+                    <svg class="h-6 w-6 text-green-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                  </div>
+                  <p class="ml-3 text-base leading-6 text-gray-700">
+                    Works on any device
+                  </p>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-      <% end.empty? %>
-        <%= tag.code "You can fetch your subscription plans from Stripe by running `rake stripe:fetch:plans` from the console. Be sure you have your Stripe credentials added and your products + pricing plans set up in your Stripe account." if Rails.env.development? %>
-      <% end %>
+      </div>
+    </div>
+    <div class="max-w-screen-xl mx-auto text-center py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+      <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 mb-8">
+        Set up your first study
+      </h2>
+      <div class="flex justify-center mb-4">
+        <div class="inline-flex rounded-md shadow">
+          <%= link_to "Get Started", new_user_registration_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+        </div>
+      </div>
+      <span class="block text-base text-purple-400">No credit card required</span>
     </div>
   </div>
-
-  <div class="h-full w-1/2 mr-4 p-8 bg-gray-200 rounded w-full">
-    <h2 class="text-2xl font-bold mb-4 ml-2">Both plans include:</h2>
-    <div class="flex">
-      <ul class="list-reset flex-col w-1/2">
-        <li class="flex items-center text-sm font-bold text-gray-700 py-1 rounded">
-          <%= embedded_svg("checkmark.svg", class: "inline-block flex-shrink-0 w-8 h-8 mr-1 p-2 text-green-500 fill-current rounded-full") %>
-          All features
-        </li>
-        <li class="flex items-center text-sm font-bold text-gray-700 py-1 rounded">
-          <%= embedded_svg("checkmark.svg", class: "inline-block flex-shrink-0 w-8 h-8 mr-1 p-2 text-green-500 fill-current rounded-full") %>
-          Unlimited tests
-        </li>
-        <li class="flex items-center text-sm font-bold text-gray-700 py-1 rounded">
-          <%= embedded_svg("checkmark.svg", class: "inline-block flex-shrink-0 w-8 h-8 mr-1 p-2 text-green-500 fill-current rounded-full") %>
-          Unlimited results
-        </li>
-      </ul>
-      <ul class="list-reset flex-col w-1/2">
-        <li class="flex items-center text-sm font-bold text-gray-700 py-1 rounded">
-          <%= embedded_svg("checkmark.svg", class: "inline-block flex-shrink-0 w-8 h-8 mr-1 p-2 text-green-500 fill-current rounded-full") %>
-          Custom logo
-        </li>
-        <li class="flex items-center text-sm font-bold text-gray-700 py-1 rounded">
-          <%= embedded_svg("checkmark.svg", class: "inline-block flex-shrink-0 w-8 h-8 mr-1 p-2 text-green-500 fill-current rounded-full") %>
-          Excellent support
-        </li>
-      </ul>
+</div>
+<div class="bg-white">
+  <div class="max-w-screen-xl mx-auto pt-12 pb-16 sm:pt-16 sm:pb-20 px-4 sm:px-6 lg:pt-20 lg:pb-28 lg:px-8">
+    <h2 class="text-3xl leading-9 font-extrabold text-gray-900 text-center">
+      Frequently asked questions
+    </h2>
+    <div class="mt-6 border-t-2 border-gray-100 pt-10">
+      <dl class="md:grid md:grid-cols-2 md:gap-8">
+        <div>
+          <div>
+            <dt class="text-lg leading-6 font-medium text-gray-900">
+              Where can I find participants for my study?
+            </dt>
+            <dd class="mt-2">
+              <p class="text-base leading-6 text-gray-500">
+                Many researchers recruit participants by email or social media. We recommend User Interviews for moderated studies.
+              </p>
+            </dd>
+          </div>
+          <div class="mt-12">
+            <dt class="text-lg leading-6 font-medium text-gray-900">
+              How do participants access my study?
+            </dt>
+            <dd class="mt-2">
+              <p class="text-base leading-6 text-gray-500">
+                We provide you with a unique URL to your study that can be shared anywhere and accessed on any device with a browser and internet connection.
+              </p>
+            </dd>
+          </div>
+          <div class="mt-12">
+            <dt class="text-lg leading-6 font-medium text-gray-900">
+              What if I've never conducted a card sort or tree test before?
+            </dt>
+            <dd class="mt-2">
+              <p class="text-base leading-6 text-gray-500">
+                Not to worry! We provide contextual tips while you set up your study, and you can easily learn how to analyze your results with our free tutorials.
+              </p>
+            </dd>
+          </div>
+        </div>
+        <div class="mt-12 md:mt-0">
+          <div>
+            <dt class="text-lg leading-6 font-medium text-gray-900">
+              How do you process payments?
+            </dt>
+            <dd class="mt-2">
+              <p class="text-base leading-6 text-gray-500">
+                We use Stripe to securely process payments. Stripe has been audited by a PCI-certified auditor and is certified to PCI Service Provider Level 1. This is the most stringent level of certification available in the payments industry. You can read more details <a href="https://stripe.com/docs/security/stripe">here</a>.
+              </p>
+            </dd>
+          </div>
+          <div class="mt-12">
+            <dt class="text-lg leading-6 font-medium text-gray-900">
+              How is my data secured?
+            </dt>
+            <dd class="mt-2">
+              <p class="text-base leading-6 text-gray-500">
+                UXOps is securely hosted with Heroku. Heroku's physical infrastructure is hosted and managed within Amazon’s secure data centers and utilize Amazon Web Service (AWS) technology. Amazon continually manages risk and undergoes recurring assessments to ensure compliance with industry standards. You can read more details <a href="https://www.heroku.com/policy/security">here</a>.
+              </p>
+            </dd>
+          </div>
+        </div>
+      </dl>
     </div>
-
   </div>
-
-  <div class="faqs mt-8 mb-24  px-8">
-    <p class="mb-2 text-sm font-medium uppercase tracking-wider text-blue-500 mb-8">Common questions</p>
-    <h2 class="text-2xl font-bold">Do you offer discounts?</h2>
-    <p>We offer free accounts for teachers and students. <a href="mailto:support@uxops.com?subject=Education%20discount">Get in touch</a> for more details.</p>
-
-    <h2 class="text-2xl font-bold mt-10">Will I be charged when my trial is up?</h2>
-    <p>No. We don't ask for payment details upfront. We'll only need your payment information when your 7 trial expires and you want to continue using UXOps.</p>
-
-    <h2 class="text-2xl font-bold mt-10">Can I cancel at any time?</h2>
-    <p>Yes. There's no minimum contract and you can cancel at any time.</p>
-  </div>
-
 </div>
