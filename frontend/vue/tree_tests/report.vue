@@ -64,22 +64,28 @@
 
       </div>
     </main>
+    
+    <transition name="modal-component">
+      <TaskOutcomeDetailsModal 
+      v-show="task_modal_open"
+      @close="task_modal_open = false"
+      :show="task_modal_open"
+      :task="tasks[modal_task_index]"
+      :task_index="modal_task_index"
+      :outcome="modal_outcome"
+      :outcome_summary="task_outcome_summary"
+      />
+    </transition>
 
-    <TaskOutcomeDetailsModal 
-    v-show="task_modal_open"
-    @close="task_modal_open = false"
-    :task="tasks[modal_task_index]"
-    :task_index="modal_task_index"
-    :outcome="modal_outcome"
-    :outcome_summary="task_outcome_summary"
-    />
-
-    <ParticipantDetails
-    v-show="participant_modal_open"
-    @close="participant_modal_open = false"
-    :participant="participant"
-    :participant_index="participant_index"
-    />
+    <transition name="modal-component">
+      <ParticipantDetails
+      v-show="participant_modal_open"
+      @close="participant_modal_open = false"
+      :show="participant_modal_open"
+      :participant="participant"
+      :participant_index="participant_index"
+      />
+    </transition>
 
   </div>
 </template>
@@ -93,6 +99,7 @@ import Participants from '../components/tree_test_report/participants.vue'
 import Task from '../components/tree_test_report/task.vue'
 import TaskOutcomeDetailsModal from '../components/tree_test_report/task_outcome_details_modal.vue'
 import ParticipantDetails from '../components/tree_test_report/participant_details_modal.vue'
+
 export default {
   props: {
     data: {

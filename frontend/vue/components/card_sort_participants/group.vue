@@ -38,15 +38,18 @@
       </div>
       <draggable 
       v-model="cards"
+      @end="onCardDrop"
+      :move="onCardMove"
       group="cards"
-      class="p-4"
+      class="p-4"      
       style="min-height: 6rem;"
       >            
         <Card 
         v-for="card in cards"
+        :key="card.id"
         :title="card.title"
         :description="card.description"
-        :show_description="false"
+        :show_description="false"        
         />
       </draggable>
     </div>  
@@ -100,6 +103,12 @@
           })
         }
       },
+      onCardMove(evt) {
+        this.$emit('onCardMove', evt)
+      },
+      onCardDrop(evt) {
+        this.$emit('onCardDrop', evt)
+      }
     },
     components: { Card, draggable }
   }

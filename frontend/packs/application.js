@@ -275,7 +275,7 @@ import CardSortReport from '../vue/card_sorts/report.vue'
 Vue.use(VueNestable)
 Vue.use(TurbolinksAdapter)
 Vue.use(VueClipboard)
-Vue.use(require('vue-shortkey'))
+
 
 Vue.component('tree-test-new', NewTreeTest)
 Vue.component('tree-test-edit', EditTreeTest)
