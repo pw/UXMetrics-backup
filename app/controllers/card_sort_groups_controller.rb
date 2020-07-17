@@ -1,5 +1,5 @@
 class CardSortGroupsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :create_participant_designated_group
 
   def create
     if CardSort.find(params[:card_sort_group][:card_sort_id]).user == current_user
@@ -7,6 +7,14 @@ class CardSortGroupsController < ApplicationController
     else
       head :forbidden
     end
+  end
+
+  def create_participant_designated_group
+    if existing_group = CardSortGroup.find_by(name: params[:card_sort_group][:name].titlecase)
+      render json: existing_group
+    else
+      render json: CardSortGroup.create(card_sort_group_params)
+    end    
   end
 
   def destroy

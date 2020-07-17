@@ -31,3 +31,73 @@
 .draggable-new-group * {
   opacity: 0;
 }
+
+/* CSS for doing transitions with Vue */
+.overlay-enter-active {
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+.overlay-enter { 
+  opacity: 0;
+}
+.overlay-enter-to {
+  opacity: 1;
+}
+.overlay-leave-active {
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  transition-duration: 200ms;
+}
+.overlay-leave {
+  opacity: 1;
+}
+.overlay-leave-to {
+  opacity: 0;
+}
+.modal-enter-active {
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+.modal-enter {
+  opacity: 0;
+  --transform-translate-y: 1rem;
+}
+@media (min-width: 640px) {
+  .modal-enter {
+    --transform-translate-y: 0;
+    --transform-scale-x: .95;
+    --transform-scale-y: .95;
+  }
+  .modal-enter-to {
+    --transform-scale-x: 1;
+    --transform-scale-y: 1;
+  }
+  .modal-leave {
+    --transform-scale-x: 1;
+    --transform-scale-y: 1;
+  }  
+  .modal-leave-to {
+    --transform-translate-y: 0;
+    --transform-scale-x: .95;
+    --transform-scale-y: .95;
+  }
+}
+.modal-enter-to {
+  opacity: 1;
+  --transform-translate-y: 0;
+}
+.modal-leave-active {
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  transition-duration: 200ms;
+}
+.modal-leave {
+  opacity: 1;
+  --transform-translate-y: 0;
+}
+.modal-leave-to {
+  opacity: 0;
+  --transform-translate-y: 1rem;
+}
+
+.modal-component-leave-active {
+  transition-duration: 200ms;
+}

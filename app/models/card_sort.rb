@@ -12,7 +12,6 @@ class CardSort < ApplicationRecord
 
   def median_time
     return nil if card_sort_participants.where(excluded: false).count == 0
-    card_
     card_sort_participants.where(excluded: false).sum{|i| i.time} / card_sort_participants.where(excluded: false).count
   end
 
@@ -39,6 +38,7 @@ class CardSort < ApplicationRecord
       hash[:test_results_count] = card_sort_participants.where(excluded: false).count
       hash[:median_time] = median_time_formatted
       hash[:total_groups] = card_sort_groups.count
+      hash[:card_sort_groups] = card_sort_groups.where.not(order: nil)
     end
   end
 

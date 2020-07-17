@@ -12,4 +12,4 @@
   </div>
 <% end %>
 
-<card-sort-participant-new :data="<%= @card_sort.to_json(include: [:card_sort_cards, :card_sort_groups]) %>" :preview="<%= params[:preview] ? 'true' : 'false' %>"/>
+<card-sort-participant-new :data="<%= @card_sort.to_json(include: [:card_sort_cards]) %>" :preview="<%= params[:preview] ? 'true' : 'false' %>"/>

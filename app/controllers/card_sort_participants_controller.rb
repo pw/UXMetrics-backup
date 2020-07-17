@@ -6,8 +6,8 @@ class CardSortParticipantsController < ApplicationController
   end
 
   def create
-    @tree_test_participant = TreeTestParticipant.new(tree_test_participant_params)
-    if @tree_test_participant.save
+    @card_sort_participant = CardSortParticipant.new(card_sort_participant_params)
+    if @card_sort_participant.save
       head :ok
     else 
       head :internal_server_error
@@ -39,9 +39,10 @@ class CardSortParticipantsController < ApplicationController
   end
 
   private
-    def tree_test_participant_params
-      params.require(:tree_test_participant).permit(:tree_test_id,  
+    def card_sort_participant_params
+      params.require(:card_sort_participant).permit(:card_sort_id,  
         :excluded,
-        tree_test_participant_results_attributes: [:tree_test_task_id, :time, :choice, :skip, :path, :direct])
+        :time,
+        card_sort_sorts_attributes: [:card_sort_id, :card_sort_group_id, :card_sort_card_id])
     end
 end
