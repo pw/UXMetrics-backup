@@ -10,7 +10,7 @@ class CardSortGroupsController < ApplicationController
   end
 
   def create_participant_designated_group
-    if existing_group = CardSortGroup.find_by(name: params[:card_sort_group][:name].titlecase)
+    if existing_group = CardSort.find(params[:card_sort_group][:card_sort_id]).card_sort_groups.find_by(name: params[:card_sort_group][:name].titlecase)
       render json: existing_group
     else
       render json: CardSortGroup.create(card_sort_group_params)
