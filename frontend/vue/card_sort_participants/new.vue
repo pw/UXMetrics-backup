@@ -30,7 +30,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="bg-white sm:rounded-lg mb-6">
             <div class="px-4 py-5 sm:p-6">
-              <img :src="card_sort.logo_url" class="mb-6">
+              <img v-if="card_sort.logo_key !== 'undefined'" :src="card_sort.logo_url" class="mb-6">
+              <img v-else :src="card_sort.logo_url" class="mb-6" width="76" height="39">
               <h3 class="text-xl leading-6 font-medium text-gray-900 mb-6">
                 Instructions
               </h3>
@@ -150,7 +151,26 @@
         </div>
       </div>      
     </div>  
-
+    <div v-show="step === 'thanks'" class="min-h-screen bg-gray-100">
+      <main class="py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="bg-white sm:rounded-lg mb-6">
+            <div class="px-4 py-5 sm:p-6">
+              <img v-if="card_sort.logo_key !== 'undefined'" :src="card_sort.logo_url" class="mb-6">
+              <img v-else :src="card_sort.logo_url" class="mb-6" width="76" height="39">
+              <h3 class="text-xl leading-6 font-medium text-gray-900">
+                Thank you!
+              </h3>
+              <div class="max-w-xl text-md leading-5 text-gray-500">
+                <p>
+                Thanks for taking the time to help us. Your contribution is essential in our journey to deliver improvements!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>      
+    </div>
     <transition name="modal-component">
       <div v-show="instructions_modal_open" class="fixed bottom-0 inset-x-0 px-4 pb-4 sm:inset-0 sm:flex sm:items-center sm:justify-center">
         <transition name="overlay">
@@ -381,7 +401,10 @@
         Rails.ajax({
           url: '/card_sort_participants',
           type: 'POST',
-          data: data
+          data: data,
+          success: (arg) => {
+            this.step = 'thanks'
+          }
         })
       },
       submit() {
