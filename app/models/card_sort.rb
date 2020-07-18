@@ -41,6 +41,18 @@ class CardSort < ApplicationRecord
     result.to_a
   end
 
+  def group_results
+    result = Hash.new{|hash,k| hash[k] = {cards: [], created_by: nil}}
+    card_sort_groups.joins(:card_sort_cards).group(:card_sort_group_id).group(:card_sort_card_id).count.each do |(k,v)| 
+      result[CardSortGroup.find(k.first).name][:cards] << [CardSortCard.find(k.last).title, v]
+    end    
+    result.each do |k, v|
+      v[:cards].sort!{|a, b| b.second <=> a.second}
+      v[:created_by] = card_sort_groups.where(name: k).joins(:card_sort_sorts).select('card_sort_participant_id').distinct.count
+    end
+    result.to_a.sort{|a, b| b.last[:created_by] <=> a.last[:created_by]}
+  end
+
   def as_json(*)
     super.tap do |hash| 
       hash[:created_at_day] = created_at.strftime('%-m/%-d/%Y')
