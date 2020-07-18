@@ -1,9 +1,9 @@
 <template>
-  <tr class="bg-white align-top">
+  <tr class="bg-white align-top" :class="{'bg-white' : (row_index % 2 === 0), 'bg-gray-50': (row_index % 2 === 1)}">
     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
       {{ name }}
     </td>
-    <td x-data="{show_more: false" class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
+    <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
       <ul class="pl-0">
         <li
         v-for="(group, index) in groups"
@@ -36,7 +36,8 @@ export default {
   props: {
     name: String,
     groups: Array,
-    agreement_score: Number
+    agreement_score: Number, 
+    row_index: Number
   },
   data () {
     return {

@@ -58,11 +58,12 @@
                         </tr>
                       </thead>
                       <CardResult
-                      v-for="result in card_sort.card_results"
+                      v-for="(result, index) in card_sort.card_results"
                       :key="result[0]"
                       :name="result[0]"
                       :groups="result[1].groups"
                       :agreement_score="result[1].agreement_score"
+                      :row_index="index"
                       />
                     </table>
                   </div>
