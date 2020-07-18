@@ -1,1 +1,4 @@
-<card-sort-report :data="<%= @card_sort.to_json() %>" />
+<card-sort-report :data="<%= 
+@card_sort.to_json(
+  methods: [:card_results]
+) %>" />

@@ -29,12 +29,24 @@ class CardSort < ApplicationRecord
     result
   end  
 
+  def card_results
+    result = Hash.new{|hash,k| hash[k] = {groups: [], agreement_score: nil}}
+    card_sort_cards.joins(:card_sort_groups).group(:card_sort_card_id).group(:card_sort_group_id).count.each do |(k,v)| 
+      result[CardSortCard.find(k.first).title][:groups] << [CardSortGroup.find(k.last).name, v]
+    end
+    result.each do |k, v| 
+      v[:groups].sort!{|a, b| b.second <=> a.second}
+      v[:agreement_score] = v[:groups].first.second / v[:groups].sum{|i| i.second}.to_f
+    end
+    result.to_a
+  end
+
   def as_json(*)
     super.tap do |hash| 
       hash[:created_at_day] = created_at.strftime('%-m/%-d/%Y')
       hash[:collect_url] = Rails.application.routes.url_helpers.card_sort_collect_url(auth_token: auth_token, host: ENV['CURRENT_HOST'])
       hash[:logo_url] = "https://#{ENV['LOGO_UPLOAD_ENDPOINT']}/#{logo_key}"
-      hash[:results_count] = 0 
+      hash[:results_count] = card_sort_participants.where(excluded: false).count
       hash[:test_results_count] = card_sort_participants.where(excluded: false).count
       hash[:median_time] = median_time_formatted
       hash[:total_groups] = card_sort_groups.count

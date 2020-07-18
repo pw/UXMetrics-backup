@@ -57,41 +57,13 @@
                           <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">Agreement score</th>
                         </tr>
                       </thead>
-                        <tr class="bg-white align-top">
-                          <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
-                              401(k)
-                          </td>
-                          <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
-                            <ul class="pl-0">
-                              <li>
-                                  Retirement
-                              </li>
-                              <li>
-                                  Investments
-                              </li>
-                              <li>
-                                  Personal
-                              </li>
-                            </ul>
-                            <a href="#">Show more (2)</a>
-                          </td>
-                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
-                              <ul class="pl-0">
-                                <li>
-                                    5 times
-                                </li>
-                                <li>
-                                    1 time
-                                </li>
-                                <li>
-                                    1 time
-                                </li>
-                              </ul>
-                            </td>
-                            <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
-                                55.6%
-                            </td>
-                        </tr>
+                      <CardResult
+                      v-for="result in card_sort.card_results"
+                      :key="result[0]"
+                      :name="result[0]"
+                      :groups="result[1].groups"
+                      :agreement_score="result[1].agreement_score"
+                      />
                     </table>
                   </div>
                 </div>
@@ -117,6 +89,7 @@
 import Rails from '@rails/ujs'
 import Nav from '../components/tree_test_report/nav.vue'
 import Sidebar from '../components/tree_test_report/sidebar.vue'
+import CardResult from '../components/card_sort_report/card_result.vue'
 
 export default {
   props: {
@@ -134,6 +107,6 @@ export default {
   },
   methods: {
   },
-  components: { Nav, Sidebar }
+  components: { Nav, Sidebar, CardResult }
 }  
 </script>
