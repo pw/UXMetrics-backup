@@ -36,7 +36,7 @@ class CardSort < ApplicationRecord
     end
     result.each do |k, v| 
       v[:groups].sort!{|a, b| b.second <=> a.second}
-      v[:agreement_score] = v[:groups].first.second / v[:groups].sum{|i| i.second}.to_f
+      v[:agreement_score] = ((v[:groups].first.second / v[:groups].sum{|i| i.second}.to_f) * 100).round(0)
     end
     result.to_a
   end
