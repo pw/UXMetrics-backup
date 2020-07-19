@@ -246,8 +246,8 @@
       saveResults() {
         if(!this.preview) {
           var data = new FormData
+          data.append('tree_test_participant[tree_test_id]', this.tree_test.id)
           this.results.forEach((result, index) => {
-            data.append('tree_test_participant[tree_test_id]', this.tree_test.id)          
             data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][tree_test_task_id]', result.task_id)
             data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][time]', result.elapsed_time)          
             data.append('tree_test_participant[tree_test_participant_results_attributes][' + index + '][choice]', result.choice)
