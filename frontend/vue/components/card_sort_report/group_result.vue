@@ -1,7 +1,7 @@
 <template>
   <tr class="bg-white align-top" :class="{'bg-white' : (row_index % 2 === 0), 'bg-gray-50': (row_index % 2 === 1)}">
     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
-      <input type="checkbox">
+      <input @click="$emit('toggleSelectedGroup', name)" type="checkbox">
     </td>
     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
       {{ name }}
