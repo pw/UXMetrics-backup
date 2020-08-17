@@ -77,6 +77,7 @@ Rails.application.routes.draw do
   
   resources :card_sort_groups
   post '/participant_designated_card_sort_groups', to: 'card_sort_groups#create_participant_designated_group'
+  post '/merge_groups', to: 'card_sort_groups#merge_groups'
   resources :card_sort_cards
   resources :card_sort_participants
 

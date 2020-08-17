@@ -134,6 +134,7 @@
       @close="merge_groups_modal_open = false"
       :show="merge_groups_modal_open"
       :groups="selected_groups"
+      :card_sort_id="card_sort.id"
       />
     </transition>
 

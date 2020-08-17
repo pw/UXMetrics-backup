@@ -43,7 +43,7 @@ class CardSort < ApplicationRecord
 
   def group_results
     result = Hash.new{|hash,k| hash[k] = {cards: [], created_by: nil}}
-    card_sort_groups.joins(:card_sort_cards).group(:card_sort_group_id).group(:card_sort_card_id).count.each do |(k,v)| 
+    card_sort_groups.where(merged: false).joins(:card_sort_cards).group(:card_sort_group_id).group(:card_sort_card_id).count.each do |(k,v)| 
       result[CardSortGroup.find(k.first).name][:cards] << [CardSortCard.find(k.last).title, v]
     end    
     result.each do |k, v|

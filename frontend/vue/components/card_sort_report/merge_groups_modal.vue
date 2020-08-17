@@ -19,13 +19,13 @@
         <div class="px-4 py-5 sm:p-6">
           <label for="name" class="block text-sm font-medium leading-5 text-gray-700">Name</label>
           <div class="mt-1 mb-4 relative rounded-md shadow-sm">
-            <input id="name" class="form-input block w-full sm:text-sm sm:leading-5" placeholder="Create a name for this merged group..." />
+            <input id="name" v-model="name" class="form-input block w-full sm:text-sm sm:leading-5" placeholder="Create a name for this merged group..." />
           </div>
           <div class="flex flex-col">
             <label for="name" class="block text-sm font-medium leading-5 text-gray-700">Merge these groups:</label>
             <div v-for="group in groups" :key="group" class="flex items-center">
-              <input id="group_1" type="checkbox" checked class="form-checkbox h-4 w-4 text-purple-600 transition duration-150 ease-in-out" />
-              <label for="group_1" class="ml-2 block text-sm leading-5 text-gray-900">
+              <input :id="group" :value="group" v-model="selected_groups" type="checkbox" checked class="form-checkbox h-4 w-4 text-purple-600 transition duration-150 ease-in-out" />
+              <label :for="group" class="ml-2 block text-sm leading-5 text-gray-900">
                   {{ group }}
               </label>
             </div>
@@ -33,7 +33,7 @@
         </div>
         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
           <span class="mt-3 sm:ml-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
-            <button  type="button" class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 text-base leading-6 font-medium rounded-md text-white shadow-sm bg-purple-600 hover:bg-purple-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+            <button @click="save" type="button" class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 text-base leading-6 font-medium rounded-md text-white shadow-sm bg-purple-600 hover:bg-purple-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out sm:text-sm sm:leading-5">
               Merge Selected Groups
             </button>
           </span>
@@ -49,11 +49,43 @@
 </template>
 
 <script>
+import Rails from '@rails/ujs'
 
 export default {
   props: {
     show: Boolean,
-    groups: Array
+    groups: Array,
+    card_sort_id: Number
   },
+  data () {
+    return {
+      selected_groups: this.groups,
+      name: ''
+    }
+  },
+  methods: {
+    save() {
+      if(this.name === '') {
+        return
+      }
+      if(this.selected_groups.length === 0) {
+        return
+      }
+      var data = new FormData
+      data.append('card_sort_id', this.card_sort_id)
+      data.append('name', this.name)
+      this.selected_groups.forEach((group, index) => {
+        data.append('groups[]', group)
+      })
+      Rails.ajax({
+        url: '/merge_groups',
+        type: 'POST',
+        data: data,
+        success: (arg) => {
+          this.$emit('close')
+        }
+      })
+    }
+  }
 }
 </script>

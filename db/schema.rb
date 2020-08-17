@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_16_232945) do
+ActiveRecord::Schema.define(version: 2020_08_17_063622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2020_07_16_232945) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "order"
+    t.boolean "merged", default: false
     t.index ["card_sort_id"], name: "index_card_sort_groups_on_card_sort_id"
   end
 
@@ -73,6 +74,7 @@ ActiveRecord::Schema.define(version: 2020_07_16_232945) do
     t.bigint "card_sort_card_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "pre_merge_group_id"
     t.index ["card_sort_card_id"], name: "index_card_sort_sorts_on_card_sort_card_id"
     t.index ["card_sort_group_id"], name: "index_card_sort_sorts_on_card_sort_group_id"
     t.index ["card_sort_id"], name: "index_card_sort_sorts_on_card_sort_id"

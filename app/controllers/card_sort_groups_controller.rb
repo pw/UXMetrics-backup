@@ -17,6 +17,24 @@ class CardSortGroupsController < ApplicationController
     end    
   end
 
+  def merge_groups
+    if CardSort.find(params[:card_sort_id]).user == current_user
+      merge_group = CardSortGroup.create(name: params[:name], card_sort_id: params[:card_sort_id])
+      groups = params[:groups].map{|group| CardSortGroup.where(name: group, card_sort_id: params[:card_sort_id]).first}
+      groups.each do |group|
+        group.card_sort_sorts.each do |card_sort_sort|
+          card_sort_sort.card_sort_group_id = merge_group.id
+          card_sort_sort.pre_merge_group_id = group.id
+          card_sort_sort.save
+        end
+        group.merged = true
+        group.save
+      end
+    else
+      head :forbidden
+    end
+  end
+
   def destroy
     group = CardSortGroup.find(params[:id])
 
