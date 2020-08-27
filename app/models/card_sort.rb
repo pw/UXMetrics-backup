@@ -54,6 +54,10 @@ class CardSort < ApplicationRecord
     result.to_a.sort{|a, b| b.last[:created_by] <=> a.last[:created_by]}
   end
 
+  def participants
+    card_sort_participants.map{|i| [i.participant_id, i.id]}
+  end
+
   def as_json(*)
     super.tap do |hash| 
       hash[:created_at_day] = created_at.strftime('%-m/%-d/%Y')

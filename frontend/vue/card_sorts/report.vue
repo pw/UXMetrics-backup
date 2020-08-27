@@ -121,7 +121,26 @@
               </div>                
             </div>
 
-            <div v-show="tab === 'individual_results'">     
+            <div v-show="tab === 'individual_results'">
+              <div class="sm:block mb-6 overflow-x-auto">
+                <nav class="flex">
+                  <a 
+                  v-for="participant in card_sort.participants" 
+                  :key="participant[1]" 
+                  class="flex-shrink-0 px-3 py-2 font-medium text-sm leading-5 rounded-md" 
+                  :class="{ 'text-purple-700 bg-purple-100 focus:outline-none focus:text-purple-800 focus:bg-purple-200': (participant[0] === current_participant_id), 'text-gray-500 hover:text-gray-700 focus:outline-none focus:text-purple-600 focus:bg-purple-50': (participant[0] !== current_participant_id)}"
+                  aria-current="page"
+                  @click="current_participant_id = participant[0]; current_participant_database_id = participant[1]"
+                  >
+                      Participant {{ participant[0] }}
+                  </a>                    
+                </nav>
+                <Participant
+                :participant_id="current_participant_id"
+                :participant_database_id="current_participant_database_id"
+                :card_sort_id="card_sort.id"
+                />                
+              </div>              
             </div>            
 
           </div>         
@@ -162,6 +181,7 @@ import CardResult from '../components/card_sort_report/card_result.vue'
 import GroupResult from '../components/card_sort_report/group_result.vue'
 import NewMergeGroupModal from '../components/card_sort_report/new_merge_group_modal.vue'
 import ManageMergedGroupModal from '../components/card_sort_report/manage_merged_group_modal.vue'
+import Participant from '../components/card_sort_report/participant.vue'
 
 export default {
   props: {
@@ -177,10 +197,10 @@ export default {
       manage_merged_group_modal_open: false,
       selected_groups: [],
       merged_group_name: null,
-      merged_groups: []
+      merged_groups: [],
+      current_participant_id: this.data[0].participants[0][0],
+      current_participant_database_id: this.data[0].participants[0][1]
     }
-  },
-  created: function() {
   },
   methods: {
     manageMergedGroup(name, merged_groups) {
@@ -197,6 +217,6 @@ export default {
       }
     }
   },
-  components: { Nav, Sidebar, CardResult, GroupResult, NewMergeGroupModal, ManageMergedGroupModal}
+  components: { Nav, Sidebar, CardResult, GroupResult, NewMergeGroupModal, ManageMergedGroupModal, Participant}
 }  
 </script>

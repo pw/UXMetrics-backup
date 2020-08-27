@@ -14,6 +14,14 @@ class CardSortParticipantsController < ApplicationController
     end
   end
 
+  def show
+    if CardSort.find(params[:card_sort_id]).user == current_user
+      render json: CardSortParticipant.find(params[:id])
+    else
+      head :forbidden
+    end    
+  end
+
   def update
     @tree_test_participant = TreeTestParticipant.find(params[:id])
 

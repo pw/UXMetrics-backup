@@ -11,4 +11,31 @@ class CardSortParticipant < ApplicationRecord
       self.participant_id = card_sort.card_sort_participants.order(:participant_id).last.participant_id + 1
     end
   end  
+
+  def sorting
+    h = Hash.new{|hash,k| hash[k] = []}
+    card_sort_sorts.includes(:card_sort_group, :card_sort_card).each{|i| h[i.card_sort_group.name] << i.card_sort_card.title}
+    h
+  end
+
+  def time_to_complete
+    result = ""
+
+    if (minutes = time.to_i / 60000) != 0
+      result << "#{minutes}m " 
+    else
+      seconds = ((time % 60000) / 1000).round
+      result << "#{seconds}s"
+    end
+
+    result    
+  end
+
+  def as_json(*)
+    super.tap do |hash|
+      hash[:time_to_complete] = time_to_complete
+      hash[:sorting] = sorting.to_a
+    end
+  end
+
 end
