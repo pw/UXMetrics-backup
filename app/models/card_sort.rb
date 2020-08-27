@@ -49,6 +49,7 @@ class CardSort < ApplicationRecord
     result.each do |k, v|
       v[:cards].sort!{|a, b| b.second <=> a.second}
       v[:created_by] = card_sort_groups.where(name: k).joins(:card_sort_sorts).select('card_sort_participant_id').distinct.count
+      v[:merged_groups] = card_sort_groups.where(name: k).first.merged_groups
     end
     result.to_a.sort{|a, b| b.last[:created_by] <=> a.last[:created_by]}
   end

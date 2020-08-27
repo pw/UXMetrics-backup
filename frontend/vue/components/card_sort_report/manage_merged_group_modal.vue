@@ -33,16 +33,16 @@
         </div>
         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
           <span class="mt-3 sm:ml-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
-            <button @click="save" type="button" class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 text-base leading-6 font-medium rounded-md text-white shadow-sm bg-purple-600 hover:bg-purple-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out sm:text-sm sm:leading-5">
-              Merge Selected Groups
+            <button @click="manage" type="button" class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 text-base leading-6 font-medium rounded-md text-white shadow-sm bg-purple-600 hover:bg-purple-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                Save Changes
             </button>
           </span>
-          <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
-            <button @click="$emit('close')" type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-              Cancel
+          <span class="mt-3 sm:ml-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
+            <button @click="unmerge" type="button" class="inline-flex items-center justify-center w-full px-4 py-2 border border-transparent font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-50 focus:outline-none focus:border-red-300 focus:shadow-outline-red active:bg-red-200 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                Unmerge This Group
             </button>
           </span>
-        </div>        
+        </div>       
       </div>
     </transition>
   </div>
@@ -55,37 +55,54 @@ export default {
   props: {
     show: Boolean,
     groups: Array,
+    current_name: String,
     card_sort_id: Number
   },
   data () {
     return {
       selected_groups: this.groups,
-      name: ''
+      name: this.current_name
     }
   },
+  watch: {
+    show: function (val) {
+      if(val === true) {
+        this.selected_groups = this.groups
+        this.name = this.current_name
+      }
+    }
+  },  
   methods: {
-    save() {
-      if(this.name === '') {
-        return
-      }
-      if(this.selected_groups.length === 0) {
-        return
-      }
+    unmerge() {
       var data = new FormData
       data.append('card_sort_id', this.card_sort_id)
       data.append('name', this.name)
-      this.selected_groups.forEach((group, index) => {
-        data.append('groups[]', group)
-      })
       Rails.ajax({
-        url: '/merge_groups',
+        url: '/unmerge_groups',
         type: 'POST',
         data: data,
         success: (arg) => {
           this.$emit('close')
         }
       })
-    }
+    },
+    manage() {
+      var data = new FormData
+      data.append('card_sort_id', this.card_sort_id)
+      data.append('name', this.current_name)
+      data.append('updated_name', this.name)
+      this.selected_groups.forEach((group) => {
+        data.append('groups[]', group)
+      })
+      Rails.ajax({
+        url: '/update_merged_group',
+        type: 'POST',
+        data: data,
+        success: (arg) => {
+          this.$emit('close')
+        }
+      })
+    }    
   }
 }
 </script>

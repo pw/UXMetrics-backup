@@ -82,7 +82,7 @@
                   </p>
                 </div>
                 <span class="shadow-sm rounded-md">
-                  <a @click="merge_groups_modal_open = true" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+                  <a @click="new_merge_group_modal_open = true" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
                     <svg class="-ml-1 mr-2 h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M7 9C7 7.89543 7.89543 7 9 7H15C16.1046 7 17 7.89543 17 9V15C17 16.1046 16.1046 17 15 17H9C7.89543 17 7 16.1046 7 15V9Z"/>
                       <path d="M5 3C3.89543 3 3 3.89543 3 5V11C3 12.1046 3.89543 13 5 13L5 5H13C13 3.89543 12.1046 3 11 3H5Z"/>
@@ -110,7 +110,9 @@
                       :name="result[0]"
                       :cards="result[1].cards"
                       :created_by="result[1].created_by"
+                      :merged_groups="result[1].merged_groups"
                       :row_index="index"
+                      @manageMergedGroup="manageMergedGroup"
                       @toggleSelectedGroup="toggleSelectedGroup"
                       />
                     </table>
@@ -129,14 +131,25 @@
     </main>
 
     <transition name="modal-component">
-      <MergeGroupsModal
-      v-show="merge_groups_modal_open"
-      @close="merge_groups_modal_open = false"
-      :show="merge_groups_modal_open"
+      <NewMergeGroupModal
+      v-show="new_merge_group_modal_open"
+      @close="new_merge_group_modal_open = false"
+      :show="new_merge_group_modal_open"
       :groups="selected_groups"
       :card_sort_id="card_sort.id"
       />
     </transition>
+
+    <transition name="modal-component">
+      <ManageMergedGroupModal
+      v-show="manage_merged_group_modal_open"
+      @close="manage_merged_group_modal_open = false"
+      :show="manage_merged_group_modal_open"
+      :current_name="merged_group_name"
+      :groups="merged_groups"
+      :card_sort_id="card_sort.id"
+      />
+    </transition>    
 
   </div>
 </template>
@@ -147,7 +160,8 @@ import Nav from '../components/tree_test_report/nav.vue'
 import Sidebar from '../components/tree_test_report/sidebar.vue'
 import CardResult from '../components/card_sort_report/card_result.vue'
 import GroupResult from '../components/card_sort_report/group_result.vue'
-import MergeGroupsModal from '../components/card_sort_report/merge_groups_modal.vue'
+import NewMergeGroupModal from '../components/card_sort_report/new_merge_group_modal.vue'
+import ManageMergedGroupModal from '../components/card_sort_report/manage_merged_group_modal.vue'
 
 export default {
   props: {
@@ -159,13 +173,21 @@ export default {
     return {
       card_sort: this.data[0],
       tab: 'cards',
-      merge_groups_modal_open: false,
-      selected_groups: []   
+      new_merge_group_modal_open: false,
+      manage_merged_group_modal_open: false,
+      selected_groups: [],
+      merged_group_name: null,
+      merged_groups: []
     }
   },
   created: function() {
   },
   methods: {
+    manageMergedGroup(name, merged_groups) {
+      this.merged_groups = merged_groups.map(x => x.name)
+      this.merged_group_name = name
+      this.manage_merged_group_modal_open = true
+    },
     toggleSelectedGroup(group_name) {
       var index = this.selected_groups.findIndex(group => group === group_name)
       if(index === -1) {
@@ -175,6 +197,6 @@ export default {
       }
     }
   },
-  components: { Nav, Sidebar, CardResult, GroupResult, MergeGroupsModal }
+  components: { Nav, Sidebar, CardResult, GroupResult, NewMergeGroupModal, ManageMergedGroupModal}
 }  
 </script>
