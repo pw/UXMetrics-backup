@@ -38,7 +38,7 @@ class CardSort < ApplicationRecord
       v[:groups].sort!{|a, b| b.second <=> a.second}
       v[:agreement_score] = ((v[:groups].first.second / v[:groups].sum{|i| i.second}.to_f) * 100).round(0)
     end
-    result.to_a
+    result.to_a.sort{|a,b| CardSortCard.find_by(title: a.first).order <=> CardSortCard.find_by(title: b.first).order}
   end
 
   def group_results
@@ -63,7 +63,7 @@ class CardSort < ApplicationRecord
       hash[:test_results_count] = card_sort_participants.where(excluded: false).count
       hash[:median_time] = median_time_formatted
       hash[:total_groups] = card_sort_groups.count
-      hash[:card_sort_groups] = card_sort_groups.where.not(order: nil)
+      hash[:card_sort_groups] = card_sort_groups.where.not(order: nil).order(:order)
     end
   end
 
