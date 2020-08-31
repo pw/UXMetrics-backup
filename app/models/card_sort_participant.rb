@@ -13,7 +13,7 @@ class CardSortParticipant < ApplicationRecord
   end  
 
   def sorting
-    h = Hash.new{|hash,k| hash[k] = []}
+    h = card_sort_sorts.includes(:card_sort_group).map{|i| i.card_sort_group}.uniq.sort.each_with_object(Hash.new){|i, h| h[i.name] = []}
     card_sort_sorts.includes(:card_sort_group, :card_sort_card).each{|i| h[i.card_sort_group.name] << i.card_sort_card.title}
     h
   end
