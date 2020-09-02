@@ -60,7 +60,7 @@
                       <CardResult
                       v-for="(result, index) in card_sort.card_results"
                       :key="result[0]"
-                      :name="result[0]"
+                      :name="result[1].name"
                       :groups="result[1].groups"
                       :agreement_score="result[1].agreement_score"
                       :row_index="index"
@@ -107,7 +107,8 @@
                       <GroupResult
                       v-for="(result, index) in card_sort.group_results"
                       :key="result[0]"
-                      :name="result[0]"
+                      :group_id="result[0]"
+                      :name="result[1].name"
                       :cards="result[1].cards"
                       :created_by="result[1].created_by"
                       :merged_groups="result[1].merged_groups"
@@ -139,6 +140,7 @@
                 :participant_id="current_participant_id"
                 :participant_database_id="current_participant_database_id"
                 :card_sort_id="card_sort.id"
+                @dataChange="update_card_sort_data"
                 />                
               </div>              
             </div>            
@@ -153,6 +155,7 @@
       <NewMergeGroupModal
       v-show="new_merge_group_modal_open"
       @close="new_merge_group_modal_open = false"
+      @dataChange="update_card_sort_data"
       :show="new_merge_group_modal_open"
       :groups="selected_groups"
       :card_sort_id="card_sort.id"
@@ -163,8 +166,10 @@
       <ManageMergedGroupModal
       v-show="manage_merged_group_modal_open"
       @close="manage_merged_group_modal_open = false"
+      @dataChange="update_card_sort_data"
       :show="manage_merged_group_modal_open"
       :current_name="merged_group_name"
+      :group_id="merged_group_id"
       :groups="merged_groups"
       :card_sort_id="card_sort.id"
       />
@@ -197,24 +202,37 @@ export default {
       manage_merged_group_modal_open: false,
       selected_groups: [],
       merged_group_name: null,
+      merged_group_id: null,
       merged_groups: [],
       current_participant_id: this.data[0].participants[0][0],
       current_participant_database_id: this.data[0].participants[0][1]
     }
   },
   methods: {
-    manageMergedGroup(name, merged_groups) {
-      this.merged_groups = merged_groups.map(x => x.name)
+    manageMergedGroup(id, name, merged_groups) {
       this.merged_group_name = name
+      this.merged_group_id = id
+      this.merged_groups = merged_groups
       this.manage_merged_group_modal_open = true
     },
-    toggleSelectedGroup(group_name) {
-      var index = this.selected_groups.findIndex(group => group === group_name)
+    toggleSelectedGroup(group_id, group_name) {
+      var index = this.selected_groups.findIndex(group => group[0] === group_id)
       if(index === -1) {
-        this.selected_groups.push(group_name)
+        this.selected_groups.push([group_id, group_name])
       } else {
         this.selected_groups.splice(index, 1)
       }
+    },
+    update_card_sort_data() {
+      Rails.ajax({
+        url: '/card_sorts/' + this.card_sort.id,
+        type: 'GET',
+        success: (arg) => {
+          this.card_sort = arg
+          this.current_participant_id = this.card_sort.participants[0][0],
+          this.current_participant_database_id = this.card_sort.participants[0][1]
+        }
+      })
     }
   },
   components: { Nav, Sidebar, CardResult, GroupResult, NewMergeGroupModal, ManageMergedGroupModal, Participant}

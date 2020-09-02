@@ -29,29 +29,36 @@ class CardSort < ApplicationRecord
     result
   end  
 
+  def excluded_participant_ids
+    card_sort_participants.where(excluded: true).map{|i| i.id}
+  end
+
   def card_results
     result = Hash.new{|hash,k| hash[k] = {groups: [], agreement_score: nil}}
-    card_sort_cards.joins(:card_sort_groups).group(:card_sort_card_id).group(:card_sort_group_id).count.each do |(k,v)| 
-      result[CardSortCard.find(k.first).title][:groups] << [CardSortGroup.find(k.last).name, v]
+    card_sort_cards.joins(card_sort_sorts: :card_sort_group).where.not(card_sort_sorts: {card_sort_participant_id: excluded_participant_ids}).group(:card_sort_card_id).group(:card_sort_group_id).count.each do |(k,v)| 
+      result[k.first][:groups] << [CardSortGroup.find(k.last).name, v]
     end
-    result.each do |k, v| 
+    result.each do |k, v|
+      v[:name] = CardSortCard.find(k).title 
       v[:groups].sort!{|a, b| b.second <=> a.second}
       v[:agreement_score] = ((v[:groups].first.second / v[:groups].sum{|i| i.second}.to_f) * 100).round(0)
     end
-    result.to_a.sort{|a,b| CardSortCard.find_by(title: a.first).order <=> CardSortCard.find_by(title: b.first).order}
+    result.to_a.sort{|a,b| CardSortCard.find(a.first).order <=> CardSortCard.find(b.first).order}
   end
 
   def group_results
     result = Hash.new{|hash,k| hash[k] = {cards: [], created_by: nil}}
-    card_sort_groups.where(merged: false).joins(:card_sort_cards).group(:card_sort_group_id).group(:card_sort_card_id).count.each do |(k,v)| 
-      result[CardSortGroup.find(k.first).name][:cards] << [CardSortCard.find(k.last).title, v]
+    card_sort_groups.where(merged: false).joins(card_sort_sorts: :card_sort_card).where.not(card_sort_sorts: {card_sort_participant_id: excluded_participant_ids}).group(:card_sort_group_id).group(:card_sort_card_id).count.each do |(k,v)| 
+      result[k.first][:cards] << [CardSortCard.find(k.last).title, v]
     end    
     result.each do |k, v|
+      group = CardSortGroup.find(k)
+      v[:name] = group.name
       v[:cards].sort!{|a, b| b.second <=> a.second}
-      v[:created_by] = card_sort_groups.where(name: k).joins(:card_sort_sorts).select('card_sort_participant_id').distinct.count
-      v[:merged_groups] = card_sort_groups.where(name: k).first.merged_groups
+      v[:created_by] = CardSortGroup.where(id: k).joins(:card_sort_sorts).where.not(card_sort_sorts: {card_sort_participant_id: excluded_participant_ids}).select('card_sort_participant_id').distinct.count
+      v[:merged_groups] = group.merged_groups
     end
-    result.to_a.sort{|a, b| b.last[:created_by] <=> a.last[:created_by]}
+    result.to_a.sort{|a, b| CardSortGroup.find(a.first) <=> CardSortGroup.find(b.first)}
   end
 
   def participants

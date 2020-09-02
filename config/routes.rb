@@ -80,7 +80,9 @@ Rails.application.routes.draw do
   post '/merge_groups', to: 'card_sort_groups#merge_groups'
   post '/unmerge_groups', to: 'card_sort_groups#unmerge_groups'
   post '/update_merged_group', to: 'card_sort_groups#update_merged_group'
+
   resources :card_sort_cards
+  
   resources :card_sort_participants
 
   get 'collect/:auth_token/thanks', to: 'results#thanks', as: :thanks

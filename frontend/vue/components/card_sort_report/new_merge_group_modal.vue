@@ -23,10 +23,10 @@
           </div>
           <div class="flex flex-col">
             <label for="name" class="block text-sm font-medium leading-5 text-gray-700">Merge these groups:</label>
-            <div v-for="group in groups" :key="group" class="flex items-center">
-              <input :id="group" :value="group" v-model="selected_groups" type="checkbox" checked class="form-checkbox h-4 w-4 text-purple-600 transition duration-150 ease-in-out" />
-              <label :for="group" class="ml-2 block text-sm leading-5 text-gray-900">
-                  {{ group }}
+            <div v-for="group in groups" :key="group[0]" class="flex items-center">
+              <input :id="group[0]" :value="group" v-model="selected_groups" type="checkbox" checked class="form-checkbox h-4 w-4 text-purple-600 transition duration-150 ease-in-out" />
+              <label :for="group[0]" class="ml-2 block text-sm leading-5 text-gray-900">
+                  {{ group[1] }}
               </label>
             </div>
           </div>
@@ -73,22 +73,25 @@ export default {
   methods: {
     save() {
       if(this.name === '') {
+        alert('Please enter a name for this merged group.')
         return
       }
-      if(this.selected_groups.length === 0) {
+      if(this.selected_groups.length < 2) {
+        alert('Please selected at least two groups to merge.')
         return
       }
       var data = new FormData
       data.append('card_sort_id', this.card_sort_id)
       data.append('name', this.name)
       this.selected_groups.forEach((group, index) => {
-        data.append('groups[]', group)
+        data.append('group_ids[]', group[0])
       })
       Rails.ajax({
         url: '/merge_groups',
         type: 'POST',
         data: data,
         success: (arg) => {
+          this.$emit('dataChange')
           this.$emit('close')
         }
       })

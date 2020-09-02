@@ -1,4 +1,5 @@
 class CardSortParticipantsController < ApplicationController
+  before_action :authenticate_user!, except: [:new, :show]
   layout 'participants_new'
 
   def new
@@ -15,31 +16,32 @@ class CardSortParticipantsController < ApplicationController
   end
 
   def show
-    if CardSort.find(params[:card_sort_id]).user == current_user
-      render json: CardSortParticipant.find(params[:id])
+    @card_sort_participant = CardSortParticipant.find(params[:id])
+    if @card_sort_participant.card_sort.user == current_user
+      render json: @card_sort_participant
     else
       head :forbidden
     end    
   end
 
   def update
-    @tree_test_participant = TreeTestParticipant.find(params[:id])
+    @card_sort_participant = CardSortParticipant.find(params[:id])
 
-    head :forbidden and return if @tree_test_participant.tree_test.user != current_user
+    head :forbidden and return if @card_sort_participant.card_sort.user != current_user
 
-    if @tree_test_participant.update(tree_test_participant_params)
+    if @card_sort_participant.update(card_sort_participant_params)
       head :ok
-    else
+    else 
       head :internal_server_error
-    end    
+    end
   end
 
   def destroy
-    @tree_test_participant = TreeTestParticipant.find(params[:id])
+    @card_sort_participant = CardSortParticipant.find(params[:id])
 
-    head :forbidden and return if @tree_test_participant.tree_test.user != current_user
+    head :forbidden and return if @card_sort_participant.card_sort.user != current_user
 
-    if @tree_test_participant.destroy
+    if @card_sort_participant.destroy
       head :ok
     else
       head :internal_server_error

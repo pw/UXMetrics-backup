@@ -16,6 +16,16 @@ class CardSortsController < ApplicationController
     end
   end
 
+  def show
+    @card_sort = CardSort.find(params[:id])
+
+    if @card_sort.user == current_user
+      render json: @card_sort.to_json(methods: [:card_results, :group_results, :participants])
+    else
+      head :forbidden
+    end   
+  end
+
   def index
     @card_sorts = current_user.card_sorts.all
   end

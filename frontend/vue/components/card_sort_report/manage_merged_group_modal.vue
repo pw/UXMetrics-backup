@@ -23,10 +23,10 @@
           </div>
           <div class="flex flex-col">
             <label for="name" class="block text-sm font-medium leading-5 text-gray-700">Merge these groups:</label>
-            <div v-for="group in groups" :key="group" class="flex items-center">
-              <input :id="group" :value="group" v-model="selected_groups" type="checkbox" checked class="form-checkbox h-4 w-4 text-purple-600 transition duration-150 ease-in-out" />
-              <label :for="group" class="ml-2 block text-sm leading-5 text-gray-900">
-                  {{ group }}
+            <div v-for="group in groups" :key="group.id" class="flex items-center">
+              <input :id="group.id" :value="group" v-model="selected_groups" type="checkbox" checked class="form-checkbox h-4 w-4 text-purple-600 transition duration-150 ease-in-out" />
+              <label :for="group.id" class="ml-2 block text-sm leading-5 text-gray-900">
+                  {{ group.name }}
               </label>
             </div>
           </div>
@@ -56,6 +56,7 @@ export default {
     show: Boolean,
     groups: Array,
     current_name: String,
+    group_id: Number,
     card_sort_id: Number
   },
   data () {
@@ -75,30 +76,30 @@ export default {
   methods: {
     unmerge() {
       var data = new FormData
-      data.append('card_sort_id', this.card_sort_id)
-      data.append('name', this.name)
+      data.append('id', this.group_id)
       Rails.ajax({
         url: '/unmerge_groups',
         type: 'POST',
         data: data,
         success: (arg) => {
+          this.$emit('dataChange')
           this.$emit('close')
         }
       })
     },
     manage() {
       var data = new FormData
-      data.append('card_sort_id', this.card_sort_id)
-      data.append('name', this.current_name)
-      data.append('updated_name', this.name)
+      data.append('id', this.group_id)
+      data.append('name', this.name)
       this.selected_groups.forEach((group) => {
-        data.append('groups[]', group)
+        data.append('group_ids[]', group.id)
       })
       Rails.ajax({
         url: '/update_merged_group',
         type: 'POST',
         data: data,
         success: (arg) => {
+          this.$emit('dataChange')
           this.$emit('close')
         }
       })

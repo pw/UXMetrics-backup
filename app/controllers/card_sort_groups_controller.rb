@@ -20,7 +20,7 @@ class CardSortGroupsController < ApplicationController
   def merge_groups
     if CardSort.find(params[:card_sort_id]).user == current_user
       merge_group = CardSortGroup.create(name: params[:name], card_sort_id: params[:card_sort_id])
-      groups = params[:groups].map{|group| CardSortGroup.where(name: group, card_sort_id: params[:card_sort_id]).first}
+      groups = params[:group_ids].map{|id| CardSortGroup.find(id)}
       groups.each do |group|
         group.card_sort_sorts.update_all(card_sort_group_id: merge_group.id, pre_merge_group_id: group.id)
         group.merged_group_id = merge_group.id
@@ -32,8 +32,8 @@ class CardSortGroupsController < ApplicationController
   end
 
   def unmerge_groups
-    if CardSort.find(params[:card_sort_id]).user === current_user
-      merge_group = CardSortGroup.where(card_sort_id: params[:card_sort_id], name: params[:name]).first
+    merge_group = CardSortGroup.find(params[:id])
+    if merge_group.card_sort.user === current_user
       merge_group.merged_groups.each do |group|
         CardSortSort.where(pre_merge_group_id: group.id).update_all(card_sort_group_id: group.id, pre_merge_group_id: nil)
         group.merged_group_id = nil
@@ -46,15 +46,15 @@ class CardSortGroupsController < ApplicationController
   end
 
   def update_merged_group
-    if CardSort.find(params[:card_sort_id]).user === current_user
-      merge_group = CardSortGroup.where(card_sort_id: params[:card_sort_id], name: params[:name]).first
-      groups_to_remove = (merge_group.merged_groups.map{|i| i.name}.to_set - params[:groups].to_set).map{|i| CardSortGroup.where(name: i, card_sort_id: params[:card_sort_id]).first}
+    merge_group = CardSortGroup.find(params[:id])
+    if merge_group.card_sort.user === current_user
+      groups_to_remove = (merge_group.merged_groups.map{|i| i.id}.to_set - params[:group_ids].map{|i| i.to_i}.to_set).map{|i| CardSortGroup.find(i)}
       groups_to_remove.each do |group|
         CardSortSort.where(pre_merge_group_id: group.id).update_all(card_sort_group_id: group.id, pre_merge_group_id: nil)
         group.merged_group_id = nil
         group.save
       end
-      merge_group.name = params[:updated_name]
+      merge_group.name = params[:name]
       merge_group.save
     else
       head :forbidden
