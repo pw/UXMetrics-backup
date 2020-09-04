@@ -48,7 +48,7 @@ class CardSort < ApplicationRecord
 
   def group_results
     result = Hash.new{|hash,k| hash[k] = {cards: [], created_by: nil}}
-    card_sort_groups.where(merged: false).joins(card_sort_sorts: :card_sort_card).where.not(card_sort_sorts: {card_sort_participant_id: excluded_participant_ids}).group(:card_sort_group_id).group(:card_sort_card_id).count.each do |(k,v)| 
+    card_sort_groups.joins(card_sort_sorts: :card_sort_card).where.not(card_sort_sorts: {card_sort_participant_id: excluded_participant_ids}).group(:card_sort_group_id).group(:card_sort_card_id).count.each do |(k,v)| 
       result[k.first][:cards] << [CardSortCard.find(k.last).title, v]
     end    
     result.each do |k, v|
@@ -59,6 +59,15 @@ class CardSort < ApplicationRecord
       v[:merged_groups] = group.merged_groups
     end
     result.to_a.sort{|a, b| CardSortGroup.find(a.first) <=> CardSortGroup.find(b.first)}
+  end
+
+  def distribution_of_groups_created_per_participant
+    card_sort_groups.joins(card_sort_sorts: :card_sort_participant).where(card_sort_participants: {excluded: false}).group(:card_sort_participant_id).distinct.count(:card_sort_group_id).each_with_object(Hash.new(0)){|(k,v),h| h[v] += 1}.to_a.sort{|a,b| a.first <=> b.first}
+  end
+
+  def sankey_data
+    data = card_sort_sorts.joins(:card_sort_participant).where(card_sort_participants: {excluded: false}).group(:card_sort_group_id).group(:card_sort_card_id).count.map{|(a,b),v| [CardSortGroup.find(a), CardSortCard.find(b), v]}.sort{|a,b| ((a.first <=> b.first) == 0 ? (a.second.order <=> b.second.order) : (a.first <=> b.first))}.map{|i| [i.first.name, i.second.title, i[2]]}
+    [['From', 'To', 'Weight']] + data
   end
 
   def participants

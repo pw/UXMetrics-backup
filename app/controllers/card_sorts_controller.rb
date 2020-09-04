@@ -20,7 +20,7 @@ class CardSortsController < ApplicationController
     @card_sort = CardSort.find(params[:id])
 
     if @card_sort.user == current_user
-      render json: @card_sort.to_json(methods: [:card_results, :group_results, :participants])
+      render json: @card_sort.to_json(methods: [:card_results, :group_results, :participants, :distribution_of_groups_created_per_participant, :sankey_data])
     else
       head :forbidden
     end   

@@ -47,10 +47,6 @@ $(document).on('turbolinks:load', function(){
   });
 
 
-console.log("App.js");
-
-
-
 
   import('jquery-ui/ui/widgets/sortable');
 

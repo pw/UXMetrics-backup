@@ -20,7 +20,7 @@ export default {
   props: {
     test: Object,
     middle_box_description: String,
-    middle_box_value: String
+    middle_box_value: Number
   }
 }
 </script>

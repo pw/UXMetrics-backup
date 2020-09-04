@@ -10,6 +10,8 @@
             <Sidebar :test="card_sort" middle_box_description="Unique groups created" :middle_box_value="card_sort.total_groups" />
           </div>
           <div class="w-full md:w-2/3 xl:w-3/5 self-center">
+            <h2 @click="draw_chart" class="text-2xl mb-4">Groups Created</h2>
+            <canvas id="bar-chart"></canvas>
           </div>
         </div>
 
@@ -148,6 +150,17 @@
           </div>         
         </div>
 
+        <div class="flex flex-wrap">
+          <div class="w-full mb-16">
+            <h2 class="text-2xl mb-4">Grouping Visualization</h2>
+            <GChart 
+              :settings="{ packages: ['sankey'] }"
+              type="Sankey"
+              :data="card_sort.sankey_data"
+            />
+          </div>
+        </div>
+
       </div>
     </main>
 
@@ -180,6 +193,8 @@
 
 <script>
 import Rails from '@rails/ujs'
+import Chart from 'chart.js'
+import { GChart } from 'vue-google-charts'
 import Nav from '../components/tree_test_report/nav.vue'
 import Sidebar from '../components/tree_test_report/sidebar.vue'
 import CardResult from '../components/card_sort_report/card_result.vue'
@@ -208,7 +223,48 @@ export default {
       current_participant_database_id: this.data[0].participants[0][1]
     }
   },
+  mounted: function() {
+    this.draw_chart()
+  },
   methods: {
+    draw_chart(){
+      var ctx = document.getElementById('bar-chart')
+      var myBarChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: this.card_sort.distribution_of_groups_created_per_participant.map(x => x[0] + ((x[0] === 1) ? ' group' : ' groups')),
+          datasets: [{
+            data: this.card_sort.distribution_of_groups_created_per_participant.map(x => x[1]),
+            label: 'abc',
+            backgroundColor: '#3F65C8'
+          }]
+        },
+        options: {
+          legend: {
+            display: false
+          },
+          tooltips: {
+            callbacks: {
+              label: function(tooltipItem) {
+                return tooltipItem.yLabel;
+              }
+            }
+          },
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+                stepSize: 1
+              },
+              scaleLabel: {
+                display: true, 
+                labelString: 'Number of participants'
+              }
+            }]
+          }
+        }
+      });
+    },
     manageMergedGroup(id, name, merged_groups) {
       this.merged_group_name = name
       this.merged_group_id = id
@@ -231,10 +287,11 @@ export default {
           this.card_sort = arg
           this.current_participant_id = this.card_sort.participants[0][0],
           this.current_participant_database_id = this.card_sort.participants[0][1]
+          this.draw_chart()
         }
       })
     }
   },
-  components: { Nav, Sidebar, CardResult, GroupResult, NewMergeGroupModal, ManageMergedGroupModal, Participant}
+  components: { GChart, Nav, Sidebar, CardResult, GroupResult, NewMergeGroupModal, ManageMergedGroupModal, Participant}
 }  
 </script>

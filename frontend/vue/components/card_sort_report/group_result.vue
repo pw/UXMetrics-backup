@@ -40,7 +40,7 @@
 export default {
   props: {
     name: String,
-    group_id: String,
+    group_id: Number,
     cards: Array,
     created_by: Number,
     merged_groups: Array,
