@@ -10,6 +10,7 @@
             <label for="logo" class="block text-sm leading-5 font-medium text-gray-700">
                 Logo
             </label>
+            <img v-show="logo_key !== undefined" :src="logo_base_url + '/' + logo_key">
             <div class="mt-2 flex items-center">
               <span class="rounded-md shadow-sm">
                 <button @click="openUpload" type="button" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
@@ -28,7 +29,9 @@
     <Step v-show="step == 2" current_step="2" :total_steps="total_steps" instructions="Now let's set up your cards." :tips_background_styling="'bg-purple-100'" :tips_border_styling="'border-purple-500'" :tips_text_styling="'text-purple-700'">
       <div class="grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
         <div class="sm:col-span-4">
-          <div :class="{'bg-purple-100 hover:bg-purple-200 border border-purple-600': (sort_type === 'open'), 'bg-gray-50 hover:bg-purple-100': (sort_type !== 'open')}" class=" cursor-pointer overflow-hidden shadow rounded-lg  mb-3 transition duration-150 ease-in-out">
+          <div 
+          @click="sort_type = 'open'"
+          :class="{'bg-purple-100 hover:bg-purple-200 border border-purple-600': (sort_type === 'open'), 'bg-gray-50 hover:bg-purple-100': (sort_type !== 'open')}" class=" cursor-pointer overflow-hidden shadow rounded-lg  mb-3 transition duration-150 ease-in-out">
             <div class="p-2 sm:p-3">
               <div class="flex items-center">
                 <div class="flex-shrink-0 p-1">
@@ -41,7 +44,9 @@
               </div>
             </div>
           </div>
-          <div :class="{'bg-purple-100 hover:bg-purple-200 border border-purple-600': (sort_type === 'closed'), 'bg-gray-50 hover:bg-purple-100': (sort_type !== 'closed')}" class="cursor-pointer overflow-hidden shadow rounded-lg mb-3 transition duration-150 ease-in-out">
+          <div 
+          @click="sort_type = 'closed'"
+          :class="{'bg-purple-100 hover:bg-purple-200 border border-purple-600': (sort_type === 'closed'), 'bg-gray-50 hover:bg-purple-100': (sort_type !== 'closed')}" class="cursor-pointer overflow-hidden shadow rounded-lg mb-3 transition duration-150 ease-in-out">
             <div class="p-2 sm:p-3">
               <div class="flex items-center">
                 <div class="flex-shrink-0 p-1">
@@ -54,7 +59,9 @@
               </div>
             </div>
           </div>
-          <div :class="{'bg-purple-100 hover:bg-purple-200 border border-purple-600': (sort_type === 'hybrid'), 'bg-gray-50 hover:bg-purple-100': (sort_type !== 'hybrid')}" class="cursor-pointer overflow-hidden shadow rounded-lg mb-3 transition duration-150 ease-in-out">
+          <div 
+          @click="sort_type = 'hybrid'"
+          :class="{'bg-purple-100 hover:bg-purple-200 border border-purple-600': (sort_type === 'hybrid'), 'bg-gray-50 hover:bg-purple-100': (sort_type !== 'hybrid')}" class="cursor-pointer overflow-hidden shadow rounded-lg mb-3 transition duration-150 ease-in-out">
             <div class="p-2 sm:p-3">
               <div class="flex items-center">
                 <div class="flex-shrink-0 p-1">
@@ -135,11 +142,15 @@ import * as filestack from 'filestack-js'
 const filestack_client = filestack.init('AuALnf2VzTPqJAkEOLar1z');
 
 export default {
+  props: {
+    data: Object
+  },
   data () {
     return {
       step: 1,
       total_steps: 2,
       name: '', 
+      logo_base_url: this.data.logo_base_url,
       logo_key: undefined,
       filestack_options: {
         fromSources: ['local_file_system', 'url'],

@@ -10,6 +10,7 @@
               <label for="logo" class="block text-sm leading-5 font-medium text-gray-700">
                   Logo
               </label>
+              <img v-show="logo_key !== undefined" :src="logo_base_url + '/' + logo_key">
               <div class="mt-2 flex items-center">
                 <span class="rounded-md shadow-sm">               
                   <button @click="openUpload" type="button" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
@@ -72,11 +73,15 @@ import * as filestack from 'filestack-js'
 const filestack_client = filestack.init('AuALnf2VzTPqJAkEOLar1z');
 
 export default {
+  props: {
+    data: Object
+  },  
   data () {
     return {
       step: 1,
       total_steps: 3,
       name: undefined, 
+      logo_base_url: this.data.logo_base_url,
       logo_key: undefined,
       filestack_options: {
         fromSources: ['local_file_system', 'url'],
