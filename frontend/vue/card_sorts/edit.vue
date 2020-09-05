@@ -144,7 +144,7 @@
                     <label for="logo" class="block text-sm leading-5 font-medium text-gray-700">
                         Logo
                     </label>
-                    <img v-show="card_sort.logo_key !== undefined" :src="card_sort.logo_base_url + '/' + card_sort.logo_key">
+                    <img v-show="card_sort.logo_key !== 'undefined'" :src="card_sort.logo_base_url + '/' + card_sort.logo_key">
                     <div class="mt-2 flex items-center">
                       <span class="rounded-md shadow-sm">
                         <button @click="openUpload" :disabled="card_sort.status !== 'draft'" :class="{'cursor-not-allowed opacity-50': (card_sort.status != 'draft')}" type="button" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
@@ -163,7 +163,11 @@
             <div v-show="tab == 'cards'">  
               <div class="grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
                 <div class="sm:col-span-4">
-                  <div v-show="(card_sort.status === 'draft') || (card_sort.sort_type === 'open')" :class="{'bg-purple-100  border border-purple-600': (card_sort.sort_type === 'open'), 'bg-gray-50 hover:bg-purple-100': (card_sort.sort_type !== 'open'), 'cursor-pointer hover:bg-purple-200': (card_sort.status === 'draft')}" class="overflow-hidden shadow rounded-lg  mb-3 transition duration-150 ease-in-out">
+                  <div
+                  @click="card_sort.sort_type = 'open'; saveProperty('sort_type')"
+                  v-show="(card_sort.status === 'draft') || (card_sort.sort_type === 'open')" 
+                  :class="{'bg-purple-100  border border-purple-600': (card_sort.sort_type === 'open'), 'bg-gray-50 hover:bg-purple-100': (card_sort.sort_type !== 'open'), 'cursor-pointer hover:bg-purple-200': (card_sort.status === 'draft')}" 
+                  class="overflow-hidden shadow rounded-lg  mb-3 transition duration-150 ease-in-out">
                     <div class="p-2 sm:p-3">
                       <div class="flex items-center">
                         <div class="flex-shrink-0 p-1">
@@ -176,7 +180,9 @@
                       </div>
                     </div>
                   </div>
-                  <div v-show="(card_sort.status === 'draft') || (card_sort.sort_type === 'closed')" :class="{'bg-purple-100 border border-purple-600': (card_sort.sort_type === 'closed'), 'bg-gray-50 hover:bg-purple-100': (card_sort.sort_type !== 'closed'), 'cursor-pointer hover:bg-purple-200': (card_sort.status === 'draft')}" class="overflow-hidden shadow rounded-lg mb-3 transition duration-150 ease-in-out">
+                  <div 
+                  @click="card_sort.sort_type = 'closed'; saveProperty('sort_type')"
+                  v-show="(card_sort.status === 'draft') || (card_sort.sort_type === 'closed')" :class="{'bg-purple-100 border border-purple-600': (card_sort.sort_type === 'closed'), 'bg-gray-50 hover:bg-purple-100': (card_sort.sort_type !== 'closed'), 'cursor-pointer hover:bg-purple-200': (card_sort.status === 'draft')}" class="overflow-hidden shadow rounded-lg mb-3 transition duration-150 ease-in-out">
                     <div class="p-2 sm:p-3">
                       <div class="flex items-center">
                         <div class="flex-shrink-0 p-1">
@@ -189,7 +195,9 @@
                       </div>
                     </div>
                   </div>
-                  <div v-show="(card_sort.status === 'draft') || (card_sort.sort_type === 'hybrid')" :class="{'bg-purple-100 border border-purple-600': (card_sort.sort_type === 'hybrid'), 'bg-gray-50 hover:bg-purple-100': (card_sort.sort_type !== 'hybrid'), 'cursor-pointer hover:bg-purple-200': (card_sort.status === 'draft')}" class="overflow-hidden shadow rounded-lg mb-3 transition duration-150 ease-in-out">
+                  <div 
+                  @click="card_sort.sort_type = 'hybrid'; saveProperty('sort_type')"
+                  v-show="(card_sort.status === 'draft') || (card_sort.sort_type === 'hybrid')" :class="{'bg-purple-100 border border-purple-600': (card_sort.sort_type === 'hybrid'), 'bg-gray-50 hover:bg-purple-100': (card_sort.sort_type !== 'hybrid'), 'cursor-pointer hover:bg-purple-200': (card_sort.status === 'draft')}" class="overflow-hidden shadow rounded-lg mb-3 transition duration-150 ease-in-out">
                     <div class="p-2 sm:p-3">
                       <div class="flex items-center">
                         <div class="flex-shrink-0 p-1">
