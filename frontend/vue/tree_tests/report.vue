@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav :name="tree_test.name" :created_at="tree_test.created_at_day" :id="tree_test.id" test_type="tree_test" />
+    <Nav :name="tree_test.name" :created_at="tree_test.created_at_day" :id="tree_test.id" test_type="tree_tests" />
 
     <main class="py-6">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
