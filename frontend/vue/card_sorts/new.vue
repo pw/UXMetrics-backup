@@ -258,20 +258,25 @@ export default {
       data.append('card_sort[logo_key]', this.logo_key)
       data.append('card_sort[participant_instructions]', this.participant_instructions)
       data.append('card_sort[thank_you_message]', this.thank_you_message)
-      data.append('card_sort[sort_type]', this.sort_type)      
-      this.groups.forEach((group, index) => {
-        if(group.name === '') {          
-        } else {
-          data.append('card_sort[card_sort_groups_attributes][' + index + '][name]', group.name) 
-          data.append('card_sort[card_sort_groups_attributes][' + index + '][order]', index)   
-        }     
-      })
+      data.append('card_sort[sort_type]', this.sort_type)
+      if(this.sort_type !== 'open') {     
+        this.groups.forEach((group, index) => {
+          if(group.name === '') {          
+          } else {
+            data.append('card_sort[card_sort_groups_attributes][' + index + '][name]', group.name) 
+            data.append('card_sort[card_sort_groups_attributes][' + index + '][order]', index)   
+          }     
+        })
+      }
       data.append('card_sort[randomize_card_order]', this.randomize_card_order) 
       this.cards.forEach((card, index) => {
-        data.append('card_sort[card_sort_cards_attributes][' + index + '][title]', card.content.title)   
-        data.append('card_sort[card_sort_cards_attributes][' + index + '][description]', card.content.description)
-        data.append('card_sort[card_sort_cards_attributes][' + index + '][has_description]', card.content.has_description)                    
-        data.append('card_sort[card_sort_cards_attributes][' + index + '][order]', index)                    
+        if(card.content.title === '') {
+        } else {
+          data.append('card_sort[card_sort_cards_attributes][' + index + '][title]', card.content.title)   
+          data.append('card_sort[card_sort_cards_attributes][' + index + '][description]', card.content.description)
+          data.append('card_sort[card_sort_cards_attributes][' + index + '][has_description]', card.content.has_description)                    
+          data.append('card_sort[card_sort_cards_attributes][' + index + '][order]', index)      
+        }              
       })
 
       Rails.ajax({

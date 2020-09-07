@@ -112,6 +112,7 @@
           <Group
           v-for="group in groups"
           :key="group.id"
+          :sort_type="card_sort.sort_type"
           :id="group.id"   
           :can_delete="group.can_delete"
           :initial_cards="group.cards"
@@ -352,7 +353,7 @@
         this.moving_card = evt
       },
       onCardDrop(evt) {
-        if(evt.to.id === 'groups') {
+        if(evt.to.id === 'groups' && this.card_sort.sort_type !== 'closed') {
           var index = this.moving_card.draggedContext.futureIndex          
           var new_group = this.newGroup()
           new_group.cards = [this.moving_card.draggedContext.element]
@@ -374,7 +375,6 @@
             data.append('card_sort_group[card_sort_id]', this.card_sort.id)
             Rails.ajax({
               url: '/participant_designated_card_sort_groups',
-              async: false,
               type: 'POST', 
               data: data,
               success:  (arg) => {
@@ -414,6 +414,9 @@
         } else if(this.groups.findIndex(group => group.name === undefined) !== -1) {
           this.error_type = 'group names'
           this.error_modal_open = true
+        } else if(this.preview) {
+          this.step = 'thanks'
+          return
         } else {
           var endTime = new Date
           this.sort_time_elapsed = (endTime - this.sort_start_time)

@@ -37,12 +37,12 @@
         </div>
       </div>
       <draggable 
-      v-model="cards"
-      @end="onCardDrop"
-      :move="onCardMove"
+      v-model="cards"          
       group="cards"
       class="p-4"      
       style="min-height: 6rem;"
+      :move="onCardMove"
+      @end="onCardDrop"
       >            
         <Card 
         v-for="card in cards"
@@ -61,6 +61,7 @@
   import Card from './card.vue'
   export default {
     props: {
+      sort_type: String,
       id: Number,
       can_delete: {
         type: Boolean,
@@ -104,6 +105,9 @@
         }
       },
       onCardMove(evt) {
+        if(this.sort_type === 'closed' && evt.to.id === 'groups') {
+          return false
+        }        
         this.$emit('onCardMove', evt)
       },
       onCardDrop(evt) {

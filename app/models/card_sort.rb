@@ -1,10 +1,10 @@
 class CardSort < ApplicationRecord
   belongs_to :user
+  has_many :card_sort_sorts, dependent: :destroy
   has_many :card_sort_groups, dependent: :destroy
   has_many :card_sort_cards, dependent: :destroy
   has_many :card_sort_participants, dependent: :destroy
-  has_many :card_sort_sorts, dependent: :destroy
-
+  
   accepts_nested_attributes_for :card_sort_groups, allow_destroy: true
   accepts_nested_attributes_for :card_sort_cards, allow_destroy: true
 
@@ -74,6 +74,14 @@ class CardSort < ApplicationRecord
     card_sort_participants.map{|i| [i.participant_id, i.id]}
   end
 
+  def card_sort_cards_randomized_or_not
+    if randomize_card_order
+      card_sort_cards.to_a.shuffle
+    else
+      card_sort_cards.order(:order)
+    end
+  end
+
   def as_json(*)
     super.tap do |hash| 
       hash[:created_at_day] = created_at.strftime('%-m/%-d/%Y')
@@ -85,6 +93,7 @@ class CardSort < ApplicationRecord
       hash[:median_time] = median_time_formatted
       hash[:total_groups] = card_sort_groups.count
       hash[:card_sort_groups] = card_sort_groups.where.not(order: nil).order(:order)
+      hash[:card_sort_cards] = card_sort_cards_randomized_or_not
     end
   end
 

@@ -36,6 +36,7 @@ class CardSortsController < ApplicationController
 
   def update
     result = current_user.card_sorts.update(params[:id], card_sort_params)
+    current_user.card_sorts.find(params[:id]).card_sort_groups.destroy_all if params[:card_sort][:sort_type] == 'open'
     render json: result
   end
 
