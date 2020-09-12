@@ -164,7 +164,7 @@
               <div class="grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
                 <div class="sm:col-span-4">
                   <div
-                  @click="card_sort.sort_type = 'open'; saveProperty('sort_type')"
+                  @click="changeSortType('open')"
                   v-show="(card_sort.status === 'draft') || (card_sort.sort_type === 'open')" 
                   :class="{'bg-purple-100  border border-purple-600': (card_sort.sort_type === 'open'), 'bg-gray-50 hover:bg-purple-100': (card_sort.sort_type !== 'open'), 'cursor-pointer hover:bg-purple-200': (card_sort.status === 'draft')}" 
                   class="overflow-hidden shadow rounded-lg  mb-3 transition duration-150 ease-in-out">
@@ -181,7 +181,7 @@
                     </div>
                   </div>
                   <div 
-                  @click="card_sort.sort_type = 'closed'; saveProperty('sort_type')"
+                  @click="changeSortType('closed')"
                   v-show="(card_sort.status === 'draft') || (card_sort.sort_type === 'closed')" :class="{'bg-purple-100 border border-purple-600': (card_sort.sort_type === 'closed'), 'bg-gray-50 hover:bg-purple-100': (card_sort.sort_type !== 'closed'), 'cursor-pointer hover:bg-purple-200': (card_sort.status === 'draft')}" class="overflow-hidden shadow rounded-lg mb-3 transition duration-150 ease-in-out">
                     <div class="p-2 sm:p-3">
                       <div class="flex items-center">
@@ -196,7 +196,7 @@
                     </div>
                   </div>
                   <div 
-                  @click="card_sort.sort_type = 'hybrid'; saveProperty('sort_type')"
+                  @click="changeSortType('hybrid')"
                   v-show="(card_sort.status === 'draft') || (card_sort.sort_type === 'hybrid')" :class="{'bg-purple-100 border border-purple-600': (card_sort.sort_type === 'hybrid'), 'bg-gray-50 hover:bg-purple-100': (card_sort.sort_type !== 'hybrid'), 'cursor-pointer hover:bg-purple-200': (card_sort.status === 'draft')}" class="overflow-hidden shadow rounded-lg mb-3 transition duration-150 ease-in-out">
                     <div class="p-2 sm:p-3">
                       <div class="flex items-center">
@@ -354,7 +354,7 @@ export default {
         type: 'POST', 
         data: data,
         success:  (arg) => {
-          this.groups.push({id: arg.id, text: ''})
+          this.groups.push({id: arg.id, name: ''})
           this.$nextTick(function() {
             this.$refs[`group_${arg.id}`].$refs.input.focus()
           })          
@@ -397,7 +397,25 @@ export default {
         type: 'PATCH', 
         data: data
       })              
-    },    
+    },   
+    syncGroups: function() {
+      var data = new FormData
+      this.groups.forEach((group, index) => {
+        data.append(`card_sort[card_sort_groups_attributes][${index}][name]`, group.name)
+        data.append(`card_sort[card_sort_groups_attributes][${index}][order]`, index)
+        data.append(`card_sort[card_sort_groups_attributes][${index}][order]`, index)
+      })
+      Rails.ajax({
+        url: `/card_sorts/${this.card_sort.id}`,
+        type: 'PATCH',
+        data: data,
+        success: (arg) => {
+          arg.card_sort_groups.forEach((group, index) => {
+            this.groups[index].id = group.id
+          })
+        }
+      })
+    }, 
     nextGroup: function(group_id) {
       var index = this.groups.findIndex(i => i.id == group_id)
       if(index === this.groups.length - 1) {
@@ -501,7 +519,15 @@ export default {
         }
       }
       filestack_client.picker(options).open()
-    },        
+    },
+    changeSortType(type) {
+      var previous_sort_type = this.card_sort.sort_type
+      this.card_sort.sort_type = type
+      this.saveProperty('sort_type')  
+      if(previous_sort_type === 'open' && (type === 'closed' || type === 'hybrid')) {
+        this.syncGroups()
+      }          
+    },       
     saveProperty(property) {
       var data = new FormData 
       data.append('card_sort[' + property + ']', this.card_sort[property])

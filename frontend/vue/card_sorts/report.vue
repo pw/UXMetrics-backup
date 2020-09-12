@@ -169,6 +169,7 @@
       v-show="new_merge_group_modal_open"
       @close="new_merge_group_modal_open = false"
       @dataChange="update_card_sort_data"
+      @clearSelectedGroups="clearSelectedGroups"
       :show="new_merge_group_modal_open"
       :groups="selected_groups"
       :card_sort_id="card_sort.id"
@@ -278,6 +279,9 @@ export default {
       } else {
         this.selected_groups.splice(index, 1)
       }
+    },
+    clearSelectedGroups() {
+      this.selected_groups = []
     },
     update_card_sort_data() {
       Rails.ajax({

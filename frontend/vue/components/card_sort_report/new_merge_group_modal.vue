@@ -92,6 +92,8 @@ export default {
         data: data,
         success: (arg) => {
           this.$emit('dataChange')
+          this.$emit('clearSelectedGroups')
+          this.name = ''
           this.$emit('close')
         }
       })
