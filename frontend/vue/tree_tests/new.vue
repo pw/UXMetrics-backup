@@ -158,6 +158,7 @@ export default {
     },
     addTask() {
       this.tasks.push({id: this.tasks_index, instructions: 'Task instructions (e.g. "Imagine that you want to update your credit card details. Where would you find that?")', correctChoice: []})
+      this.tasks_index += 1
     },
     removeTask(index) {
       this.tasks.splice(index, 1)  
