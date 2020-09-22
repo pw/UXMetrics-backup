@@ -20,7 +20,7 @@
 
 /* CSS for draggable elements */
 
-ol, ul {
+.draggable ol, .draggable ul {
 padding-left: 20px;
 }
 .nestable {

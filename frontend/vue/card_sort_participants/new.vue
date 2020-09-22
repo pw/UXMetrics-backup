@@ -102,7 +102,7 @@
         <draggable 
         id="groups"
         v-model="groups"
-        class="flex flex-wrap -mx-2" 
+        class="flex flex-wrap -mx-2 draggable" 
         group="cards"
         swap-threshold="0.65"
         ghost-class="draggable-new-group"
@@ -136,7 +136,7 @@
           <draggable 
           v-model="card_sort.card_sort_cards"
           group="cards"
-          class="flex"
+          class="flex draggable"
           :move="onCardMove"
           @end="onCardDrop"
           >            

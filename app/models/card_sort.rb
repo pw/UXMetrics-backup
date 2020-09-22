@@ -66,7 +66,7 @@ class CardSort < ApplicationRecord
   end
 
   def sankey_data
-    data = card_sort_sorts.joins(:card_sort_participant).where(card_sort_participants: {excluded: false}).group(:card_sort_group_id).group(:card_sort_card_id).count.map{|(a,b),v| [CardSortGroup.find(a), CardSortCard.find(b), v]}.sort{|a,b| ((a.first <=> b.first) == 0 ? (a.second.order <=> b.second.order) : (a.first <=> b.first))}.map{|i| [i.first.name, i.second.title, i[2]]}
+    data = card_sort_sorts.joins(:card_sort_participant).where(card_sort_participants: {excluded: false}).group(:card_sort_group_id).group(:card_sort_card_id).count.map{|(a,b),v| [CardSortGroup.find(a), CardSortCard.find(b), v]}.sort{|a,b| ((a.first <=> b.first) == 0 ? (a.second.order <=> b.second.order) : (a.first <=> b.first))}.map{|i| ["Group: #{i.first.name}", "Card: #{i.second.title}", i[2]]}
     [['From', 'To', 'Weight']] + data
   end
 

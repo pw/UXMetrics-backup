@@ -137,14 +137,14 @@
                   >
                       Participant {{ participant[0] }}
                   </a>                    
-                </nav>
-                <Participant
+                </nav>               
+              </div>  
+              <Participant
                 :participant_id="current_participant_id"
                 :participant_database_id="current_participant_database_id"
                 :card_sort_id="card_sort.id"
                 @dataChange="update_card_sort_data"
-                />                
-              </div>              
+              />             
             </div>            
 
           </div>         
