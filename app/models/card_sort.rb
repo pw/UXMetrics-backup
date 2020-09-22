@@ -87,7 +87,7 @@ class CardSort < ApplicationRecord
       hash[:created_at_day] = created_at.strftime('%-m/%-d/%Y')
       hash[:collect_url] = Rails.application.routes.url_helpers.card_sort_collect_url(auth_token: auth_token, host: ENV['CURRENT_HOST'])
       hash[:logo_base_url] = "https://#{ENV['LOGO_UPLOAD_ENDPOINT']}"
-      hash[:logo_url] = (logo_key != 'undefined') ? "https://#{ENV['LOGO_UPLOAD_ENDPOINT']}/#{logo_key}" : ActionController::Base.helpers.asset_pack_path('media/images/uxops-logo.svg')
+      hash[:logo_url] = (logo_key != 'undefined') ? "https://#{ENV['LOGO_UPLOAD_ENDPOINT']}/#{logo_key}" : ActionController::Base.helpers.asset_pack_path('media/images/uxmetrics-logo.svg')
       hash[:results_count] = card_sort_participants.where(excluded: false).count
       hash[:test_results_count] = card_sort_participants.where(excluded: false).count
       hash[:median_time] = median_time_formatted
