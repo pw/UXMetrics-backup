@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   def redirect_to_new_domain
     uri = URI.parse request.url
 
-    if Rails.env.production? && (uri.host != 'www.uxops.com') && (uri.host != 'ux-card-staging.herokuapp.com')
+    if Rails.env.production? && (uri.host != 'www.uxops.com') && (uri.host != 'ux-metrics-transfer-test.herokuapp.com')
       uri.host = 'www.uxops.com'
       redirect_to uri.to_s, status: 301
     end
