@@ -1,6 +1,6 @@
 <%= content_for :body_class, "bg-white" %>
 
-<div class="bg-purple-100">
+<div x-data="{ plan: 'annual' }" class="bg-purple-100">
   <div class="pt-12 sm:pt-16 lg:pt-24">
     <div class="max-w-screen-xl mx-auto text-center px-4 sm:px-6 lg:px-8">
       <div class="max-w-3xl mx-auto lg:max-w-none">
@@ -15,10 +15,24 @@
         </p>
         <div class="mt-6">
           <span class="relative z-0 inline-flex shadow-sm rounded-md">
-            <button type="button" class="relative inline-flex items-center px-4 py-2 rounded-l-md border border-transparent text-sm leading-5 font-medium text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition ease-in-out duration-150">
+            <button 
+            @click="plan = 'annual'" 
+            type="button" 
+            class="relative inline-flex items-center px-4 py-2 rounded-l-md border text-sm leading-5 font-medium transition ease-in-out duration-150" 
+            :class="{ 
+            'border-transparent text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700': (plan === 'annual'),             
+            'border-gray-300 bg-white text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700': (plan !== 'annual') }">
               Annual
             </button>
-            <button type="button" class="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+            <button 
+            @click="plan = 'monthly'" 
+            type="button" 
+            class="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border text-sm leading-5 font-medium transition ease-in-out duration-150" 
+            :class="{ 
+            'border-transparent text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700': (plan === 'monthly'), 
+            'border-gray-300 bg-white text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700': (plan !== 'monthly') 
+            }"
+            >
               Monthly
             </button>
           </span>
@@ -32,15 +46,28 @@
       <div class="relative max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-lg mx-auto rounded-lg shadow-lg overflow-hidden lg:max-w-none lg:flex">
           <div class="bg-white px-6 py-8 lg:p-12">
-            <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-green-800">
-              Save 20%
-            </span>
-            <h3 class="mt-2 text-3xl leading-9 font-extrabold text-gray-900">
-              Annual Subscription 
-            </h3>
-            <p class="mt-6 text-base leading-6 text-gray-500">
-              Maximum value for ongoing and frequent user research projects. Great for agencies, consultants and enterprise UXR teams.
-            </p>
+            <div x-show="plan === 'annual'">
+              <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-green-800">
+                Save 20%
+              </span>
+              <h3 class="mt-2 text-3xl leading-9 font-extrabold text-gray-900">
+                Annual Subscription 
+              </h3>
+              <p class="mt-6 text-base leading-6 text-gray-500">
+                Maximum value for ongoing and frequent user research projects. Great for agencies, consultants and enterprise UXR teams.
+              </p>
+            </div>
+            <div x-show="plan === 'monthly'">
+              <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-green-800">
+                Save 20%
+              </span>              
+              <h3 class="mt-2 text-3xl leading-9 font-extrabold text-gray-900">
+                Monthly Subscription 
+              </h3>
+              <p class="mt-6 text-base leading-6 text-gray-500">
+                Maximum value for ongoing and frequent user research projects. Great for agencies, consultants and enterprise UXR teams.
+              </p>
+            </div>            
             <div class="mt-8">
               <div class="flex items-center">
                 <h4 class="flex-shrink-0 pr-4 bg-white text-sm leading-5 tracking-wider font-semibold uppercase text-indigo-600">
@@ -113,22 +140,42 @@
             </div>
           </div>
           <div class="py-8 px-6 text-center bg-gray-50 lg:flex-shrink-0 lg:flex lg:flex-col lg:justify-center lg:p-12">
-            <div class="mt-4 flex items-center justify-center text-5xl leading-none font-extrabold text-gray-900">
-              <span>
-                $79
-              </span>
-              <span class="ml-3 text-xl leading-7 font-medium text-gray-500">
-                /mo
-              </span>
-            </div>
-            <p class="mt-4 text-sm leading-5 font-medium text-gray-500">
-              (Billed annually at $948)
-            </p>
-            <div class="mt-6">
-              <div class="rounded-md shadow">
-                <%= link_to "Get Started Free", new_user_registration_path, class: "flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-green-500 hover:bg-green-400 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+            <div x-show="plan === 'annual'">
+              <div class="mt-4 flex items-center justify-center text-5xl leading-none font-extrabold text-gray-900">
+                <span>
+                  $79
+                </span>
+                <span class="ml-3 text-xl leading-7 font-medium text-gray-500">
+                  /mo
+                </span>
+              </div>
+              <p class="mt-4 text-sm leading-5 font-medium text-gray-500">
+                (Billed annually at $948)
+              </p>
+              <div class="mt-6">
+                <div class="rounded-md shadow">
+                  <%= link_to "Get Started Free", new_user_registration_path, class: "flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-green-500 hover:bg-green-400 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+                </div>
               </div>
             </div>
+            <div x-show="plan === 'monthly'">
+              <div class="mt-4 flex items-center justify-center text-5xl leading-none font-extrabold text-gray-900">
+                <span>
+                  $99
+                </span>
+                <span class="ml-3 text-xl leading-7 font-medium text-gray-500">
+                  /mo
+                </span>
+              </div>
+              <p class="mt-4 text-sm leading-5 font-medium text-gray-500">
+                (Billed monthly)
+              </p>              
+              <div class="mt-6">
+                <div class="rounded-md shadow">
+                  <%= link_to "Get Started Free", new_user_registration_path, class: "flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-green-500 hover:bg-green-400 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+                </div>
+              </div>
+            </div>            
           </div>
         </div>
       </div>

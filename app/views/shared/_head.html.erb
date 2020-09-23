@@ -30,7 +30,7 @@ fathom('trackPageview');
 
 <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
 
-<% if controller.controller_name != 'cardtests' %>
+<% if controller.controller_name != 'cardtests' && controller.controller_name != 'pages' %>
   <%= javascript_pack_tag "vue", "data-turbolinks-track": "reload" %>
 <% end %>
 
