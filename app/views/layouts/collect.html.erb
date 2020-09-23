@@ -28,7 +28,7 @@
         <% if @cardtest.logoimg.attached? %>
           <%= image_tag(url_for(@cardtest.logoimg), id: "logo--uploaded", class: "h-8 w-auto", style: 'max-height:40px !important; width:auto; display:table-cell; vertical-align:middle;') %>
         <% else %>
-          <%= image_tag(asset_pack_path("media/images/uxops-logo.svg"), size: "76x39", class: "") %>
+          <%= image_tag(asset_pack_path("media/images/uxmetrics-logo.svg"), size: "76x39", class: "") %>
         <% end %>
       </div>
       <div class="flex">
@@ -110,7 +110,7 @@
         <p></p>
       </div>
       <div class="text-center bottom-0 mb-8 absolute block w-full">
-        <p class="text-xs text-gray-500 mb-4">This test was powered by <%= link_to image_tag(asset_pack_path("media/images/uxops-logo.svg"), size: "76x39", class: "ml-2 inline"), root_path, class: "text-center" %></p>
+        <p class="text-xs text-gray-500 mb-4">This test was powered by <%= link_to image_tag(asset_pack_path("media/images/uxmetrics-logo.svg"), size: "76x39", class: "ml-2 inline"), root_path, class: "text-center" %></p>
 
 
       </div>
