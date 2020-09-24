@@ -12,7 +12,6 @@
       </p>
     </div>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "mt-8" }) do |f| %>
-      <input type="hidden" name="remember" value="true">
       <div class="rounded-md shadow-sm">
         <div>
           <%= f.email_field :email, autocomplete: "email", class: "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5", 'aria-label' => 'Email address', placeholder: 'Email address' %>

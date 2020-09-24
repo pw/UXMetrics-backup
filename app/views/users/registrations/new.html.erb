@@ -1,43 +1,4 @@
-  <% content_for :page_title, "Create your #{Rails.configuration.application_name} account." %>
-<% content_for :page_description, "Create your #{Rails.configuration.application_name} account to get access today." %>
-
-<div class="mt-4 max-w-lg mx-auto">
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "card card--light p-4" }) do |f| %>
-    <%= devise_error_messages! %>
-
-    <h1 class="mt-2 mb-6 text-xl">Create an account</h1>
-
-    <div class="field">
-      <%= f.label :email %>
-      <% if request.original_url.split("?")[1].present? && request.original_url.split("?")[1].exclude?("plan") %>
-        <%= f.email_field :email, placeholder: "Your email", autocomplete: "email", class: "input", value:request.original_url.split("?")[1] %>
-      <% else %>
-        <%= f.email_field :email, placeholder: "Your email", autocomplete: "email", class: "input" %>
-      <% end %>
-    </div>
-
-    <div class="field">
-      <%= f.label :password %>
-      <%= f.password_field :password, placeholder: "•••••••••••••", autocomplete: "new-password", class: "input" %>
-    </div>
-    <div class="field">
-      <input type="checkbox" id="consent" name="consent" required>
-      <label for="consent">I agree with the <%= link_to "Terms", terms_path, target: "_blank" %></label>
-    </div>
-    <div class="">
-      <%= f.hidden_field :trialend, :value => "7" %>
-    </div>
-
-
-
-    <div class="actions">
-      <%= f.submit "Create an account", class: "btn btn--primary" %>
-    </div>
-  <% end %>
-
-  <%= render "users/shared/links" %>
-</div>
-
+<% content_for :page_title, "Create your #{Rails.configuration.application_name} account." %>
 <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
   <div class="max-w-md w-full">
     <div>
@@ -50,21 +11,20 @@
         <%= link_to "Log in", new_user_session_path, class: "font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:underline transition ease-in-out duration-150" %>
       </p>
     </div>
-    <form class="mt-8" action="#" method="POST">
-      <input type="hidden" name="remember" value="true">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "mt-8" }) do |f| %>
       <div class="rounded-md shadow-sm">
         <div>
-          <input aria-label="Email address" name="email" type="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5" placeholder="Email address">
+          <%= f.email_field :email, placeholder: "Email address", autocomplete: "email", required: true, class: "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5", 'aria-label' => 'Email address' %>
         </div>
         <div class="-mt-px">
-          <input aria-label="Password" name="password" type="password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5" placeholder="Password">
+          <%= f.password_field :password, placeholder: "Password", autocomplete: "new-password", required: true, class: "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5", 'aria-label' => 'Password' %>
         </div>
       </div>
 
       <div class="mt-6 flex items-center justify-between">
         <div class="flex items-center">
-          <input id="remember_me" type="checkbox" class="form-checkbox h-4 w-4 text-purple-600 transition duration-150 ease-in-out">
-          <label for="remember_me" class="ml-2 block text-sm leading-5 text-gray-900">
+          <input id="consent" required type="checkbox" class="form-checkbox h-4 w-4 text-purple-600 transition duration-150 ease-in-out">
+          <label for="consent" class="ml-2 block text-sm leading-5 text-gray-900">
             I agree to the <%= link_to "Terms Of Use", terms_path, target: "_blank", class: "font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:underline transition ease-in-out duration-150" %>
           </label>
         </div>
@@ -75,6 +35,6 @@
           Create Account
         </button>
       </div>
-    </form>
+    <% end %>
   </div>
 </div>
