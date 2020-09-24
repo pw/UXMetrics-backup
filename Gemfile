@@ -13,12 +13,6 @@ gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'mini_racer', platforms: :ruby
-gem 'mixpanel-ruby', '~> 2.2', '>= 2.2.1'
-
-#segment
-gem 'analytics-ruby', '~> 2.0.0', :require => 'segment/analytics'
 
 gem 'rinku', '~> 2.0', '>= 2.0.2'
 
@@ -37,9 +31,6 @@ gem "google-cloud-storage", "~> 1.8", require: false
 
 gem 'uniqueness', '~> 1.1'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
@@ -57,19 +48,15 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
 gem 'webpacker', '~> 4.0', '>= 4.0.7'
 gem 'devise', '~> 4.6', '>= 4.6.1'
 gem 'devise_masquerade', '~> 0.6.5'
 gem 'friendly_id', '~> 5.2', '>= 5.2.4'
-gem 'name_of_person', '~> 1.0'
 gem 'sidekiq', '~> 5.2', '>= 5.2.5'
 gem 'storext', '~> 2.2', '>= 2.2.2'
 gem 'redis', '~> 4.1'
 gem 'premailer-rails', '~> 1.10', '>= 1.10.2'
+
 group :development do
   gem 'letter_opener', '~> 1.6'
   gem 'foreman', '~> 0.85.0'

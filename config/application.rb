@@ -13,23 +13,15 @@ require "action_cable/engine"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
-
-
-require "mixpanel-ruby"
-
-# tracker = Mixpanel::Tracker.new()
-tracker = Mixpanel::Tracker.new(ENV["PROJECT_TOKEN"])
-
-
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
 module UxCard6
   class Application < Rails::Application
-    config.application_naked_domain = 'uxops.com'
+    config.application_naked_domain = ENV['NAKED_APP_DOMAIN']
     config.application_domain = ENV['FULL_APP_DOMAIN']
-    config.application_name = 'UXOps'
+    config.application_name = ENV['APP_NAME']
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
     config.exceptions_app = self.routes

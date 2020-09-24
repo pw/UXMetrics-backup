@@ -24,13 +24,11 @@ fathom('trackPageview');
 <%= csrf_meta_tags %>
 <%= csp_meta_tag %>
 
-<script src="https://js.stripe.com/v3/"></script>
-
 <%= render "shared/social_media_meta_tags" %>
 
 <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
 
-<% if controller.controller_name != 'cardtests' && controller.controller_name != 'pages' %>
+<% if ['card_sorts', 'card_sort_participants', 'tree_tests', 'tree_test_participants'].include? controller.controller_name %>
   <%= javascript_pack_tag "vue", "data-turbolinks-track": "reload" %>
 <% end %>
 
@@ -57,4 +55,5 @@ fathom('trackPageview');
 <%= favicon_link_tag asset_pack_path('media/images/favicon.png') %>
 
 <%= stylesheet_pack_tag "application", "data-turbolinks-track": "reload" %>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">

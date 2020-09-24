@@ -8,11 +8,6 @@
     <h1 class="mt-2 mb-6 text-xl">Create an account</h1>
 
     <div class="field">
-      <%= f.label :name %>
-      <%= f.text_field :name, placeholder: "Your full name", class: "input" %>
-    </div>
-
-    <div class="field">
       <%= f.label :email %>
       <% if request.original_url.split("?")[1].present? && request.original_url.split("?")[1].exclude?("plan") %>
         <%= f.email_field :email, placeholder: "Your email", autocomplete: "email", class: "input", value:request.original_url.split("?")[1] %>

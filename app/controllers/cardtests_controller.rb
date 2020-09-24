@@ -1,7 +1,6 @@
 class CardtestsController < ApplicationController
   before_action :set_cardtest, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  before_action :force_subscribe
 
 
   layout 'dashboard'
@@ -85,10 +84,6 @@ Your contribution is essential in our journey to deliver improvements."
     if @cardtest.save
       redirect_to edit_cardtest_path(@cardtest), notice: 'Cardtest was successfully created.'
 
-      Analytics.track(
-      user_id: current_user.id,
-      event: 'Created cardtest')
-
       if @cardtests.count == 1
         UserNotifierMailer.send_first_cardtest_email(current_user, @cardtest).deliver_later
       end
@@ -101,70 +96,13 @@ Your contribution is essential in our journey to deliver improvements."
 
   # PATCH/PUT /cardtests/1
   def update
-    #@cardtest = Cardtest.find_by(slug: params[:id])
     @cardtest = Cardtest.find_by(uid: params[:uid])
-    # @cardtest.status = ActiveModel::Type::Boolean.new.cast(@cardtest.status)
-
-    puts "--------------------------------------------------CURRENT STATUS:"
-    puts @cardtest.status
-
-    puts "-------------new status:"
-
-    # puts cardtest_params[:status]
-
-    puts "statuses:"
-    puts "subscribed? " + current_user.subscribed?.to_s
-    puts "wants to publish? " + cardtest_params[:status].to_s
-    puts "is it the new trial? " + current_user.trialend?.to_s
-    puts "created more than 7 days ago? " + (current_user.created_at < 7.days.ago).to_s
-    puts "created more than 60 days ago? " + (current_user.created_at < 60.days.ago).to_s
-
-
-    if current_user.subscribed? == false
-
-      if cardtest_params[:status] == "published"
-
-        if current_user.trialend? && current_user.created_at < 7.days.ago
-          puts "on new trial and expired"
-
-          Analytics.track(
-          user_id: current_user.id,
-          event: 'Shown pricing - 7 day')
-
-          redirect_to expired_pricing_path and return
-        end
-
-        if !current_user.trialend? && current_user.created_at < 60.days.ago
-          puts "on old trial and expired"
-
-          Analytics.track(
-          user_id: current_user.id,
-          event: 'Shown pricing - 60 day')
-
-          redirect_to expired_pricing_path and return
-        end
-
-        Analytics.track(
-        user_id: current_user.id,
-        event: 'Published cardtest')
-
-      end
-
-    end
 
     if @cardtest.update(cardtest_params)
-    # if @cardtest.update()
-      # redirect_to cardtests_url, notice: 'Card sort was successfully updated.'
-
       redirect_to edit_cardtest_url, notice: 'Card sort was successfully updated.'
-      # render :edit
-
     else
-      puts "update else"
       render :edit
     end
-
-
 
   end
 
@@ -176,7 +114,6 @@ Your contribution is essential in our journey to deliver improvements."
     if @cardtest.update(cardtest_merged_params)
       redirect_to cardtest_results_url(params[:uid])+"?tab=groups", notice: 'Groups were successfully updated.'
     else
-      puts "update_merged else"
       render :edit
     end
   end
@@ -192,8 +129,6 @@ Your contribution is essential in our journey to deliver improvements."
   end
 
   def delete_image_attachment
-
-    puts "is this even?"
     @cardtest_img = ActiveStorage::Attachment.find(params[:uid])
     @cardtest_img.purge
     redirect_back(fallback_location: request.referer)

@@ -5,13 +5,6 @@
 </head>
 
 <body class="<%= body_class(yield(:body_class)) %>">
-
-  <script>
-    if (window.analytics) {
-      window.analytics.page();
-    }
-  </script>
-
   <%= user_masquerade(current_user) if user_masquerade? %>
 
   <%= render "shared/flash" %>

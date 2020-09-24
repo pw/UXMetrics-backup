@@ -6,15 +6,6 @@
 
 <body class="w-full h-full <%= body_class(yield(:body_class)) %>">
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.0.1/dist/alpine.js" defer></script>
-  <script>
-    if (window.analytics) {
-      window.analytics.page();
-      analytics.identify('<%= current_user.id %>', {
-        name: '<%= current_user.name %>',
-        email: '<%= current_user.email %>',
-      });
-    }
-  </script>
 
   <%= render "shared/flash" %>
   <div class="min-h-screen bg-gray-100">
@@ -34,44 +25,6 @@
             <div class="ml-3 relative">
               <div>
                 <div class="hidden sm:ml-6 sm:flex sm:items-center">
-                <!-- Created at: <%= current_user.created_at %><br/>
-                Is there a trialend flag?: <%= current_user.trialend? %><br/>
-                trialend value: <%= current_user.trialend %><br/>
-                trialend less than 7 days ago? <%= current_user.created_at > 7.days.ago %><br/>
-                7 days ago is this: <%= 7.days.ago %><br/>
-                60 days ago is this: <%= 60.days.ago %><br/> -->
-
-                <% if current_user.subscribed? == false %>
-
-                  <% if current_user.trialend? && current_user.created_at > 7.days.ago %>
-                    <div class="trial float-right">
-                      <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-green-800">
-                        <%= 7-((Time.now - current_user.created_at)/1.day).round %> day(s) left of your 7 day trial 
-                      </span>
-                    </div>
-                  <% elsif current_user.trialend? %>
-                    <div class="trial float-right">
-                      <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-orange-100 text-orange-800">
-                        Trial Expired
-                      </span>
-                    </div>
-                  <% elsif current_user.created_at > 60.days.ago %>
-                    <div class="trial float-right">
-                      <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-green-100 text-green-800">
-                        <%= 60-((Time.now - current_user.created_at)/1.day).round %> day(s) left of your trial
-                      </span>
-                    </div>
-                  <% else %>
-                    <div class="trial float-right">
-                      <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-gray-100 text-gray-800">
-                        Early Access Has Ended
-                      </span>
-                    </div>
-                  <% end %>
-
-                  <% else %>
-                  
-                  <% end %>
                   <div @click.away="open = false" class="ml-3 relative" x-data="{ open: false }">
                     <div>
                       <button @click="open = !open" class="flex text-sm p-2 border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
@@ -83,9 +36,6 @@
                     </div>
                     <div x-show="open" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
                       <div class="py-1 rounded-md bg-white shadow-xs">
-                        <% if current_user.subscribed? %>
-                          <%= link_to "Billing",  billing_path, class: "block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" %>
-                        <% end %>
                         <%= link_to "Account",  edit_user_registration_path, class: "block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" %>
                         <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" %>
                       </div>
@@ -115,9 +65,6 @@
           <%= link_to "Dashboard", dashboard_path, class:"#{css_class}"%>
         </div>
         <div class="pt-4 pb-3 border-t border-gray-200">
-          <% if current_user.subscribed? %>
-            <%= link_to "Billing",  billing_path, class: "mt-1 block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out" %>
-          <% end %>
           <%= link_to "Account",  edit_user_registration_path, class: "mt-1 block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out" %>
           <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "mt-1 block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out" %>
         </div>
