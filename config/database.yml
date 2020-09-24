@@ -80,6 +80,4 @@ test:
 #
 production:
   <<: *default
-  database: ux-card6_production
-  username: ux-card6
-  password: <%= ENV['UX-CARD6_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>

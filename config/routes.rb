@@ -1,34 +1,12 @@
 Rails.application.routes.draw do
 
-  get 'users/index'
-  resource :billing, controller: 'sjabloon/billing', only: [:create, :update, :destroy] do
-    member do
-      get 'setup', to: 'sjabloon/billing#new', as: 'new'
-      get '/', to: 'sjabloon/billing#show'
-    end
-
-    resources :plans, controller: 'sjabloon/plans', only: [:index, :update]
-  end
-  resource  :card,    controller: 'sjabloon/card',    only: [:update]
-  resources :coupons, controller: 'sjabloon/coupons', only: [:index]
-  resources :charges, controller: 'sjabloon/charges', only: [:show]
-  # resource  :pricing, controller: 'sjabloon/pricing', only: [:show]
-
-
-
-  post '/webhooks/stripe', to: 'stripe_event/webhook#event'
-
   authenticated :user do
     root to: 'dashboard#show'
-    # resource  :pricing, controller: 'sjabloon/pricing', only: [:show]
-    resource :pricing, controller: 'sjabloon/pricing', only: [:show, :expired] do
-      member do
-        get :expired
-      end
-    end
-    # get '/pricing', to: 'pages#pricing'
   end
+
   devise_for :users, path: "/", path_names: { sign_up: "signup", sign_in: "login", sign_out: "logout", edit: "edit" }, controllers: { masquerades: "admin/masquerades" }
+
+  root to: 'pages#home'
   get '/dashboard', to: 'dashboard#show'
   get '/resources', to: 'pages#resources'
   get '/pricing', to: 'pages#pricing'
@@ -36,12 +14,10 @@ Rails.application.routes.draw do
   get '/privacy', to: 'pages#privacy'
   get '/terms', to: 'pages#terms'
   get '/contact', to: 'pages#contact'
-  get '/about', to: 'pages#about'
-  root to: 'pages#home'
+  get '/about', to: 'pages#about'  
   get '/500', to: 'errors#server_error'
   get '/422', to: 'errors#unacceptable'
   get '/404', to: 'errors#not_found'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   resources :cards
 
@@ -57,7 +33,6 @@ Rails.application.routes.draw do
     member do
       delete :delete_image_attachment
     end
-
   end
 
   resources :tree_tests do
@@ -88,11 +63,6 @@ Rails.application.routes.draw do
   get 'collect/:auth_token/thanks', to: 'results#thanks', as: :thanks
   post 'cardtests/:auth_token/results', to: 'results#create'
   post 'collect/:auth_token/results', to: 'results#create'
-
-  get "/cardsorts/*page" => "cardsorts#show"
-  get "/cardsorts", to: "cardsorts#index"
-  get "/cardsort_participants/*page" => "cardsort_participants#show"
-  get "/cardsort_participants", to: "cardsort_participants#index"
 
   get 'collect/:auth_token', to: 'results#new'
 
