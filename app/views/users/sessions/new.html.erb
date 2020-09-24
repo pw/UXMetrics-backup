@@ -1,41 +1,4 @@
-  <% content_for :page_title, "Log in to #{Rails.configuration.application_name}" %>
-<% content_for :page_description, "Log in to your #{Rails.configuration.application_name} account to get access to your Ruby on Rails template." %>
-
-<div class="mt-4 max-w-lg mx-auto">
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "card card--light p-4" }) do |f| %>
-    <%= devise_error_messages! %>
-
-    <h1 class="mt-2 mb-6 text-xl">Log in</h1>
-
-    <div class="field">
-      <%= f.label :email %>
-      <%= f.email_field :email, autocomplete: "email", class: "input" %>
-    </div>
-
-    <div class="field">
-      <%= f.label :password, class: 'flex justify-between' do %>
-        Password
-        <%= link_to "Forgot your password?", new_password_path(resource_name), class: "text-grey-dark" %>
-      <% end %>
-      <%= f.password_field :password, autocomplete: "current-password", class: "input" %>
-    </div>
-
-    <% if devise_mapping.rememberable? -%>
-      <div class="field flex items-center">
-        <%= f.check_box :remember_me, class: "tgl tgl-light" %>
-        <label class="tgl-btn" for="user_remember_me"></label>
-        <label for="user_remember_me" class="ml-2">Remember me</label>
-      </div>
-    <% end -%>
-
-    <div class="buttons">
-      <%= f.submit "Log in", class: "btn btn--primary" %>
-    </div>
-  <% end %>
-
-  <%= render "users/shared/links" %>
-</div>
-
+<% content_for :page_title, "Log in to #{Rails.configuration.application_name}" %>
 <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
   <div class="max-w-md w-full">
     <div>
@@ -48,23 +11,21 @@
         <%= link_to "sign up for free", new_user_registration_path, class: "font-medium text-purple-600 hover:text-purple-500 focus:outline-none focus:underline transition ease-in-out duration-150"%>
       </p>
     </div>
-    <form class="mt-8" action="#" method="POST">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "mt-8" }) do |f| %>
       <input type="hidden" name="remember" value="true">
       <div class="rounded-md shadow-sm">
         <div>
-          <input aria-label="Email address" name="email" type="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5" placeholder="Email address">
+          <%= f.email_field :email, autocomplete: "email", class: "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5", 'aria-label' => 'Email address', placeholder: 'Email address' %>
         </div>
         <div class="-mt-px">
-          <input aria-label="Password" name="password" type="password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5" placeholder="Password">
+          <%= f.password_field :password, autocomplete: "current-password", class: "appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 focus:z-10 sm:text-sm sm:leading-5", 'aria-label' => 'Password', placeholder: 'Password' %>
         </div>
       </div>
 
       <div class="mt-6 flex items-center justify-between">
         <div class="flex items-center">
-          <input id="remember_me" type="checkbox" class="form-checkbox h-4 w-4 text-purple-600 transition duration-150 ease-in-out">
-          <label for="remember_me" class="ml-2 block text-sm leading-5 text-gray-900">
-            Remember me
-          </label>
+          <%= f.check_box :remember_me, class: "form-checkbox h-4 w-4 text-purple-600 transition duration-150 ease-in-out" %>
+          <%= f.label :remember_me, 'Remember me', class: 'ml-2 block text-sm leading-5 text-gray-900' %>
         </div>
 
         <div class="text-sm leading-5">
@@ -82,7 +43,7 @@
           Log in
         </button>
       </div>
-    </form>
+    <% end %>
   </div>
 </div>
 
