@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   root to: 'pages#home'
   get '/dashboard', to: 'dashboard#show'
+  get '/godview', to: 'dashboard#godview'
   get '/resources', to: 'pages#resources'
   get '/pricing', to: 'pages#pricing'
   get '/features', to: 'pages#features'
