@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   get '/422', to: 'errors#unacceptable'
   get '/404', to: 'errors#not_found'
 
+  get '/admin/password_reset', to: 'admin#password_reset'
+  
   resources :cards
 
   resources :cardtests, param: :uid do
