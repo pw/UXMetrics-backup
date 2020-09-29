@@ -16,7 +16,7 @@
 
                 <p class="text-sm text-center py-2 mb-4">Ready to publish? Just hit the button below.</p>
 
-                <button @click="publish" class="block w-full text-center px-6 py-3 rounded-md shadow-sm cursor-pointer border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
+                <button @click="publish" class="block w-full text-center px-6 py-3 rounded-md shadow-sm cursor-pointer border border-transparent text-base leading-6 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition ease-in-out duration-150">
                   Publish
                 </button>
               </div>
@@ -39,7 +39,7 @@
                   {{ tree_test.test_results_count }} Test Results
                 </h3>                
                 <div class="fields-inline items-end">
-                  <a class="block w-full text-center px-6 py-3 rounded-md shadow-sm border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150" :href="'/tree_tests/' + tree_test.id + '/report'">
+                  <a class="block w-full text-center px-6 py-3 rounded-md shadow-sm border border-transparent text-base leading-6 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition ease-in-out duration-150" :href="'/tree_tests/' + tree_test.id + '/report'">
                     View Report
                   </a>                
                 </div>
@@ -61,7 +61,7 @@
                     <div class="relative flex-grow focus-within:z-10">
                       <input id="email" class="form-input block w-full rounded-none rounded-l-md transition ease-in-out duration-150 sm:text-sm sm:leading-5" :value="tree_test.collect_url" />
                     </div>
-                    <button v-clipboard:copy="tree_test.collect_url" class="-ml-px relative inline-flex items-center px-4 py-2 text-sm leading-5 font-medium rounded-r-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
+                    <button v-clipboard:copy="tree_test.collect_url" class="-ml-px relative inline-flex items-center px-4 py-2 text-sm leading-5 font-medium rounded-r-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition ease-in-out duration-150">
                       <svg class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M9 2C7.89543 2 7 2.89543 7 4V12C7 13.1046 7.89543 14 9 14H15C16.1046 14 17 13.1046 17 12V6.41421C17 5.88378 16.7893 5.37507 16.4142 5L14 2.58579C13.6249 2.21071 13.1162 2 12.5858 2H9Z"/>
                         <path d="M3 8C3 6.89543 3.89543 6 5 6V16H13C13 17.1046 12.1046 18 11 18H5C3.89543 18 3 17.1046 3 16V8Z"/>
@@ -87,7 +87,7 @@
 
           <div class="w-full md:w-2/3 xl:w-3/5">
 
-            <div class="bg-indigo-100 sm:rounded-lg mb-6">
+            <div class="bg-purple-100 sm:rounded-lg mb-6">
               <div class="px-4 py-5 sm:p-6">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">
                   Participant Preview
@@ -120,19 +120,19 @@
                     <nav class="-mb-px flex">
                       <button 
                         @click="tab = 'settings'"
-                        :class="{ 'border-indigo-500 text-indigo-600 focus:outline-none focus:text-indigo-800 focus:border-indigo-700': tab == 'settings' }"
+                        :class="{ 'border-purple-500 text-purple-600 focus:outline-none focus:text-purple-800 focus:border-purple-700': tab == 'settings' }"
                         class="w-1/3 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm leading-5">
                         Settings
                       </button>
                       <button 
                         @click="tab = 'tree'"
-                        :class="{ 'border-indigo-500 text-indigo-600 focus:outline-none focus:text-indigo-800 focus:border-indigo-700': tab == 'tree' }"
+                        :class="{ 'border-purple-500 text-purple-600 focus:outline-none focus:text-purple-800 focus:border-purple-700': tab == 'tree' }"
                         class="w-1/3 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm leading-5">
                         Tree
                       </button>
                       <button 
                         @click="tab = 'tasks'"
-                        :class="{ 'border-indigo-500 text-indigo-600 focus:outline-none focus:text-indigo-800 focus:border-indigo-700': tab == 'tasks' }"
+                        :class="{ 'border-purple-500 text-purple-600 focus:outline-none focus:text-purple-800 focus:border-purple-700': tab == 'tasks' }"
                         class="w-1/3 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm leading-5">
                         Tasks
                       </button>

@@ -2,7 +2,7 @@
   <div>
     <Nav :title="title" :step.sync="step" :total_steps="total_steps" @save="save"/>
 
-    <Step v-show="step == 1" current_step="1" :total_steps="total_steps" instructions="Let's start with the basics. Then we'll create your tree and tasks." :tips_background_styling="'bg-indigo-100'" :tips_border_styling="' border-indigo-500'" :tips_text_styling="'text-indigo-700'">
+    <Step v-show="step == 1" current_step="1" :total_steps="total_steps" instructions="Let's start with the basics. Then we'll create your tree and tasks." :tips_background_styling="'bg-purple-100'" :tips_border_styling="' border-purple-500'" :tips_text_styling="'text-purple-700'">
       <form>
         <div class="grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
             <TextInput id="name" label="Name" placeholder="Add a descriptive name for your tree test..." v-model="name"/>
@@ -26,7 +26,7 @@
       </form>
     </Step>
 
-    <Step v-show="step == 2" current_step="2" :total_steps="total_steps" instructions="Now let's set up your tree." :tips_styling="'bg-indigo-100 border-indigo-500 text-indigo-700'">
+    <Step v-show="step == 2" current_step="2" :total_steps="total_steps" instructions="Now let's set up your tree." :tips_styling="'bg-purple-100 border-purple-500 text-purple-700'">
       <div class="mb-6 flex items-center">
         <Slider v-model="randomizeTreeOrder" label="Randomize tree order for participants"/>
       </div>

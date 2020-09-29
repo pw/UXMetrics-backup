@@ -18,14 +18,14 @@
       <div :class="{flex: (!treeVisible && correctSelected), 'items-center': (!treeVisible && correctSelected), 'justify-between': (!treeVisible && correctSelected)}">
 
         <span class="inline-flex rounded-md shadow-sm mr-2" v-show="!treeVisible && correctSelected && !disabled" @click="treeVisible = true">
-          <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs leading-4 font-medium rounded text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
+          <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs leading-4 font-medium rounded text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition ease-in-out duration-150">
             Change
           </button>
         </span>        
 
         <div class="flex" v-show="(treeVisible) || (!correctSelected && !treeVisible)">         
           <span class="inline-flex rounded-md shadow-sm" v-show="!correctSelected && !treeVisible && !disabled">
-            <button @click="treeVisible = true" type="button" class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs leading-4 font-medium rounded text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
+            <button @click="treeVisible = true" type="button" class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs leading-4 font-medium rounded text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition ease-in-out duration-150">
               Set Correct Choice(s)
             </button>
           </span>

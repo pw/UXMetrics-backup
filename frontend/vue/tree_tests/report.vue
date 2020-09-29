@@ -24,13 +24,13 @@
                   <nav class="-mb-px flex">
                     <button 
                       @click="tab = 'tasks'"
-                      :class="{ 'border-indigo-500 text-indigo-600 focus:outline-none focus:text-indigo-800 focus:border-indigo-700': tab == 'tasks' }"
+                      :class="{ 'border-purple-500 text-purple-600 focus:outline-none focus:text-purple-800 focus:border-purple-700': tab == 'tasks' }"
                       class="w-1/2 md:w-1/5 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm leading-5">
                       Tasks
                     </button>
                     <button 
                       @click="tab = 'participants'"
-                      :class="{ 'border-indigo-500 text-indigo-600 focus:outline-none focus:text-indigo-800 focus:border-indigo-700': tab === 'participants' }"
+                      :class="{ 'border-purple-500 text-purple-600 focus:outline-none focus:text-purple-800 focus:border-purple-700': tab === 'participants' }"
                       class="w-1/2 md:w-1/5 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm leading-5">
                       Individual Results
                     </button>

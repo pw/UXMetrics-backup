@@ -25,15 +25,15 @@
           <div class="max-w-4xl mx-auto">
             <div class="rounded-lg bg-white sm:grid sm:grid-cols-3">  
               <div class="border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r">
-                <p class="text-2xl leading-none font-semibold text-indigo-600">{{ task.percent_success_formatted }}</p>
+                <p class="text-2xl leading-none font-semibold text-purple-600">{{ task.percent_success_formatted }}</p>
                 <p class="mt-2 text-md leading-6 font-medium text-gray-500">Success Score</p>
               </div>
               <div class="border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r">
-                <p class="text-2xl leading-none font-semibold text-indigo-600">{{ task.directness_formatted }}</p>
+                <p class="text-2xl leading-none font-semibold text-purple-600">{{ task.directness_formatted }}</p>
                 <p class="mt-2 text-md leading-6 font-medium text-gray-500">Directness</p>
               </div>
               <div class="border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r">
-                <p class="text-2xl leading-none font-semibold text-indigo-600">{{ task.median_time_formatted }}</p>
+                <p class="text-2xl leading-none font-semibold text-purple-600">{{ task.median_time_formatted }}</p>
                 <p class="mt-2 text-md leading-6 font-medium text-gray-500">Median Time</p>
               </div>                          
             </div>

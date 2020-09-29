@@ -21,15 +21,15 @@ export default {
     instructions: String,
     background_styling: {
       type: String,
-      default: 'bg-indigo-100'
+      default: 'bg-purple-100'
     },
     border_styling: {
       type: String, 
-      default: 'border-indigo-500'
+      default: 'border-purple-500'
     },
     text_styling: {
       type: String,
-      default: 'text-indigo-700'
+      default: 'text-purple-700'
     }
   }
 }

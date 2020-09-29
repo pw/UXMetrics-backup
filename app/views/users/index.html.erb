@@ -56,7 +56,7 @@
       <td>
         <ul>
         <% user.cardtests.all.each do |test| %>
-          <li><%= link_to test.name, "cardtests/"+test.uid+"/edit", class: "text-sm underline text-indigo-600" %> - <%= test.status %> - <%= Result.where(cardtest_id: test.id).count %></li>
+          <li><%= link_to test.name, "cardtests/"+test.uid+"/edit", class: "text-sm underline text-purple-600" %> - <%= test.status %> - <%= Result.where(cardtest_id: test.id).count %></li>
         <% end %>
         </ul>
       </td>

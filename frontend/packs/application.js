@@ -152,8 +152,8 @@ function rebuildData(){
     //add full container where needed
     if ($(this).children().length > 0 && !$(this).hasClass("full-container")){
       $(this).addClass("full-container");
-      $(this).parents(".muuri-new-column").addClass("bg-indigo-600");
-      $(this).parents(".muuri-new-column").removeClass("bg-indigo-200");
+      $(this).parents(".muuri-new-column").addClass("bg-purple-600");
+      $(this).parents(".muuri-new-column").removeClass("bg-purple-200");
       $(this).parents(".column-holder").prepend('<input type="text" class="container-name" placeholder="Add a name for your group ..."/>')
       //console.log("length is: "+$(this).children().length);
 
@@ -176,7 +176,7 @@ function getCursorPosition(){
 }
 
 function createTempColumn(){
-  //$('.card-column').append("<div class='new-column bg-indigo-900 m-6'></div>");
+  //$('.card-column').append("<div class='new-column bg-purple-900 m-6'></div>");
 }
 
 
