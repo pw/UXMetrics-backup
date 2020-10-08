@@ -1,177 +1,347 @@
 <%= content_for :body_class, "bg-white" %>
-<div class="my-8 mx-auto max-w-5xl px-4 sm:my-8 sm:px-6 md:my-16 lg:my-16 xl:my-24">
+<main class="my-24 mx-auto max-w-screen-xl p-4 sm:my-12 sm:px-6 md:my-20 xl:my-24">
   <div class="text-center">
     <h1 class="text-4xl tracking-tight leading-10 font-extrabold text-gray-900 sm:text-5xl sm:leading-none md:text-6xl">
-      User research tools to make
-      <br>
-      <span class="text-purple-600">smart product decisions</span>
+      UX research tools for
+      <span class="text-purple-600">better products</span>
     </h1>
-    <p class="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-      Understand your users better with online card sort and tree test studies.
-    </p>
+    <h2 class="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-2xl md:max-w-3xl">
+      Make confident product decisions and settle design debates with a potent secret weapon: your own users.
+    </h2>
     <div class="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8 mb-4">
       <div class="rounded-md shadow">
-        <%= link_to "Get Started", new_user_registration_path, class: "w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:shadow-outline-purple transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10", id:"homepage-signup"%>
+        <%= link_to "Get Started Free", new_user_registration_path, class: "w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:shadow-outline-purple transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10", id:"homepage-signup"%>
       </div>
     </div>
-    <span class="block text-base text-purple-400">No credit card required</span>
+  </div>
+</main>
+<div class="bg-purple-50">
+  <div class="container max-w-screen-xl mx-auto px-4 py-8">
+    <div class="">
+      <div class="lg:grid lg:grid-cols-3 lg:gap-8">
+        <div>
+          <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
+            <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <div class="mt-5">
+            <h5 class="text-lg leading-6 font-medium text-gray-900">Quick and easy setup</h5>
+            <p class="mt-2 text-base leading-6 text-gray-500">
+              Create and customize studies with ease, regardless of your experience doing user research.
+            </p>
+          </div>
+        </div>
+        <div class="mt-10 lg:mt-0">
+          <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
+            <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+              <path d="M5 3V7M3 5H7M6 17V21M4 19H8M13 3L15.2857 9.85714L21 12L15.2857 14.1429L13 21L10.7143 14.1429L5 12L10.7143 9.85714L13 3Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>          
+            </svg>
+          </div>
+          <div class="mt-5">
+            <h5 class="text-lg leading-6 font-medium text-gray-900">Great participant experience</h5>
+            <p class="mt-2 text-base leading-6 text-gray-500">
+              Invite anyone to your study with a shareable link. Your participants can be on any device.
+            </p>
+          </div>
+        </div>
+        <div class="mt-10 lg:mt-0">
+          <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
+            <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+              <path d="M11 3.05493C6.50005 3.55238 3 7.36745 3 12C3 16.9706 7.02944 21 12 21C16.6326 21 20.4476 17.5 20.9451 13H11V3.05493Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M20.4878 9H15V3.5123C17.5572 4.41613 19.5839 6.44285 20.4878 9Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="mt-5">
+            <h5 class="text-lg leading-6 font-medium text-gray-900">Crystal clear reports</h5>
+            <p class="mt-2 text-base leading-6 text-gray-500">
+              Analyze your results, identify patterns and make recommendations with confidence. 
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<div class="bg-purple-100">
-  <div class="container max-w-5xl mx-auto py-8">
-    <div class="flex flex-col md:flex-row">
-      <div class="flex flex-1 w-full md:w-1/2 px-4 mb-8 md:mb-0">
-        <div class="w-full bg-white shadow sm:rounded-lg">
-          <div class="px-4 py-5 sm:p-6">
-            <%= image_tag(asset_pack_path("media/images/cardsorts.svg", class: "")) %>
-            <h3 class="text-xl leading-7 font-semibold text-gray-900">
-              Card Sorts
-            </h3>
-            <div class="mt-2 max-w-xl text-sm leading-5 text-gray-500">
-              <p class="text-base leading-6 text-gray-500">
-                Find out how users group and label things so you can make confident decisions about your content structure.
-              </p>
+
+<div class="py-16 bg-gray-50 overflow-hidden lg:py-24">
+  <div class="relative max-w-xl mx-auto px-4 sm:px-6 lg:px-8 lg:max-w-screen-xl">
+
+    <div class="relative">
+      <h3 class="text-3xl leading-9 font-extrabold tracking-tight sm:text-4xl text-center">
+        Time-tested methodologies made easy
+      </h3>
+      <p class="mt-4 max-w-3xl mx-auto text-center text-xl leading-7 text-gray-500">
+        Set up studies in minutes. Remote or in-person, moderated or unmoderated. Even if you've never done user research.
+      </p>
+    </div>
+
+    <div class="relative mt-12 lg:mt-24 lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center">
+      <div class="relative">
+        <h4 class="text-2xl leading-8 font-extrabold text-gray-900 tracking-tight sm:text-3xl sm:leading-9">
+          Card Sorts
+        </h4>
+        <p class="mt-3 text-lg leading-7 text-gray-500">
+          Make smart information architecture decisions based on your users' mental models. Find out how they organize and label topics so that you can optimize your navigation, product categories and more.
+        </p>
+
+        <ul class="mt-10">
+          <li>
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
+                  <!-- Heroicon name: collection -->
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="ml-4">
+                <h5 class="text-lg leading-6 font-medium text-gray-900">Open, Closed or Hybrid</h5>
+                <p class="mt-2 text-base leading-6 text-gray-500">
+                  Choose your sort type, add the groups and/or cards that you want your participants to sort, and you're done.
+                </p>
+              </div>
             </div>
-            <div class="mt-5">
-              <button type="button" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-purple-700 bg-purple-100 hover:bg-purple-50 focus:outline-none focus:border-purple-300 focus:shadow-outline-purple active:bg-purple-200 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-                View Features
-              </button>
+          </li>
+          <li class="mt-10">
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
+                  <!-- Heroicon name: adjustments -->  
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="ml-4">
+                <h5 class="text-lg leading-6 font-medium text-gray-900">Simple customization</h5>
+                <p class="mt-2 text-base leading-6 text-gray-500">
+                  Optionally customize your welcome and thank you messages and add your logo to participant views. You can also add descriptions to cards and randomize the order for each participant.
+                </p>
+              </div>
+            </div>
+          </li>
+          <li class="mt-10">
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
+                  <!-- Heroicon name: lightbulb -->  
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="ml-4">
+                <h5 class="text-lg leading-6 font-medium text-gray-900">Discover patterns in real-time</h5>
+                <p class="mt-2 text-base leading-6 text-gray-500">
+                  Clear summaries and visualizations combined with detailed results for cards, groups and individual participants make analysis and recommendations a piece of cake. 
+                </p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="mt-10 -mx-4 relative lg:mt-0">
+        <%= image_tag(asset_pack_path("media/images/cardsort-illustration.svg", class: "relative mx-auto", width: "490")) %>
+      </div>
+    </div>
+
+    <div class="bg-purple-50 rounded">
+      <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+        <h4 class="text-2xl leading-8 font-extrabold text-gray-900 tracking-tight sm:text-3xl sm:leading-9">
+          Learn more about card sorts
+          <br>
+          <span class="text-purple-600">or take it for a spin!</span>
+        </h4>
+        <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+          <div class="inline-flex rounded-md shadow">
+            <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+              Launch demo
+              <svg class="-mr-1 ml-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+                <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+              </svg>
+            </a>
+          </div>
+          <div class="ml-3 inline-flex rounded-md shadow">
+            <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-purple-600 bg-white hover:text-purple-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+              Learn more
+              <svg class="-mr-1 ml-3 h-5 w-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="relative mt-12 sm:mt-16 lg:mt-24">
+      <div class="lg:grid lg:grid-flow-row-dense lg:grid-cols-2 lg:gap-8 lg:items-center">
+        <div class="lg:col-start-2">
+          <h4 class="text-2xl leading-8 font-extrabold text-gray-900 tracking-tight sm:text-3xl sm:leading-9">
+            Tree Tests
+          </h4>
+          <p class="mt-3 text-lg leading-7 text-gray-500">
+            Build, test and refine your information architecture by validating it with users.
+          </p>
+
+          <ul class="mt-10">
+            <li>
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
+                    <!-- Heroicon name: cursor-click -->
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path>
+                    </svg>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <h5 class="text-lg leading-6 font-medium text-gray-900">Easy tree creation</h5>
+                  <p class="mt-2 text-base leading-6 text-gray-500">
+                    Add your entire tree in minutes, regardless of hierarchical complexity. Drag, drop and reorder your nodes with ease.
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li class="mt-10">
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
+                    <!-- Heroicon name: map -->
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                    </svg>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <h5 class="text-lg leading-6 font-medium text-gray-900">Advanced task setup</h5>
+                  <p class="mt-2 text-base leading-6 text-gray-500">
+                    Create "scavenger hunt" tasks for your participants and set correct pathways directly on your tree. Optionally randomize task order and allow skipping if your participants get stuck.
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li class="mt-10">
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
+                    <!-- Heroicon name: puzzle -->
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path>
+                    </svg>
+                  </div>
+                </div>
+                <div class="ml-4">
+                  <h5 class="text-lg leading-6 font-medium text-gray-900">See what works and pinpoint what doesn't</h5>
+                  <p class="mt-2 text-base leading-6 text-gray-500">
+                    Quickly identify where participants are getting lost or stuck in your tree. Powerful success scores, time taken, and detailed path visualizations make analysis and recommendations a breeze. 
+                  </p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="mt-10 -mx-4 relative lg:mt-0 lg:col-start-1">
+          <%= image_tag(asset_pack_path("media/images/treetest-illustration.svg", class: "relative mx-auto", width: "490")) %>
+        </div>
+      </div>
+      <div class="bg-purple-50 rounded">
+        <div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+          <h4 class="text-2xl leading-8 font-extrabold text-gray-900 tracking-tight sm:text-3xl sm:leading-9">
+            Learn more about tree tests
+            <br>
+            <span class="text-purple-600">or take it for a spin!</span>
+          </h4>
+          <div class="mt-8 flex lg:flex-shrink-0 lg:mt-0">
+            <div class="inline-flex rounded-md shadow">
+              <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+                Launch demo
+                <svg class="-mr-1 ml-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+                  <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+                </svg>
+              </a>
+            </div>
+            <div class="ml-3 inline-flex rounded-md shadow">
+              <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-purple-600 bg-white hover:text-purple-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+                Learn more
+                <svg class="-mr-1 ml-3 h-5 w-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+              </a>
             </div>
           </div>
         </div>
       </div>
-      <div class="flex flex-1 w-full md:w-1/2 px-4">
-        <div class="w-full bg-white shadow sm:rounded-lg">
-          <div class="px-4 py-5 sm:p-6">
-            <%= image_tag(asset_pack_path("media/images/treetests.svg", class: "")) %>
-            <h3 class="text-xl leading-7 font-semibold text-gray-900">
-              Tree Tests
-            </h3>
-            <div class="mt-2 max-w-xl text-sm leading-5 text-gray-500">
-              <p class="text-base leading-6 text-gray-500">
-                Test and validate whether a navigation structure will work for your users.
-              </p>
-            </div>
-            <div class="mt-5">
-              <button type="button" class="inline-flex items-center justify-center px-4 py-2 border border-transparent font-medium rounded-md text-purple-700 bg-purple-100 hover:bg-purple-50 focus:outline-none focus:border-purple-300 focus:shadow-outline-purple active:bg-purple-200 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-              View Features
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
-<div class="py-12 bg-white">
-  <div class="container max-w-5xl mx-auto py-8 sm:py-16 sm:pb-8 px-4">
-    <div class="lg:grid lg:grid-cols-3 lg:gap-8">
-      <div>
-        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
-          <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-          </svg>
-        </div>
-        <div class="mt-5">
-          <h5 class="text-lg leading-6 font-medium text-gray-900">Quick and easy setup</h5>
-          <p class="mt-2 text-base leading-6 text-gray-500">
-            Get your studies set up and ready to publish in minutes. Helpful tips are provided if you need them!
-          </p>
-        </div>
-      </div>
-      <div class="mt-10 lg:mt-0">
-        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
-          <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-            <path d="M5 3V7M3 5H7M6 17V21M4 19H8M13 3L15.2857 9.85714L21 12L15.2857 14.1429L13 21L10.7143 14.1429L5 12L10.7143 9.85714L13 3Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>          
-          </svg>
-        </div>
-        <div class="mt-5">
-          <h5 class="text-lg leading-6 font-medium text-gray-900">Great participant experience</h5>
-          <p class="mt-2 text-base leading-6 text-gray-500">
-            Fully responsive and mobile-friendly so your participants have a great experience on any device.
-          </p>
-        </div>
-      </div>
-      <div class="mt-10 lg:mt-0">
-        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-purple-500 text-white">
-          <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-            <path d="M11 3.05493C6.50005 3.55238 3 7.36745 3 12C3 16.9706 7.02944 21 12 21C16.6326 21 20.4476 17.5 20.9451 13H11V3.05493Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M20.4878 9H15V3.5123C17.5572 4.41613 19.5839 6.44285 20.4878 9Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="mt-5">
-          <h5 class="text-lg leading-6 font-medium text-gray-900">Simple and clear reports</h5>
-          <p class="mt-2 text-base leading-6 text-gray-500">
-            Make sense of your results quickly with high-level metrics and the ability to dive deeper when needed.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
 <div class="bg-white">
   <div class="container max-w-5xl mx-auto py-8 sm:py-16 sm:pb-8 px-4">
-    <p class="mb-2 text-sm font-medium uppercase tracking-wider text-purple-600 text-center">Unlock New Insights</p>
-    <h3 class="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10 text-center">Time-tested UX research methodologies</h3>
+    <h3 class="text-3xl leading-9 font-extrabold tracking-tight sm:text-4xl text-center">Say goodbye to guesswork</h3>
 
 
     <div class="flex flex-col-reverse mt-8 md:w-3/4 w-full m-auto md:flex-row">
-      <div class="flex-1 bg-purple-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-400 mr-1" aria-hidden="true"></i>
+      <div class="flex-1 bg-purple-50 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-teal-400 mr-1" aria-hidden="true"></i>
 
         <h4 class="mb-0 text-sm leading-6 font-bold text-gray-900 inline">Validate navigation hierarchy</h4>
       </div>
-      <div class="flex-1 bg-purple-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-400 mr-1" aria-hidden="true"></i>
+      <div class="flex-1 bg-purple-50 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-teal-400 mr-1" aria-hidden="true"></i>
 
         <h4 class="mb-0 mb-0 text-sm leading-6 font-bold text-gray-900 inline inline">Find words and phrases that speak to users</h4>
       </div>
     </div>
     <div class="flex flex-col-reverse md:w-3/4 w-full m-auto md:flex-row">
-      <div class="flex-1 bg-purple-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-400 mr-1" aria-hidden="true"></i>
+      <div class="flex-1 bg-purple-50 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-teal-400 mr-1" aria-hidden="true"></i>
 
         <h4 class="mb-0 mb-0 text-sm leading-6 font-bold text-gray-900 inline inline">Organize product categories</h4>
       </div>
-      <div class="flex-1 bg-purple-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-400 mr-1" aria-hidden="true"></i>
+      <div class="flex-1 bg-purple-50 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-teal-400 mr-1" aria-hidden="true"></i>
 
         <h4 class="mb-0 mb-0 text-sm leading-6 font-bold text-gray-900 inline inline">Organize knowledge base content</h4>
       </div>
     </div>
     <div class="flex flex-col-reverse md:w-3/4 w-full m-auto md:flex-row">
-      <div class="flex-1 bg-purple-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-400 mr-1" aria-hidden="true"></i>
+      <div class="flex-1 bg-purple-50 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-teal-400 mr-1" aria-hidden="true"></i>
 
         <h4 class="mb-0 mb-0 text-sm leading-6 font-bold text-gray-900 inline inline">Prioritize projects within initiatives</h4>
       </div>
-      <div class="flex-1 bg-purple-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-400 mr-1" aria-hidden="true"></i>
+      <div class="flex-1 bg-purple-50 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-teal-400 mr-1" aria-hidden="true"></i>
 
         <h4 class="mb-0 mb-0 text-sm leading-6 font-bold text-gray-900 inline inline">Organize website content</h4>
       </div>
     </div>
     <div class="flex flex-col-reverse md:w-3/4 w-full m-auto md:flex-row">
-      <div class="flex-1 bg-purple-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-400 mr-1" aria-hidden="true"></i>
+      <div class="flex-1 bg-purple-50 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-teal-400 mr-1" aria-hidden="true"></i>
 
         <h4 class="mb-0 mb-0 text-sm leading-6 font-bold text-gray-900 inline inline">Prioritize new features</h4>
       </div>
-      <div class="flex-1 bg-purple-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-400 mr-1" aria-hidden="true"></i>
+      <div class="flex-1 bg-purple-50 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-teal-400 mr-1" aria-hidden="true"></i>
 
         <h4 class="mb-0 mb-0 text-sm leading-6 font-bold text-gray-900 inline inline">Find key content for your landing page</h4>
       </div>
     </div>
     <div class="flex flex-col-reverse md:w-3/4 w-full m-auto md:flex-row">
-      <div class="flex-1 bg-purple-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-400 mr-1" aria-hidden="true"></i>
+      <div class="flex-1 bg-purple-50 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-teal-400 mr-1" aria-hidden="true"></i>
 
         <h4 class="mb-0 mb-0 text-sm leading-6 font-bold text-gray-900 inline inline">Find the tasks most important for your users</h4>
       </div>
-      <div class="flex-1 bg-purple-100 p-2 m-2 py-4 pl-4 rounded">
-        <i class="fa fa-check text-green-400 mr-1" aria-hidden="true"></i>
+      <div class="flex-1 bg-purple-50 p-2 m-2 py-4 pl-4 rounded">
+        <i class="fa fa-check text-teal-400 mr-1" aria-hidden="true"></i>
 
         <h4 class="mb-0 mb-0 text-sm leading-6 font-bold text-gray-900 inline inline">Learn differences between user groups</h4>
       </div>
@@ -180,92 +350,75 @@
 </div>
 
 <div class="bg-white">
-  <div class="container max-w-5xl mx-auto py-8 sm:py-32 sm:pt-16 px-4">
-    <p class="mb-2 text-sm font-medium uppercase tracking-wider text-purple-600 text-center">Aha moments all around</p>
-    <h3 class="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10 text-center">Insights for the whole product team</h3>
-
-    <div class="columns flex flex-wrap mb-6 mt-24 items-center">
-
-      <div class="w-full md:hidden md:px-0 text-center mb-16">
-        <%# image_tag(asset_pack_path("media/images/Test.png")) %>
-        <%= image_tag(asset_pack_path("media/images/clip-list-is-empty.png"), style:"max-width:70%;", class:"inline-block") %>
+  <div class="mx-auto py-12 px-4 max-w-screen-xl sm:px-6 lg:px-8 lg:py-24">
+    <div class="space-y-12 lg:grid lg:grid-cols-3 lg:gap-8 lg:space-y-0">
+      <div class="space-y-5 sm:space-y-4">
+        <h2 class="text-3xl leading-9 font-extrabold tracking-tight sm:text-4xl">UX insights for everyone</h2>
+        <p class="text-xl leading-7 text-gray-500">Everybody on the team can make more confident product and design decisions backed up with crystal clear qualitative data.</p>
       </div>
+      <div class="lg:col-span-2">
+        <ul class="space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:gap-x-8">
+          <li>
+            <div class="space-y-4">
+              <%= image_tag(asset_pack_path("media/images/user-researcher-avatar.svg", class: "h-full w-full mb-2")) %>
+              <div class="text-lg leading-6 font-medium space-y-1">
+                <h4>User Researchers</h4>
+              </div>
+              <div class="text-lg leading-7">
+                <p class="text-gray-500">Deeply understand your users. Identify personas and patterns to present to your team, clients and stakeholders.</p>
+              </div>
+            </div>
+          </li>
 
-      <div class="w-full md:w-1/2 pb-8 px-6">
+          <li>
+            <div class="space-y-4">
+              <%= image_tag(asset_pack_path("media/images/ia-avatar.svg", class: "h-full w-full mb-2")) %>
+              <div class="text-lg leading-6 font-medium space-y-1">
+                <h4>Information Architects</h4>
+              </div>
+              <div class="text-lg leading-7">
+                <p class="text-gray-500">Build, test and refine your iA based on how users classify the information in your domain.</p>
+              </div>
+            </div>
+          </li>
 
-        <h4 class="text-xl leading-7 font-semibold text-gray-900 mb-6">Designers</h4>
-        <p class="text-base leading-6 text-gray-500">Make confident design decisions by relying on users to understand how they expect to see your content.<br/><br/> UXOps lets you gather insight on how pieces of content relate to each other and which of them are most important for your users, ultimately helping you deliver a design driven by users.</p>
+          <li>
+            <div class="space-y-4">
+              <%= image_tag(asset_pack_path("media/images/ux-designer-avatar.svg", class: "h-full w-full mb-2")) %>
+              <div class="text-lg leading-6 font-medium space-y-1">
+                <h4>UX Designers</h4>
+              </div>
+              <div class="text-lg leading-7">
+                <p class="text-gray-500">Design with confidence by understanding your users' vernacular, preferences and mental models.</p>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="space-y-4">
+              <%= image_tag(asset_pack_path("media/images/product-manager-avatar.svg", class: "h-full w-full mb-2")) %>
+              <div class="text-lg leading-6 font-medium space-y-1">
+                <h4>Product Managers</h4>
+              </div>
+              <div class="text-lg leading-7">
+                <p class="text-gray-500">Make data-informed decisions when prioritizing features by asking users to rank them by importance.</p>
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
-
-      <div class="w-full md:w-1/2 md:px-0 hidden md:block text-center">
-        <%# image_tag(asset_pack_path("media/images/Test.png")) %>
-        <%= image_tag(asset_pack_path("media/images/clip-list-is-empty.png"), style:"max-width:70%;", class:"inline-block") %>
-      </div>
-    </div>
-    <div class="columns flex flex-wrap mb-6 mt-24 items-center">
-
-      <div class="w-full md:w-1/2 md:px-0 text-center mb-16">
-        <%= image_tag(asset_pack_path("media/images/clip-5.png"), class:"md:mt-8 inline-block", style:"max-width:70%;") %>
-        <%# image_tag(asset_pack_path("media/images/Report Overview.png"), class:"md:mt-8") %>
-      </div>
-      <div class="w-full md:w-1/2 md:block px-6">
-
-        <h4 class="text-xl leading-7 font-semibold text-gray-900 mb-6">Information Architects</h4>
-        <p class="text-base leading-6 text-gray-500">Find out how users classify the information in your domain and use the insight to create usable website structures. <br/><br/>UXOps also helps you identify the words and phrases people associate with your content and how long they take to complete the test.</p>
-
-      </div>
-    </div>
-    <div class="columns flex flex-wrap mb-6 mt-24 items-center">
-
-      <div class="w-full md:w-1/2 md:hidden text-center mb-16">
-        <%= image_tag(asset_pack_path("media/images/clip-education.png"), style:"max-width:70%;", class:"inline-block") %>
-        <%# image_tag(asset_pack_path("media/images/Report Table.png")) %>
-      </div>
-
-      <div class="w-full md:w-1/2 pb-8 px-6">
-
-        <h4 class="text-xl leading-7 font-semibold text-gray-900 mb-6">Product Managers</h4>
-        <p class="text-base leading-6 text-gray-500">Make data-informed decisions when prioritizing features by asking users to rank them by importance. <br/><br/>Find out what the most important stories are for your MVP and drive consensus within your team by running a card sort for user story mapping.</p>
-
-      </div>
-      <div class="w-full md:w-1/2 md:px-0 hidden md:block text-center">
-        <%= image_tag(asset_pack_path("media/images/clip-education.png"), style:"max-width:70%;", class:"inline-block") %>
-        <%# image_tag(asset_pack_path("media/images/Report Table.png")) %>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="bg-white">
-  <p class="mb-8 text-sm font-medium uppercase tracking-wider text-purple-600 text-center">Join the user research party</p>
-  <div class="bg-white container max-w-5xl mx-auto flex flex-wrap px-2 mb-8 clients px-4">
-
-    <div class="flex-1 text-center" style="line-height: 100px;">
-      <%= image_tag(asset_pack_path("media/images/disney.png"), style: "display:inline-block; max-width:60%;") %>
-    </div>
-    <div class="flex-1 text-center" style="line-height: 100px;">
-      <%= image_tag(asset_pack_path("media/images/uber.png"), style: "display:inline-block; max-width:50%;") %>
-    </div>
-    <div class="flex-1 text-center" style="line-height: 100px;">
-      <%= image_tag(asset_pack_path("media/images/chargify.png"), style: "display:inline-block; max-width:70%;") %>
-    </div>
-    <div class="flex-1 text-center" style="line-height: 100px;">
-      <%= image_tag(asset_pack_path("media/images/wayfair.png"), style: "display:inline-block; max-width:70%;") %>
-    </div>
-    <div class="flex-1 text-center" style="line-height: 100px;">
-      <%= image_tag(asset_pack_path("media/images/cossette.png"), style: "display:inline-block; max-width:70%;") %>
     </div>
   </div>
 </div>
 
-<div class="bg-purple-100">
+<div class="bg-purple-50">
   <div class="max-w-screen-xl mx-auto text-center py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-    <h2 class="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 mb-8">
+    <h3 class="text-3xl leading-9 font-extrabold tracking-tight sm:text-4xl text-center mb-8">
       Set up your first study
-    </h2>
+    </h3>
     <div class="flex justify-center mb-4">
       <div class="inline-flex rounded-md shadow">
-        <%= link_to "Get Started", new_user_registration_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+        <%= link_to "Get Started Free", new_user_registration_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
       </div>
     </div>
     <span class="block text-base text-purple-400">No credit card required</span>
