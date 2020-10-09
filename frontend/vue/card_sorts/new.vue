@@ -69,7 +69,7 @@
                 </div>
                 <div class="ml-2 w-0 flex-1">
                   <p class="text-sm leading-5 font-medium text-gray-700">Hybrid Sort</p>
-                  <p class="text-sm text-gray-500">Participants sort cards into into pre-defined groups but can also create and name their own groups.</p>
+                  <p class="text-sm text-gray-500">Participants sort cards into pre-defined groups but can also create and name their own groups.</p>
                 </div>
               </div>
             </div>
