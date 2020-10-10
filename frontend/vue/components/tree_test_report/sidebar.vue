@@ -2,7 +2,7 @@
   <div>
     <div class="py-4 bg-white rounded shadow px-4 my-4">
       <p class="font-semibold px-2 text-center text-4xl text-purple-600">{{ test.test_results_count }}</p>
-      <h4 class="-mt-2 font-semibold px-2 text-center text-gray-500">Results</h4>
+      <h4 class="-mt-2 font-semibold px-2 text-center text-gray-500">Participants</h4>
     </div>
     <div class="py-4 bg-white rounded shadow px-4 my-4">
       <p class="font-semibold px-2 text-center text-4xl text-purple-600">{{ middle_box_value }}</p>
