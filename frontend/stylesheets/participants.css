@@ -4,17 +4,10 @@
 
 @import "tailwindcss/base";
 @import "tailwindcss/components";
-
-@import "settings";
-@import "base";
-@import "objects";
-@import "animations";
-@import "components";
-@import "thanks";
-
 @import "tailwindcss/utilities";
 
 @import url('https://rsms.me/inter/inter.css');
+
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;
 }

@@ -8,7 +8,7 @@ require 'action_cable/engine'
 
 Bundler.require(*Rails.groups)
 
-module UxCard6
+module UXMetrics
   class Application < Rails::Application
     config.application_naked_domain = ENV['NAKED_APP_DOMAIN']
     config.application_domain = ENV['FULL_APP_DOMAIN']
