@@ -15,8 +15,6 @@ Rails.application.routes.draw do
   get '/treetesting', to: 'pages#treetesting'
   get '/privacy', to: 'pages#privacy'
   get '/terms', to: 'pages#terms'
-  get '/contact', to: 'pages#contact'
-  get '/about', to: 'pages#about'  
   get '/500', to: 'errors#server_error'
   get '/422', to: 'errors#unacceptable'
   get '/404', to: 'errors#not_found'
