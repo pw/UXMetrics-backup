@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   authenticated :user do
-    root to: 'dashboard#show'
+    root to: 'dashboard#show', as: :authenticated_root
   end
 
   devise_for :users, path: "/", path_names: { sign_up: "signup", sign_in: "login", sign_out: "logout", edit: "edit" }, controllers: { masquerades: "admin/masquerades" }
@@ -51,10 +51,4 @@ Rails.application.routes.draw do
 
   get 'collect_cs/:auth_token', to: 'card_sort_participants#new', as: :card_sort_collect
   get 'collect_cs/:auth_token/:preview', to: 'card_sort_participants#new', as: :card_sort_collect_preview  
-
-  require 'sidekiq/web'
-  authenticate :user, lambda { |u| u.admin? } do
-    mount Sidekiq::Web => '/sidekiq'
-  end
-
 end

@@ -1,5 +1,5 @@
 class TestWorker
-  include Sidekiq::Worker
+  #include Sidekiq::Worker
 
   def perform(*args)
     # Do something

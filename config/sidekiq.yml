@@ -1,9 +1,0 @@
-:concurrency: 7
-:logfile: ./log/sidekiq.log
-:timeout: 8
-:queues:
-  - default
-  - mailers
-  - uxops_development_mailers
-  - uxops_production_mailers
-  - uxops_production_default

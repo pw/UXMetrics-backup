@@ -1,34 +1,4 @@
 Rails.application.configure do
-
-  config.action_mailer.default_url_options = { host: 'https://www.uxops.com', protocol: 'https' }
-  config.active_job.queue_name_prefix = "#{Rails.configuration.application_name.parameterize}_#{Rails.env}"
-  config.active_job.queue_adapter = :sidekiq
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.delivery_method = :smtp
-  # SMTP settings for sendgrid
-  # ActionMailer::Base.smtp_settings = {
-  #   :user_name => 'apikey',
-  #   :password => ENV['password'],
-  #   :domain => 'uxops.com',
-  #   :address => 'smtp.sendgrid.net',
-  #   :port => 587,
-  #   :authentication => :plain
-  # }
-
-
-
-  ActionMailer::Base.smtp_settings = {
-    :user_name => 'apikey',
-    :password => ENV['password'],
-    :domain => 'uxops.com',
-    :address => 'smtp.sendgrid.net',
-    :port => 587,
-    :authentication => :plain
-  }
-
-  # config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
-
-
   config.middleware.use Rack::Deflater
   # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = false
@@ -55,16 +25,6 @@ Rails.application.configure do
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
-  # Compress JavaScripts and CSS.
-  config.assets.js_compressor = Uglifier.new(harmony: true)
-
-  # config.assets.css_compressor = :sass
-
-  # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
-
-  # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
-
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'uxops.com'
 
@@ -89,18 +49,6 @@ Rails.application.configure do
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
-
-  # Use a real queuing backend for Active Job (and separate queues per environment)
-  config.active_job.queue_adapter = :sidekiq
-  config.active_job.queue_name_prefix = "#{Rails.configuration.application_name.parameterize}_#{Rails.env}"
-
-  config.action_mailer.perform_caching = false
-
-  config.action_mailer.asset_host = 'https://www.uxops.com'
-
-  # Ignore bad email addresses and do not raise email delivery errors.
-  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

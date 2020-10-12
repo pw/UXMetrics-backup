@@ -14,7 +14,6 @@ class User < ApplicationRecord
   after_create :send_welcome_mail
 
   def send_welcome_mail
-    UserNotifierMailer.send_signup_email(self).deliver_later
   end
 
 
