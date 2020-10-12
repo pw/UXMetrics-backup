@@ -1,5 +1,5 @@
 class TreeTestParticipantsController < ApplicationController
-  layout 'participants_new'
+  layout 'participants'
 
   def new
     @tree_test = TreeTest.find_by(auth_token: params[:auth_token])

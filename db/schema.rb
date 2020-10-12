@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_23_054610) do
+ActiveRecord::Schema.define(version: 2020_09_29_082918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,118 +96,6 @@ ActiveRecord::Schema.define(version: 2020_09_23_054610) do
     t.datetime "updated_at", null: false
     t.string "status", default: "draft"
     t.index ["user_id"], name: "index_card_sorts_on_user_id"
-  end
-
-  create_table "cards", force: :cascade do |t|
-    t.text "name"
-    t.bigint "cardtest_id"
-    t.integer "order"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "description"
-    t.index ["cardtest_id"], name: "index_cards_on_cardtest_id"
-  end
-
-  create_table "cardtests", force: :cascade do |t|
-    t.bigint "user_id"
-    t.string "name"
-    t.string "auth_token"
-    t.string "status"
-    t.string "uid"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "intro"
-    t.text "outro"
-    t.boolean "random"
-    t.text "fixedgroups"
-    t.string "testtype", default: "open", null: false
-    t.boolean "mandatory", default: true, null: false
-    t.json "mergedgroups", default: [], null: false
-    t.index ["auth_token"], name: "index_cardtests_on_auth_token", unique: true
-    t.index ["uid"], name: "index_cardtests_on_uid", unique: true
-    t.index ["user_id"], name: "index_cardtests_on_user_id"
-  end
-
-  create_table "friendly_id_slugs", force: :cascade do |t|
-    t.string "slug", null: false
-    t.integer "sluggable_id", null: false
-    t.string "sluggable_type", limit: 50
-    t.string "scope"
-    t.datetime "created_at"
-    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
-    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
-    t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
-  end
-
-  create_table "results", force: :cascade do |t|
-    t.string "name"
-    t.text "data"
-    t.bigint "cardtest_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["cardtest_id"], name: "index_results_on_cardtest_id"
-  end
-
-  create_table "sjabloon_charges", force: :cascade do |t|
-    t.bigint "owner_id"
-    t.string "processor", null: false
-    t.string "processor_id", null: false
-    t.integer "amount", null: false
-    t.integer "amount_refunded"
-    t.string "card_type"
-    t.string "card_last4"
-    t.string "card_exp_month"
-    t.string "card_exp_year"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["owner_id"], name: "index_sjabloon_charges_on_owner_id"
-  end
-
-  create_table "sjabloon_coupons", force: :cascade do |t|
-    t.string "code"
-    t.string "name"
-    t.string "currency"
-    t.integer "max_redemptions"
-    t.integer "amount_off"
-    t.decimal "percent_off"
-    t.string "duration"
-    t.integer "duration_in_months"
-    t.datetime "redeem_by"
-    t.integer "times_redeemed", default: 0
-    t.boolean "is_valid"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "sjabloon_plans", force: :cascade do |t|
-    t.string "processor_id"
-    t.integer "amount"
-    t.string "currency"
-    t.string "nickname"
-    t.integer "trial_period_days"
-    t.string "interval"
-    t.string "interval_count"
-    t.string "product"
-    t.jsonb "features", default: {}, null: false
-    t.integer "position"
-    t.boolean "active", default: true
-    t.boolean "visible", default: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "sjabloon_subscriptions", force: :cascade do |t|
-    t.bigint "owner_id"
-    t.string "name", null: false
-    t.string "processor", null: false
-    t.string "processor_id", null: false
-    t.string "processor_plan", null: false
-    t.integer "quantity", default: 1, null: false
-    t.datetime "trial_ends_at"
-    t.datetime "ends_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["owner_id"], name: "index_sjabloon_subscriptions_on_owner_id"
   end
 
   create_table "tree_test_participant_results", force: :cascade do |t|
@@ -322,9 +210,6 @@ ActiveRecord::Schema.define(version: 2020_09_23_054610) do
   add_foreign_key "card_sort_sorts", "card_sort_participants"
   add_foreign_key "card_sort_sorts", "card_sorts"
   add_foreign_key "card_sorts", "users"
-  add_foreign_key "cards", "cardtests"
-  add_foreign_key "cardtests", "users"
-  add_foreign_key "results", "cardtests"
   add_foreign_key "tree_test_participant_results", "tree_test_participants"
   add_foreign_key "tree_test_participant_results", "tree_test_tasks"
   add_foreign_key "tree_test_participants", "tree_tests"

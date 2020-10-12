@@ -1,3 +1,12 @@
+import Rails from "@rails/ujs"
+Rails.start()
+
+var Turbolinks = require("turbolinks")
+Turbolinks.start()
+
+import "../stylesheets/dashboard.css"
+require.context('../images', true)
+
 import TurbolinksAdapter from 'vue-turbolinks'
 import Vue from 'vue/dist/vue.esm'
 

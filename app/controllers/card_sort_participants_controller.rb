@@ -1,6 +1,6 @@
 class CardSortParticipantsController < ApplicationController
   before_action :authenticate_user!, except: [:new, :show]
-  layout 'participants_new'
+  layout 'participants'
 
   def new
     @card_sort = CardSort.find_by(auth_token: params[:auth_token])

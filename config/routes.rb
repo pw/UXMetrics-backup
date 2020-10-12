@@ -22,22 +22,6 @@ Rails.application.routes.draw do
   get '/404', to: 'errors#not_found'
 
   get '/admin/password_reset', to: 'admin#password_reset'
-  
-  resources :cards
-
-  resources :cardtests, param: :uid do
-    resources :results, param: :id do
-      collection do
-        get :download
-      end
-    end
-    member do
-      patch :update_merged
-    end
-    member do
-      delete :delete_image_attachment
-    end
-  end
 
   resources :tree_tests do
     get 'report', on: :member
@@ -63,12 +47,6 @@ Rails.application.routes.draw do
   resources :card_sort_cards
   
   resources :card_sort_participants
-
-  get 'collect/:auth_token/thanks', to: 'results#thanks', as: :thanks
-  post 'cardtests/:auth_token/results', to: 'results#create'
-  post 'collect/:auth_token/results', to: 'results#create'
-
-  get 'collect/:auth_token', to: 'results#new'
 
   get 'collect_tt/:auth_token', to: 'tree_test_participants#new', as: :tree_test_collect
   get 'collect_tt/:auth_token/:preview', to: 'tree_test_participants#new', as: :tree_test_collect_preview

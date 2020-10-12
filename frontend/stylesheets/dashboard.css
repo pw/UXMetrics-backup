@@ -1,0 +1,169 @@
+/* Application.css is based off the ITCSS methodology by Harry Roberts. */
+/* It starts with low-specifity selectors to high-specifity selectors. */
+/* The naming convention used is BEM. */
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+
+
+@import "settings";
+@import "base";
+@import "objects";
+@import "animations";
+@import "components";
+@import "thanks";
+
+@import "tailwindcss/utilities";
+
+@import url('https://rsms.me/inter/inter.css');
+
+/* CSS for draggable elements */
+
+.draggable ol, .draggable ul {
+padding-left: 20px;
+}
+.nestable {
+position: relative;
+}
+.nestable-rtl {
+direction: rtl;
+}
+.nestable .nestable-list {
+margin: 0;
+padding: 0 0 0 40px;
+list-style-type: none;
+}
+.nestable-rtl .nestable-list {
+padding: 0 40px 0 0;
+}
+.nestable > .nestable-list {
+padding: 0;
+}
+.nestable-item,
+.nestable-item-copy {
+margin: 10px 0 0;
+}
+.nestable-item:first-child,
+.nestable-item-copy:first-child {
+margin-top: 0;
+}
+.nestable-item .nestable-list,
+.nestable-item-copy .nestable-list {
+margin-top: 10px;
+}
+.nestable-item {
+position: relative;
+}
+.nestable-item.is-dragging .nestable-list {
+pointer-events: none;
+}
+.nestable-item.is-dragging * {
+opacity: 0;
+filter: alpha(opacity=0);
+}
+.nestable-item.is-dragging:before {
+content: ' ';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: rgba(106, 127, 233, 0.274);
+border: 1px dashed rgb(73, 100, 241);
+-webkit-border-radius: 5px;
+border-radius: 5px;
+}
+.nestable-drag-layer {
+position: fixed;
+top: 0;
+left: 0;
+z-index: 100;
+pointer-events: none;
+}
+.nestable-rtl .nestable-drag-layer {
+left: auto;
+right: 0;
+}
+.nestable-drag-layer > .nestable-list {
+position: absolute;
+top: 0;
+left: 0;
+padding: 0;
+background-color: rgba(106, 127, 233, 0.274);
+}
+.nestable-rtl .nestable-drag-layer > .nestable-list {
+padding: 0;
+}
+.nestable [draggable="true"] {
+cursor: move;
+}
+
+/* CSS for doing transitions with Vue */
+.overlay-enter-active {
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+.overlay-enter { 
+  opacity: 0;
+}
+.overlay-enter-to {
+  opacity: 1;
+}
+.overlay-leave-active {
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  transition-duration: 200ms;
+}
+.overlay-leave {
+  opacity: 1;
+}
+.overlay-leave-to {
+  opacity: 0;
+}
+.modal-enter-active {
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+.modal-enter {
+  opacity: 0;
+  --transform-translate-y: 1rem;
+}
+@media (min-width: 640px) {
+  .modal-enter {
+    --transform-translate-y: 0;
+    --transform-scale-x: .95;
+    --transform-scale-y: .95;
+  }
+  .modal-enter-to {
+    --transform-scale-x: 1;
+    --transform-scale-y: 1;
+  }
+  .modal-leave {
+    --transform-scale-x: 1;
+    --transform-scale-y: 1;
+  }  
+  .modal-leave-to {
+    --transform-translate-y: 0;
+    --transform-scale-x: .95;
+    --transform-scale-y: .95;
+  }
+}
+.modal-enter-to {
+  opacity: 1;
+  --transform-translate-y: 0;
+}
+.modal-leave-active {
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  transition-duration: 200ms;
+}
+.modal-leave {
+  opacity: 1;
+  --transform-translate-y: 0;
+}
+.modal-leave-to {
+  opacity: 0;
+  --transform-translate-y: 1rem;
+}
+
+.modal-component-leave-active {
+  transition-duration: 200ms;
+}
