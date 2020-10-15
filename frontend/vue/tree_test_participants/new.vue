@@ -79,7 +79,7 @@
                 <div class="sm:col-span-1">
                   <div class="bg-gray-200 overflow-hidden rounded-lg text-center h-full">
                     <div class="px-4 py-5 sm:p-6">
-                      Demo GIF will go here
+                      <img src="frontend/images/treetest.gif">
                     </div>
                   </div>
                 </div>
