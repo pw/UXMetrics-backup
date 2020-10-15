@@ -159,7 +159,7 @@
             <div class="px-4 py-5 sm:p-6">
               <img v-if="card_sort.logo_key !== 'undefined'" :src="card_sort.logo_url" class="mb-6">
               <img v-else :src="card_sort.logo_url" class="mb-6" width="76" height="39">
-              <h3 class="text-xl leading-6 font-medium text-gray-900">
+              <h3 class="text-xl leading-6 font-medium text-gray-900 mb-4">
                 Thank you!
               </h3>
               <div class="max-w-xl text-md leading-5 text-gray-500">

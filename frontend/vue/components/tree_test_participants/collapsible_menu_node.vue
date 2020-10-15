@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="flex items-center justify-between bg-white overflow-hidden shadow rounded-md h-8 px-2 py-1 mb-2" :class="{'border-2 border-purple-500': (!collapsedLocal && (element.children.length == 0))}" :style="{'margin-left': margin + 'rem'}">
-      <a @click="toggle" class="ml-2 block text-sm leading-5 text-blue-700 underline"> {{ element.text }}
+      <a @click="toggle" class="ml-2 block text-sm leading-5 text-blue-700 underline cursor-pointer"> {{ element.text }}
       </a>
       <span v-if="!collapsedLocal && (element.children.length == 0)" class="inline-flex rounded-md shadow-sm">
         <button @click="$emit('setChoice', element.id)" type="button" class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs leading-4 font-medium rounded text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition ease-in-out duration-150" style="margin-right: -10px;">

@@ -2,17 +2,17 @@
   <div class="min-h-screen bg-gray-100">
     <main class="py-6">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="bg-purple-100 sm:rounded-lg mb-6">
+        <div class="bg-white rounded-lg shadow-sm mb-6">
           <div class="px-4 py-5 sm:p-6">
             <div v-show="step == 'intro'">
-              <img :src="tree_test.logo_url" class="mb-6">
+              <img :src="tree_test.logo_url" class="w-1/5 mb-6">
               <h3 class="text-xl leading-6 font-medium text-gray-900 mb-4">
                 Welcome!
               </h3> 
               <div class="max-w-xl text-md leading-5 text-gray-500"> {{ tree_test.participant_instructions }}
               </div>              
               <div class="mt-5">
-                <span class="shadow-sm rounded-md">
+                <span class="shadow-sm rounded-md cursor-pointer">
                   <a @click="next" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-green-500 hover:bg-green-400 focus:outline-none focus:shadow-outline-green focus:border-green-600 transition duration-150 ease-in-out">
                     Continue
                     <svg class="ml-3 -mr-1 h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -23,6 +23,7 @@
               </div>    
             </div>   
             <div v-show="step == 'instructions'" >
+              <img :src="tree_test.logo_url" class="w-1/5 mb-6">
               <h3 class="text-xl leading-6 font-medium text-gray-900 mb-6">
                 Instructions
               </h3>     
@@ -67,14 +68,13 @@
                               </span>
                             </div>
                             <div class="min-w-0 flex-1 px-4">
-                              If you get lost in the list, just click or tap one of the links above.
+                              If you get lost in the list, just click or tap one of the links above. There are no right or wrong answers, just choose the links that make the most sense to you!
                             </div>
                           </div>
                         </div>
                       </li>
                     </ul>
                   </div>
-                  <p class="text-gray-700 bg-yellow-100 rounded-md px-4 py-5">There are no right or wrong answers, just choose the links that make the most sense to you!</p>
                 </div>
                 <div class="sm:col-span-1">
                   <div class="bg-gray-200 overflow-hidden rounded-lg text-center h-full">
@@ -85,7 +85,7 @@
                 </div>
               </div>
               <div class="mt-5">
-                <span class="shadow-sm rounded-md">
+                <span class="shadow-sm rounded-md cursor-pointer">
                   <a @click="next" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-green-500 hover:bg-green-400 focus:outline-none focus:shadow-outline-green focus:border-green-600 transition duration-150 ease-in-out">
                     Get Started
                     <svg class="ml-3 -mr-1 h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -107,7 +107,8 @@
               </div>                         
             </div>    
             <div v-show="step == 'thanks'">
-              <h3 class="text-xl leading-6 font-medium text-gray-900">
+              <img :src="tree_test.logo_url" class="w-1/5 mb-6">
+              <h3 class="text-xl leading-6 font-medium text-gray-900 mb-4">
                 Thank you!
               </h3>
               <div class="max-w-xl text-md leading-5 text-gray-500">
