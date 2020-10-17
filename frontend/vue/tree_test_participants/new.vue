@@ -79,7 +79,7 @@
                 <div class="sm:col-span-1">
                   <div class="bg-gray-200 overflow-hidden rounded-lg text-center h-full">
                     <div class="px-4 py-5 sm:p-6">
-                      <img src="frontend/images/treetest.gif">
+                      <img :src="treetest_gif_url">
                     </div>
                   </div>
                 </div>
@@ -147,7 +147,8 @@
   export default {
     props: {
       data: Object,
-      preview: Boolean
+      preview: Boolean,
+      treetest_gif_url: String
     },
     components: { MenuNode },
     data() {
