@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   get '/422', to: 'errors#unacceptable'
   get '/404', to: 'errors#not_found'
 
+  get '/verify', to: 'pages#verify'
+
   get '/admin/password_reset', to: 'admin#password_reset'
 
   resources :tree_tests do
