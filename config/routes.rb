@@ -8,7 +8,9 @@ Rails.application.routes.draw do
 
   root to: 'pages#home'
   get '/dashboard', to: 'dashboard#show'
-  get '/account', to: 'account#show'
+  get '/account', to: 'account#profile'
+  get '/account/billing', to: 'account#billing'
+  get '/account/delete', to: 'account#delete'
   get '/godview', to: 'dashboard#godview'
   get '/resources', to: 'pages#resources'
   get '/pricing', to: 'pages#pricing'
