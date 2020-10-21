@@ -1,6 +1,4 @@
 class CardSortCardsController < ApplicationController
-  before_action :authenticate_user!
-
   def create
     if CardSort.find(params[:card_sort_card][:card_sort_id]).user == current_user
       render json: CardSortCard.create(card_sort_card_params)
