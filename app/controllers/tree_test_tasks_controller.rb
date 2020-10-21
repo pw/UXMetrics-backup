@@ -1,6 +1,4 @@
 class TreeTestTasksController < ApplicationController
-  before_action :authenticate_user!
-
   def create
     tree_test = TreeTest.find(params[:tree_test_task][:tree_test_id])
     tree_test_task = TreeTestTask.new

@@ -1,8 +1,15 @@
-<% if !flash.empty? %>
-  <%= content_tag :ul, nil, class: "flash-wrapper animate flashAnimation" do %>
-    <% flash.each do |key, message| %>
-      <li class="flash"><%= message %></li>
-    <% end %>
-  <% end %>
+<% if flash[:notice] %>
+  <div class="fixed inset-x-0 bottom-0">
+    <div class="relative bg-black opacity-75">
+      <div class="max-w-screen-xl mx-auto py-6 px-3 sm:px-6 lg:px-8">
+        <div class="pr-16 sm:text-center sm:px-16">
+          <p class="font-medium text-white">
+            <span class="md:inline">
+              <%= flash[:notice] %>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>
-

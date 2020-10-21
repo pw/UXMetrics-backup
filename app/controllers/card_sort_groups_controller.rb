@@ -1,5 +1,6 @@
 class CardSortGroupsController < ApplicationController
-  before_action :authenticate_user!, except: :create_participant_designated_group
+  skip_before_action :authenticate only: :create_participant_designated_group
+  skip_before_action :check_verification, only: :create_participant_designated_group
 
   def create
     if CardSort.find(params[:card_sort_group][:card_sort_id]).user == current_user

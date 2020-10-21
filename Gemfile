@@ -9,8 +9,8 @@ gem 'puma'
 gem 'turbolinks'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'webpacker'
-gem 'devise'
-gem 'devise_masquerade'
+gem 'bcrypt'
+gem 'postmark'
 
 group :development do
   gem 'web-console'

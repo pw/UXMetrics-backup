@@ -1,4 +1,6 @@
 class TreeTestParticipantsController < ApplicationController
+  skip_before_action :authenticate only: [:new, :create]
+  skip_before_action :check_verification, only: [:new, :create]
   layout 'participants'
 
   def new

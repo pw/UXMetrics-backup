@@ -1,13 +1,8 @@
 Rails.application.routes.draw do
-
-  authenticated :user do
-    root to: 'dashboard#show', as: :authenticated_root
-  end
-
-  devise_for :users, path: "/", path_names: { sign_up: "signup", sign_in: "login", sign_out: "logout", edit: "edit" }, controllers: { masquerades: "admin/masquerades" }
-
   root to: 'pages#home'
-  get '/dashboard', to: 'dashboard#show'
+
+  get '/dashboard', to: 'dashboard#show', as: 'dashboard'
+  get '/verify', to: 'dashboard#verify', as: 'verify'
   get '/account', to: 'account#profile'
   get '/account/billing', to: 'account#billing'
   get '/account/delete', to: 'account#delete'
@@ -22,9 +17,18 @@ Rails.application.routes.draw do
   get '/422', to: 'errors#unacceptable'
   get '/404', to: 'errors#not_found'
 
-  get '/verify', to: 'pages#verify'
+  get '/signup', to: 'authentication#new_signup', as: 'signup'
+  post '/signup', to: 'authentication#signup', as: 'signup_post'
+  get '/login', to: 'authentication#new_login', as: 'login'
+  post '/login', to: 'authentication#login', as: 'login_post'
+  delete '/logout', to: 'authentication#logout', as: 'logout'
+  get '/reset-password', to: 'authentication#new_reset_password', as: 'reset_password'
+  post '/reset-password', to: 'authentication#reset_password', as: 'reset_password_post'
+  get '/set-password/:token', to: 'authentication#new_set_password', as: 'set_password'
+  post '/set-password', to: 'authentication#set_password', as: 'set_password_post'
 
-  get '/admin/password_reset', to: 'admin#password_reset'
+  get '/email_verification/:token', to: 'email_verification#verify', as: 'email_verification'
+
 
   resources :tree_tests do
     get 'report', on: :member
@@ -56,4 +60,6 @@ Rails.application.routes.draw do
 
   get 'collect_cs/:auth_token', to: 'card_sort_participants#new', as: :card_sort_collect
   get 'collect_cs/:auth_token/:preview', to: 'card_sort_participants#new', as: :card_sort_collect_preview  
+
+  get '/admin/password_reset', to: 'admin#password_reset'
 end

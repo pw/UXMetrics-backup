@@ -9,7 +9,7 @@
     </h2>
     <div class="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8 mb-4">
       <div class="rounded-md shadow">
-        <%= link_to "Get Started Free", new_user_registration_path, class: "w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:shadow-outline-purple transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10", id:"homepage-signup"%>
+        <%= link_to "Get Started Free", signup_path, class: "w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:shadow-outline-purple transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10", id:"homepage-signup"%>
       </div>
     </div>
     <div class="w-full lg:w-2/3 mx-auto">
@@ -427,5 +427,18 @@
         </ul>
       </div>
     </div>
+  </div>
+</div>
+<div class="bg-purple-50">
+  <div class="max-w-screen-xl mx-auto text-center py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+    <h3 class="text-3xl leading-9 font-extrabold tracking-tight sm:text-4xl text-center mb-8">
+      Set up your first study
+    </h3>
+    <div class="flex justify-center mb-4">
+      <div class="inline-flex rounded-md shadow">
+        <%= link_to "Get Started Free", signup_path, class: "inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+      </div>
+    </div>
+    <span class="block text-base text-purple-400">No credit card required</span>
   </div>
 </div>

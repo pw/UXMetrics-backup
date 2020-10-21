@@ -1,23 +1,11 @@
 class ApplicationController < ActionController::Base
-  before_action :masquerade_user!
-  before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :redirect_to_new_domain
+  before_action :authenticate
+  before_action :check_verification
+
+  helper_method :current_user
 
   protected
-
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :trialend])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name])
-  end
-
-
-  def default_url_options
-    if Rails.env.production?
-      Rails.application.routes.default_url_options = { host: ENV['FULL_APP_DOMAIN_WITHOUT_PROTOCOL'], protocol: 'https' }
-    elsif Rails.env.development?
-      Rails.application.routes.default_url_options = { host: 'localhost:5000', protocol: 'http' }
-    end
-  end
 
   def redirect_to_new_domain
     uri = URI.parse request.url
@@ -30,4 +18,33 @@ class ApplicationController < ActionController::Base
     return true
   end
 
+  def authenticate
+    if session[:user_id]
+      @current_user = User.find(session[:user_id]) 
+    elsif cookies.encrypted[:user_id]
+      @current_user = User.find(cookies.encrypted[:user_id])
+      session[:user_id] = @current_user.id
+      flash.now[:notice] = 'Welcome back.'
+    else 
+      redirect_to login_path, notice: 'Please log in.'
+    end
+  rescue ActiveRecord::RecordNotFound
+    redirect_to login_path, notice: 'Please log in.'
+  end
+
+  def authenticate_admin
+    redirect_to root_path unless current_user.admin
+  end
+
+  def current_user
+    @current_user
+  end
+
+  def admin?
+    current_user.admin
+  end
+
+  def check_verification
+    redirect_to verify_path unless current_user.verified
+  end
 end

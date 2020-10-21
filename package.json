@@ -2,6 +2,7 @@
   "name": "Userdrive",
   "private": true,
   "dependencies": {
+    "@rails/actioncable": "^6.0.3-4",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.2.1",
     "@tailwindcss/ui": "^0.6.2",

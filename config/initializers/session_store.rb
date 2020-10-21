@@ -1,0 +1,1 @@
+Rails.application.config.session_store :cookie_store, secure: Rails.env.production?, domain: ENV['FULL_APP_DOMAIN_WITHOUT_PROTOCOL']

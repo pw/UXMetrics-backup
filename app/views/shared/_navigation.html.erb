@@ -22,12 +22,12 @@
     <div class="hidden md:block text-right">
       <span class="inline-flex rounded-md shadow-md mr-4">
         <span class="inline-flex rounded-md shadow-xs">
-          <%= link_to "Log in", new_user_session_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-purple-600 bg-white hover:bg-gray-50 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+          <%= link_to "Log in", login_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-purple-600 bg-white hover:bg-gray-50 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
         </span>
       </span>
       <span class="inline-flex rounded-md shadow-md">
         <span class="inline-flex rounded-md shadow-xs">
-          <%= link_to "Sign up", new_user_registration_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
+          <%= link_to "Sign up", signup_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out" %>
         </span>
       </span>
     </div>
@@ -51,10 +51,10 @@
           <%= link_to "Card Sorts", cardsorting_path, class: "block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" %>
           <%= link_to "Tree Tests", cardsorting_path, class: "block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" %>
           <%= link_to "Pricing", pricing_path, class: "mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" %>
-          <%= link_to "Log in", new_user_session_path, class: "mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" %>
+          <%= link_to "Log in", login_path, class: "mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" %>
         </div>
         <div>
-          <%= link_to "Sign up", new_user_registration_path, class: "block w-full px-5 py-3 text-center font-medium text-purple-600 bg-gray-50 hover:bg-gray-100 hover:text-purple-700 focus:outline-none focus:bg-gray-100 focus:text-purple-700 transition duration-150 ease-in-out" %>
+          <%= link_to "Sign up", signup_path, class: "block w-full px-5 py-3 text-center font-medium text-purple-600 bg-gray-50 hover:bg-gray-100 hover:text-purple-700 focus:outline-none focus:bg-gray-100 focus:text-purple-700 transition duration-150 ease-in-out" %>
         </div>
       </div>
     </div>

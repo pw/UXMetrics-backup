@@ -1,5 +1,5 @@
 class CardSortParticipantsController < ApplicationController
-  before_action :authenticate_user!, except: [:new, :show]
+  skip_before_action :authenticate, :check_verification, only: [:new, :create]
   layout 'participants'
 
   def new

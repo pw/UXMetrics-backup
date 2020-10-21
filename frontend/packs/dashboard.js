@@ -4,6 +4,14 @@ Rails.start()
 var Turbolinks = require("turbolinks")
 Turbolinks.start()
 
+import { createConsumer } from "@rails/actioncable"
+var consumer = createConsumer()
+consumer.subscriptions.create('EmailVerificationChannel', {
+  received(data) {
+    window.location = data['path']
+  }
+})
+
 import "../stylesheets/dashboard.css"
 require.context('../images', true)
 
@@ -24,7 +32,6 @@ import CardSortReport from '../vue/card_sorts/report.vue'
 Vue.use(VueNestable)
 Vue.use(TurbolinksAdapter)
 Vue.use(VueClipboard)
-
 
 Vue.component('tree-test-new', NewTreeTest)
 Vue.component('tree-test-edit', EditTreeTest)
