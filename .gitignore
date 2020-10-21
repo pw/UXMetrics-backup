@@ -49,4 +49,4 @@ config/secrets/ux-card.json
 yarn-debug.log*
 .yarn-integrity
 sendgrid.env
-config/environments/development.rb
+.env
