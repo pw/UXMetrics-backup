@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root to: 'pages#home'
 
   get '/dashboard', to: 'dashboard#show', as: 'dashboard'
+  get '/verify', to: 'dashboard#verify', as: 'verify'
   get '/account', to: 'account#profile'
   get '/account/billing', to: 'account#billing'
   get '/account/delete', to: 'account#delete'
@@ -27,7 +28,6 @@ Rails.application.routes.draw do
   post '/set-password', to: 'authentication#set_password', as: 'set_password_post'
 
   get '/email_verification/:token', to: 'email_verification#verify', as: 'email_verification'
-
 
   resources :tree_tests do
     get 'report', on: :member
