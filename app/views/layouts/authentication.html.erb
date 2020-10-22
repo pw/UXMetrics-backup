@@ -25,19 +25,18 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <%= javascript_pack_tag "participants", "data-turbolinks-track": "reload" %>
+  <%= javascript_pack_tag "application", "data-turbolinks-track": "reload" %>
 
   <%= favicon_link_tag asset_pack_path('media/images/favicon.png') %>
 
-  <%= stylesheet_pack_tag "participants", "data-turbolinks-track": "reload" %>
+  <%= stylesheet_pack_tag "application", "data-turbolinks-track": "reload" %>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
 
 <body>
-  <div data-behavior="vue">
-    <%= yield %>
-  </div>
+  <%= yield %>
+  <%= render "shared/flash" %>
 </body>
 </html>
