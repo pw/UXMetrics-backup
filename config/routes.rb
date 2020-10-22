@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   root to: 'pages#home'
 
   get '/dashboard', to: 'dashboard#show', as: 'dashboard'
-  get '/verify', to: 'dashboard#verify', as: 'verify'
   get '/account', to: 'account#profile'
   get '/account/billing', to: 'account#billing'
   get '/account/delete', to: 'account#delete'
