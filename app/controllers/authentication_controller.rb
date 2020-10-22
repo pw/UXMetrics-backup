@@ -1,4 +1,5 @@
 class AuthenticationController < UnauthenticatedController
+  layout 'authentication'
   skip_before_action :check_for_login, only: :logout
 
   def signup        
