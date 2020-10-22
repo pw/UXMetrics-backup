@@ -1,5 +1,5 @@
 class CardSortGroupsController < ApplicationController
-  skip_before_action :authenticate only: :create_participant_designated_group
+  skip_before_action :authenticate, only: :create_participant_designated_group
   skip_before_action :check_verification, only: :create_participant_designated_group
 
   def create

@@ -11,6 +11,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'webpacker'
 gem 'bcrypt'
 gem 'postmark'
+gem 'sidekiq'
 
 group :development do
   gem 'web-console'

@@ -1,4 +1,5 @@
 class AuthenticationController < UnauthenticatedController
+  skip_before_action :check_for_login, only: :logout
 
   def signup        
     user = User.create(email: params[:email], password: params[:password])
@@ -66,4 +67,6 @@ class AuthenticationController < UnauthenticatedController
   def remember_user(user)
     cookies.encrypted[:user_id] = user.id
   end
+
+
 end

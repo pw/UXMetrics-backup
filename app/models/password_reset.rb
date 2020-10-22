@@ -4,8 +4,7 @@ class PasswordReset < ApplicationRecord
   after_create :send_password_reset_email
 
   def send_password_reset_email
-    client = client = Postmark::ApiClient.new(ENV['POSTMARK_SERVER_TOKEN'], http_open_timeout: 15)
-    client.deliver_with_template(from: 'UX Metrics <support@uxmetrics.com>', to: user.email, template_alias: 'password-reset', template_model: {password_reset_url: password_reset_url})
+    PostmarkEmailJob.perform_later(user.email, 'password-reset', {password_reset_url: password_reset_url})    
   end
 
   def password_reset_url

@@ -4,6 +4,7 @@ require 'rails'
 require 'active_record/railtie'
 require 'action_controller/railtie'
 require 'action_view/railtie'
+require 'active_job/railtie'
 require 'action_cable/engine'
 
 Bundler.require(*Rails.groups)
@@ -15,5 +16,6 @@ module UXMetrics
     config.application_name = ENV['APP_NAME']
     config.load_defaults 5.2
     config.generators.system_tests = nil
+    config.active_job.queue_adapter = :sidekiq
   end
 end

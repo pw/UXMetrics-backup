@@ -6,4 +6,10 @@ class User < ApplicationRecord
   has_many :cardtests
   has_many :tree_tests
   has_many :card_sorts
+
+  after_create :send_welcome_email
+
+  def send_welcome_email
+    PostmarkEmailJob.perform_later(email, 'welcome', {login_url: Rails.application.routes.url_helpers.login_url, username: email, help_url: ''})
+  end
 end

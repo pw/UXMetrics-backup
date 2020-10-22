@@ -1,2 +1,4 @@
-web:     rails server
+web: rails server
+sidekiq: bundle exec sidekiq
+redis: redis-server
 webpack: ./bin/webpack-dev-server --watch --colors --progress
