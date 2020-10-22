@@ -3,6 +3,7 @@ class DashboardController < ApplicationController
   layout 'dashboard'
 
   def show 
+    flash[:notice] = 'Testing...'
     cookies.delete :actioncable_user_id   
   end
 
