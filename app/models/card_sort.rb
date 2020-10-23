@@ -9,6 +9,11 @@ class CardSort < ApplicationRecord
   accepts_nested_attributes_for :card_sort_cards, allow_destroy: true
 
   before_create :add_auth_token
+  after_update :send_publication_notice
+
+  def send_publication_notice
+    PostmarkEmailJob.perform_later(user.email, 'published-study', {study_name: name, study_url: collect_url}) if status == 'published'
+  end
 
   def median_time
     return nil if card_sort_participants.where(excluded: false).count == 0
@@ -82,10 +87,14 @@ class CardSort < ApplicationRecord
     end
   end
 
+  def collect_url
+    Rails.application.routes.url_helpers.card_sort_collect_url(auth_token: auth_token)
+  end
+
   def as_json(*)
     super.tap do |hash| 
       hash[:created_at_day] = created_at.strftime('%-m/%-d/%Y')
-      hash[:collect_url] = Rails.application.routes.url_helpers.card_sort_collect_url(auth_token: auth_token, host: ENV['CURRENT_HOST'])
+      hash[:collect_url] = collect_url
       hash[:logo_base_url] = "https://#{ENV['LOGO_UPLOAD_ENDPOINT']}"
       hash[:logo_url] = (logo_key != 'undefined') ? "https://#{ENV['LOGO_UPLOAD_ENDPOINT']}/#{logo_key}" : ActionController::Base.helpers.asset_pack_path('media/images/uxmetrics-logo.svg')
       hash[:results_count] = card_sort_participants.where(excluded: false).count

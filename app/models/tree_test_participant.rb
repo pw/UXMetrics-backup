@@ -16,6 +16,12 @@ class TreeTestParticipant < ApplicationRecord
     tree_test_participant_results.update_all(excluded: excluded)
   end
 
+  after_create :send_notification_email
+
+  def send_notification_email
+    PostmarkEmailJob.perform_later(tree_test.user.email, 'first-participant', {study_name: tree_test.name, study_report_url: Rails.application.routes.url_helpers.report_tree_test_url(tree_test)}) if participant_id == 1      
+  end
+
   def results_success
     tree_test_participant_results.select{|i| i.success? }
   end

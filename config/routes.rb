@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: 'pages#home'
-  get '/card-sorts', to: 'pages#card_sorts'
-  get '/tree-tests', to: 'pages#tree_tests'
+  get '/card-sorts', to: 'pages#card_sorts', as: 'card_sorts_page'
+  get '/tree-tests', to: 'pages#tree_tests', as: 'tree_tests_page'
   get '/pricing', to: 'pages#pricing'
   get '/privacy', to: 'pages#privacy'
   get '/terms', to: 'pages#terms'

@@ -12,6 +12,12 @@ class CardSortParticipant < ApplicationRecord
     end
   end  
 
+  after_create :send_notification_email
+
+  def send_notification_email
+    PostmarkEmailJob.perform_later(card_sort.user.email, 'first-participant', {study_name: card_sort.name, study_report_url: Rails.application.routes.url_helpers.report_card_sort_url(card_sort)}) if participant_id == 1      
+  end
+
   def sorting
     h = card_sort_sorts.includes(:card_sort_group).map{|i| i.card_sort_group}.uniq.sort.each_with_object(Hash.new){|i, h| h[i.name] = []}
     card_sort_sorts.includes(:card_sort_group, :card_sort_card).each{|i| h[i.card_sort_group.name] << i.card_sort_card.title}

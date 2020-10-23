@@ -6,6 +6,11 @@ class TreeTest < ApplicationRecord
   accepts_nested_attributes_for :tree_test_tasks, allow_destroy: true
 
   before_create :add_auth_token
+  after_update :send_publication_notice
+
+  def send_publication_notice
+    PostmarkEmailJob.perform_later(user.email, 'published-study', {study_name: name, study_url: collect_url}) if status == 'published'
+  end
 
   def participants(offset = 0)
     tree_test_participants.order(:id).limit(1).offset(offset)
@@ -70,10 +75,14 @@ class TreeTest < ApplicationRecord
     tree_test_tasks.sum{|i| i.percent_skipped_indirectly} / tree_test_tasks.count.to_f  
   end
 
+  def collect_url
+    Rails.application.routes.url_helpers.tree_test_collect_url(auth_token: auth_token)
+  end
+
   def as_json(*)
     super.tap do |hash|
       hash[:created_at_day] = created_at.strftime('%-m/%-d/%Y')
-      hash[:collect_url] = Rails.application.routes.url_helpers.tree_test_collect_url(auth_token: auth_token, host: ENV['CURRENT_HOST'])
+      hash[:collect_url] = collect_url
       hash[:logo_base_url] = "https://#{ENV['LOGO_UPLOAD_ENDPOINT']}"
       hash[:logo_url] = (logo_key != 'undefined') ? "https://#{ENV['LOGO_UPLOAD_ENDPOINT']}/#{logo_key}" : ActionController::Base.helpers.asset_pack_path('media/images/uxmetrics-logo.svg')
       hash[:test_results_count] = tree_test_participants.where(excluded: false).count
