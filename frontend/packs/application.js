@@ -5,5 +5,7 @@ Rails.start()
 var Turbolinks = require("turbolinks")
 Turbolinks.start()
 
+import 'alpinejs'
+
 import "../stylesheets/application.css"
 

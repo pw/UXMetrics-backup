@@ -1,18 +1,21 @@
 Rails.application.routes.draw do
   root to: 'pages#home'
+  get '/card-sorts', to: 'pages#card_sorts'
+  get '/tree-tests', to: 'pages#tree_tests'
+  get '/pricing', to: 'pages#pricing'
+  get '/privacy', to: 'pages#privacy'
+  get '/terms', to: 'pages#terms'
 
   get '/dashboard', to: 'dashboard#show', as: 'dashboard'
   get '/verify', to: 'dashboard#verify', as: 'verify'
-  get '/account', to: 'account#profile'
-  get '/account/billing', to: 'account#billing'
-  get '/account/delete', to: 'account#delete'
+
+  get '/account', to: 'account#show', as: 'account'
+  post '/update-email', to: 'account#update_email', as: 'update_email'
+  post '/change-password', to: 'account#change_password', as: 'change_password'
+  post '/delete_account', to: 'account#delete_account', as: 'delete_account'
+  
   get '/godview', to: 'dashboard#godview'
-  get '/resources', to: 'pages#resources'
-  get '/pricing', to: 'pages#pricing'
-  get '/cardsorting', to: 'pages#cardsorting'
-  get '/treetesting', to: 'pages#treetesting'
-  get '/privacy', to: 'pages#privacy'
-  get '/terms', to: 'pages#terms'
+
   get '/500', to: 'errors#server_error'
   get '/422', to: 'errors#unacceptable'
   get '/404', to: 'errors#not_found'

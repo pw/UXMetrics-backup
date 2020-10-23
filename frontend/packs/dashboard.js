@@ -12,6 +12,8 @@ consumer.subscriptions.create('EmailVerificationChannel', {
   }
 })
 
+import 'alpinejs'
+
 import "../stylesheets/dashboard.css"
 require.context('../images', true)
 

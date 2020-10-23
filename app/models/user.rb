@@ -1,11 +1,10 @@
 class User < ApplicationRecord
   has_secure_password
 
-  has_many :email_verifications 
-  has_many :password_resets 
-  has_many :cardtests
-  has_many :tree_tests
-  has_many :card_sorts
+  has_many :email_verifications, dependent: :destroy
+  has_many :password_resets, dependent: :destroy
+  has_many :tree_tests, dependent: :destroy
+  has_many :card_sorts, dependent: :destroy
 
   after_create :send_welcome_email
 
