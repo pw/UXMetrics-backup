@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: 'dashboard#show', as: 'dashboard'
   get '/verify', to: 'dashboard#verify', as: 'verify'
+  get '/subscribe', to: 'dashboard#subscribe', as: 'subscribe'
 
   get '/account', to: 'account#show', as: 'account'
   post '/update-email', to: 'account#update_email', as: 'update_email'
