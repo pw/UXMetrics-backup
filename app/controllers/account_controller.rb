@@ -18,7 +18,9 @@ class AccountController < ApplicationController
   end
 
   def delete_account
+    email = current_user.email
     current_user.destroy
+    PostmarkEmailJob.perform_later(email, 'account-closed', {})
     cookies.delete :user_id
     reset_session
     redirect_to root_path, notice: 'Your account has been deleted.'    
