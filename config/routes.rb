@@ -3,8 +3,6 @@ Rails.application.routes.draw do
   get '/card-sorts', to: 'pages#card_sorts', as: 'card_sorts_page'
   get '/tree-tests', to: 'pages#tree_tests', as: 'tree_tests_page'
   get '/pricing', to: 'pages#pricing'
-  get '/privacy', to: 'pages#privacy'
-  get '/terms', to: 'pages#terms'
 
   get '/dashboard', to: 'dashboard#show', as: 'dashboard'
   get '/verify', to: 'dashboard#verify', as: 'verify'
