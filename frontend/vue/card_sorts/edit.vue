@@ -317,7 +317,6 @@ export default {
   },  
   methods: {
     publish() {
-      this.subscribe_modal_open = true
       var r = confirm('Are you sure?')
       if(r == true) {
         var data = new FormData 

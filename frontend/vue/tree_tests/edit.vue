@@ -215,11 +215,20 @@
         </div>
       </div> 
     </main>
+
+    <transition name="modal-component">
+      <Subscribe
+      v-show="subscribe_modal_open"
+      @close="subscribe_modal_open = false"
+      :show="subscribe_modal_open"
+      />
+    </transition>    
   </div>
 </template>
 
 <script>
 import Nav from '../components/edit_tree_test/nav.vue'
+import Subscribe from '../components/subscribe.vue'
 import Rails from '@rails/ujs'
 
 import TextInput from '../components/new_tree_test/text_input.vue'
@@ -240,7 +249,8 @@ export default {
     return {
       tree_test: this.data[0],
       tree: JSON.parse(this.data[0].tree),
-      tab: 'settings'   
+      tab: 'settings',
+      subscribe_modal_open: false   
     }
   },  
   computed: {
@@ -421,6 +431,6 @@ export default {
       }
     } 
   },
-  components: { Nav, TextInput, TextArea, Slider, TreeNode, Task }
+  components: { Nav, Subscribe, TextInput, TextArea, Slider, TreeNode, Task }
 }
 </script>
