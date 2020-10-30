@@ -288,6 +288,8 @@ import TextArea from '../components/new_tree_test/text_area.vue'
 import Slider from '../components/slider.vue'
 import Group from '../components/new_card_sort/group.vue'
 import Card from '../components/new_card_sort/card.vue'
+import * as filestack from 'filestack-js'
+const filestack_client = filestack.init('AuALnf2VzTPqJAkEOLar1z');
 
 export default {
   props: {
