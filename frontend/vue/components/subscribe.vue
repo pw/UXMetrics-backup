@@ -1,0 +1,215 @@
+<template>
+  <div class="fixed z-10 inset-0 overflow-y-auto">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <transition name="overlay">
+        <div v-show="show" class="fixed inset-0 transition-opacity">
+          <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        </div>
+      </transition>
+
+      <span class="hidden sm:inline-block sm:align-middle sm:h-screen"></span>&#8203;
+
+      <transition name="modal">
+        <div v-show="show" class="inline-block align-bottom bg-gray-100 rounded-lg border-purple-600 border-4 px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle w-full lg:max-w-7xl sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+          <div class="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
+            <button @click="$emit('close')" type="button" class="text-gray-400 hover:text-gray-500 focus:outline-none focus:text-gray-500 transition ease-in-out duration-150" aria-label="Close">
+              <!-- Heroicon name: x -->
+              <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <div>
+            <div class="mt-3 text-center sm:mt-5">
+              <h3 class="text-3xl leading-9 font-extrabold text-gray-900">
+                Ready to publish?
+              </h3>
+              <div class="mt-2">
+                <p class="text-sm leading-5 text-gray-500">
+                  Choose your plan to continue.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="max-w-screen-xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+              <div class="max-w-3xl mx-auto lg:max-w-none">
+                <div class="my-4">
+                  <span class="relative z-0 inline-flex shadow-sm rounded-md">
+                    <button 
+                    @click="plan = 'annual'" 
+                    type="button" 
+                    class="relative inline-flex items-center px-4 py-2 rounded-l-md border text-sm leading-5 font-medium transition ease-in-out duration-150" 
+                    :class="{ 
+                    'border-transparent text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700': (plan === 'annual'),             
+                    'border-gray-300 bg-white text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700': (plan !== 'annual') }">
+                      Annual
+                    </button>
+                    <button 
+                    @click="plan = 'monthly'" 
+                    type="button" 
+                    class="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border text-sm leading-5 font-medium transition ease-in-out duration-150" 
+                    :class="{ 
+                    'border-transparent text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700': (plan === 'monthly'), 
+                    'border-gray-300 bg-white text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700': (plan !== 'monthly') 
+                    }"
+                    >
+                      Monthly
+                    </button>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="max-w-lg mx-auto rounded-lg bg-white shadow overflow-hidden lg:max-w-none lg:flex">
+              <div class="px-6 py-8 lg:p-12">
+                <div v-show="plan === 'annual'">
+                  <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-teal-100 text-teal-800">
+                    Save 20%
+                  </span>
+                  <h3 class="mt-2 text-2xl leading-9 font-extrabold text-gray-900">
+                    Annual Subscription 
+                  </h3>
+                  <p class="mt-6 text-base leading-6 text-gray-500">
+                    Maximum value for ongoing and frequent user research projects. Great for agencies, consultants and enterprise UXR teams.
+                  </p>
+                </div>
+                <div v-show="plan === 'monthly'">            
+                  <h3 class="mt-2 text-2xl leading-9 font-extrabold text-gray-900">
+                    Monthly Subscription 
+                  </h3>
+                  <p class="mt-6 text-base leading-6 text-gray-500">
+                    Maximum flexibility for occassional or one-time user research projects. Simply pause your subscription between studies and re-start it again when you need it.
+                  </p>
+                </div>            
+                <div class="mt-8">
+                  <div class="flex items-center">
+                    <h4 class="flex-shrink-0 pr-4 bg-white text-sm leading-5 tracking-wider font-semibold uppercase text-purple-600">
+                      What's included
+                    </h4>
+                    <div class="flex-1 border-t-2 border-gray-200"></div>
+                  </div>
+                  <ul class="mt-8 md:grid md:grid-cols-2 md:gap-4">
+                    <li class="flex items-start">
+                      <div class="flex-shrink-0">
+                        <svg class="h-6 w-6 text-teal-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                      </div>
+                      <p class="ml-3 text-base leading-6 text-gray-700">
+                        <strong>Unlimited studies</strong>
+                      </p>
+                    </li>
+                    <li class="flex items-start">
+                      <div class="flex-shrink-0">
+                        <svg class="h-6 w-6 text-teal-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                      </div>
+                      <p class="ml-3 text-base leading-6 text-gray-700">
+                      <strong>Unlimited participants</strong>
+                      </p>
+                    </li>
+                    <li class="flex items-start">
+                      <div class="flex-shrink-0">
+                        <svg class="h-6 w-6 text-teal-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                      </div>
+                      <p class="ml-3 text-base leading-6 text-gray-700">
+                        Remote or lab, moderated or unmoderated
+                      </p>
+                    </li>
+                    <li class="flex items-start">
+                      <div class="flex-shrink-0">
+                        <svg class="h-6 w-6 text-teal-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                      </div>
+                      <p class="ml-3 text-base leading-6 text-gray-700">
+                        Custom branding
+                      </p>
+                    </li>
+                    <li class="flex items-start">
+                      <div class="flex-shrink-0">
+                        <svg class="h-6 w-6 text-teal-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                      </div>
+                      <p class="ml-3 text-base leading-6 text-gray-700">
+                        Detailed reporting and analysis
+                      </p>
+                    </li>
+                    <li class="flex items-start">
+                      <div class="flex-shrink-0">
+                        <svg class="h-6 w-6 text-teal-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                      </div>
+                      <p class="ml-3 text-base leading-6 text-gray-700">
+                        Great participant experience on any device
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="py-8 px-6 text-center bg-gray-50 lg:flex-shrink-0 lg:flex lg:flex-col lg:justify-center lg:p-12">
+                <div v-show="plan === 'annual'">
+                  <div class="mt-4 flex items-center justify-center text-5xl leading-none font-extrabold text-gray-900">
+                    <span>
+                      $79
+                    </span>
+                    <span class="ml-3 text-xl leading-7 font-medium text-gray-500">
+                      /mo
+                    </span>
+                  </div>
+                  <p class="mt-4 text-sm leading-5 font-medium text-gray-500">
+                    (Billed annually at $948)
+                  </p>
+                  <div class="mt-6">
+                    <div class="rounded-md shadow">
+                      <a href="#" class="flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-teal-500 hover:bg-teal-400 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">Choose this plan</a>
+                    </div>
+                  </div>
+                </div>
+                <div v-show="plan === 'monthly'">
+                  <div class="mt-4 flex items-center justify-center text-5xl leading-none font-extrabold text-gray-900">
+                    <span>
+                      $99
+                    </span>
+                    <span class="ml-3 text-xl leading-7 font-medium text-gray-500">
+                      /mo
+                    </span>
+                  </div>
+                  <p class="mt-4 text-sm leading-5 font-medium text-gray-500">
+                    (Billed monthly)
+                  </p>              
+                  <div class="mt-6">
+                    <div class="rounded-md shadow">
+                      <a href="#" class="flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-teal-500 hover:bg-teal-400 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">Choose this plan"</a>
+                    </div>
+                  </div>
+                </div>            
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    show: Boolean
+  },
+  data () {
+    return {
+      plan: 'annual'
+    }
+  },
+  methods: {
+  }
+}
+</script>

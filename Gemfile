@@ -12,6 +12,7 @@ gem 'webpacker'
 gem 'bcrypt'
 gem 'postmark'
 gem 'sidekiq'
+gem 'stripe'
 
 group :development do
   gem 'web-console'

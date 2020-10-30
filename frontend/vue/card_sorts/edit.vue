@@ -267,11 +267,20 @@
         </div>
       </div> 
     </main>
+
+    <transition name="modal-component">
+      <Subscribe
+      v-show="subscribe_modal_open"
+      @close="subscribe_modal_open = false"
+      :show="subscribe_modal_open"
+      />
+    </transition>
   </div>
 </template>
 
 <script>
 import Nav from '../components/edit_tree_test/nav.vue'
+import Subscribe from '../components/subscribe.vue'
 import Rails from '@rails/ujs'
 
 import TextInput from '../components/new_tree_test/text_input.vue'
@@ -300,11 +309,13 @@ export default {
             has_description: card.has_description
           }
         }    
-      })
+      }),
+      subscribe_modal_open: false
     }
   },  
   methods: {
     publish() {
+      this.subscribe_modal_open = true
       var r = confirm('Are you sure?')
       if(r == true) {
         var data = new FormData 
@@ -538,6 +549,6 @@ export default {
       }) 
     } 
   },
-  components: { Nav, TextInput, TextArea, Slider, Group, Card }
+  components: { Nav, Subscribe, TextInput, TextArea, Slider, Group, Card }
 }
 </script>
