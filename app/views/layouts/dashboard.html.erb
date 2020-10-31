@@ -50,7 +50,10 @@
               <%= link_to image_tag(asset_pack_path("media/images/uxmetrics-logo.svg"), size: "39x39"), root_path, class: "hidden lg:block h-8 w-auto" %>
             </div>
             <div class="hidden sm:ml-6 sm:flex">
-              <%= link_to "Dashboard", dashboard_path, class:"inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-purple-700 transition duration-150 ease-in-out" %>
+              <%= link_to "Card Sorts", card_sorts_path, class:"inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-purple-700 transition duration-150 ease-in-out" %>
+            </div>
+            <div class="hidden sm:ml-6 sm:flex">
+              <%= link_to "Tree Tests", tree_tests_path, class:"inline-flex items-center px-1 pt-1 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-purple-700 transition duration-150 ease-in-out" %>
             </div>
           </div>
           <div class="hidden sm:ml-6 sm:flex sm:items-center">
@@ -89,12 +92,8 @@
       </div>
       <div :class="{'block': open, 'hidden': !open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3">
-          <% if (controller_name.eql? "dashboard") && (action_name.eql? "show") %>
-            <% css_class = "block pl-3 pr-4 py-2 border-l-4 border-purple-500 text-base font-medium text-purple-700 bg-purple-50 focus:outline-none focus:text-purple-800 focus:bg-purple-100 focus:border-purple-700 transition duration-150 ease-in-out"%>
-          <% else %>
-            <% css_class = "mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out" %>
-          <% end %>
-          <%= link_to "Dashboard", dashboard_path, class:"#{css_class}"%>
+          <%= link_to "Card Sorts", card_sorts_path, class:"mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"%>
+          <%= link_to "Tree Tests", tree_tests_path, class:"mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out"%>
         </div>
         <div class="pt-4 pb-3 border-t border-gray-200">
           <%= link_to "Account",  '', class: "mt-1 block px-4 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-gray-800 focus:bg-gray-100 transition duration-150 ease-in-out" %>
