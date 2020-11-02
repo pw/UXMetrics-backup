@@ -1,27 +1,70 @@
 <template>
   <div>
     <Nav :title="title" :step.sync="step" :total_steps="total_steps" @save="save"/>
-
-    <Step v-show="step == 1" current_step="1" :total_steps="total_steps" instructions="Let's start with the basics. Then we'll create your cards." :tips_background_styling="'bg-purple-100'" :tips_border_styling="'border-purple-500'" :tips_text_styling="'text-purple-700'">
-      <form>
-        <div class="grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
-          <TextInput id="name" label="Name" placeholder="Add a descriptive name for your card sort..." v-model="name"/>
-          <div class="sm:col-span-4">
-            <label for="logo" class="block text-sm leading-5 font-medium text-gray-700">
-                Logo
-            </label>
-            <img v-show="logo_key !== undefined" :src="logo_base_url + '/' + logo_key">
-            <div class="mt-2 flex items-center">
-              <span class="rounded-md shadow-sm">
-                <button @click="openUpload" type="button" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
-                    Choose File
-                </button>
-              </span>
-            </div>
-            <p class="mt-2 text-sm text-gray-500">Upload a custom logo for this card sort</p>
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+      <ul class="space-y-4 md:flex md:space-y-0 md:space-x-8">
+        <li class="md:flex-1">
+          <!-- Completed Step -->
+          <div class="group pl-4 py-2 block border-l-4 border-purple-600 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4">
+            <h3 class="text-xs leading-4 text-purple-600 font-semibold uppercase">Step 1</h3>
+            <p class="text-sm leading-5 font-medium">Study Setup</p>
           </div>
-          <TextArea id="instructions" label="Participant Instructions" instructions="Greet your card sort participants with a custom introduction" v-model="participant_instructions" />
-          <TextArea id="thanks" label="Thank You Message" instructions="Custom thank you message to show participants upon completion" v-model="thank_you_message" />
+        </li>
+
+        <li class="md:flex-1">
+          <!-- Upcoming Step -->
+          <div class="group pl-4 py-2 block border-l-4 border-gray-200 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4">
+            <h3 class="text-xs leading-4 text-gray-500 font-semibold uppercase">Step 2</h3>
+            <p class="text-sm leading-5 font-medium">Add Cards</p>
+          </div>
+        </li>
+
+        <li class="md:flex-1">
+          <!-- Upcoming Step -->
+          <div class="group pl-4 py-2 block border-l-4 border-gray-200 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4">
+            <h3 class="text-xs leading-4 text-gray-500 font-semibold uppercase">Step 3</h3>
+            <p class="text-sm leading-5 font-medium">Preview and Publish</p>
+          </div>
+        </li>
+      </ul>
+    </nav>
+    <Step v-show="step == 1" current_step="1" :total_steps="total_steps" instructions="Let's start with the basics to set up your study. Then we'll create your cards.">
+      <form>
+        <div class="shadow sm:rounded-md sm:overflow-hidden">
+          <div class="px-4 py-5 bg-white sm:p-6">
+            <div class="mb-6 pb-6 border-b border-gray-100">
+              <TextInput id="name" label="Name" placeholder="Add a descriptive name for your card sort..." v-model="name"/>
+            </div>
+            <div class="mb-6 pb-6 border-b border-gray-100">
+              <div class="sm:col-span-4">
+                <label for="logo" class="block text-sm leading-5 font-medium text-gray-700">
+                    Logo
+                </label>
+                <img v-show="logo_key !== undefined" :src="logo_base_url + '/' + logo_key">
+                <div class="mt-2 flex items-center">
+                  <span class="rounded-md shadow-sm">
+                    <button @click="openUpload" type="button" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
+                        Choose File
+                    </button>
+                  </span>
+                </div>
+                <p class="mt-2 text-sm text-gray-500">Upload a custom logo for this card sort</p>
+              </div>
+            </div>
+            <div class="mb-6 pb-6 border-b border-gray-100">
+              <TextArea id="instructions" label="Participant Instructions" instructions="Greet your card sort participants with a custom introduction" v-model="participant_instructions" />
+            </div>
+            <div class="">
+              <TextArea id="thanks" label="Thank You Message" instructions="Custom thank you message to show participants upon completion" v-model="thank_you_message" />
+            </div>
+          </div>
+          <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+            <span class="inline-flex rounded-md shadow-sm">
+              <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition duration-150 ease-in-out">
+                Save and Continue
+              </button>
+            </span>
+          </div>
         </div>
       </form>
     </Step>

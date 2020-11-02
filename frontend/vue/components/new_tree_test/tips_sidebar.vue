@@ -1,15 +1,6 @@
 <template>
-  <div class="mb-6 border-l-4 p-4" :class="[background_styling, border_styling, text_styling]" role="alert">
-    <p class="font-bold">Step {{ current_step }} of {{ total_steps }}</p>
+  <div class="" :class="[background_styling, text_styling]" role="alert">
     <p>{{ instructions }}</p>
-    <p class="mt-4 flex items-center">
-      <svg class="inline mr-1 h-6 w-6" :class="text_styling" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-        <path d="M9.66347 17H14.3364M11.9999 3V4M18.3639 5.63604L17.6568 6.34315M21 11.9999H20M4 11.9999H3M6.34309 6.34315L5.63599 5.63604M8.46441 15.5356C6.51179 13.5829 6.51179 10.4171 8.46441 8.46449C10.417 6.51187 13.5829 6.51187 15.5355 8.46449C17.4881 10.4171 17.4881 13.5829 15.5355 15.5356L14.9884 16.0827C14.3555 16.7155 13.9999 17.5739 13.9999 18.469V19C13.9999 20.1046 13.1045 21 11.9999 21C10.8954 21 9.99995 20.1046 9.99995 19V18.469C9.99995 17.5739 9.6444 16.7155 9.01151 16.0827L8.46441 15.5356Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <a href="#">
-        Show Tips
-      </a>
-    </p>
   </div>
 </template>
 
@@ -21,15 +12,11 @@ export default {
     instructions: String,
     background_styling: {
       type: String,
-      default: 'bg-purple-100'
-    },
-    border_styling: {
-      type: String, 
-      default: 'border-purple-500'
+      default: 'bg-none'
     },
     text_styling: {
       type: String,
-      default: 'text-purple-700'
+      default: 'text-sm leading-5 text-gray-600'
     }
   }
 }
