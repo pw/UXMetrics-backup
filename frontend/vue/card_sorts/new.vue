@@ -74,7 +74,7 @@
         <div class="px-4 py-5 bg-white sm:p-6">
           <div class="mb-6 pb-6 border-b border-gray-100">
             <div class="sm:col-span-4">
-              <label for="logo" class="mb-2 block text-sm leading-5 font-medium text-gray-700">
+              <label for="sort_type" class="mb-2 block text-sm leading-5 font-medium text-gray-700">
                   Sort Type
               </label>
               <div 
@@ -219,8 +219,8 @@ export default {
         },
         accept: ['image/*']        
       },
-      participant_instructions: "Thank you for agreeing to help us, it shouldn't take more than 5 minutes! Our goal is to learn how you think about, organize and label certain topics into groups.\n\nDon't worry, there is no right or wrong answer, just do what makes sense to you.",
-      thank_you_message: "Thanks for taking the time to help us.\n\nYour contribution is essential in our journey to deliver improvements.",
+      participant_instructions: "Thank you for agreeing to help us! This study shouldn't take more than 5 minutes.\n\nThere are no right or wrong answers. Our goal is to learn how you think about, organize and label certain topics into groups.",
+      thank_you_message: "Thanks for taking the time to help us!\n\nYour feedback is essential for us to deliver ongoing improvements.",
       sort_type: 'open',
       groups: [
         {
