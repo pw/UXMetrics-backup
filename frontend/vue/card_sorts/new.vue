@@ -33,13 +33,14 @@
         <div class="shadow sm:rounded-md sm:overflow-hidden">
           <div class="px-4 py-5 bg-white sm:p-6">
             <div class="mb-6 pb-6 border-b border-gray-100">
-              <TextInput id="name" label="Name" placeholder="Add a descriptive name for your card sort..." v-model="name"/>
+              <TextInput id="name" label="Name" instructions="This won't be visible to your participants" placeholder="Add a descriptive name for your study..." v-model="name"/>
             </div>
             <div class="mb-6 pb-6 border-b border-gray-100">
               <div class="sm:col-span-4">
                 <label for="logo" class="block text-sm leading-5 font-medium text-gray-700">
                     Logo
                 </label>
+                <p class="mb-2 text-sm text-gray-500">Add your branding to this study (optional)</p>
                 <img v-show="logo_key !== undefined" :src="logo_base_url + '/' + logo_key">
                 <div class="mt-2 flex items-center">
                   <span class="rounded-md shadow-sm">
@@ -48,14 +49,13 @@
                     </button>
                   </span>
                 </div>
-                <p class="mt-2 text-sm text-gray-500">Upload a custom logo for this card sort</p>
               </div>
             </div>
             <div class="mb-6 pb-6 border-b border-gray-100">
-              <TextArea id="instructions" label="Participant Instructions" instructions="Greet your card sort participants with a custom introduction" v-model="participant_instructions" />
+              <TextArea id="instructions" label="Participant Instructions" instructions="Greet your participants with an introduction" v-model="participant_instructions" />
             </div>
             <div class="">
-              <TextArea id="thanks" label="Thank You Message" instructions="Custom thank you message to show participants upon completion" v-model="thank_you_message" />
+              <TextArea id="thanks" label="Thank You Message" instructions="Your participants will see this when they complete the study" v-model="thank_you_message" />
             </div>
           </div>
           <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
@@ -68,103 +68,119 @@
         </div>
       </form>
     </Step>
-
-    <Step v-show="step == 2" current_step="2" :total_steps="total_steps" instructions="Now let's set up your cards." :tips_background_styling="'bg-purple-100'" :tips_border_styling="'border-purple-500'" :tips_text_styling="'text-purple-700'">
-      <div class="grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
-        <div class="sm:col-span-4">
-          <div 
-          @click="sort_type = 'open'"
-          :class="{'bg-purple-100 hover:bg-purple-200 border border-purple-600': (sort_type === 'open'), 'bg-gray-50 hover:bg-purple-100': (sort_type !== 'open')}" class=" cursor-pointer overflow-hidden shadow rounded-lg  mb-3 transition duration-150 ease-in-out">
-            <div class="p-2 sm:p-3">
-              <div class="flex items-center">
-                <div class="flex-shrink-0 p-1">
-                  <input v-model="sort_type" id="open_sort" name="sort_type" value="open" aria-label="open" type="radio" checked class="h-4 w-4 border-gray-300 text-purple-600 focus:shadow-outline-purple focus:border-purple-300 transition duration-150 ease-in-out" />
+    
+    <Step v-show="step == 2" current_step="2" :total_steps="total_steps" instructions="Now let's choose your sort type and add your cards.">
+      <div class="shadow sm:rounded-md sm:overflow-hidden">
+        <div class="px-4 py-5 bg-white sm:p-6">
+          <div class="mb-6 pb-6 border-b border-gray-100">
+            <div class="sm:col-span-4">
+              <label for="logo" class="mb-2 block text-sm leading-5 font-medium text-gray-700">
+                  Sort Type
+              </label>
+              <div 
+              @click="sort_type = 'open'"
+              :class="{'bg-purple-100 hover:bg-purple-200 border border-purple-600': (sort_type === 'open'), 'bg-gray-50 hover:bg-purple-100': (sort_type !== 'open')}" class=" cursor-pointer overflow-hidden shadow rounded-lg  mb-3 transition duration-150 ease-in-out">
+                <div class="p-2 sm:p-3">
+                  <div class="flex items-center">
+                    <div class="flex-shrink-0 p-1">
+                      <input v-model="sort_type" id="open_sort" name="sort_type" value="open" aria-label="open" type="radio" checked class="h-4 w-4 border-gray-300 text-purple-600 focus:shadow-outline-purple focus:border-purple-300 transition duration-150 ease-in-out" />
+                    </div>
+                    <div class="ml-2 w-0 flex-1">
+                      <p class="text-sm leading-5 font-medium text-gray-700">Open</p>
+                      <p class="text-sm text-gray-500">Participants sort cards into groups they create and name</p>
+                    </div>
+                  </div>
                 </div>
-                <div class="ml-2 w-0 flex-1">
-                  <p class="text-sm leading-5 font-medium text-gray-700">Open Sort</p>
-                  <p class="text-sm text-gray-500">Participants sort cards into groups they create and name.</p>
+              </div>
+              <div 
+              @click="sort_type = 'closed'"
+              :class="{'bg-purple-100 hover:bg-purple-200 border border-purple-600': (sort_type === 'closed'), 'bg-gray-50 hover:bg-purple-100': (sort_type !== 'closed')}" class="cursor-pointer overflow-hidden shadow rounded-lg mb-3 transition duration-150 ease-in-out">
+                <div class="p-2 sm:p-3">
+                  <div class="flex items-center">
+                    <div class="flex-shrink-0 p-1">
+                      <input v-model="sort_type" id="closed_sort" name="sort_type" value="closed" aria-label="closed" type="radio" class="h-4 w-4 border-gray-300 text-purple-600 focus:shadow-outline-purple focus:border-purple-300 transition duration-150 ease-in-out" />
+                    </div>
+                    <div class="ml-2 w-0 flex-1">
+                      <p class="text-sm leading-5 font-medium text-gray-700">Closed</p>
+                      <p class="text-sm text-gray-500">Participants sort cards into groups pre-defined by you</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div 
+              @click="sort_type = 'hybrid'"
+              :class="{'bg-purple-100 hover:bg-purple-200 border border-purple-600': (sort_type === 'hybrid'), 'bg-gray-50 hover:bg-purple-100': (sort_type !== 'hybrid')}" class="cursor-pointer overflow-hidden shadow rounded-lg mb-3 transition duration-150 ease-in-out">
+                <div class="p-2 sm:p-3">
+                  <div class="flex items-center">
+                    <div class="flex-shrink-0 p-1">
+                      <input v-model="sort_type" id="hybrid_sort" name="sort_type" value="hybrid" aria-label="hybrid" type="radio" class="h-4 w-4 border-gray-300 text-purple-600 focus:shadow-outline-purple focus:border-purple-300 transition duration-150 ease-in-out" />
+                    </div>
+                    <div class="ml-2 w-0 flex-1">
+                      <p class="text-sm leading-5 font-medium text-gray-700">Hybrid</p>
+                      <p class="text-sm text-gray-500">Participants sort cards into pre-defined groups but can also create and name their own groups</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div 
-          @click="sort_type = 'closed'"
-          :class="{'bg-purple-100 hover:bg-purple-200 border border-purple-600': (sort_type === 'closed'), 'bg-gray-50 hover:bg-purple-100': (sort_type !== 'closed')}" class="cursor-pointer overflow-hidden shadow rounded-lg mb-3 transition duration-150 ease-in-out">
-            <div class="p-2 sm:p-3">
-              <div class="flex items-center">
-                <div class="flex-shrink-0 p-1">
-                  <input v-model="sort_type" id="closed_sort" name="sort_type" value="closed" aria-label="closed" type="radio" class="h-4 w-4 border-gray-300 text-purple-600 focus:shadow-outline-purple focus:border-purple-300 transition duration-150 ease-in-out" />
-                </div>
-                <div class="ml-2 w-0 flex-1">
-                  <p class="text-sm leading-5 font-medium text-gray-700">Closed Sort</p>
-                  <p class="text-sm text-gray-500">Participants sort cards into groups pre-defined by you.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div 
-          @click="sort_type = 'hybrid'"
-          :class="{'bg-purple-100 hover:bg-purple-200 border border-purple-600': (sort_type === 'hybrid'), 'bg-gray-50 hover:bg-purple-100': (sort_type !== 'hybrid')}" class="cursor-pointer overflow-hidden shadow rounded-lg mb-3 transition duration-150 ease-in-out">
-            <div class="p-2 sm:p-3">
-              <div class="flex items-center">
-                <div class="flex-shrink-0 p-1">
-                  <input v-model="sort_type" id="hybrid_sort" name="sort_type" value="hybrid" aria-label="hybrid" type="radio" class="h-4 w-4 border-gray-300 text-purple-600 focus:shadow-outline-purple focus:border-purple-300 transition duration-150 ease-in-out" />
-                </div>
-                <div class="ml-2 w-0 flex-1">
-                  <p class="text-sm leading-5 font-medium text-gray-700">Hybrid Sort</p>
-                  <p class="text-sm text-gray-500">Participants sort cards into pre-defined groups but can also create and name their own groups.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>  
+          <div v-show="(sort_type === 'closed') || (sort_type === 'hybrid')" class="sm:col-span-4">
+            <div class="mb-6 pb-6 border-b border-gray-100">
+              <label for="logo" class="mb-2 block text-sm leading-5 font-medium text-gray-700">
+                Pre-Defined Groups
+              </label>
+              <vue-nestable :maxDepth="1" v-model="groups">
+                <vue-nestable-handle
+                  slot-scope="{ item }"
+                  :item="item">
+                  <Group :ref="`group_${item.id}`" v-model="item.name" :group_id="item.id" @remove="removeGroup" @nextGroup="nextGroup" @previousGroup="previousGroup" />
+                </vue-nestable-handle>      
+              </vue-nestable>
 
-        <div v-show="(sort_type === 'closed') || (sort_type === 'hybrid')" class="sm:col-span-4">
-          <label for="logo" class="block text-sm leading-5 font-medium text-gray-700">
-            Pre-Defined Groups
-          </label>
-          <vue-nestable :maxDepth="1" v-model="groups">
-            <vue-nestable-handle
-              slot-scope="{ item }"
-              :item="item">
-              <Group :ref="`group_${item.id}`" v-model="item.name" :group_id="item.id" @remove="removeGroup" @nextGroup="nextGroup" @previousGroup="previousGroup" />
-            </vue-nestable-handle>      
-          </vue-nestable>
+              <span class="shadow-sm rounded-md">
+                <button @click="addGroup" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                    <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM11 7C11 6.44772 10.5523 6 10 6C9.44772 6 9 6.44772 9 7V9H7C6.44772 9 6 9.44771 6 10C6 10.5523 6.44772 11 7 11H9V13C9 13.5523 9.44772 14 10 14C10.5523 14 11 13.5523 11 13V11H13C13.5523 11 14 10.5523 14 10C14 9.44772 13.5523 9 13 9H11V7Z" />
+                    </svg>
+                    New Group
+                </button>
+              </span>
+            </div>  
+          </div>
+          <div class="mb-6 pb-6 border-b border-gray-100">
+            <div class="sm:col-span-4">
+              <label for="logo" class="mb-2 block text-sm leading-5 font-medium text-gray-700">
+                Cards
+              </label>
 
-          <span class="shadow-sm rounded-md">
-            <button @click="addGroup" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM11 7C11 6.44772 10.5523 6 10 6C9.44772 6 9 6.44772 9 7V9H7C6.44772 9 6 9.44771 6 10C6 10.5523 6.44772 11 7 11H9V13C9 13.5523 9.44772 14 10 14C10.5523 14 11 13.5523 11 13V11H13C13.5523 11 14 10.5523 14 10C14 9.44772 13.5523 9 13 9H11V7Z" />
-                </svg>
-                New Group
+              <vue-nestable :maxDepth="1" v-model="cards">
+                <vue-nestable-handle
+                  slot-scope="{ item }"
+                  :item="item">
+                  <Card :ref="`card_${item.id}`" :card_id="item.id" :starting_title="item.content.title" :starting_description="item.content.description" @updateCard="updateCard" @removeCard="removeCard" @nextCard="nextCard" />
+                </vue-nestable-handle>      
+              </vue-nestable>
+              <span class="shadow-sm rounded-md">
+                <button @click="addCard" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                  <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM11 7C11 6.44772 10.5523 6 10 6C9.44772 6 9 6.44772 9 7V9H7C6.44772 9 6 9.44771 6 10C6 10.5523 6.44772 11 7 11H9V13C9 13.5523 9.44772 14 10 14C10.5523 14 11 13.5523 11 13V11H13C13.5523 11 14 10.5523 14 10C14 9.44772 13.5523 9 13 9H11V7Z" />
+                  </svg>
+                  New Card
+                </button>
+                </span>
+            </div>                    
+          </div>
+          <div class="">
+            <Slider v-model="randomize_card_order" label="Randomize card order for each participant" />
+          </div>
+        </div>
+        <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+          <span class="inline-flex rounded-md shadow-sm">
+            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition duration-150 ease-in-out">
+              Save and Continue
             </button>
-            </span>
-        </div>  
-
-        <div class="sm:col-span-4">
-          <label for="logo" class="block text-sm leading-5 font-medium text-gray-700">
-            Cards
-          </label>
-          <div class="mb-3 flex items-center">
-            <Slider v-model="randomize_card_order" label="Randomize card order for participants" />
-          </div>
-
-          <vue-nestable :maxDepth="1" v-model="cards">
-            <vue-nestable-handle
-              slot-scope="{ item }"
-              :item="item">
-              <Card :ref="`card_${item.id}`" :card_id="item.id" :starting_title="item.content.title" :starting_description="item.content.description" @updateCard="updateCard" @removeCard="removeCard" @nextCard="nextCard" />
-            </vue-nestable-handle>      
-          </vue-nestable>
-          <span class="shadow-sm rounded-md">
-            <button @click="addCard" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-              <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM11 7C11 6.44772 10.5523 6 10 6C9.44772 6 9 6.44772 9 7V9H7C6.44772 9 6 9.44771 6 10C6 10.5523 6.44772 11 7 11H9V13C9 13.5523 9.44772 14 10 14C10.5523 14 11 13.5523 11 13V11H13C13.5523 11 14 10.5523 14 10C14 9.44772 13.5523 9 13 9H11V7Z" />
-              </svg>
-              New Card
-            </button>
-            </span>
-        </div>                    
+          </span>
+        </div>                  
       </div>    
     </Step>
 
