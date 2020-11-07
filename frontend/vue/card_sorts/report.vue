@@ -84,7 +84,7 @@
                   </p>
                 </div>
                 <span class="shadow-sm rounded-md">
-                  <a @click="new_merge_group_modal_open = true" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+                  <a @click="new_merge_group_modal_open = true" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out cursor-pointer">
                     <svg class="-ml-1 mr-2 h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M7 9C7 7.89543 7.89543 7 9 7H15C16.1046 7 17 7.89543 17 9V15C17 16.1046 16.1046 17 15 17H9C7.89543 17 7 16.1046 7 15V9Z"/>
                       <path d="M5 3C3.89543 3 3 3.89543 3 5V11C3 12.1046 3.89543 13 5 13L5 5H13C13 3.89543 12.1046 3 11 3H5Z"/>
@@ -130,7 +130,7 @@
                   <a 
                   v-for="participant in card_sort.participants" 
                   :key="participant[1]" 
-                  class="flex-shrink-0 px-3 py-2 font-medium text-sm leading-5 rounded-md" 
+                  class="flex-shrink-0 px-3 py-2 font-medium text-sm leading-5 rounded-md cursor-pointer" 
                   :class="{ 'text-purple-700 bg-purple-100 focus:outline-none focus:text-purple-800 focus:bg-purple-200': (participant[0] === current_participant_id), 'text-gray-500 hover:text-gray-700 focus:outline-none focus:text-purple-600 focus:bg-purple-50': (participant[0] !== current_participant_id)}"
                   aria-current="page"
                   @click="current_participant_id = participant[0]; current_participant_database_id = participant[1]"
