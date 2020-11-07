@@ -82,15 +82,6 @@ class CardSortGroupsController < ApplicationController
     end
   end
 
-  def destroy
-    if CardSort.find(params[:card_sort_group][:card_sort_id]).user == current_user
-      group = Card
-      render json: CardSortGroup.find(params[:id]).destroy
-    else
-      head :forbidden
-    end
-  end
-
   private
 
   def card_sort_group_params
