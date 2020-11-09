@@ -3,16 +3,18 @@
     <div v-show="step  === 'intro'" class="min-h-screen bg-gray-100">
       <main class="py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="bg-white sm:rounded-lg mb-6">
+          <div class="bg-white sm:rounded-lg shadow mb-6">
             <div class="px-4 py-5 sm:p-6">
+              <img v-if="card_sort.logo_key !== 'undefined'" :src="card_sort.logo_url" class="mb-6 w-1/6">
+              <img v-else :src="card_sort.logo_url" class="mb-6" width="76" height="39">
               <h3 class="text-xl leading-6 font-medium text-gray-900 mb-4">
                 Welcome!
               </h3>
-              <div class="max-w-xl text-md leading-5 text-gray-500"> {{ card_sort.participant_instructions }}
+              <div class="max-w-xl text-md leading-5 text-gray-700"> {{ card_sort.participant_instructions }}
               </div>
               <div class="mt-5">
                 <span class="shadow-sm rounded-md">
-                  <a @click="step = 'instructions'" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-green-500 hover:bg-green-400 focus:outline-none focus:shadow-outline-green focus:border-green-600 transition duration-150 ease-in-out">
+                  <a @click="step = 'instructions'" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-green-500 hover:bg-green-400 focus:outline-none focus:shadow-outline-green focus:border-green-600 transition duration-150 ease-in-out cursor-pointer">
                     Continue
                     <svg class="ml-3 -mr-1 h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M10.2929 3.29289C10.6834 2.90237 11.3166 2.90237 11.7071 3.29289L17.7071 9.29289C18.0976 9.68342 18.0976 10.3166 17.7071 10.7071L11.7071 16.7071C11.3166 17.0976 10.6834 17.0976 10.2929 16.7071C9.90237 16.3166 9.90237 15.6834 10.2929 15.2929L14.5858 11L3 11C2.44772 11 2 10.5523 2 10C2 9.44772 2.44772 9 3 9H14.5858L10.2929 4.70711C9.90237 4.31658 9.90237 3.68342 10.2929 3.29289Z"/>
@@ -30,14 +32,14 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="bg-white sm:rounded-lg mb-6">
             <div class="px-4 py-5 sm:p-6">
-              <img v-if="card_sort.logo_key !== 'undefined'" :src="card_sort.logo_url" class="mb-6">
+              <img v-if="card_sort.logo_key !== 'undefined'" :src="card_sort.logo_url" class="mb-6 w-1/6">
               <img v-else :src="card_sort.logo_url" class="mb-6" width="76" height="39">
-              <h3 class="text-xl leading-6 font-medium text-gray-900 mb-6">
+              <h3 class="text-xl leading-6 font-medium text-gray-900 mb-4">
                 Instructions
               </h3>
               <div class="grid grid-cols-1 col-gap-4 row-gap-8 md:grid-cols-2">
                 <div class="sm:col-span-1">
-                  <div class="mb-6">
+                  <div class="mb-6 text-md leading-5 text-gray-700">
                     <p class="mb-3">
                         We're going to show you some cards at the bottom of the screen. 
                         We'd like you to categorize these cards into groups that make sense to you. You can do this by dragging and dropping them into the area above.
@@ -57,7 +59,7 @@
               </div>
               <div class="mt-5">
                 <span class="shadow-sm rounded-md">
-                  <a @click="startSort()" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-green-500 hover:bg-green-400 focus:outline-none focus:shadow-outline-green focus:border-green-600 transition duration-150 ease-in-out">
+                  <a @click="startSort()" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-green-500 hover:bg-green-400 focus:outline-none focus:shadow-outline-green focus:border-green-600 transition duration-150 ease-in-out cursor-pointer">
                     Get Started
                     <svg class="ml-3 -mr-1 h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M10.2929 3.29289C10.6834 2.90237 11.3166 2.90237 11.7071 3.29289L17.7071 9.29289C18.0976 9.68342 18.0976 10.3166 17.7071 10.7071L11.7071 16.7071C11.3166 17.0976 10.6834 17.0976 10.2929 16.7071C9.90237 16.3166 9.90237 15.6834 10.2929 15.2929L14.5858 11L3 11C2.44772 11 2 10.5523 2 10C2 9.44772 2.44772 9 3 9H14.5858L10.2929 4.70711C9.90237 4.31658 9.90237 3.68342 10.2929 3.29289Z"/>
