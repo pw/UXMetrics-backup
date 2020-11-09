@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-show="step  === 'intro'" class="min-h-screen bg-gray-100">
+    <div v-show="step  === 'intro'" class="min-h-screen bg-gray-50">
       <main class="py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="bg-white sm:rounded-lg shadow mb-6">
@@ -27,10 +27,10 @@
         </div>
       </main>
     </div>
-    <div v-show="step === 'instructions'" class="min-h-screen bg-gray-100">
+    <div v-show="step === 'instructions'" class="min-h-screen bg-gray-50">
       <main class="py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="bg-white sm:rounded-lg mb-6">
+          <div class="bg-white sm:rounded-lg shadow mb-6">
             <div class="px-4 py-5 sm:p-6">
               <img v-if="card_sort.logo_key !== 'undefined'" :src="card_sort.logo_url" class="mb-6 w-40">
               <img v-else :src="card_sort.logo_url" class="mb-6" width="76" height="39">
@@ -118,7 +118,7 @@
           :id="group.id"   
           :can_delete="group.can_delete"
           :initial_cards="group.cards"
-          v-model="group.name"          
+          v-model="group.name" 
           @updateCards="updateCards"
           @addGroup="addGroup"
           @deleteGroup="deleteGroup"
@@ -130,11 +130,11 @@
       <div class="fixed inset-x-0 bottom-0 w-full">
         <div v-show="card_sort.card_sort_cards.length === total_cards" class="m-auto px-6 py-6 text-center">
           <p class="mb-12">Drag all the cards below into groups that makes sense to you.</p>
-          <svg class="mb-12 m-auto h-12 w-12 text-gray-500 lookhere" fill="currentColor" viewBox="0 0 24 24" stroke="none">
+          <svg class="mb-12 m-auto h-12 w-12 text-gray-500 animate-bounce" fill="currentColor" viewBox="0 0 24 24" stroke="none">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M5.29289 7.70711C4.90237 7.31658 4.90237 6.68342 5.29289 6.29289L9.29289 2.29289C9.68342 1.90237 10.3166 1.90237 10.7071 2.29289L14.7071 6.29289C15.0976 6.68342 15.0976 7.31658 14.7071 7.70711C14.3166 8.09763 13.6834 8.09763 13.2929 7.70711L11 5.41421L11 17C11 17.5523 10.5523 18 10 18C9.44772 18 9 17.5523 9 17L9 5.41421L6.70711 7.70711C6.31658 8.09763 5.68342 8.09763 5.29289 7.70711Z"/>
           </svg>
         </div>        
-        <div class="flex overflow-x-auto bg-gray-200 px-6 pt-6 pb-4 sm:px-6 sm:pt-12 sm:pb-10">
+        <div class="flex overflow-x-auto bg-gray-200 px-6 pt-6 pb-4 sm:px-6 sm:pt-12 sm:pb-10 animate__animated animate__slideInRight">
           <draggable 
           v-model="card_sort.card_sort_cards"
           group="cards"
@@ -154,12 +154,12 @@
         </div>
       </div>      
     </div>  
-    <div v-show="step === 'thanks'" class="min-h-screen bg-gray-100">
+    <div v-show="step === 'thanks'" class="min-h-screen bg-gray-50">
       <main class="py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="bg-white sm:rounded-lg mb-6">
+          <div class="bg-white sm:rounded-lg shadow mb-6">
             <div class="px-4 py-5 sm:p-6">
-              <img v-if="card_sort.logo_key !== 'undefined'" :src="card_sort.logo_url" class="mb-6">
+              <img v-if="card_sort.logo_key !== 'undefined'" :src="card_sort.logo_url" class="mb-6 w-40">
               <img v-else :src="card_sort.logo_url" class="mb-6" width="76" height="39">
               <h3 class="text-xl leading-6 font-medium text-gray-900 mb-4">
                 Thank you!
