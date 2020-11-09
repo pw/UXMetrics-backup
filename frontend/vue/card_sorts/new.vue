@@ -41,7 +41,7 @@
                     Logo
                 </label>
                 <p class="mb-2 text-sm text-gray-500">Add your branding to this study (optional)</p>
-                <img v-show="logo_key !== undefined" :src="logo_base_url + '/' + logo_key">
+                <img v-show="logo_key !== undefined" :src="logo_base_url + '/' + logo_key" class="mb-6 w-40">
                 <div class="mt-2 flex items-center">
                   <span class="rounded-md shadow-sm">
                     <button @click="openUpload" type="button" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">

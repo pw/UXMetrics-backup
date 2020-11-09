@@ -5,7 +5,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="bg-white sm:rounded-lg shadow mb-6">
             <div class="px-4 py-5 sm:p-6">
-              <img v-if="card_sort.logo_key !== 'undefined'" :src="card_sort.logo_url" class="mb-6 w-1/6">
+              <img v-if="card_sort.logo_key !== 'undefined'" :src="card_sort.logo_url" class="mb-6 w-40">
               <img v-else :src="card_sort.logo_url" class="mb-6" width="76" height="39">
               <h3 class="text-xl leading-6 font-medium text-gray-900 mb-4">
                 Welcome!
@@ -32,7 +32,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="bg-white sm:rounded-lg mb-6">
             <div class="px-4 py-5 sm:p-6">
-              <img v-if="card_sort.logo_key !== 'undefined'" :src="card_sort.logo_url" class="mb-6 w-1/6">
+              <img v-if="card_sort.logo_key !== 'undefined'" :src="card_sort.logo_url" class="mb-6 w-40">
               <img v-else :src="card_sort.logo_url" class="mb-6" width="76" height="39">
               <h3 class="text-xl leading-6 font-medium text-gray-900 mb-4">
                 Instructions
