@@ -49,7 +49,7 @@
             <div v-show="tree_test.status == 'published'" class="bg-white shadow sm:rounded-lg text-center mb-6">
               <div class="px-4 py-5 sm:p-6">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">
-                  🎉 Your tree test is <span class="text-green-500">published</span>.
+                  Your tree test is <span class="text-green-500">published</span>.
                 </h3>
 
                 <p class="text-sm text-center py-2 mb-4">
@@ -75,143 +75,148 @@
 
             <div class="bg-gray-200 overflow-hidden rounded-lg mb-6 text-center">
               <div class="px-4 py-5 sm:p-6">
-                <a @click="endTest" v-show="tree_test.status == 'published'" class="end-t mb-6 block text-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md shadow-sm text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">End This Test</a>   
+                <a @click="endTest" v-show="tree_test.status == 'published'" class="end-t mb-6 block text-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md shadow-sm text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150 cursor-pointer">End This Test</a>   
 
                 <p v-show="tree_test.status == 'ended'" class="mb-6 block text-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-gray-200">This test has been ended.</p>                       
                 <p class="text-sm">
-                  Need to <a @click="deleteTest" class="text-red-700 underline">delete</a> this test?
+                  Need to <a @click="deleteTest" class="text-red-700 underline cursor-pointer">delete</a> this study?
                 </p>
               </div>
             </div>
           </div>  
 
           <div class="w-full md:w-2/3 xl:w-3/5">
-
-            <div class="bg-purple-100 sm:rounded-lg mb-6">
-              <div class="px-4 py-5 sm:p-6">
-                <h3 class="text-lg leading-6 font-medium text-gray-900">
-                  Participant Preview
-                </h3>
-                <div class="mt-2 sm:flex sm:items-start sm:justify-between">
-                  <div class="max-w-xl text-sm leading-5 text-gray-500">
-                    <p>
-                      Test drive your card sort exactly as your participants will experience it.
-                    </p>
+            <div class="shadow sm:rounded-md sm:overflow-hidden">
+              <div class="px-4 py-5 bg-white sm:p-6">
+                <div class="bg-purple-50 sm:rounded-lg mb-6">
+                  <div class="px-4 py-5 sm:p-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                      Participant Preview
+                    </h3>
+                    <div class="mt-2 sm:flex sm:items-start sm:justify-between">
+                      <div class="max-w-xl text-sm leading-5 text-gray-500">
+                        <p>
+                          Test drive your study exactly as your participants will experience it.
+                        </p>
+                      </div>
+                      <div class="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
+                        <span class="shadow-sm rounded-md">
+                          <a :href="tree_test.collect_url + '?preview=true'" target="_blank" class="preview-btn inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                            <svg class="-ml-1 mr-2 h-5 w-5 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M10 12C11.1046 12 12 11.1046 12 10C12 8.89543 11.1046 8 10 8C8.89544 8 8.00001 8.89543 8.00001 10C8.00001 11.1046 8.89544 12 10 12Z"/>
+                              <path fill-rule="evenodd" clip-rule="evenodd" d="M0.457764 10C1.73202 5.94291 5.52232 3 9.99997 3C14.4776 3 18.2679 5.94288 19.5422 9.99996C18.2679 14.0571 14.4776 17 9.99995 17C5.52232 17 1.73204 14.0571 0.457764 10ZM14 10C14 12.2091 12.2091 14 10 14C7.79087 14 6.00001 12.2091 6.00001 10C6.00001 7.79086 7.79087 6 10 6C12.2091 6 14 7.79086 14 10Z"/>
+                            </svg>
+                            Preview
+                          </a>
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <div class="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
-                    <span class="shadow-sm rounded-md">
-                      <a :href="tree_test.collect_url + '?preview=true'" target="_blank" class="preview-btn inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                        <svg class="-ml-1 mr-2 h-5 w-5 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M10 12C11.1046 12 12 11.1046 12 10C12 8.89543 11.1046 8 10 8C8.89544 8 8.00001 8.89543 8.00001 10C8.00001 11.1046 8.89544 12 10 12Z"/>
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M0.457764 10C1.73202 5.94291 5.52232 3 9.99997 3C14.4776 3 18.2679 5.94288 19.5422 9.99996C18.2679 14.0571 14.4776 17 9.99995 17C5.52232 17 1.73204 14.0571 0.457764 10ZM14 10C14 12.2091 12.2091 14 10 14C7.79087 14 6.00001 12.2091 6.00001 10C6.00001 7.79086 7.79087 6 10 6C12.2091 6 14 7.79086 14 10Z"/>
+                </div>
+
+                <div>
+                  <div class="mb-6">
+                    <div class="block">
+                      <div class="border-b border-gray-200 text-gray-500">
+                        <nav class="-mb-px flex">
+                          <button 
+                            @click="tab = 'settings'"
+                            :class="{ 'border-purple-500 text-purple-600 focus:outline-none focus:text-purple-800 focus:border-purple-700': tab == 'settings' }"
+                            class="w-1/3 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm leading-5">
+                            Settings
+                          </button>
+                          <button 
+                            @click="tab = 'tree'"
+                            :class="{ 'border-purple-500 text-purple-600 focus:outline-none focus:text-purple-800 focus:border-purple-700': tab == 'tree' }"
+                            class="w-1/3 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm leading-5">
+                            Tree
+                          </button>
+                          <button 
+                            @click="tab = 'tasks'"
+                            :class="{ 'border-purple-500 text-purple-600 focus:outline-none focus:text-purple-800 focus:border-purple-700': tab == 'tasks' }"
+                            class="w-1/3 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm leading-5">
+                            Tasks
+                          </button>
+                        </nav>
+                      </div>
+                    </div>
+                  </div>              
+                </div>
+
+                <div v-show="tab == 'settings'">
+                  <form>
+                    <div class="mb-6 pb-6 border-b border-gray-100">
+                      <TextInput id="name" label="Name" instructions="This won't be visible to your participants" placeholder="Add a descriptive name for your tree test..." v-model="tree_test.name" @blur="saveProperty('name')" :disabled="tree_test.status != 'draft'" />
+                    </div>
+                    <div class="mb-6 pb-6 border-b border-gray-100">
+                      <div class="sm:col-span-4">
+                        <label for="logo" class="block text-sm leading-5 font-medium text-gray-700">
+                            Logo
+                        </label>
+                        <p class="mb-2 text-sm text-gray-500">Add your branding to this study (optional)</p>
+                        <img v-show="tree_test.logo_key !== undefined" :src="tree_test.logo_base_url + '/' + tree_test.logo_key" class="w-40">
+                        <div class="mt-2 flex items-center">
+                          <span class="rounded-md shadow-sm">
+                            <button @click="openUpload" type="button" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
+                                Choose File
+                            </button>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="mb-6 pb-6 border-b border-gray-100">
+                      <TextArea id="instructions" label="Participant Instructions" instructions="Greet your participants with a custom introduction" :disabled="tree_test.status != 'draft'" v-model="tree_test.participant_instructions" @blur="saveProperty('participant_instructions')" />
+                    </div>
+                    <div class="">
+                      <TextArea id="thanks" label="Thank You Message" instructions="Your participants will see this when they complete the study" :disabled="tree_test.status != 'draft'" v-model="tree_test.thank_you_message" @blur="saveProperty('thank_you_message')"/>
+                    </div>
+                  </form>              
+                </div>
+
+                <div v-show="tab == 'tree'">
+                  <vue-nestable v-model="tree" :hooks="{ 'beforeMove': beforeMove}" @change="saveTree">
+                    <vue-nestable-handle
+                      slot-scope="{ item }"
+                      :item="item">
+                      <TreeNode @remove="remove" @add="add" @blur="saveTree" :item="item" v-model="item.text" :tree="tree" :placeholder_text="item.placeholder_text" :disabled="tree_test.status != 'draft'" />
+                    </vue-nestable-handle>
+                  </vue-nestable>              
+                </div>
+
+                <div v-show="tab == 'tasks'">
+                  <div class="mb-6 pb-6 border-b border-gray-100">
+                    <Task 
+                    v-for="(task, index) in tree_test.tree_test_tasks" 
+                    :key="task.id" 
+                    :id="task.id" 
+                    :index="index" 
+                    :tree="tree" 
+                    v-model="task.instructions" 
+                    :correctChoice="task.tree_test_task_correct_choices" 
+                    :disabled="tree_test.status != 'draft'" 
+                    @removeTask="removeTask" 
+                    @saveCorrectChoice="saveCorrectChoice" 
+                    @saveTask="saveTask" 
+                    />
+                    <span class="shadow-sm rounded-md" v-show="tree_test.status == 'draft'">
+                      <button @click="addTask" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+                        <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM11 7C11 6.44772 10.5523 6 10 6C9.44772 6 9 6.44772 9 7V9H7C6.44772 9 6 9.44771 6 10C6 10.5523 6.44772 11 7 11H9V13C9 13.5523 9.44772 14 10 14C10.5523 14 11 13.5523 11 13V11H13C13.5523 11 14 10.5523 14 10C14 9.44772 13.5523 9 13 9H11V7Z" />
                         </svg>
-                        Preview
-                      </a>
+                        Add Task
+                      </button>
                     </span>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <div class="mb-6">
-                <div class="block">
-                  <div class="border-b border-gray-200 text-gray-500">
-                    <nav class="-mb-px flex">
-                      <button 
-                        @click="tab = 'settings'"
-                        :class="{ 'border-purple-500 text-purple-600 focus:outline-none focus:text-purple-800 focus:border-purple-700': tab == 'settings' }"
-                        class="w-1/3 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm leading-5">
-                        Settings
-                      </button>
-                      <button 
-                        @click="tab = 'tree'"
-                        :class="{ 'border-purple-500 text-purple-600 focus:outline-none focus:text-purple-800 focus:border-purple-700': tab == 'tree' }"
-                        class="w-1/3 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm leading-5">
-                        Tree
-                      </button>
-                      <button 
-                        @click="tab = 'tasks'"
-                        :class="{ 'border-purple-500 text-purple-600 focus:outline-none focus:text-purple-800 focus:border-purple-700': tab == 'tasks' }"
-                        class="w-1/3 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm leading-5">
-                        Tasks
-                      </button>
-                    </nav>
+                  <div class="mb-6 pb-6 border-b border-gray-100">
+                    <Slider v-model="tree_test.randomize_task_order" @input="saveProperty('randomize_task_order')" :disabled="tree_test.status != 'draft'" label="Randomize task order for participants" description="This ensures that each task has a chance to be presented earlier in the session"/>
+                  </div>
+                  <div class="">
+                    <Slider v-model="tree_test.allow_skip" @input="saveProperty('allow_skip')" :disabled="tree_test.status != 'draft'" label="Allow participants to skip tasks if they get stuck" description="This can reduce abandonment rates and skips are tracked for you"/>
                   </div>
                 </div>
-              </div>              
-            </div>
-
-            <div v-show="tab == 'settings'">
-              <form>
-                <div class="grid grid-cols-1 row-gap-6 col-gap-4 sm:grid-cols-6">
-                  <TextInput id="name" label="Name" placeholder="Add a descriptive name for your tree test..." v-model="tree_test.name" @blur="saveProperty('name')" :disabled="tree_test.status != 'draft'" />
-                  <div class="sm:col-span-4">
-                    <label for="logo" class="block text-sm leading-5 font-medium text-gray-700">
-                        Logo
-                    </label>
-                    <img v-show="tree_test.logo_key !== undefined" :src="tree_test.logo_base_url + '/' + tree_test.logo_key">
-                    <div class="mt-2 flex items-center">
-                      <span class="rounded-md shadow-sm">
-                        <button @click="openUpload" type="button" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
-                            Choose File
-                        </button>
-                      </span>
-                    </div>
-                    <p class="mt-2 text-sm text-gray-500">Upload a custom logo for this tree test</p>
-                  </div>
-                  <TextArea id="instructions" label="Participant Instructions" instructions="Greet your tree test participants with a custom introduction" :disabled="tree_test.status != 'draft'" v-model="tree_test.participant_instructions" @blur="saveProperty('participant_instructions')" />
-                  <TextArea id="thanks" label="Thank You Message" instructions="Custom thank you message to show participants upon completion" :disabled="tree_test.status != 'draft'" v-model="tree_test.thank_you_message" @blur="saveProperty('thank_you_message')"/>
-                </div>
-              </form>              
-            </div>
-
-            <div v-show="tab == 'tree'">
-              <div class="mb-6 flex items-center">
-                <Slider v-model="tree_test.randomize_tree_order" @input="saveProperty('randomize_tree_order')" :disabled="tree_test.status != 'draft'" label="Randomize tree order for participants"/>
               </div>
-              <vue-nestable v-model="tree" :hooks="{ 'beforeMove': beforeMove}" @change="saveTree">
-                <vue-nestable-handle
-                  slot-scope="{ item }"
-                  :item="item">
-                  <TreeNode @remove="remove" @add="add" @blur="saveTree" :item="item" v-model="item.text" :tree="tree" :placeholder_text="item.placeholder_text" :disabled="tree_test.status != 'draft'" />
-                </vue-nestable-handle>
-              </vue-nestable>              
             </div>
-
-            <div v-show="tab == 'tasks'">
-              <div class="mb-3 flex items-center">
-                <Slider v-model="tree_test.randomize_task_order" @input="saveProperty('randomize_task_order')" :disabled="tree_test.status != 'draft'" label="Randomize task order for participants"/>
-              </div>
-              <div class="mb-6 flex items-center">
-                <Slider v-model="tree_test.allow_skip" @input="saveProperty('allow_skip')" :disabled="tree_test.status != 'draft'" label="Allow participants to skip tasks if they get stuck"/>
-              </div>
-              <Task 
-              v-for="(task, index) in tree_test.tree_test_tasks" 
-              :key="task.id" 
-              :id="task.id" 
-              :index="index" 
-              :tree="tree" 
-              v-model="task.instructions" 
-              :correctChoice="task.tree_test_task_correct_choices" 
-              :disabled="tree_test.status != 'draft'" 
-              @removeTask="removeTask" 
-              @saveCorrectChoice="saveCorrectChoice" 
-              @saveTask="saveTask" 
-              />
-              <span class="shadow-sm rounded-md" v-show="tree_test.status == 'draft'">
-                <button @click="addTask" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                  <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM11 7C11 6.44772 10.5523 6 10 6C9.44772 6 9 6.44772 9 7V9H7C6.44772 9 6 9.44771 6 10C6 10.5523 6.44772 11 7 11H9V13C9 13.5523 9.44772 14 10 14C10.5523 14 11 13.5523 11 13V11H13C13.5523 11 14 10.5523 14 10C14 9.44772 13.5523 9 13 9H11V7Z" />
-                  </svg>
-                  Add Task
-                </button>
-              </span>               
-            </div>
-
           </div>
-
-
         </div>
       </div> 
     </main>
