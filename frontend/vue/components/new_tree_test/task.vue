@@ -46,7 +46,7 @@
 
         <div v-show="!treeVisible && correctSelected" class="flex flex-wrap">        
           <div 
-          class="flex items-center justify-between w-full bg-gray-100 overflow-x-auto rounded-md h-8 px-2 py-1" 
+          class="flex items-center justify-between w-full bg-gray-100 overflow-x-auto rounded-md h-8 px-2 py-1 mb-2" 
           v-for="choice in correctChoiceLocal"
           >
             <span class="ml-2 block text-sm leading-5 text-gray-700">

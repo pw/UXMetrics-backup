@@ -1,13 +1,3 @@
-<span class="flex-grow flex flex-col" id="toggleLabel">
-  <span class="text-sm leading-5 font-medium text-gray-700">Randomize card order for participants</span>
-  <span class="text-sm leading-normal text-gray-500">Nulla amet tempus sit accumsan. Aliquet turpis sed sit lacinia.</span>
-</span>
-<!-- On: "bg-indigo-600", Off: "bg-gray-200" -->
-<span role="checkbox" tabindex="0" aria-checked="false" aria-labelledby="toggleLabel" class="bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:shadow-outline">
-  <!-- On: "translate-x-5", Off: "translate-x-0" -->
-  <span aria-hidden="true" class="translate-x-0 inline-block h-5 w-5 rounded-full bg-white shadow transform transition ease-in-out duration-200"></span>
-</span>
-
 <template>
   <div :class="{'opacity-50': disabled}">
     <div class="flex items-center justify-between">
@@ -16,7 +6,7 @@
           {{ label }}
         </label>
         <span class="text-sm leading-normal text-gray-500">
-          This ensures that each card has a chance to be sorted earlier in the session
+          {{ description }}
         </span>
       </span>
       <span :class="{ 'bg-gray-200': !value, 'bg-purple-600': value }" class="relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:shadow-outline" role="checkbox" tabindex="0" @click="toggle" @keydown.space.prevent="toggle" :aria-checked="value">
@@ -40,7 +30,8 @@
 <script>
 export default {
   props: {
-    label: String, 
+    label: String,
+    description: String,
     value: Boolean,
     disabled: {
       type: Boolean,

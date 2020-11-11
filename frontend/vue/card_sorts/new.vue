@@ -167,11 +167,11 @@
                   </svg>
                   New Card
                 </button>
-                </span>
+              </span>
             </div>                    
           </div>
           <div class="">
-            <Slider v-model="randomize_card_order" label="Randomize card order for each participant" />
+            <Slider v-model="randomize_card_order" label="Randomize card order for each participant" description="This ensures that each card has a chance to be sorted earlier in the session" />
           </div>
         </div>
         <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
@@ -219,7 +219,7 @@ export default {
         },
         accept: ['image/*']        
       },
-      participant_instructions: "Thank you for agreeing to help us! This study shouldn't take more than 5 minutes.\n\nThere are no right or wrong answers. Our goal is to learn how you think about, organize and label certain topics into groups.",
+      participant_instructions: "Thank you for agreeing to help us! This shouldn't take more than 5 minutes.\n\nThere are no right or wrong answers. Our goal is to learn how you think about, organize and label certain topics into groups.",
       thank_you_message: "Thanks for taking the time to help us!\n\nYour feedback is essential for us to deliver ongoing improvements.",
       sort_type: 'open',
       groups: [
