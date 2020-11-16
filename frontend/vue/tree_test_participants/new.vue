@@ -2,14 +2,14 @@
   <div class="min-h-screen bg-gray-100">
     <main class="py-6">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="bg-white rounded-lg shadow-sm mb-6">
+        <div class="bg-white rounded-lg shadow mb-6">
           <div class="px-4 py-5 sm:p-6">
             <div v-show="step == 'intro'">
               <img :src="tree_test.logo_url" class="w-1/5 mb-6">
               <h3 class="text-xl leading-6 font-medium text-gray-900 mb-4">
                 Welcome!
               </h3> 
-              <div class="max-w-xl text-md leading-5 text-gray-500"> {{ tree_test.participant_instructions }}
+              <div class="max-w-xl text-md leading-5 text-gray-700"> {{ tree_test.participant_instructions }}
               </div>              
               <div class="mt-5">
                 <span class="shadow-sm rounded-md cursor-pointer">
@@ -27,7 +27,7 @@
               <h3 class="text-xl leading-6 font-medium text-gray-900 mb-6">
                 Instructions
               </h3>     
-              <div class="grid grid-cols-1 col-gap-4 row-gap-8 md:grid-cols-2">
+              <div class="grid grid-cols-1 col-gap-4 row-gap-8 md:grid-cols-2 text-gray-700">
                 <div class="sm:col-span-1">
                   <div class="mb-6">
                     <ul>
@@ -40,7 +40,7 @@
                               </span>
                             </div>
                             <div class="min-w-0 flex-1 px-4">
-                              We are going to show you a list of some links and a short series of tasks.
+                              We are going to show you a list of links along with some tasks.
                             </div>
                           </div>
                         </div>
@@ -54,7 +54,7 @@
                               </span>
                             </div>
                             <div class="min-w-0 flex-1 px-4">
-                              For each task, click or tap through the list until you find the link that you would expect to help you complete that task.
+                              For each task, click or tap through the links until you find the one you would expect to help you complete that task.
                             </div>
                           </div>
                         </div>
@@ -68,7 +68,7 @@
                               </span>
                             </div>
                             <div class="min-w-0 flex-1 px-4">
-                              If you get lost in the list, just click or tap one of the links above. There are no right or wrong answers, just choose the links that make the most sense to you!
+                              If you get lost just click the link again, or click any of the links above. There are no right or wrong answers, just choose what makes the most sense to you!
                             </div>
                           </div>
                         </div>
@@ -131,7 +131,7 @@
           />
         </div>
         <div v-show="tree_test.allow_skip" class="mt-12 text-center">
-          <a v-show="step == 'tasks'" @click="skipTask" class="text-sm text-gray-500 underline">
+          <a v-show="step == 'tasks'" @click="skipTask" class="text-sm text-gray-500 underline cursor-pointer">
             Skip This Task
           </a>
         </div>        

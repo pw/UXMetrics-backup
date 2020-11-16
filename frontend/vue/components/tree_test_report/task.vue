@@ -67,7 +67,7 @@
               <p class="text-sm leading-5 text-gray-500">
                 <span v-if="task.percent_navigated_indirectly_to_correct_rounded === 0">{{ task.percent_navigated_indirectly_to_correct_rounded }}% navigated indirectly to the correct link(s).</span>
                 <span v-else>                
-                  <a @click="$emit('openTaskOutcomeModal', task.id, 'indirect_correct')">{{ task.percent_navigated_indirectly_to_correct_rounded }}% navigated indirectly</a> to the correct link(s).
+                  <a class="cursor-pointer text-purple-600 underline" @click="$emit('openTaskOutcomeModal', task.id, 'indirect_correct')">{{ task.percent_navigated_indirectly_to_correct_rounded }}% navigated indirectly</a> to the correct link(s).
                 </span>
               </p>
             </div>
@@ -81,7 +81,7 @@
               <p class="text-sm leading-5 text-gray-500">
                 <span v-if="task.percent_navigated_directly_to_incorrect_rounded === 0">{{ task.percent_navigated_directly_to_incorrect_rounded }}% navigated directly to an incorrect link.</span>
                 <span v-else>
-                  <a @click="$emit('openTaskOutcomeModal', task.id, 'direct_incorrect')">{{ task.percent_navigated_directly_to_incorrect_rounded }}% navigated directly</a> to an incorrect link.
+                  <a class="cursor-pointer text-purple-600 underline" @click="$emit('openTaskOutcomeModal', task.id, 'direct_incorrect')">{{ task.percent_navigated_directly_to_incorrect_rounded }}% navigated directly</a> to an incorrect link.
                 </span>
               </p>
             </div>
@@ -94,7 +94,7 @@
               <p class="text-sm leading-5 text-gray-500">
                 <span v-if="task.percent_navigated_indirectly_to_incorrect_rounded === 0">{{ task.percent_navigated_indirectly_to_incorrect_rounded }}% navigated indirectly to an incorrect link.</span>
                 <span v-else>
-                  <a @click="$emit('openTaskOutcomeModal', task.id, 'indirect_incorrect')">{{ task.percent_navigated_indirectly_to_incorrect_rounded }}% navigated indirectly</a> to an incorrect link.
+                  <a class="cursor-pointer text-purple-600 underline" @click="$emit('openTaskOutcomeModal', task.id, 'indirect_incorrect')">{{ task.percent_navigated_indirectly_to_incorrect_rounded }}% navigated indirectly</a> to an incorrect link.
                 </span>
               </p>
             </div>
@@ -117,7 +117,7 @@
               <p class="text-sm leading-5 text-gray-500">
                 <span v-if="task.percent_skipped_indirectly_rounded === 0">{{ task.percent_skipped_indirectly_rounded }}% indirectly skipped this task.</span>
                 <span v-else>
-                  <a @click="$emit('openTaskOutcomeModal', task.id, 'indirect_skip')">{{ task.percent_skipped_indirectly_rounded }}% indirectly skipped</a> this task.
+                  <a class="cursor-pointer text-purple-600 underline" @click="$emit('openTaskOutcomeModal', task.id, 'indirect_skip')">{{ task.percent_skipped_indirectly_rounded }}% indirectly skipped</a> this task.
                 </span>
               </p>
             </div>

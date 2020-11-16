@@ -96,7 +96,7 @@
                     <div class="mt-2 sm:flex sm:items-start sm:justify-between">
                       <div class="max-w-xl text-sm leading-5 text-gray-500">
                         <p>
-                          Test drive your card sort exactly as your participants will experience it.
+                          Test drive your study exactly as your participants will experience it.
                         </p>
                       </div>
                       <div class="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:flex sm:items-center">
@@ -159,10 +159,10 @@
                       </div>
                     </div>
                     <div class="mb-6 pb-6 border-b border-gray-100">
-                      <TextArea id="instructions" label="Participant Instructions" instructions="Greet your card sort participants with a custom introduction" :disabled="card_sort.status != 'draft'" v-model="card_sort.participant_instructions" @blur="saveProperty('participant_instructions')" />
+                      <TextArea id="instructions" label="Participant Instructions" instructions="Greet your participants with a custom introduction" :disabled="card_sort.status != 'draft'" v-model="card_sort.participant_instructions" @blur="saveProperty('participant_instructions')" />
                     </div>
                     <div class="">
-                      <TextArea id="thanks" label="Thank You Message" instructions="Custom thank you message to show participants upon completion" :disabled="card_sort.status != 'draft'" v-model="card_sort.thank_you_message" @blur="saveProperty('thank_you_message')"/>
+                      <TextArea id="thanks" label="Thank You Message" instructions="Your participants will see this when they complete the study" :disabled="card_sort.status != 'draft'" v-model="card_sort.thank_you_message" @blur="saveProperty('thank_you_message')"/>
                     </div>
                   </form>              
                 </div>
