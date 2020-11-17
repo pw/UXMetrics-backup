@@ -5,6 +5,8 @@ class CardSortParticipantsController < ApplicationController
 
   def new
     @card_sort = CardSort.find_by(auth_token: params[:auth_token])
+
+    redirect_to :not_found if @card_sort.status != 'published' && !params[:preview]
   end
 
   def create

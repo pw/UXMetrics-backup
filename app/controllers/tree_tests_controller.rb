@@ -14,7 +14,7 @@ class TreeTestsController < ApplicationController
   end
 
   def index
-    @tree_tests = current_user.tree_tests.all
+    @tree_tests = current_user.tree_tests.all.order(created_at: :desc)
   end
 
   def edit

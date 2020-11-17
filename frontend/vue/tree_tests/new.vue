@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Nav :title="title" :step.sync="step" :total_steps="total_steps" @save="save"/>
+    <Nav :title="title" :step.sync="step" :total_steps="total_steps" @back="back"/>
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
       <ul class="space-y-4 md:flex md:space-y-0 md:space-x-8">
         <li class="md:flex-1">
@@ -13,7 +13,10 @@
 
         <li class="md:flex-1">
           <!-- Upcoming Step -->
-          <div class="group pl-4 py-2 block border-l-4 border-gray-200 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4">
+          <div 
+          class="group pl-4 py-2 block border-l-4 border-gray-200 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4"
+          :class="{'border-purple-600': (step >= 2)}"
+          >
             <h3 class="text-xs leading-4 text-gray-500 font-semibold uppercase">Step 2</h3>
             <p class="text-sm leading-5 font-medium">Add Tree</p>
           </div>
@@ -21,7 +24,10 @@
 
         <li class="md:flex-1">
           <!-- Upcoming Step -->
-          <div class="group pl-4 py-2 block border-l-4 border-gray-200 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4">
+          <div 
+          class="group pl-4 py-2 block border-l-4 border-gray-200 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4"
+          :class="{'border-purple-600': (step >= 3)}"
+          >
             <h3 class="text-xs leading-4 text-gray-500 font-semibold uppercase">Step 3</h3>
             <p class="text-sm leading-5 font-medium">Create Tasks</p>
           </div>
@@ -68,7 +74,7 @@
           </div>
           <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
             <span class="inline-flex rounded-md shadow-sm">
-              <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition duration-150 ease-in-out">
+              <button type="button" @click="next" class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition duration-150 ease-in-out">
                 Save and Continue
               </button>
             </span>
@@ -90,7 +96,7 @@
         </div>
         <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
           <span class="inline-flex rounded-md shadow-sm">
-            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition duration-150 ease-in-out">
+            <button type="button" @click="next" class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition duration-150 ease-in-out">
               Save and Continue
             </button>
           </span>
@@ -121,14 +127,15 @@
         </div>
         <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
           <span class="inline-flex rounded-md shadow-sm">
-            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition duration-150 ease-in-out">
+            <button type="button" @click="save" class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition duration-150 ease-in-out">
               Save and Continue
             </button>
           </span>
         </div> 
       </div>
     </Step>
-
+    <Flash v-show="show_flash" :show="show_flash" :notice="flash_notice">
+    </Flash>
   </div>
 </template>
 
@@ -140,6 +147,7 @@ import TextArea from '../components/new_tree_test/text_area.vue'
 import Slider from '../components/slider.vue'
 import TreeNode from '../components/new_tree_test/tree_node.vue'
 import Task from '../components/new_tree_test/task.vue'
+import Flash from '../components/flash.vue'
 import Rails from '@rails/ujs'
 import * as filestack from 'filestack-js'
 const filestack_client = filestack.init('AuALnf2VzTPqJAkEOLar1z');
@@ -152,7 +160,9 @@ export default {
     return {
       step: 1,
       total_steps: 3,
-      name: undefined, 
+      show_flash: false, 
+      flash_notice: '',
+      name: '', 
       logo_base_url: this.data.logo_base_url,
       logo_key: undefined,
       filestack_options: {
@@ -198,6 +208,21 @@ export default {
     }
   },
   methods: {
+    next: function() {
+      if(this.step === 1 && this.name === '') {
+        this.flash_notice = 'Name cannot be blank'
+        this.showFlash()
+      } else {
+        this.step += 1
+      }
+    },
+    back: function() {
+      this.step -= 1
+    },
+    showFlash: function() {
+      this.show_flash = true
+      setTimeout(() => this.show_flash = false, 5000)
+    },    
     add: function(id) {
       this.node_index += 1
       this.addToArray(this.tree, id)
@@ -297,6 +322,6 @@ export default {
       }
     }
   },
-  components: { Nav, Step, TextInput, TextArea, Slider, TreeNode, Task }
+  components: { Nav, Step, TextInput, TextArea, Slider, TreeNode, Task, Flash }
 }
 </script>

@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   get '/500', to: 'errors#server_error'
   get '/422', to: 'errors#unacceptable'
-  get '/404', to: 'errors#not_found'
+  get '/404', to: 'errors#not_found', as: 'not_found'
 
   get '/signup', to: 'authentication#new_signup', as: 'signup'
   post '/signup', to: 'authentication#signup', as: 'signup_post'

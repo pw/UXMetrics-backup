@@ -12,7 +12,7 @@
     </div>
     <div class="px-4 py-5 sm:p-6">
       <div class="flex rounded-md shadow-sm mb-3">
-        <textarea rows="3" class="form-textarea block w-full h-20 transition duration-150 ease-in-out sm:text-sm sm:leading-5" :class="{ 'opacity-50 cursor-not-allowed': disabled}"  :value="value" @input="$emit('input', $event.target.value)" @blur="$emit('saveTask', id)">
+        <textarea rows="3" class="form-textarea block w-full h-20 transition duration-150 ease-in-out sm:text-sm sm:leading-5" :class="{ 'opacity-50 cursor-not-allowed': disabled}" :disabled="disabled" :value="value" @input="$emit('input', $event.target.value)" @blur="$emit('saveTask', id)">
         </textarea>
       </div>
       <div :class="{flex: (!treeVisible && correctSelected), 'items-center': (!treeVisible && correctSelected), 'justify-between': (!treeVisible && correctSelected)}">

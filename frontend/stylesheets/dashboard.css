@@ -154,7 +154,28 @@ cursor: move;
   opacity: 0;
   --transform-translate-y: 1rem;
 }
-
 .modal-component-leave-active {
   transition-duration: 200ms;
+}
+.flash-enter {
+  transform: translateY(100%);
+}
+.flash-enter-active {
+  transition-property: transform;
+  transition-timing-function: linear;
+  transition-duration: 500ms;
+}
+.flash-enter-to {
+  transform: translateY(0);
+}
+.flash-leave {
+  transform: translateY(0);
+}
+.flash-leave-active {
+  transition-property: transform;
+  transition-timing-function: linear;
+  transition-duration: 500ms;  
+}
+.flash-leave-to {
+  transform: translateY(100%);
 }

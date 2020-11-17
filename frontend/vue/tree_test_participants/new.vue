@@ -128,6 +128,7 @@
           :margin="0" 
           :collapsed="false"
           :key="menu_node_key"
+          :is_root="true"
           />
         </div>
         <div v-show="tree_test.allow_skip" class="mt-12 text-center">
@@ -171,7 +172,7 @@
       }
     },
     created: function() {
-      if(this.tree_test.randomize_tree_order) {
+      if(this.tree_test.randomize_task_order) {
         this.tasks = _.shuffle(this.data.tree_test_tasks)
       } else {
         this.tasks = this.data.tree_test_tasks

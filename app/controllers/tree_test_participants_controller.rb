@@ -5,6 +5,8 @@ class TreeTestParticipantsController < ApplicationController
 
   def new
     @tree_test = TreeTest.find_by(auth_token: params[:auth_token])
+
+    redirect_to :not_found if @tree_test.status != 'published' && !params[:preview]
   end
 
   def create

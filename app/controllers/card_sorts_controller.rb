@@ -25,7 +25,7 @@ class CardSortsController < ApplicationController
   end
 
   def index
-    @card_sorts = current_user.card_sorts.all
+    @card_sorts = current_user.card_sorts.all.order(created_at: :desc)
   end
 
   def edit

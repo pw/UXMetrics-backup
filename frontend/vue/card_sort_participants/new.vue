@@ -100,34 +100,52 @@
           </div>
         </div>
       </div>
-      <div class="px-6 py-6 mb-64">        
+      <draggable 
+      class="px-6 py-6 mb-64" 
+      id="container" 
+      group="cards"
+      v-model="container"
+      ghost-class="draggable-ghost-group"
+      style="position: fixed; width: 100%; height: 100%;"
+      >   
         <draggable 
         id="groups"
         v-model="groups"
-        class="flex flex-wrap -mx-2 draggable" 
-        group="cards"
+        :group="{ name: 'groups', put: ['cards'], pull: false }"
         swap-threshold="0.65"
-        ghost-class="draggable-new-group"
+        ghost-class="draggable-ghost-class"        
+        chosen-class="draggable-chosen-class"        
+        drag-class="draggable-drag-class"        
         @updateCards="updateCards"  
         :move="onGroupMove"
         >
-          <Group
-          v-for="group in groups"
-          :key="group.id"
-          :sort_type="card_sort.sort_type"
-          :id="group.id"   
-          :can_delete="group.can_delete"
-          :initial_cards="group.cards"
-          v-model="group.name" 
-          @updateCards="updateCards"
-          @addGroup="addGroup"
-          @deleteGroup="deleteGroup"
-          @onCardMove="onCardMove"
-          @onCardDrop="onCardDrop"
-          />
+          <transition-group name="group" class="flex flex-wrap -mx-2 draggable" id="space_between_groups" tag="div">
+            <Group
+            v-for="group in groups"
+            v-show="group.cards.length !== 0"
+            :key="group.id"
+            :sort_type="card_sort.sort_type"
+            :id="group.id"   
+            :can_delete="group.can_delete"
+            :initial_cards="group.cards"
+            v-model="group.name" 
+            @updateCards="updateCards"
+            @addGroup="addGroup"
+            @deleteGroup="deleteGroup"
+            @onCardMove="onCardMove"
+            @onCardDrop="onCardDrop"
+            />
+          </transition-group>
         </draggable>
-      </div>
-      <div class="fixed inset-x-0 bottom-0 w-full">
+      </draggable>
+      <draggable
+       class="fixed inset-x-0 bottom-0 w-full"
+       group="cards"
+       id="card_container"
+       ghost-class="draggable-new-group"
+       v-model="container2"
+       draggable=".card_container_draggable"
+       >
         <div v-show="card_sort.card_sort_cards.length === total_cards" class="m-auto px-6 py-6 text-center">
           <p class="mb-12">Drag all the cards below into groups that makes sense to you.</p>
           <svg class="mb-12 m-auto h-12 w-12 text-gray-500 animate-bounce" fill="currentColor" viewBox="0 0 24 24" stroke="none">
@@ -138,6 +156,7 @@
           <draggable 
           v-model="card_sort.card_sort_cards"
           group="cards"
+          id="cards"
           class="flex draggable"
           :move="onCardMove"
           @end="onCardDrop"
@@ -152,7 +171,7 @@
             />
           </draggable>
         </div>
-      </div>      
+      </draggable>      
     </div>  
     <div v-show="step === 'thanks'" class="min-h-screen bg-gray-50">
       <main class="py-6">
@@ -298,13 +317,19 @@
         error_type: undefined,
         sort_start_time: undefined,
         sort_time_elapsed: undefined,
-        finished_saving_groups: undefined
+        finished_saving_groups: undefined,
+        container: [],
+        container2: []
       }
     },
     computed: {
       groups_index: function() {
-        var group_indices = this.groups.map(group => group.id)
-        return (Math.max(...group_indices) + 1)
+        if(this.groups.length === 0) {
+          return 0
+        } else {
+          var group_indices = this.groups.map(group => group.id)
+          return (Math.max(...group_indices) + 1)
+        }
       }
     },
     watch: {
@@ -340,9 +365,6 @@
         empty_groups.forEach(group => this.deleteGroup(group.id))
       },
       onGroupMove(evt) {
-        if(evt.to.id !== 'groups') {
-          return false
-        }
       },
       updateCards(group_id, cards) {
         var index = this.groups.findIndex(i => i.id == group_id)
@@ -355,12 +377,15 @@
         this.moving_card = evt
       },
       onCardDrop(evt) {
-        if(evt.to.id === 'groups' && this.card_sort.sort_type !== 'closed') {
+        var new_group = this.newGroup()
+        new_group.cards = [this.moving_card.draggedContext.element]     
+        if((evt.to.id === 'groups' || evt.to.id === 'space_between_groups') && this.card_sort.sort_type !== 'closed') {
           var index = this.moving_card.draggedContext.futureIndex          
-          var new_group = this.newGroup()
-          new_group.cards = [this.moving_card.draggedContext.element]
-          this.groups.splice(index, 1)
-          this.groups.splice(index, 0, new_group)
+          this.$set(this.groups, index, new_group)
+        } else if(evt.to.id === 'container') {
+          this.groups.push(new_group)
+        } else if(evt.to.id === 'card_container') {
+          this.card_sort.card_sort_cards.push(this.moving_card.draggedContext.element)
         }
         this.removeEmptyGroups()
       },

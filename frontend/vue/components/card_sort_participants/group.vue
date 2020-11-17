@@ -42,7 +42,7 @@
       class="p-4"      
       style="min-height: 6rem;"
       :move="onCardMove"
-      @end="onCardDrop"
+      @end="onCardDrop"           
       >            
         <Card 
         v-for="card in cards"

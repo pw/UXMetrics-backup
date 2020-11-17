@@ -38,6 +38,10 @@
   export default {
     props: {
       element: Object,
+      is_root: {
+        type: Boolean,
+        default: false
+      },
       margin: Number,
       collapsed: {
         type: Boolean,
@@ -101,6 +105,9 @@
         this.$emit('markAsIndirect')
       }, 
       toggle() {
+        if(this.is_root) {
+          return 
+        }
         if(this.collapsedLocal) {
           this.$emit('addToNavigationHistory', this.element.text)
         } else {
