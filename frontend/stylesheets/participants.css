@@ -16,6 +16,38 @@
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
+.card-draggable-ghost-class {
+  border-width: 4px;
+  border-style: dashed;
+  border-radius: 0.5rem;
+  border-color: #d2d6dc;  
+}
+.card-draggable-ghost-class * {
+  opacity: 0;
+}
+.draggable-new-group {
+  border-width: 4px;
+  border-style: dashed;
+  border-radius: 0.5rem;
+  border-color: #d2d6dc; 
+  position: relative;
+  bottom: 16px;
+  left: 24px;
+  width: 256px;
+}
+.draggable-new-group * {
+  opacity: 0;
+}
+.draggable-new-group2 {
+  border-width: 4px;
+  border-style: dashed;
+  border-radius: 0.5rem;
+  border-color: #d2d6dc; 
+  width: 256px;
+}
+.draggable-new-group2 * {
+  opacity: 0;
+}
 .draggable-ghost-class {
   border-width: 4px;
   border-style: dashed;
@@ -26,10 +58,6 @@
   padding-right: 0.5rem;  
   margin-bottom: 1rem;  
 }
-.draggable-new-group {
-  width: 0px;
-  height: 0px;  
-}
 .draggable-ghost-class * {
   opacity: 0;
 }
@@ -38,6 +66,9 @@
   .draggable-ghost-class {
     width: 50%;
   }
+  .draggable-new-group { 
+    bottom: 40px;
+  }  
 }
 /* md */
 @media (min-width: 768px) { 

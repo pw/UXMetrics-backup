@@ -105,7 +105,7 @@
       id="container" 
       group="cards"
       v-model="container"
-      ghost-class="draggable-ghost-group"
+      ghost-class="draggable-ghost-class"
       style="position: fixed; width: 100%; height: 100%;"
       >   
         <draggable 
@@ -139,14 +139,14 @@
         </draggable>
       </draggable>
       <draggable
-       class="fixed inset-x-0 bottom-0 w-full"
+       class="fixed inset-x-0 bottom-0 w-full bg-gray-200"
        group="cards"
        id="card_container"
        ghost-class="draggable-new-group"
        v-model="container2"
        draggable=".card_container_draggable"
        >
-        <div v-show="card_sort.card_sort_cards.length === total_cards" class="m-auto px-6 py-6 text-center">
+        <div v-show="card_sort.card_sort_cards.length === total_cards" class="m-auto px-6 py-6 text-center bg-white">
           <p class="mb-12">Drag all the cards below into groups that makes sense to you.</p>
           <svg class="mb-12 m-auto h-12 w-12 text-gray-500 animate-bounce" fill="currentColor" viewBox="0 0 24 24" stroke="none">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M5.29289 7.70711C4.90237 7.31658 4.90237 6.68342 5.29289 6.29289L9.29289 2.29289C9.68342 1.90237 10.3166 1.90237 10.7071 2.29289L14.7071 6.29289C15.0976 6.68342 15.0976 7.31658 14.7071 7.70711C14.3166 8.09763 13.6834 8.09763 13.2929 7.70711L11 5.41421L11 17C11 17.5523 10.5523 18 10 18C9.44772 18 9 17.5523 9 17L9 5.41421L6.70711 7.70711C6.31658 8.09763 5.68342 8.09763 5.29289 7.70711Z"/>
@@ -157,6 +157,7 @@
           v-model="card_sort.card_sort_cards"
           group="cards"
           id="cards"
+          ghost-class="draggable-new-group2"
           class="flex draggable"
           :move="onCardMove"
           @end="onCardDrop"
