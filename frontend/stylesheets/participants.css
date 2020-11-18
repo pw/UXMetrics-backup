@@ -16,11 +16,30 @@
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
+.container-ghost-class {
+  border-width: 4px;
+  border-style: dashed;
+  border-radius: 0.5rem;
+  border-color: #d2d6dc;
+  width: 100%;
+  margin-bottom: 1rem;   
+}
+.container-ghost-class * {
+  opacity: 0;
+}
+.groups-ghost-class {
+  height: 0px;
+  width: 0px;
+}
+.groups-ghost-class * {
+  opacity: 0;
+}
 .card-draggable-ghost-class {
   border-width: 4px;
   border-style: dashed;
   border-radius: 0.5rem;
   border-color: #d2d6dc;  
+  margin-bottom: 8px;
 }
 .card-draggable-ghost-class * {
   opacity: 0;
@@ -44,6 +63,8 @@
   border-radius: 0.5rem;
   border-color: #d2d6dc; 
   width: 256px;
+  margin-right: 8px;
+  margin-bottom: -8px;
 }
 .draggable-new-group2 * {
   opacity: 0;
@@ -54,15 +75,16 @@
   border-radius: 0.5rem;
   border-color: #d2d6dc;
   width: 100%;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;  
-  margin-bottom: 1rem;  
+  margin-bottom: 1rem; 
 }
 .draggable-ghost-class * {
   opacity: 0;
 }
 /* sm */
 @media (min-width: 640px) { 
+  .container-ghost-class {
+    width: 50%;
+  }
   .draggable-ghost-class {
     width: 50%;
   }
@@ -71,19 +93,28 @@
   }  
 }
 /* md */
-@media (min-width: 768px) { 
+@media (min-width: 768px) {
+  .container-ghost-class {
+    width: 33.333333%;
+  } 
   .draggable-ghost-class {
     width: 33.333333%;
   }  
 }
 /* lg */
 @media (min-width: 1024px) { 
+  .container-ghost-class {
+    width: 25%;
+  }  
   .draggable-ghost-class {
     width: 25%;
   }   
 }
 /* xl */
 @media (min-width: 1280px) { 
+  .container-ghost-class {
+    width: 20%;
+  }  
   .draggable-ghost-class {
     width: 20%;
   }   

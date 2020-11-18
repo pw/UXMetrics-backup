@@ -103,23 +103,21 @@
       <draggable 
       class="px-6 py-6 mb-64" 
       id="container" 
-      group="cards"
+      :group="{ name: 'canvas', pull: false, put: ['unsorted_cards', 'sorted_cards'] }"
       v-model="container"
-      ghost-class="draggable-ghost-class"
+      ghost-class="container-ghost-class"
       style="position: fixed; width: 100%; height: 100%;"
       >   
         <draggable 
         id="groups"
         v-model="groups"
-        :group="{ name: 'groups', put: ['cards'], pull: false }"
         swap-threshold="0.65"
-        ghost-class="draggable-ghost-class"        
-        chosen-class="draggable-chosen-class"        
-        drag-class="draggable-drag-class"        
+        :group="{ name: 'groups', pull: false, put: ['sorted_cards'] }"
+        ghost-class="groups-ghost-class"              
         @updateCards="updateCards"  
         :move="onGroupMove"
         >
-          <transition-group name="group" class="flex flex-wrap -mx-2 draggable" id="space_between_groups" tag="div">
+          <transition-group name="group" class="flex flex-wrap" id="space_between_groups" tag="div">
             <Group
             v-for="group in groups"
             v-show="group.cards.length !== 0"
@@ -140,7 +138,7 @@
       </draggable>
       <draggable
        class="fixed inset-x-0 bottom-0 w-full bg-gray-200"
-       group="cards"
+       :group="{ name: 'drawer', pull: false, put: ['sorted_cards'] }"
        id="card_container"
        ghost-class="draggable-new-group"
        v-model="container2"
@@ -155,7 +153,7 @@
         <div class="flex overflow-x-auto bg-gray-200 px-6 pt-6 pb-4 sm:px-6 sm:pt-12 sm:pb-10 animate__animated animate__slideInRight">
           <draggable 
           v-model="card_sort.card_sort_cards"
-          group="cards"
+          :group="{ name: 'unsorted_cards', pull: ['canvas', 'groups', 'sorted_cards'], put: ['sorted_cards'] }"
           id="cards"
           ghost-class="draggable-new-group2"
           class="flex draggable"

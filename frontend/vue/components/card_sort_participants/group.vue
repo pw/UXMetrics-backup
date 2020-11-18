@@ -38,7 +38,7 @@
       </div>
       <draggable 
       v-model="cards"          
-      group="cards"
+      :group="{ name: 'sorted_cards', pull: ['sorted_cards', 'groups', 'drawer'], put: ['sorted_cards', 'unsorted_cards', 'drawer'] }"
       class="p-4"      
       style="min-height: 6rem;"
       :move="onCardMove"
