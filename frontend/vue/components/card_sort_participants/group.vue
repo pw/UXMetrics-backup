@@ -1,7 +1,7 @@
 <template>
-  <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-2 mb-4">
+  <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-2 mb-4" :class="{ undraggable: (sort_type === 'closed') }">
     <div class="bg-gray-200 overflow-hidden rounded-md shadow">
-      <div class="bg-white px-4 py-2 border-b border-gray-200 cursor-move">
+      <div class="bg-white px-4 py-2 border-b border-gray-200" :class="{ 'cursor-move': (sort_type !== 'closed') }">
         <div v-show="editing_name" class="-ml-4 -mt-2 flex items-center justify-between flex-wrap">
           <div class="flex-1 ml-4 mt-2">
             <div class="rounded-md shadow-sm">

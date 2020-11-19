@@ -103,24 +103,28 @@
       <draggable 
       class="px-6 py-6 mb-64" 
       id="container" 
-      :group="{ name: 'canvas', pull: false, put: ['unsorted_cards', 'sorted_cards'] }"
+      :group="{ name: 'canvas', pull: false, put: canvasPut }"
       v-model="container"
       ghost-class="container-ghost-class"
       style="position: fixed; width: 100%; height: 100%;"
+      filter=".undraggable"
       >   
         <draggable 
         id="groups"
+        :class="{ undraggable: (card_sort.sort_type === 'closed') }"        
         v-model="groups"
         swap-threshold="0.65"
         :group="{ name: 'groups', pull: false, put: ['sorted_cards'] }"
-        ghost-class="groups-ghost-class"              
+        :sort="(card_sort.sort_type === 'closed') ? false : true"
+        ghost-class="groups-ghost-class" 
+        filter=".undraggable"             
         @updateCards="updateCards"  
         :move="onGroupMove"
         >
           <transition-group name="group" class="flex flex-wrap" id="space_between_groups" tag="div">
             <Group
             v-for="group in groups"
-            v-show="group.cards.length !== 0"
+            v-show="!group.can_delete || (group.cards.length !== 0)"
             :key="group.id"
             :sort_type="card_sort.sort_type"
             :id="group.id"   
@@ -391,6 +395,13 @@
       startSort() {
         this.step = 'sort'
         this.sort_start_time = new Date
+      },
+      canvasPut() {
+        if(this.card_sort.sort_type === 'closed') {
+          return false
+        } else {
+          return ['unsorted_cards', 'sorted_cards']
+        }        
       },
       saveGroups() {
         this.finished_saving_groups = this.groups.filter(group => group.can_delete).length
