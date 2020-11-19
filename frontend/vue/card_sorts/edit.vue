@@ -244,14 +244,28 @@
                       <label for="logo" class="mb-2 block text-sm leading-5 font-medium text-gray-700">
                         Pre-Defined Groups
                       </label>
-                      <vue-nestable :maxDepth="(card_sort.status === 'draft') ? 1 : 0" v-model="groups" @change="saveGroups">
+
+                      <vue-nestable 
+                        v-if="card_sort.status === 'draft'"
+                        :maxDepth="(card_sort.status === 'draft') ? 1 : 0" v-model="groups" 
+                        @change="saveGroups">
                         <vue-nestable-handle
                           slot-scope="{ item }"
                           :item="item">
-                          <Group :ref="`group_${item.id}`" v-model="item.name" :group_id="item.id" :disabled="card_sort.status != 'draft'" @remove="removeGroup" @nextGroup="nextGroup" @updateGroup="updateGroup" />
+                          <Group 
+                          :ref="`group_${item.id}`" v-model="item.name" :group_id="item.id" 
+                          :disabled="card_sort.status != 'draft'" 
+                          @remove="removeGroup" @nextGroup="nextGroup" @updateGroup="updateGroup" />
                         </vue-nestable-handle>      
                       </vue-nestable>
-
+                      <Group
+                        v-else
+                        v-for="group in groups"
+                        :ref="`group_${group.id}`"
+                        v-model="group.name"
+                        :group_id="group.id"
+                        :disabled="card_sort.status != 'draft'"
+                      />
                       <span class="shadow-sm rounded-md">
                         <button v-show="card_sort.status == 'draft'" @click="addGroup" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
                             <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
@@ -268,13 +282,37 @@
                       <label for="logo" class="mb-2 block text-sm leading-5 font-medium text-gray-700">
                         Cards
                       </label>
-                      <vue-nestable :maxDepth="(card_sort.status === 'draft') ? 1 : 0" v-model="cards" @change="saveCards">
+                      <vue-nestable 
+                        v-if="card_sort.status === 'draft'"
+                        :maxDepth="(card_sort.status === 'draft') ? 1 : 0" 
+                        v-model="cards" 
+                        @change="saveCards">
                         <vue-nestable-handle
                           slot-scope="{ item }"
                           :item="item">
-                          <Card :ref="`card_${item.id}`" :card_id="item.id" :starting_title="item.content.title" :starting_description="item.content.description" :starting_has_description="item.content.has_description" :disabled="card_sort.status != 'draft'" @updateCard="updateCard" @saveCard="saveCard" @removeCard="removeCard" @nextCard="nextCard" />
+                          <Card 
+                          :ref="`card_${item.id}`" 
+                          :card_id="item.id" 
+                          :starting_title="item.content.title" 
+                          :starting_description="item.content.description" 
+                          :starting_has_description="item.content.has_description" 
+                          :disabled="card_sort.status != 'draft'" 
+                          @updateCard="updateCard" 
+                          @saveCard="saveCard" 
+                          @removeCard="removeCard" 
+                          @nextCard="nextCard" />
                         </vue-nestable-handle>      
                       </vue-nestable>
+                      <Card 
+                        v-else
+                        v-for="card in cards"
+                        :ref="`card_${card.id}`"
+                        :card_id="card.id" 
+                        :starting_title="card.content.title" 
+                        :starting_description="card.content.description"
+                        :starting_has_description="card.content.has_description"
+                        :disabled="card_sort.status != 'draft'" 
+                      />
                       <span class="shadow-sm rounded-md">
                         <button v-show="card_sort.status == 'draft'" @click="addCard" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
                           <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
@@ -426,6 +464,10 @@ export default {
       })              
     },    
     saveGroups: function() {
+      if(this.card_sort.status !== 'draft') {
+        return
+      }
+
       var data = new FormData
 
       this.groups.forEach((group, index) => {
@@ -504,6 +546,10 @@ export default {
       this.cards[index].content = content
     },
     saveCard: function(card_id) {
+      if(this.card_sort.status !== 'draft') {
+        return
+      }
+            
       var index = this.cards.findIndex(i => i.id == card_id)
       var data = new FormData
       data.append('card_sort_card[id]', card_id)
