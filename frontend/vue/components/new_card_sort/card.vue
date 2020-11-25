@@ -7,20 +7,49 @@
     </div>
     <div class="flex-1 min-w-0">
       <div :class="{'rounded-md shadow-sm': !disabled}">
-        <input ref="title" v-model="title" @input="$emit('updateCard', card_id, { title: title, description: description, has_description: has_description })" @blur="$emit('saveCard', card_id)" @keyup.enter="$emit('nextCard', card_id)" :class="{'border-none': disabled}" class="form-input px-2 py-1 block w-full transition duration-150 ease-in-out text-sm font-medium leading-5 text-gray-700" :disabled="disabled" placeholder="Card Label" />
+        <input 
+          ref="title" 
+          :value="value.title"
+          @input="updateValue('title', $event.target.value)" 
+          @blur="$emit('saveCard', value.id)" 
+          @keyup.enter="$emit('nextCard', value.id)" 
+          :class="{'border-none': disabled}" 
+          class="form-input px-2 py-1 block w-full transition duration-150 ease-in-out text-sm font-medium leading-5 text-gray-700" 
+          :disabled="disabled" 
+          placeholder="Card Label" 
+        />
       </div>
-      <div v-show="has_description" class="mt-2" :class="{'rounded-md shadow-sm': !disabled}">
-        <textarea v-show="!disabled" v-model="description" @input="$emit('updateCard', card_id, { title: title, description: description, has_description: has_description })" @blur="$emit('saveCard', card_id)" @keyup.enter="$emit('nextCard', card_id)" id="card_description" rows="2" class="form-textarea px-2 py-1 block w-full transition duration-150 ease-in-out text-sm leading-5 text-gray-700 font-medium" :disabled="disabled" placeholder="Description">
+      <div 
+        v-show="value.has_description" 
+        class="mt-2" 
+        :class="{'rounded-md shadow-sm': !disabled}">
+        <textarea 
+          v-show="!disabled" 
+          :value="value.description" 
+          @input="updateValue('description', $event.target.value)" 
+          @blur="$emit('saveCard', value.id)" 
+          @keyup.enter="$emit('nextCard', value.id)" 
+          id="card_description" 
+          rows="2" 
+          class="form-textarea px-2 py-1 block w-full transition duration-150 ease-in-out text-sm leading-5 text-gray-700 font-medium" 
+          :disabled="disabled" 
+          placeholder="Description" >
         </textarea>
-        <p v-show="disabled" class="px-2 py-1 block w-full transition duration-150 ease-in-out text-sm leading-5 text-gray-700">{{ description }}</p>
+        <p v-show="disabled" class="px-2 py-1 block w-full transition duration-150 ease-in-out text-sm leading-5 text-gray-700">{{ value.description }}</p>
       </div>
-      <p v-show="has_description && !disabled" class="mt-2 text-sm font-medium leading-5 text-right">
-        <a @click="has_description = false; $emit('updateCard', card_id, { title: title, description: description, has_description: false }); $emit('saveCard', card_id)" class="text-red-500">Remove Description</a>
+      <p 
+        v-show="value.has_description && !disabled"
+        class="mt-2 text-sm font-medium leading-5 text-right">
+        <a 
+          @click="updateValue('has_description', false); $emit('saveCard', value.id)" 
+          class="text-red-500">Remove Description</a>
       </p>      
     </div>
     <div v-show="!disabled" class="flex ml-2">
       <span class="self-stretch rounded-md mr-2">
-        <button v-show="!has_description" @click="has_description = true; $emit('updateCard', card_id, { title: title, description: description, has_description: true }); $emit('saveCard', card_id)" type="button" class="inline-flex items-center px-2 py-1 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:bg-gray-50 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
+        <button 
+          v-show="!value.has_description" 
+          @click="updateValue('has_description', true); $emit('saveCard', value.id)" type="button" class="inline-flex items-center px-2 py-1 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:bg-gray-50 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
           <svg class="h-5 w-5 text-gray-700" fill="currentColor" viewBox="0 0 24 24" stroke="none">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M3 5C3 4.44772 3.44772 4 4 4H16C16.5523 4 17 4.44772 17 5C17 5.55228 16.5523 6 16 6H4C3.44772 6 3 5.55228 3 5Z" />
             <path fill-rule="evenodd" clip-rule="evenodd" d="M3 10C3 9.44772 3.44772 9 4 9H16C16.5523 9 17 9.44772 17 10C17 10.5523 16.5523 11 16 11H4C3.44772 11 3 10.5523 3 10Z" />
@@ -29,7 +58,7 @@
         </button>
       </span>
       <span class="self-stretch rounded-md">
-        <button @click="$emit('removeCard', card_id)" type="button" class="inline-flex items-center px-2 py-1 border border-transparent text-xs leading-4 font-medium rounded text-red-500 bg-red-100 hover:bg-red-50 focus:outline-none focus:border-red-300 focus:shadow-outline-red active:bg-red-200 transition ease-in-out duration-150">
+        <button @click="$emit('removeCard', value.id)" type="button" class="inline-flex items-center px-2 py-1 border border-transparent text-xs leading-4 font-medium rounded text-red-500 bg-red-100 hover:bg-red-50 focus:outline-none focus:border-red-300 focus:shadow-outline-red active:bg-red-200 transition ease-in-out duration-150">
           <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M9 2C8.62123 2 8.27497 2.214 8.10557 2.55279L7.38197 4H4C3.44772 4 3 4.44772 3 5C3 5.55228 3.44772 6 4 6L4 16C4 17.1046 4.89543 18 6 18H14C15.1046 18 16 17.1046 16 16V6C16.5523 6 17 5.55228 17 5C17 4.44772 16.5523 4 16 4H12.618L11.8944 2.55279C11.725 2.214 11.3788 2 11 2H9ZM7 8C7 7.44772 7.44772 7 8 7C8.55228 7 9 7.44772 9 8V14C9 14.5523 8.55228 15 8 15C7.44772 15 7 14.5523 7 14V8ZM12 7C11.4477 7 11 7.44772 11 8V14C11 14.5523 11.4477 15 12 15C12.5523 15 13 14.5523 13 14V8C13 7.44772 12.5523 7 12 7Z"/>
           </svg>
@@ -42,17 +71,24 @@
 <script>
   export default {
     props: {
-      card_id: Number,
-      starting_title: String, 
-      starting_description: String,
-      starting_has_description: Boolean,
-      disabled: Boolean
+      value: {
+        type: Object,
+        required: true
+      },
+      disabled: {
+        type: Boolean,
+        required: false, 
+        default: false
+      }
     },
     data () {
       return {
-        title: this.starting_title,
-        description: this.starting_description,
-        has_description: this.starting_has_description
+
+      }
+    },
+    methods: {
+      updateValue(key, value) {
+        this.$emit('input', { ...this.value, [key]: value })
       }
     }
   }

@@ -154,33 +154,31 @@
                 </div>
 
                 <div v-show="tab == 'settings'">
-                  <form>
-                    <div class="mb-6 pb-6 border-b border-gray-100">
-                      <TextInput id="name" label="Name" instructions="This won't be visible to your participants" placeholder="Add a descriptive name for your card sort..." v-model="card_sort.name" @blur="saveProperty('name')" :disabled="card_sort.status != 'draft'" />
-                    </div>
-                    <div class="mb-6 pb-6 border-b border-gray-100">
-                      <div class="sm:col-span-4">
-                        <label for="logo" class="block text-sm leading-5 font-medium text-gray-700">
-                            Logo
-                        </label>
-                        <p class="mb-2 text-sm text-gray-500">Add your branding to this study (optional)</p>
-                        <img v-show="card_sort.logo_key !== 'undefined'" :src="card_sort.logo_base_url + '/' + card_sort.logo_key" class="w-40">
-                        <div class="mt-2 flex items-center">
-                          <span class="rounded-md shadow-sm">
-                            <button @click="openUpload" :disabled="card_sort.status !== 'draft'" :class="{'cursor-not-allowed opacity-50': (card_sort.status != 'draft')}" type="button" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
-                                Choose File
-                            </button>
-                          </span>
-                        </div>
+                  <div class="mb-6 pb-6 border-b border-gray-100">
+                    <TextInput id="name" label="Name" instructions="This won't be visible to your participants" placeholder="Add a descriptive name for your card sort..." v-model="card_sort.name" @blur="saveProperty('name')" :disabled="card_sort.status != 'draft'" />
+                  </div>
+                  <div class="mb-6 pb-6 border-b border-gray-100">
+                    <div class="sm:col-span-4">
+                      <label for="logo" class="block text-sm leading-5 font-medium text-gray-700">
+                          Logo
+                      </label>
+                      <p class="mb-2 text-sm text-gray-500">Add your branding to this study (optional)</p>
+                      <img v-show="card_sort.logo_key !== 'undefined'" :src="card_sort.logo_base_url + '/' + card_sort.logo_key" class="w-40">
+                      <div class="mt-2 flex items-center">
+                        <span class="rounded-md shadow-sm">
+                          <button @click="openUpload" :disabled="card_sort.status !== 'draft'" :class="{'cursor-not-allowed opacity-50': (card_sort.status != 'draft')}" type="button" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
+                              Choose File
+                          </button>
+                        </span>
                       </div>
                     </div>
-                    <div class="mb-6 pb-6 border-b border-gray-100">
-                      <TextArea id="instructions" label="Participant Instructions" instructions="Greet your participants with a custom introduction" :disabled="card_sort.status != 'draft'" v-model="card_sort.participant_instructions" @blur="saveProperty('participant_instructions')" />
-                    </div>
-                    <div class="">
-                      <TextArea id="thanks" label="Thank You Message" instructions="Your participants will see this when they complete the study" :disabled="card_sort.status != 'draft'" v-model="card_sort.thank_you_message" @blur="saveProperty('thank_you_message')"/>
-                    </div>
-                  </form>              
+                  </div>
+                  <div class="mb-6 pb-6 border-b border-gray-100">
+                    <TextArea id="instructions" label="Participant Instructions" instructions="Greet your participants with a custom introduction" :disabled="card_sort.status != 'draft'" v-model="card_sort.participant_instructions" @blur="saveProperty('participant_instructions')" />
+                  </div>
+                  <div class="">
+                    <TextArea id="thanks" label="Thank You Message" instructions="Your participants will see this when they complete the study" :disabled="card_sort.status != 'draft'" v-model="card_sort.thank_you_message" @blur="saveProperty('thank_you_message')"/>
+                  </div>            
                 </div>
 
                 <div v-show="tab == 'cards'">  
@@ -245,26 +243,29 @@
                         Pre-Defined Groups
                       </label>
 
-                      <vue-nestable 
+                      <draggable
                         v-if="card_sort.status === 'draft'"
-                        :maxDepth="(card_sort.status === 'draft') ? 1 : 0" v-model="groups" 
-                        @change="saveGroups">
-                        <vue-nestable-handle
-                          slot-scope="{ item }"
-                          :item="item">
-                          <Group 
-                          :ref="`group_${item.id}`" v-model="item.name" :group_id="item.id" 
-                          :disabled="card_sort.status != 'draft'" 
-                          @remove="removeGroup" @nextGroup="nextGroup" @updateGroup="updateGroup" />
-                        </vue-nestable-handle>      
-                      </vue-nestable>
+                        v-model="groups"
+                        ghost-class="group-list-ghost-class"
+                        @change="saveGroups"
+                      >
+                        <Group 
+                        v-for="group in groups"
+                        ref="group_refs"
+                        v-model="group.name" 
+                        :group_id="group.id" 
+                        @remove="removeGroup" 
+                        @nextGroup="nextGroup" 
+                        @updateGroup="updateGroup" 
+                        />
+                      </draggable>
                       <Group
                         v-else
                         v-for="group in groups"
                         :ref="`group_${group.id}`"
                         v-model="group.name"
                         :group_id="group.id"
-                        :disabled="card_sort.status != 'draft'"
+                        :disabled="true"
                       />
                       <span class="shadow-sm rounded-md">
                         <button v-show="card_sort.status == 'draft'" @click="addGroup" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
@@ -282,36 +283,27 @@
                       <label for="logo" class="mb-2 block text-sm leading-5 font-medium text-gray-700">
                         Cards
                       </label>
-                      <vue-nestable 
+                      <draggable
                         v-if="card_sort.status === 'draft'"
-                        :maxDepth="(card_sort.status === 'draft') ? 1 : 0" 
                         v-model="cards" 
-                        @change="saveCards">
-                        <vue-nestable-handle
-                          slot-scope="{ item }"
-                          :item="item">
-                          <Card 
-                          :ref="`card_${item.id}`" 
-                          :card_id="item.id" 
-                          :starting_title="item.content.title" 
-                          :starting_description="item.content.description" 
-                          :starting_has_description="item.content.has_description" 
-                          :disabled="card_sort.status != 'draft'" 
-                          @updateCard="updateCard" 
-                          @saveCard="saveCard" 
-                          @removeCard="removeCard" 
-                          @nextCard="nextCard" />
-                        </vue-nestable-handle>      
-                      </vue-nestable>
+                        @change="saveCards"
+                        ghost-class="group-list-ghost-class"
+                      >
+                        <Card 
+                        v-for="(card, index) in cards"
+                        ref="card_refs" 
+                        :value="card"
+                        @input="$set(cards, index, $event)"
+                        @removeCard="removeCard" 
+                        @nextCard="nextCard" 
+                        @saveCard="saveCard" 
+                        />
+                      </draggable>
                       <Card 
                         v-else
                         v-for="card in cards"
-                        :ref="`card_${card.id}`"
-                        :card_id="card.id" 
-                        :starting_title="card.content.title" 
-                        :starting_description="card.content.description"
-                        :starting_has_description="card.content.has_description"
-                        :disabled="card_sort.status != 'draft'" 
+                        :value="card"
+                        :disabled="true" 
                       />
                       <span class="shadow-sm rounded-md">
                         <button v-show="card_sort.status == 'draft'" @click="addCard" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
@@ -354,6 +346,8 @@ import TextArea from '../components/new_tree_test/text_area.vue'
 import Slider from '../components/slider.vue'
 import Group from '../components/new_card_sort/group.vue'
 import Card from '../components/new_card_sort/card.vue'
+
+import draggable from 'vuedraggable'
 import * as filestack from 'filestack-js'
 const filestack_client = filestack.init('AuALnf2VzTPqJAkEOLar1z');
 
@@ -368,16 +362,7 @@ export default {
       card_sort: this.data[0],
       tab: 'settings',
       groups: this.data[0].card_sort_groups.sort((a,b) => a.order - b.order),  
-      cards: this.data[0].card_sort_cards.sort((a,b) => a.order - b.order).map((card) => {
-        return {
-          id: card.id, 
-          content: { 
-            title: card.title, 
-            description: card.description,
-            has_description: card.has_description
-          }
-        }    
-      }),
+      cards: this.data[0].card_sort_cards.sort((a,b) => a.order - b.order),
       subscribe_modal_open: false
     }
   },  
@@ -521,10 +506,10 @@ export default {
         type: 'POST',
         data: data,
         success: (arg) => {
-          this.cards.push({id: arg.id, content: {title: '', description: '', has_description: false}})
+          this.cards.push({id: arg.id, title: '', description: '', has_description: false})
           this.$nextTick(function() {
-            this.$refs[`card_${arg.id}`].$refs.title.focus()
-          })
+            this.$refs.card_refs[this.cards.length - 1].$refs.title.focus()
+          })          
         }
       })
     },
@@ -541,21 +526,17 @@ export default {
         }
       })
     },  
-    updateCard: function(card_id, content) {
-      var index = this.cards.findIndex(i => i.id == card_id)
-      this.cards[index].content = content
-    },
     saveCard: function(card_id) {
       if(this.card_sort.status !== 'draft') {
         return
       }
             
-      var index = this.cards.findIndex(i => i.id == card_id)
+      var card = this.cards.find(i => i.id == card_id)
       var data = new FormData
-      data.append('card_sort_card[id]', card_id)
-      data.append('card_sort_card[title]', this.cards[index].content.title)
-      data.append('card_sort_card[description]', this.cards[index].content.description)
-      data.append('card_sort_card[has_description]', this.cards[index].content.has_description)
+      data.append('card_sort_card[id]', card.id)
+      data.append('card_sort_card[title]', card.title)
+      data.append('card_sort_card[description]', card.description)
+      data.append('card_sort_card[has_description]', card.has_description)
       Rails.ajax({
         url: '/card_sort_cards/' + card_id,
         type: 'PATCH',
@@ -567,9 +548,9 @@ export default {
 
       this.cards.forEach((card, index) => {
         data.append(`card_sort[card_sort_cards_attributes][${index}][id]`, card.id)
-        data.append(`card_sort[card_sort_cards_attributes][${index}][title]`, card.content.title)
-        data.append(`card_sort[card_sort_cards_attributes][${index}][description]`, card.content.description)        
-        data.append(`card_sort[card_sort_cards_attributes][${index}][has_description]`, card.content.has_description)        
+        data.append(`card_sort[card_sort_cards_attributes][${index}][title]`, card.title)
+        data.append(`card_sort[card_sort_cards_attributes][${index}][description]`, card.description)        
+        data.append(`card_sort[card_sort_cards_attributes][${index}][has_description]`, card.has_description)        
         data.append(`card_sort[card_sort_cards_attributes][${index}][order]`, index)        
       })
       Rails.ajax({
@@ -584,8 +565,8 @@ export default {
         this.addCard()       
       } else {
         this.$nextTick(function() {
-          this.$refs[`card_${this.cards[index + 1].id}`].$refs.title.focus()
-        })          
+          this.$refs.card_refs[index + 1].$refs.title.focus()        
+        })
       }      
     },   
     openUpload() {
@@ -624,6 +605,6 @@ export default {
       }) 
     } 
   },
-  components: { Nav, Subscribe, TextInput, TextArea, Slider, Group, Card }
+  components: { Nav, Subscribe, TextInput, TextArea, Slider, Group, Card, draggable }
 }
 </script>

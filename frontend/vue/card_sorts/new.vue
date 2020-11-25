@@ -31,44 +31,42 @@
       </ul>
     </nav>
     <Step v-show="step == 1" current_step="1" :total_steps="total_steps" instructions="Let's start with the basics to set up your study. Then we'll create your cards.">
-      <form>
-        <div class="shadow sm:rounded-md sm:overflow-hidden">
-          <div class="px-4 py-5 bg-white sm:p-6">
-            <div class="mb-6 pb-6 border-b border-gray-100">
-              <TextInput id="name" label="Name" instructions="This won't be visible to your participants" placeholder="Add a descriptive name for your study..." v-model="name"/>
-            </div>
-            <div class="mb-6 pb-6 border-b border-gray-100">
-              <div class="sm:col-span-4">
-                <label for="logo" class="block text-sm leading-5 font-medium text-gray-700">
-                    Logo
-                </label>
-                <p class="mb-2 text-sm text-gray-500">Add your branding to this study (optional)</p>
-                <img v-show="logo_key !== undefined" :src="logo_base_url + '/' + logo_key" class="mb-6 w-40">
-                <div class="mt-2 flex items-center">
-                  <span class="rounded-md shadow-sm">
-                    <button @click="openUpload" type="button" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
-                        Choose File
-                    </button>
-                  </span>
-                </div>
+      <div class="shadow sm:rounded-md sm:overflow-hidden">
+        <div class="px-4 py-5 bg-white sm:p-6">
+          <div class="mb-6 pb-6 border-b border-gray-100">
+            <TextInput id="name" ref="name" label="Name" instructions="This won't be visible to your participants" placeholder="Add a descriptive name for your study..." v-model="name"/>
+          </div>
+          <div class="mb-6 pb-6 border-b border-gray-100">
+            <div class="sm:col-span-4">
+              <label for="logo" class="block text-sm leading-5 font-medium text-gray-700">
+                  Logo
+              </label>
+              <p class="mb-2 text-sm text-gray-500">Add your branding to this study (optional)</p>
+              <img v-show="logo_key !== undefined" :src="logo_base_url + '/' + logo_key" class="mb-6 w-40">
+              <div class="mt-2 flex items-center">
+                <span class="rounded-md shadow-sm">
+                  <button @click="openUpload" type="button" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
+                      Choose File
+                  </button>
+                </span>
               </div>
             </div>
-            <div class="mb-6 pb-6 border-b border-gray-100">
-              <TextArea id="instructions" label="Participant Instructions" instructions="Greet your participants with an introduction" v-model="participant_instructions" />
-            </div>
-            <div class="">
-              <TextArea id="thanks" label="Thank You Message" instructions="Your participants will see this when they complete the study" v-model="thank_you_message" />
-            </div>
           </div>
-          <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-            <span class="inline-flex rounded-md shadow-sm">
-              <button type="button" @click="next" class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition duration-150 ease-in-out">
-                Save and Continue
-              </button>
-            </span>
+          <div class="mb-6 pb-6 border-b border-gray-100">
+            <TextArea id="instructions" label="Participant Instructions" instructions="Greet your participants with an introduction" v-model="participant_instructions" />
+          </div>
+          <div class="">
+            <TextArea id="thanks" label="Thank You Message" instructions="Your participants will see this when they complete the study" v-model="thank_you_message" />
           </div>
         </div>
-      </form>
+        <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+          <span class="inline-flex rounded-md shadow-sm">
+            <button type="button" @click="next" class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition duration-150 ease-in-out">
+              Save and Continue
+            </button>
+          </span>
+        </div>
+      </div>
     </Step>
     
     <Step v-show="step == 2" current_step="2" :total_steps="total_steps" instructions="Now let's choose your sort type and add your cards.">
@@ -131,13 +129,20 @@
               <label for="logo" class="mb-2 block text-sm leading-5 font-medium text-gray-700">
                 Pre-Defined Groups
               </label>
-              <vue-nestable :maxDepth="1" v-model="groups">
-                <vue-nestable-handle
-                  slot-scope="{ item }"
-                  :item="item">
-                  <Group :ref="`group_${item.id}`" v-model="item.name" :group_id="item.id" @remove="removeGroup" @nextGroup="nextGroup" @previousGroup="previousGroup" />
-                </vue-nestable-handle>      
-              </vue-nestable>
+              <draggable
+                v-model="groups"
+                ghost-class="group-list-ghost-class"
+              >
+                <Group
+                  v-for="group in groups"
+                  :key="group.id"
+                  ref="group_refs" 
+                  v-model="group.name" 
+                  :group_id="group.id" 
+                  @remove="removeGroup" 
+                  @nextGroup="nextGroup"
+                />
+              </draggable>
 
               <span class="shadow-sm rounded-md">
                 <button @click="addGroup" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
@@ -154,14 +159,19 @@
               <label for="logo" class="mb-2 block text-sm leading-5 font-medium text-gray-700">
                 Cards
               </label>
-
-              <vue-nestable :maxDepth="1" v-model="cards">
-                <vue-nestable-handle
-                  slot-scope="{ item }"
-                  :item="item">
-                  <Card :ref="`card_${item.id}`" :card_id="item.id" :starting_title="item.content.title" :starting_description="item.content.description" @updateCard="updateCard" @removeCard="removeCard" @nextCard="nextCard" />
-                </vue-nestable-handle>      
-              </vue-nestable>
+              <draggable
+                v-model="cards"
+                ghost-class="group-list-ghost-class"
+              >
+                <Card 
+                  v-for="(card, index) in cards"
+                  ref="card_refs" 
+                  :value="card"
+                  @input="$set(cards, index, $event)"
+                  @removeCard="removeCard" 
+                  @nextCard="nextCard" 
+                />           
+              </draggable>                 
               <span class="shadow-sm rounded-md">
                 <button @click="addCard" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
                   <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
@@ -197,6 +207,7 @@ import Step from '../components/new_tree_test/step.vue'
 import TextInput from '../components/new_tree_test/text_input.vue'
 import TextArea from '../components/new_tree_test/text_area.vue'
 import Slider from '../components/slider.vue'
+import draggable from 'vuedraggable'
 import Group from '../components/new_card_sort/group.vue'
 import Card from '../components/new_card_sort/card.vue'
 import Flash from '../components/flash.vue'
@@ -240,11 +251,9 @@ export default {
       cards: [
         {
           id: 0,
-          content: {
-            title: '',
-            description: '',
-            has_description: false
-          }
+          title: '',
+          description: '',
+          has_description: false
         }
       ],
       card_index: 0
@@ -255,6 +264,7 @@ export default {
       if(this.step === 1 && this.name === '') {
         this.flash_notice = 'Name cannot be blank'
         this.showFlash()
+        this.$refs.name.$refs.input.focus()
       } else {
         this.step += 1
       }
@@ -277,30 +287,18 @@ export default {
     nextGroup: function(group_id) {
       var index = this.groups.findIndex(i => i.id == group_id)
       if(index === this.groups.length - 1) {
-        this.addGroup()
-        this.$nextTick(function() {
-          this.$refs[`group_${this.group_index}`].$refs.input.focus()
-        })        
-      } else {
-        this.$nextTick(function() {
-          this.$refs[`group_${this.groups[index + 1].id}`].$refs.input.focus()
-        })          
-      }
+        this.addGroup()       
+      } 
+      this.$nextTick(function() {
+        this.$refs.group_refs[index + 1].$refs.input.focus()
+      }) 
     }, 
-    previousGroup: function(group_id) {
-      var index = this.groups.findIndex(i => i.id == group_id)
-      if((index !== 0) && (this.groups[index].name === '')) {
-        this.removeGroup(group_id)
-        this.$refs[`group_${this.groups[index - 1].id}`].$refs.input.focus()
-      }
-    },
-    updateCard: function(card_id, content) {
-      var index = this.cards.findIndex(i => i.id == card_id)
-      this.cards[index].content = content
-    },
     addCard: function() {
       this.card_index += 1
-      this.cards.push({id: this.card_index, content: { title: '', description: '', has_description: false }})
+      this.cards.push({id: this.card_index, title: '', description: '', has_description: false })
+      this.$nextTick(function() {
+        this.$refs.card_refs[this.cards.length - 1].$refs.title.focus()
+      })       
     },
     removeCard: function(id) {
       var index = this.cards.findIndex(i => i.id == id)
@@ -309,15 +307,12 @@ export default {
     nextCard: function(card_id) {
       var index = this.cards.findIndex(i => i.id == card_id)
       if(index === this.cards.length - 1) {
-        this.addCard()
+        this.addCard()      
+      } else {     
         this.$nextTick(function() {
-          this.$refs[`card_${this.card_index}`].$refs.title.focus()
-        })        
-      } else {
-        this.$nextTick(function() {
-          this.$refs[`card_${this.cards[index + 1].id}`].$refs.title.focus()
-        })          
-      }      
+          this.$refs.card_refs[index + 1].$refs.title.focus()
+        })    
+      }    
     },   
     openUpload() {
       const options = {
@@ -351,11 +346,11 @@ export default {
       }
       data.append('card_sort[randomize_card_order]', this.randomize_card_order) 
       this.cards.forEach((card, index) => {
-        if(card.content.title === '') {
+        if(card.title === '') {
         } else {
-          data.append('card_sort[card_sort_cards_attributes][' + index + '][title]', card.content.title)   
-          data.append('card_sort[card_sort_cards_attributes][' + index + '][description]', card.content.description)
-          data.append('card_sort[card_sort_cards_attributes][' + index + '][has_description]', card.content.has_description)                    
+          data.append('card_sort[card_sort_cards_attributes][' + index + '][title]', card.title)   
+          data.append('card_sort[card_sort_cards_attributes][' + index + '][description]', card.description)
+          data.append('card_sort[card_sort_cards_attributes][' + index + '][has_description]', card.has_description)
           data.append('card_sort[card_sort_cards_attributes][' + index + '][order]', index)      
         }              
       })
@@ -377,6 +372,6 @@ export default {
       }
     }
   },
-  components: { Nav, Step, TextInput, TextArea, Slider, Group, Card, Flash }
+  components: { Nav, Step, TextInput, TextArea, Slider, draggable, Group, Card, Flash }
 }
 </script>

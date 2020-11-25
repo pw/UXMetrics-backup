@@ -89,6 +89,15 @@ padding: 0;
 cursor: move;
 }
 
+.group-list-ghost-class {
+  background-color: rgba(106, 127, 233, 0.274);
+  border: 1px dashed rgb(73, 100, 241);
+  -webkit-border-radius: 5px;
+  border-radius: 5px;  
+}
+.group-list-ghost-class * {
+  opacity: 0;
+}
 /* CSS for doing transitions with Vue */
 .overlay-enter-active {
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
