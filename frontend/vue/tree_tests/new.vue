@@ -54,7 +54,7 @@
                   Logo
               </label>
               <p class="mb-2 text-sm text-gray-500">Add your branding to this study (optional)</p>
-              <img v-show="logo_key !== undefined" :src="logo_base_url + '/' + logo_key" class="mb-6 w-40">
+              <img v-if="logo_key" :src="logo_base_url + '/' + logo_key" class="mb-6 w-40">
               <div class="mt-2 flex items-center">
                 <span class="rounded-md shadow-sm">               
                   <button @click="openUpload" type="button" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
@@ -284,8 +284,10 @@ export default {
     },     
     save() {
       var data = new FormData
+      if(this.logo_key) {
+        data.append('tree_test[logo_key]', this.logo_key)
+      }
       data.append('tree_test[name]', this.name)
-      data.append('tree_test[logo_key]', this.logo_key)
       data.append('tree_test[participant_instructions]', this.participant_instructions)
       data.append('tree_test[thank_you_message]', this.thank_you_message)
       data.append('tree_test[randomize_tree_order]', this.randomizeTreeOrder)
