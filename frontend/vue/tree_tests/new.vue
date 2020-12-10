@@ -43,56 +43,59 @@
       </ul>
     </nav>
     <Step v-show="step == 1" current_step="1" :total_steps="total_steps" instructions="Let's start with the basics. Then we'll create your tree and tasks.">
-      <form>
-        <div class="shadow sm:rounded-md sm:overflow-hidden">
-          <div class="px-4 py-5 bg-white sm:p-6">
-            <div class="mb-6 pb-6 border-b border-gray-100">
-              <TextInput id="name" label="Name" instructions="This won't be visible to your participants" placeholder="Add a descriptive name for your study..." v-model="name"/>
-            </div>
-            <div class="mb-6 pb-6 border-b border-gray-100">
-              <div class="sm:col-span-4">
-                <label for="logo" class="block text-sm leading-5 font-medium text-gray-700">
-                    Logo
-                </label>
-                <p class="mb-2 text-sm text-gray-500">Add your branding to this study (optional)</p>
-                <img v-show="logo_key !== undefined" :src="logo_base_url + '/' + logo_key" class="mb-6 w-40">
-                <div class="mt-2 flex items-center">
-                  <span class="rounded-md shadow-sm">               
-                    <button @click="openUpload" type="button" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
-                        Choose File
-                    </button>
-                  </span>
-                </div>
+      <div class="shadow sm:rounded-md sm:overflow-hidden">
+        <div class="px-4 py-5 bg-white sm:p-6">
+          <div class="mb-6 pb-6 border-b border-gray-100">
+            <TextInput id="name" label="Name" instructions="This won't be visible to your participants" placeholder="Add a descriptive name for your study..." v-model="name"/>
+          </div>
+          <div class="mb-6 pb-6 border-b border-gray-100">
+            <div class="sm:col-span-4">
+              <label for="logo" class="block text-sm leading-5 font-medium text-gray-700">
+                  Logo
+              </label>
+              <p class="mb-2 text-sm text-gray-500">Add your branding to this study (optional)</p>
+              <img v-show="logo_key !== undefined" :src="logo_base_url + '/' + logo_key" class="mb-6 w-40">
+              <div class="mt-2 flex items-center">
+                <span class="rounded-md shadow-sm">               
+                  <button @click="openUpload" type="button" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
+                      Choose File
+                  </button>
+                </span>
               </div>
             </div>
-            <div class="mb-6 pb-6 border-b border-gray-100">
-              <TextArea id="instructions" label="Participant Instructions" instructions="Greet your participants with an introduction" v-model="participant_instructions" />
-            </div>
-            <div class="">
-              <TextArea id="thanks" label="Thank You Message" instructions="Your participants will see this when they complete the study" v-model="thank_you_message" />
-            </div>
           </div>
-          <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-            <span class="inline-flex rounded-md shadow-sm">
-              <button type="button" @click="next" class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition duration-150 ease-in-out">
-                Save and Continue
-              </button>
-            </span>
-          </div>  
+          <div class="mb-6 pb-6 border-b border-gray-100">
+            <TextArea id="instructions" label="Participant Instructions" instructions="Greet your participants with an introduction" v-model="participant_instructions" />
+          </div>
+          <div class="">
+            <TextArea id="thanks" label="Thank You Message" instructions="Your participants will see this when they complete the study" v-model="thank_you_message" />
+          </div>
         </div>
-      </form>
+        <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+          <span class="inline-flex rounded-md shadow-sm">
+            <button type="button" @click="next" class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition duration-150 ease-in-out">
+              Save and Continue
+            </button>
+          </span>
+        </div>  
+      </div>
     </Step>
 
     <Step v-show="step == 2" current_step="2" :total_steps="total_steps" instructions="Now let's set up a tree representing your information architecture.">
       <div class="shadow sm:rounded-md sm:overflow-hidden">
         <div class="px-4 py-5 bg-white sm:p-6">
-          <vue-nestable :hooks="{'beforeMove': beforeMove}" v-model="tree">
-            <vue-nestable-handle
-              slot-scope="{ item }"
-              :item="item">
+          <VueNestable :hooks="{'beforeMove': beforeMove }" v-model="tree">
+            <div class="flex" slot-scope="{ item }">
+              <VueNestableHandle v-if="!(item.id == tree[0].id && tree.length == 1)" :item="item">   
+                <div class="py-1">
+                  <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24" stroke="none">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10 3C10.2652 3 10.5196 3.10536 10.7071 3.29289L13.7071 6.29289C14.0976 6.68342 14.0976 7.31658 13.7071 7.70711C13.3166 8.09763 12.6834 8.09763 12.2929 7.70711L10 5.41421L7.70711 7.70711C7.31658 8.09763 6.68342 8.09763 6.29289 7.70711C5.90237 7.31658 5.90237 6.68342 6.29289 6.29289L9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6.29289 12.2929C6.68342 11.9024 7.31658 11.9024 7.70711 12.2929L10 14.5858L12.2929 12.2929C12.6834 11.9024 13.3166 11.9024 13.7071 12.2929C14.0976 12.6834 14.0976 13.3166 13.7071 13.7071L10.7071 16.7071C10.3166 17.0976 9.68342 17.0976 9.29289 16.7071L6.29289 13.7071C5.90237 13.3166 5.90237 12.6834 6.29289 12.2929Z"/>
+                  </svg> 
+                </div>            
+              </VueNestableHandle>
               <TreeNode @remove="remove" @add="add" :item="item" v-model="item.text" :tree="tree" :placeholder_text="item.placeholder_text"/>
-            </vue-nestable-handle>
-          </vue-nestable>
+            </div>
+          </VueNestable>
         </div>
         <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
           <span class="inline-flex rounded-md shadow-sm">
@@ -104,7 +107,7 @@
       </div>
     </Step>
    
-    <Step v-show="step == 3" current_step="3" :total_steps="total_steps" instructions="Finally, let's define the tasks you want participants to complete, and set the correct choice(s) for each.">      
+    <Step v-show="step == 3" current_step="3" :total_steps="total_steps" instructions="Finally, let's define the tasks you want participants to complete, and set the correct choice(s) for each."> 
       <div class="shadow sm:rounded-md sm:overflow-hidden">
         <div class="px-4 py-5 bg-white sm:p-6">
           <div class="mb-6 pb-6 border-b border-gray-100">
@@ -123,17 +126,18 @@
           </div>
           <div class="">
             <Slider v-model="allowSkip" label="Allow participants to skip tasks if they get stuck" description="This can reduce abandonment rates and skips are tracked for you" />
-          </div>
+          </div>          
         </div>
-        <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-          <span class="inline-flex rounded-md shadow-sm">
-            <button type="button" @click="save" class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition duration-150 ease-in-out">
-              Save and Continue
-            </button>
-          </span>
-        </div> 
-      </div>
-    </Step>
+         <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+           <span class="inline-flex rounded-md shadow-sm">
+           <button type="button" @click="save" class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition duration-150 ease-in-out">
+               Save and Continue
+             </button>
+           </span>
+         </div> 
+      </div>         
+    </Step>   
+
     <Flash v-show="show_flash" :show="show_flash" :notice="flash_notice">
     </Flash>
   </div>
@@ -306,7 +310,7 @@ export default {
       })
     },
     beforeMove({dragItem, pathFrom, pathTo}) {
-      if(pathTo.length == 1) {
+      if(pathTo.length === 1) {
         return false
       } else {
         return true
@@ -315,7 +319,7 @@ export default {
   },
   computed: {
     title: function() {
-      if(this.step == 1) {
+      if(this.step === 1) {
         return 'New Tree Test'
       } else {
         return this.name
