@@ -23,19 +23,19 @@
               <div class="inline">
                 Published
                 <span class="inline-flex items-center px-3 py-0.5 rounded-full font-medium leading-5 bg-green-100 text-green-800">
-                  <%= @card_sorts['published'] %>
+                  <%= @card_sorts['published'] || 0 %>
                 </span>
               </div>
               <div class="inline ml-2">
                 Drafts
                 <span class="inline-flex items-center px-3 py-0.5 rounded-full font-medium leading-5 bg-orange-100 text-orange-800">
-                  <%= @card_sorts['draft'] %>
+                  <%= @card_sorts['draft'] || 0 %>
                 </span>
               </div>
               <div class="inline ml-2">
                 Ended
                 <span class="inline-flex items-center px-3 py-0.5 rounded-full font-medium leading-5 bg-gray-100 text-gray-800">
-                  <%= @card_sorts['ended'] %>
+                  <%= @card_sorts['ended'] || 0 %>
                 </span>
               </div>
             </div>
@@ -52,19 +52,19 @@
               <div class="inline">
                 Published
                 <span class="inline-flex items-center px-3 py-0.5 rounded-full font-medium leading-5 bg-green-100 text-green-800">
-                  <%= @tree_tests['published'] %>
+                  <%= @tree_tests['published'] || 0 %>
                 </span>
               </div>
               <div class="inline ml-2">
                 Drafts
                 <span class="inline-flex items-center px-3 py-0.5 rounded-full font-medium leading-5 bg-orange-100 text-orange-800">
-                  <%= @tree_tests['draft'] %>
+                  <%= @tree_tests['draft'] || 0 %>
                 </span>
               </div>
               <div class="inline ml-2">
                 Ended
                 <span class="inline-flex items-center px-3 py-0.5 rounded-full font-medium leading-5 bg-gray-100 text-gray-800">
-                  <%= @tree_tests['ended'] %>
+                  <%= @tree_tests['ended'] || 0 %>
                 </span>
               </div>
             </div>
