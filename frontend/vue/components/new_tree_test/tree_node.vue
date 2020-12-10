@@ -12,7 +12,7 @@
         </button>
       </span>      
       <span @click="$emit('add', item.id)" v-if="!disabled" class="inline-flex rounded-md shadow-sm">
-        <button type="button" class="inline-flex items-center px-25 py-1.5 border border-transparent text-xs leading-4 font-medium rounded text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition ease-in-out duration-150">
+        <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs leading-4 font-medium rounded text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition ease-in-out duration-150">
           +
         </button>
       </span>
