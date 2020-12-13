@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-full">
 <head>
   <% if request.host != 'localhost' && request.host != 'ux-card-staging.herokuapp.com' %>
   <!-- Fathom - simple website analytics - https://usefathom.com -->
@@ -35,8 +35,8 @@
 
 </head>
 
-<body>
-  <div data-behavior="vue">
+<body class="h-full">
+  <div class="h-full" data-behavior="vue">
     <%= yield %>
   </div>
 </body>

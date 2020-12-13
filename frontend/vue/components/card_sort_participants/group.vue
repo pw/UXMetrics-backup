@@ -1,7 +1,7 @@
 <template>
-  <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-2 mb-4" :class="{ undraggable: (sort_type === 'closed') }">
+  <div class="px-2 mb-4" :class="{ undraggable: !draggable }">
     <div class="bg-gray-200 overflow-hidden rounded-md shadow">
-      <div class="bg-white px-4 py-2 border-b border-gray-200" :class="{ 'cursor-move': (sort_type !== 'closed') }">
+      <div class="bg-white px-4 py-2 border-b border-gray-200" :class="{ 'cursor-move': draggable }">
         <div v-show="editing_name" class="-ml-4 -mt-2 flex items-center justify-between flex-wrap">
           <div class="flex-1 ml-4 mt-2">
             <div class="rounded-md shadow-sm">
@@ -21,7 +21,7 @@
         </div>        
         <div v-show="!editing_name" class="-ml-4 -mt-2 flex items-center justify-between flex-wrap">
           <div class="ml-4 mt-2">
-            <a @click="toggleNameEdit" class="text-base font-medium leading-5  cursor-pointer" :class="{'underline text-purple-600': can_delete}">
+            <a @click="toggleNameEdit" class="text-base font-medium leading-5  cursor-pointer" :class="{'underline text-purple-600': can_edit_name}">
                 {{ computedName }} 
             </a>
           </div>
@@ -38,12 +38,10 @@
       </div>
       <draggable 
       v-model="cards"          
-      :group="{ name: 'sorted_cards', pull: ['sorted_cards', 'groups', 'drawer'], put: ['sorted_cards', 'unsorted_cards', 'drawer'] }"
+      group="cards"
       class="p-4"      
-      style="min-height: 6rem;"
-      :move="onCardMove"
-      @end="onCardDrop"  
-      ghost-class="card-draggable-ghost-class"         
+      style="min-height: 6rem;"  
+      ghost-class="card-draggable-ghost-class"
       >            
         <Card 
         v-for="card in cards"
@@ -62,19 +60,12 @@
   import Card from './card.vue'
   export default {
     props: {
-      sort_type: String,
       id: Number,
-      can_delete: {
-        type: Boolean,
-        default: true
-      },
+      draggable: Boolean,
+      can_edit_name: Boolean,
+      can_delete: Boolean,
       value: String,
-      initial_cards: {
-        type: Array,
-        default: function() {
-          return []
-        }
-      }
+      initial_cards: Array
     },
     data () {
       return {
@@ -98,22 +89,13 @@
     },
     methods: {
       toggleNameEdit() {
-        if(this.can_delete) {
+        if(this.can_edit_name) {
           this.editing_name = true
           this.$nextTick(function() {
             this.$refs.name.focus()
           })
         }
       },
-      onCardMove(evt) {
-        if(this.sort_type === 'closed' && evt.to.id === 'groups') {
-          return false
-        }        
-        this.$emit('onCardMove', evt)
-      },
-      onCardDrop(evt) {
-        this.$emit('onCardDrop', evt)
-      }
     },
     components: { Card, draggable }
   }

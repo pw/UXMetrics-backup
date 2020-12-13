@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="h-full">
     <div v-show="step  === 'intro'" class="min-h-screen bg-gray-50">
       <main class="py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -72,8 +72,8 @@
         </div>
       </main>
     </div>  
-    <div v-show="step === 'sort'">
-      <div class="bg-white shadow-sm px-4 py-5 sm:px-6">
+    <div class="h-full" v-show="step === 'sort'">
+      <div style="height: 10%" class="bg-white shadow-sm px-4 py-5 sm:px-6">
         <div class="-ml-4 -mt-4 flex justify-between items-center flex-wrap sm:flex-no-wrap">
           <div class="ml-4 mt-4">
             <span class="shadow-sm rounded-md">
@@ -100,81 +100,37 @@
           </div>
         </div>
       </div>
-      <draggable 
-      class="px-6 py-6 mb-64" 
-      id="container" 
-      :group="{ name: 'canvas', pull: false, put: canvasPut }"
-      v-model="container"
-      ghost-class="container-ghost-class"
-      style="position: fixed; width: 100%; height: 100%;"
-      filter=".undraggable"
+      <div 
+      class="px-6 py-6 flex overflow-y-scroll" 
+      style="height: 70%"
       >   
+        <GroupColumn          
+          v-for="(group, index) in groups"
+          v-if="(index + 1) <= columns"
+          :sort_type="card_sort.sort_type"
+          v-model="groups[index]"
+          @releaseCards="addCardsToDrawer"
+        />
+      </div>
+      <div style="height: 20%" class="flex overflow-x-auto bg-gray-200 px-6 pt-6 pb-4 sm:px-6 sm:pt-12 sm:pb-10 animate__animated animate__slideInRight">
         <draggable 
-        id="groups"
-        :class="{ undraggable: (card_sort.sort_type === 'closed') }"        
-        v-model="groups"
-        swap-threshold="0.65"
-        :group="{ name: 'groups', pull: false, put: ['sorted_cards'] }"
-        :sort="(card_sort.sort_type === 'closed') ? false : true"
-        ghost-class="groups-ghost-class" 
-        filter=".undraggable"             
-        @updateCards="updateCards"  
-        :move="onGroupMove"
-        >
-          <transition-group name="group" class="flex flex-wrap" id="space_between_groups" tag="div">
-            <Group
-            v-for="group in groups"
-            v-show="!group.can_delete || (group.cards.length !== 0)"
-            :key="group.id"
-            :sort_type="card_sort.sort_type"
-            :id="group.id"   
-            :can_delete="group.can_delete"
-            :initial_cards="group.cards"
-            v-model="group.name" 
-            @updateCards="updateCards"
-            @addGroup="addGroup"
-            @deleteGroup="deleteGroup"
-            @onCardMove="onCardMove"
-            @onCardDrop="onCardDrop"
-            />
-          </transition-group>
+        v-model="card_sort.card_sort_cards"
+        group="cards"
+        ghost-class="draggable-new-group2"
+        class="flex draggable"
+        :move="onCardMove"
+        @end="onCardDropFromDrawer"
+        >            
+          <Card 
+          v-for="card in card_sort.card_sort_cards"
+          :key="card.id"
+          :id="card.id"
+          :title="card.title"
+          :description="card.description"
+          classes="flex-shrink-0 w-64 mr-2"
+          />
         </draggable>
-      </draggable>
-      <draggable
-       class="fixed inset-x-0 bottom-0 w-full bg-gray-200"
-       :group="{ name: 'drawer', pull: false, put: ['sorted_cards'] }"
-       id="card_container"
-       ghost-class="draggable-new-group"
-       v-model="container2"
-       draggable=".card_container_draggable"
-       >
-        <div v-show="card_sort.card_sort_cards.length === total_cards" class="m-auto px-6 py-6 text-center bg-white">
-          <p class="mb-12">Drag all the cards below into groups that makes sense to you.</p>
-          <svg class="mb-12 m-auto h-12 w-12 text-gray-500 animate-bounce" fill="currentColor" viewBox="0 0 24 24" stroke="none">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M5.29289 7.70711C4.90237 7.31658 4.90237 6.68342 5.29289 6.29289L9.29289 2.29289C9.68342 1.90237 10.3166 1.90237 10.7071 2.29289L14.7071 6.29289C15.0976 6.68342 15.0976 7.31658 14.7071 7.70711C14.3166 8.09763 13.6834 8.09763 13.2929 7.70711L11 5.41421L11 17C11 17.5523 10.5523 18 10 18C9.44772 18 9 17.5523 9 17L9 5.41421L6.70711 7.70711C6.31658 8.09763 5.68342 8.09763 5.29289 7.70711Z"/>
-          </svg>
-        </div>        
-        <div class="flex overflow-x-auto bg-gray-200 px-6 pt-6 pb-4 sm:px-6 sm:pt-12 sm:pb-10 animate__animated animate__slideInRight">
-          <draggable 
-          v-model="card_sort.card_sort_cards"
-          :group="{ name: 'unsorted_cards', pull: ['canvas', 'groups', 'sorted_cards'], put: ['sorted_cards'] }"
-          id="cards"
-          ghost-class="draggable-new-group2"
-          class="flex draggable"
-          :move="onCardMove"
-          @end="onCardDrop"
-          >            
-            <Card 
-            v-for="card in card_sort.card_sort_cards"
-            :key="card.id"
-            :id="card.id"
-            :title="card.title"
-            :description="card.description"
-            classes="flex-shrink-0 w-64 mr-2"
-            />
-          </draggable>
-        </div>
-      </draggable>      
+      </div>      
     </div>  
     <div v-show="step === 'thanks'" class="min-h-screen bg-gray-50">
       <main class="py-6">
@@ -293,7 +249,7 @@
   import Rails from '@rails/ujs'
   import draggable from 'vuedraggable'
   import Card from '../components/card_sort_participants/card.vue'
-  import Group from '../components/card_sort_participants/group.vue'
+  import GroupColumn from '../components/card_sort_participants/group_column.vue'
 
   export default {
     props: { 
@@ -303,16 +259,14 @@
     data () {
       return {
         card_sort: this.data,
-        groups: this.data.card_sort_groups.map(function (group) {
-          return { 
-            id: group.id, 
-            name: group.name,
-            can_delete: false, 
-            cards: []
-          }
-        }),
+        groups: [
+          [],
+          [],
+          [],
+          [],
+          []          
+        ],
         step: 'intro',
-        array: [],
         moving_card: undefined,
         total_cards: this.data.card_sort_cards.length,
         instructions_modal_open: false,
@@ -320,18 +274,21 @@
         error_type: undefined,
         sort_start_time: undefined,
         sort_time_elapsed: undefined,
-        finished_saving_groups: undefined,
-        container: [],
-        container2: []
+        finished_saving_groups: undefined
       }
     },
     computed: {
-      groups_index: function() {
-        if(this.groups.length === 0) {
-          return 0
+      columns: function() {
+        if(this.windowWidth < 640) {
+          return 1
+        } else if(this.windowWidth < 768) {
+          return 2
+        } else if(this.windowWidth < 1024) {
+          return 3
+        } else if(this.windowWidth < 1280) {
+          return 4
         } else {
-          var group_indices = this.groups.map(group => group.id)
-          return (Math.max(...group_indices) + 1)
+          return 5
         }
       }
     },
@@ -343,35 +300,10 @@
       }
     },
     methods: {
-      addGroup() {
-        this.groups = this.groups.concat(this.newGroup())        
-      },
-      addGroupToGroups(group) {
-        this.groups = this.groups.concat(group)  
-      },
-      newGroup() {
-        return {
-          id: this.groups_index + 1,
-          name: undefined,
-          can_delete: true,
-          cards: []
-        }
-      },
-      deleteGroup(id) {
-        var index = this.groups.findIndex(i => i.id == id)
-        var deleted_cards = this.groups[index].cards
-        this.groups.splice(index, 1)
-        this.card_sort.card_sort_cards = this.card_sort.card_sort_cards.concat(deleted_cards)
-      },
-      removeEmptyGroups() {
-        var empty_groups = this.groups.filter(group => group.cards.length === 0 && group.can_delete)
-        empty_groups.forEach(group => this.deleteGroup(group.id))
-      },
-      onGroupMove(evt) {
-      },
-      updateCards(group_id, cards) {
-        var index = this.groups.findIndex(i => i.id == group_id)
-        this.groups[index].cards = cards
+      addCardsToDrawer(cards) {
+        window.console.log(cards)
+        this.card_sort.card_sort_cards = this.card_sort.card_sort_cards.concat(cards)
+        window.console.log(this.$windowWidth)
       },
       onCardMove(evt) {
         if(this.card_sort.sort_type === 'closed' && evt.to.id === 'groups') {
@@ -379,11 +311,11 @@
         }
         this.moving_card = evt
       },
-      onCardDrop(evt) {
+      onCardDrop(evt) {       
         var new_group = this.newGroup()
-        new_group.cards = [this.moving_card.draggedContext.element]     
-        if((evt.to.id === 'groups' || evt.to.id === 'space_between_groups') && this.card_sort.sort_type !== 'closed') {
-          var index = this.moving_card.draggedContext.futureIndex          
+        new_group.cards = [this.moving_card.draggedContext.element]   
+        var index = this.moving_card.draggedContext.futureIndex           
+        if(evt.to.id === 'groups' && this.card_sort.sort_type !== 'closed') {                   
           this.$set(this.groups, index, new_group)
         } else if(evt.to.id === 'container') {
           this.groups.push(new_group)
@@ -392,16 +324,25 @@
         }
         this.removeEmptyGroups()
       },
+      onCardDropFromGroup(evt) {  
+        if(evt.to.className.split(' ').includes('group_column')) {
+          var new_group = this.newGroup(evt.to.id)
+          new_group.cards = [this.moving_card.draggedContext.element]   
+          var index = this.moving_card.draggedContext.futureIndex 
+          this.$set(this[evt.to.id], index, new_group)          
+        }
+      },      
+      onCardDropFromDrawer(evt) {  
+        if(evt.to.className.split(' ').includes('group_column')) {
+          var new_group = this.newGroup(evt.to.id)
+          new_group.cards = [this.moving_card.draggedContext.element]   
+          var index = this.moving_card.draggedContext.futureIndex 
+          this.$set(this[evt.to.id], index, new_group)
+        }
+      },
       startSort() {
         this.step = 'sort'
         this.sort_start_time = new Date
-      },
-      canvasPut() {
-        if(this.card_sort.sort_type === 'closed') {
-          return false
-        } else {
-          return ['unsorted_cards', 'sorted_cards']
-        }        
       },
       saveGroups() {
         this.finished_saving_groups = this.groups.filter(group => group.can_delete).length
@@ -461,6 +402,6 @@
         }
       }
     },
-    components: { draggable, Card, Group }
+    components: { draggable, Card, GroupColumn }
   }
 </script>

@@ -8452,7 +8452,7 @@ vue-loader@^15.9.3:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
-vue-nestable@^2.5.2:
+vue-nestable@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/vue-nestable/-/vue-nestable-2.6.0.tgz#731989e7f8b974cd0fd0cd710fce624b752efcfc"
   integrity sha512-ryhIG2xY1TLAv5u0mYKpSY3V6JsNKwyFOxVvgP8K82zVesWFTw8TyULuuzPQDWEckZCXBicF58oSnrVMAWem6w==
@@ -8487,6 +8487,13 @@ vue-turbolinks@^2.1.0:
   integrity sha512-Rgq9eUS2LgHVoSR58S0utW7g/aqLlVZ6uM7S1e02+xEUGKW1fqhUHQXea3p+cE59ldf+f3nz3Cc3HVO4MlrTFA==
   dependencies:
     vue "^2.2.4"
+
+vue-window-size@0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/vue-window-size/-/vue-window-size-0.6.2.tgz#02522e2c0d8a95f242e0249b6d72a47848bc4e01"
+  integrity sha512-/mODjnC5xdZb0T0UlnUzYgOgxeaUVCEuBZkiD4jss2LkByA+208SA+MhMKvZFcMvej484+7mDjr2q9TNIRj+Dw==
+  dependencies:
+    window-resize-subject "^1.4.2"
 
 vue@^2.2.4, vue@^2.6.12:
   version "2.6.12"
@@ -8708,6 +8715,11 @@ wide-align@^1.1.0:
   integrity sha512-QGkOQc8XL6Bt5PwnsExKBPuMKBxnGxWWW3fU55Xt4feHozMUhdUMaBCk290qpm/wG5u/RSKzwdAC4i51YigihA==
   dependencies:
     string-width "^1.0.2 || 2"
+
+window-resize-subject@^1.4.2:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/window-resize-subject/-/window-resize-subject-1.4.3.tgz#91cb9d3f0e383b45253d58f966ccb0b43106290b"
+  integrity sha512-B1is3uwkqR4L0oBZ1OePtAly8PJV956J+WM8AGTVhhPL9U4jcBt6MJoZMRVrZe9y1RLFvMOrTGAyTEcjBi5siw==
 
 worker-farm@^1.7.0:
   version "1.7.0"
