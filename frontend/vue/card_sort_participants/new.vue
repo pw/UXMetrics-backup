@@ -113,7 +113,6 @@
       </div>
       <div class="flex overflow-x-auto bg-gray-200 px-6 pt-6 pb-4 sm:px-6 sm:pt-12 sm:pb-10 animate__animated animate__slideInRight">
         <draggable 
-        style="min-height: 3em"
         v-model="card_sort.card_sort_cards"
         group="cards"
         ghost-class="draggable-new-group2"
@@ -312,9 +311,7 @@
     },
     methods: {
       addCardsToDrawer(cards) {
-        window.console.log(cards)
         this.card_sort.card_sort_cards = this.card_sort.card_sort_cards.concat(cards)
-        window.console.log(this.$windowWidth)
       },
       startSort() {
         this.step = 'sort'
