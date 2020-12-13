@@ -90,7 +90,7 @@
                 All done?
             </span>
             <span class="shadow-sm rounded-md">
-              <button @click="submit()"class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-green-500 hover:bg-green-400 focus:outline-none focus:shadow-outline-green focus:border-green-600 transition duration-150 ease-in-out">
+              <button @click="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-green-500 hover:bg-green-400 focus:outline-none focus:shadow-outline-green focus:border-green-600 transition duration-150 ease-in-out">
                 <svg class="-ml-1 mr-2 h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM13.7071 8.70711C14.0976 8.31658 14.0976 7.68342 13.7071 7.29289C13.3166 6.90237 12.6834 6.90237 12.2929 7.29289L9 10.5858L7.70711 9.29289C7.31658 8.90237 6.68342 8.90237 6.29289 9.29289C5.90237 9.68342 5.90237 10.3166 6.29289 10.7071L8.29289 12.7071C8.68342 13.0976 9.31658 13.0976 9.70711 12.7071L13.7071 8.70711Z"/>
                 </svg>
@@ -263,6 +263,7 @@
           [],
           []   
         ],
+        final_groups: undefined,
         step: 'intro',
         moving_card: undefined,
         total_cards: this.data.card_sort_cards.length,
@@ -318,8 +319,9 @@
         this.sort_start_time = new Date
       },
       saveGroups() {
-        this.finished_saving_groups = this.groups.filter(group => group.can_delete).length
-        this.groups.forEach((group, index) => {
+        this.final_groups = this.groups.flat()
+        this.finished_saving_groups = this.final_groups.filter(group => group.can_delete).length
+        this.final_groups.forEach((group, index) => {
           if(group.can_delete) {
             var data = new FormData
             data.append('card_sort_group[name]', group.name)
@@ -329,7 +331,7 @@
               type: 'POST', 
               data: data,
               success:  (arg) => {
-                this.groups[index].id = arg.id   
+                this.final_groups[index].id = arg.id   
                 this.finished_saving_groups -= 1
               }
             })        
@@ -341,7 +343,7 @@
         data.append('card_sort_participant[card_sort_id]', this.card_sort.id)
         data.append('card_sort_participant[time]', this.sort_time_elapsed)
         var index = -1 
-        this.groups.forEach((group) => {
+        this.final_groups.forEach((group) => {
           group.cards.forEach((card) => {
             index += 1
             data.append('card_sort_participant[card_sort_sorts_attributes][' + index + '][card_sort_id]', this.card_sort.id)
@@ -362,7 +364,7 @@
         if(this.card_sort.card_sort_cards.length != 0) {
           this.error_type = 'cards'
           this.error_modal_open = true
-        } else if(this.groups.findIndex(group => group.name === undefined) !== -1) {
+        } else if(this.groups.flat().findIndex(group => group.name === undefined) !== -1) {
           this.error_type = 'group names'
           this.error_modal_open = true
         } else if(this.preview) {
