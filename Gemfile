@@ -13,6 +13,7 @@ gem 'bcrypt'
 gem 'postmark'
 gem 'sidekiq'
 gem 'stripe'
+gem "honeybadger", "~> 4.0"
 
 group :development do
   gem 'web-console'

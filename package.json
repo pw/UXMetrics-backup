@@ -2,6 +2,7 @@
   "name": "Userdrive",
   "private": true,
   "dependencies": {
+    "@honeybadger-io/vue": "^0.0.12",
     "@rails/actioncable": "^6.0.3-4",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.2.1",

@@ -22,6 +22,7 @@ import Vue from 'vue/dist/vue.esm'
 
 import VueNestable from 'vue-nestable'
 import VueClipboard from 'vue-clipboard2'
+import HoneybadgerVue from '@honeybadger-io/vue'
 
 import NewTreeTest from '../vue/tree_tests/new.vue'
 import EditTreeTest from '../vue/tree_tests/edit.vue'
@@ -30,6 +31,13 @@ import TreeTestReport from '../vue/tree_tests/report.vue'
 import NewCardSort from '../vue/card_sorts/new.vue'
 import EditCardSort from '../vue/card_sorts/edit.vue'
 import CardSortReport from '../vue/card_sorts/report.vue'
+
+const config = {
+  apiKey: '853438db',
+  environment: 'production'
+}
+
+Vue.use(HoneybadgerVue, config)
 
 Vue.use(VueNestable)
 Vue.use(TurbolinksAdapter)

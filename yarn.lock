@@ -856,6 +856,13 @@
     postcss "7.0.32"
     purgecss "^2.3.0"
 
+"@honeybadger-io/vue@^0.0.12":
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/@honeybadger-io/vue/-/vue-0.0.12.tgz#9ba1e67ce77a50d9d6036425e489403e8f6676ef"
+  integrity sha512-EMj7TntC0iGjOFRYD3aMv7DM7e0lvw/n+EJYTM61HvwcN2cznnqcoDBkDewkoNceWSYNWJ5YCVQHQdY076vEDA==
+  dependencies:
+    honeybadger-js "^2.3.0"
+
 "@npmcli/move-file@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@npmcli/move-file/-/move-file-1.0.1.tgz#de103070dac0f48ce49cf6693c23af59c0f70464"
@@ -4189,6 +4196,11 @@ homedir-polyfill@^1.0.1:
   integrity sha512-eSmmWE5bZTK2Nou4g0AI3zZ9rswp7GRKoKXS1BLUkvPviOqs4YTN1djQIqrXy9k5gEtdLPy86JjRwsNM9tnDcA==
   dependencies:
     parse-passwd "^1.0.0"
+
+honeybadger-js@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/honeybadger-js/-/honeybadger-js-2.3.0.tgz#040200066d60a8c1eca036e9f8568f9cff8b8d55"
+  integrity sha512-Tq1jPNumPe/l5RRDPDi+KNGULoaJQ9BSVZC+TEZOlPUzJx3AUn5ESb2NkCd7oSx/J221/aWUfz2/JrltHldx7A==
 
 hoopy@^0.1.4:
   version "0.1.4"

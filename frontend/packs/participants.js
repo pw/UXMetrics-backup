@@ -13,6 +13,13 @@ import VueWindowSize from 'vue-window-size'
 import NewTreeTestParticipant from '../vue/tree_test_participants/new.vue'
 import NewCardSortParticipant from '../vue/card_sort_participants/new.vue'
 
+import HoneybadgerVue from '@honeybadger-io/vue'
+const config = {
+  apiKey: '853438db',
+  environment: 'production'
+}
+Vue.use(HoneybadgerVue, config)
+
 Vue.use(TurbolinksAdapter)
 Vue.use(VueWindowSize)
 
