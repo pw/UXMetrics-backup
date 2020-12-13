@@ -247,6 +247,10 @@
       v-show="subscribe_modal_open"
       @close="subscribe_modal_open = false"
       :show="subscribe_modal_open"
+      :redirect_url="tree_test.edit_url"
+      :user_id="tree_test.user_id"
+      feature="tree_test"
+      :feature_instance_id="tree_test.id"
       />
     </transition>    
   </div>
@@ -287,6 +291,10 @@ export default {
   },
   methods: {
     publish() {
+      if(!this.tree_test.subscribed) {
+        this.subscribe_modal_open = true
+        return
+      }      
       var r = confirm('Are you sure?')
       if(r == true) {
         var data = new FormData 

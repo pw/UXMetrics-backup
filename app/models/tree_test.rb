@@ -95,6 +95,9 @@ class TreeTest < ApplicationRecord
       hash[:percent_skipped_directly] = percent_skipped_directly && (percent_skipped_directly * 100).round(1)
       hash[:percent_skipped_indirectly] = percent_skipped_indirectly && (percent_skipped_indirectly * 100).round(1)
       hash[:total_participants] = tree_test_participants.count 
+      hash[:subscribed] = user.subscribed
+      hash[:edit_url] = Rails.application.routes.url_helpers.edit_tree_test_url(self)
+      hash[:user_id] = user.id      
     end
   end
 

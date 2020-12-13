@@ -168,7 +168,7 @@
                   </p>
                   <div class="mt-6">
                     <div class="rounded-md shadow">
-                      <a href="#" class="flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-teal-500 hover:bg-teal-400 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">Choose this plan</a>
+                      <a @click="subscribe" class="flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-teal-500 hover:bg-teal-400 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">Choose this plan</a>
                     </div>
                   </div>
                 </div>
@@ -186,7 +186,7 @@
                   </p>              
                   <div class="mt-6">
                     <div class="rounded-md shadow">
-                      <a href="#" class="flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-teal-500 hover:bg-teal-400 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">Choose this plan"</a>
+                      <a @click="subscribe" class="flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-teal-500 hover:bg-teal-400 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">Choose this plan</a>
                     </div>
                   </div>
                 </div>            
@@ -200,9 +200,15 @@
 </template>
 
 <script>
+import Rails from '@rails/ujs'
+
 export default {
   props: {
-    show: Boolean
+    show: Boolean,
+    redirect_url: String,
+    user_id: Number, 
+    feature: String,
+    feature_instance_id: Number
   },
   data () {
     return {
@@ -210,6 +216,32 @@ export default {
     }
   },
   methods: {
+    subscribe() {
+      var reference_id = {
+        user_id: this.user_id,
+        feature: this.feature,
+        feature_instance_id: this.feature_instance_id
+      }
+      var data = new FormData
+      data.append('redirect_url', this.redirect_url)
+      if(this.plan === 'annual') {
+        data.append('price_id', 'price_1Hxt7BBkaUHJfABO8yjDxT7Y')
+      } else if(this.plan === 'monthly') {
+        data.append('price_id', 'price_1Hxt7BBkaUHJfABONF8MEJRn')
+      }
+      data.append('reference_id', JSON.stringify(reference_id))
+      Rails.ajax({
+        url: '/subscription/new',
+        type: 'POST',
+        data: data,
+        success: (response) => {
+          var stripe = Stripe('pk_test_51HTwIfBkaUHJfABO5bK5uD4GUK8PKMCAMm3yChrwAOjd8fuqj8MbcMBcJlULuHIaqW9QFg6e8DBk3ttrOXRJKjv400VXIlFfWs')
+          stripe.redirectToCheckout({
+            sessionId: response.session_id
+          })
+        }
+      })
+    }    
   }
 }
 </script>

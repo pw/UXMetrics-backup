@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: 'dashboard#show', as: 'dashboard'
   get '/verify', to: 'dashboard#verify', as: 'verify'
+  get '/reverify', to: 'dashboard#reverify', as: 'reverify'
 
   get '/account', to: 'account#show', as: 'account'
   post '/update-email', to: 'account#update_email', as: 'update_email'
@@ -54,6 +55,9 @@ Rails.application.routes.draw do
   resources :card_sort_cards
   
   resources :card_sort_participants
+
+  post '/subscription/new', to: 'subscription#new'
+  post '/subscription/create', to: 'subscription#create'
 
   get 'collect_tt/:auth_token', to: 'tree_test_participants#new', as: :tree_test_collect
   get 'collect_tt/:auth_token/:preview', to: 'tree_test_participants#new', as: :tree_test_collect_preview

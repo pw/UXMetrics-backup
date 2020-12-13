@@ -1,8 +1,14 @@
 class AccountController < ApplicationController
   layout 'dashboard'
 
+  def show
+    @billing_portal_url = Stripe::BillingPortal::Session.create({customer: current_user.stripe_customer_id}).url    
+    @tab = params[:tab] || 'profile'
+  end
+
   def update_email
-    current_user.update(email: params[:email])
+    current_user.update(email: params[:email], verified: false)
+    current_user.email_verifications.create
     redirect_to account_path, notice: 'Email address updated.'
   rescue ActiveRecord::RecordNotUnique
     redirect_to account_path, notice: 'Unable to update email address.'    

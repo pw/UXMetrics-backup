@@ -6,9 +6,12 @@ class User < ApplicationRecord
   has_many :tree_tests, dependent: :destroy
   has_many :card_sorts, dependent: :destroy
 
-  after_create :send_welcome_email
+  after_update :send_welcome_email
 
   def send_welcome_email
-    PostmarkEmailJob.perform_later(email, 'welcome', {login_url: Rails.application.routes.url_helpers.login_url, username: email, help_url: ''})
+    if verified && !welcome_email_sent
+      PostmarkEmailJob.perform_later(email, 'welcome', {login_url: Rails.application.routes.url_helpers.login_url, username: email, help_url: ''}) 
+      self.update(welcome_email_sent: true)
+    end
   end
 end

@@ -10,9 +10,14 @@ class CardSort < ApplicationRecord
 
   before_create :add_auth_token
   after_update :send_publication_notice
+  before_update :prevent_publication_without_subscription
 
   def send_publication_notice
     PostmarkEmailJob.perform_later(user.email, 'published-study', {study_name: name, study_url: collect_url}) if status == 'published'
+  end
+
+  def prevent_publication_without_subscription    
+    self.status = 'draft' if self.status == 'published' && !user.subscribed
   end
 
   def median_time
@@ -103,6 +108,9 @@ class CardSort < ApplicationRecord
       hash[:total_groups] = card_sort_groups.count
       hash[:card_sort_groups] = card_sort_groups.where.not(order: nil).order(:order)
       hash[:card_sort_cards] = card_sort_cards_randomized_or_not
+      hash[:subscribed] = user.subscribed
+      hash[:edit_url] = Rails.application.routes.url_helpers.edit_card_sort_url(self)
+      hash[:user_id] = user.id
     end
   end
 

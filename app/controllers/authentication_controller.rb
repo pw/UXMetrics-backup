@@ -4,7 +4,8 @@ class AuthenticationController < UnauthenticatedController
 
   def signup        
     user = User.create(email: params[:email], password: params[:password])
-    login_user(user)
+    user.email_verifications.create
+    login_user(user)    
     redirect_to dashboard_path
 
   rescue ActiveRecord::RecordNotUnique

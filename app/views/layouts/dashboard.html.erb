@@ -19,8 +19,6 @@
   <!-- / Fathom -->
   <% end %>
 
-
-
   <title><%= content_for?(:page_title)? yield(:page_title) : "#{Rails.configuration.application_name}" %></title>
   <meta name="description" content="<%= content_for?(:page_description)? yield(:page_description) : "UX Research Tools - Card Sorting" %>" />
 
@@ -34,6 +32,8 @@
   <%= favicon_link_tag asset_pack_path('media/images/favicon.png') %>
 
   <%= stylesheet_pack_tag "dashboard", "data-turbolinks-track": "reload" %>
+
+  <script src="https://js.stripe.com/v3/"></script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
