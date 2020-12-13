@@ -60,16 +60,15 @@
   import Card from './card.vue'
   export default {
     props: {
-      id: Number,
+      id: String,
       draggable: Boolean,
       can_edit_name: Boolean,
       can_delete: Boolean,
-      value: String,
-      initial_cards: Array
+      value: String
     },
     data () {
       return {
-        cards: this.initial_cards,
+        cards: [],
         editing_name: false
       }
     },

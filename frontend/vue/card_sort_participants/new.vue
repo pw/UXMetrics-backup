@@ -253,7 +253,7 @@
       data: Object,
       preview: Boolean
     },
-    data () {
+    data: function() {
       return {
         card_sort: this.data,
         groups: [
@@ -261,7 +261,7 @@
           [],
           [],
           [],
-          []          
+          []   
         ],
         step: 'intro',
         moving_card: undefined,
@@ -273,6 +273,19 @@
         sort_time_elapsed: undefined,
         finished_saving_groups: undefined
       }
+    },
+    created() {
+      this.card_sort.card_sort_groups.forEach((group, index) => {        
+        var groupObject = {
+          id: group.id.toString(),
+          name: group.name,
+          can_delete: false,
+          can_edit_name: false,
+          cards: []
+        }
+        var column = index % this.columns
+        this.groups[column].push(groupObject)
+      })
     },
     computed: {
       columns: function() {
