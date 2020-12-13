@@ -70,6 +70,8 @@
       draggablePut(){
         if(this.sort_type === 'closed') {
           return false
+        } else {
+          return ['groups', 'cards']
         }
       },     
       newGroup() {
