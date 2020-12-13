@@ -16,6 +16,7 @@
     :can_edit_name="group.can_edit_name"
     :can_delete="group.can_delete"
     v-model="group.name" 
+    :initial_cards="group.cards"
     @deleteGroup="deleteGroup"
     @updateCards="updateCards"
     />

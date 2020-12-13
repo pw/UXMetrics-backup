@@ -64,11 +64,12 @@
       draggable: Boolean,
       can_edit_name: Boolean,
       can_delete: Boolean,
-      value: String
+      value: String,
+      initial_cards: Array
     },
     data () {
       return {
-        cards: [],
+        cards: this.initial_cards,
         editing_name: false
       }
     },
