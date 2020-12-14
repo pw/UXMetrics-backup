@@ -111,7 +111,7 @@
           @releaseCards="addCardsToDrawer"
         />
       </div>
-      <div class="flex overflow-x-auto overflow-y-hidden bg-gray-200 px-6 pt-6 pb-4 sm:px-6 sm:pt-12 sm:pb-10 animate__animated animate__slideInRight">
+      <div class="flex overflow-x-auto overflow-y-hidden bg-gray-200 px-6 pt-6 pb-4 sm:px-6 sm:pt-12 sm:pb-10">
         <draggable 
         v-model="card_sort.card_sort_cards"
         group="cards"
