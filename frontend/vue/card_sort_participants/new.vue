@@ -101,7 +101,7 @@
         </div>
       </div>
       <div 
-      class="px-6 py-6 flex-grow flex overflow-y-scroll h-full" 
+      class="px-12 sm:px-6 py-6 flex-grow flex overflow-y-scroll h-full" 
       >   
         <GroupColumn          
           v-for="(group, index) in groups"
