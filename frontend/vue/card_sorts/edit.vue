@@ -358,15 +358,15 @@ const filestack_client = filestack.init('AuALnf2VzTPqJAkEOLar1z');
 export default {
   props: {
     data: {
-      type: Array
+      type: Object
     }
   },
   data () {
     return {
-      card_sort: this.data[0],
+      card_sort: this.data,
       tab: 'settings',
-      groups: this.data[0].card_sort_groups.sort((a,b) => a.order - b.order),  
-      cards: this.data[0].card_sort_cards.sort((a,b) => a.order - b.order),
+      groups: this.data.card_sort_groups.sort((a,b) => a.order - b.order),
+      cards: this.data.card_sort_cards.sort((a,b) => a.order - b.order),
       subscribe_modal_open: false
     }
   },  

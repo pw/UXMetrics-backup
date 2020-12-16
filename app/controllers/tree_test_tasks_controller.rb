@@ -1,4 +1,7 @@
 class TreeTestTasksController < ApplicationController
+  skip_before_action :authenticate, only: :outcome
+  skip_before_action :check_verification, only: :outcome
+
   def create
     tree_test = TreeTest.find(params[:tree_test_task][:tree_test_id])
     tree_test_task = TreeTestTask.new
@@ -27,8 +30,6 @@ class TreeTestTasksController < ApplicationController
     
   def outcome
     tree_test_task = TreeTestTask.find(params[:id])
-
-    head :forbidden and return unless tree_test_task.tree_test.user == current_user
 
     case params[:outcome]
     when "indirect_correct"

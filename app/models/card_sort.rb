@@ -1,4 +1,6 @@
 class CardSort < ApplicationRecord
+  has_secure_password validations: false
+
   belongs_to :user
   has_many :card_sort_sorts, dependent: :destroy
   has_many :card_sort_groups, dependent: :destroy
@@ -8,17 +10,11 @@ class CardSort < ApplicationRecord
   accepts_nested_attributes_for :card_sort_groups, allow_destroy: true
   accepts_nested_attributes_for :card_sort_cards, allow_destroy: true
 
-  before_create :add_auth_token
-  after_update :send_publication_notice
-  before_update :prevent_publication_without_subscription
-
-  def send_publication_notice
-    PostmarkEmailJob.perform_later(user.email, 'published-study', {study_name: name, study_url: collect_url}) if status == 'published'
+  before_create :add_auth_token, :add_report_token
+  before_update do 
+    @publication = true if (status_changed? && status == 'published')
   end
-
-  def prevent_publication_without_subscription    
-    self.status = 'draft' if self.status == 'published' && !user.subscribed
-  end
+  after_commit :send_publication_notice
 
   def median_time
     return nil if card_sort_participants.where(excluded: false).count == 0
@@ -122,4 +118,17 @@ class CardSort < ApplicationRecord
     end
     self.auth_token = auth_token    
   end
+
+  def add_report_token  
+    token = SecureRandom.alphanumeric(ENV['SHORTENER_STARTING_KEY_LENGTH'].to_i)
+    while TreeTest.find_by(report_token: token)
+      token = SecureRandom.alphanumeric(auth_token.length + 1)
+    end
+    self.report_token = token    
+  end  
+
+  def send_publication_notice
+    PostmarkEmailJob.perform_later(user.email, 'published-study', {study_name: name, study_url: collect_url}) if @publication
+  end
+
 end

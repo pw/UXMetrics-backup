@@ -104,6 +104,10 @@ export default {
   props: {
     data: {
       type: Array
+    },
+    public_report: {
+      type: Boolean,
+      default: false
     }
   },  
   data () {

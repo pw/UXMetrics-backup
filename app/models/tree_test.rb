@@ -1,16 +1,16 @@
-class TreeTest < ApplicationRecord
+class TreeTest < ApplicationRecord  
+  has_secure_password validations: false
   belongs_to :user
   has_many :tree_test_tasks, dependent: :destroy
   has_many :tree_test_participants, dependent: :destroy
 
   accepts_nested_attributes_for :tree_test_tasks, allow_destroy: true
 
-  before_create :add_auth_token
-  after_update :send_publication_notice
-
-  def send_publication_notice
-    PostmarkEmailJob.perform_later(user.email, 'published-study', {study_name: name, study_url: collect_url}) if status == 'published'
+  before_create :add_auth_token, :add_report_token
+  before_update do 
+    @publication = true if (status_changed? && status == 'published')
   end
+  after_commit :send_publication_notice
 
   def participants(offset = 0)
     tree_test_participants.order(:id).limit(1).offset(offset)
@@ -109,4 +109,16 @@ class TreeTest < ApplicationRecord
       end
       self.auth_token = auth_token
     end  
+
+    def add_report_token  
+      token = SecureRandom.alphanumeric(ENV['SHORTENER_STARTING_KEY_LENGTH'].to_i)
+      while TreeTest.find_by(report_token: token)
+        token = SecureRandom.alphanumeric(auth_token.length + 1)
+      end
+      self.report_token = token    
+    end   
+
+    def send_publication_notice
+      PostmarkEmailJob.perform_later(user.email, 'published-study', {study_name: name, study_url: collect_url}) if @publication
+    end    
 end

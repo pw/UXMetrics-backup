@@ -145,7 +145,7 @@
 
 <script>
 import Nav from '../components/new_tree_test/nav.vue'
-import Step from '../components/new_tree_test/step.vue'
+import Step from '../components/creation_step.vue'
 import TextInput from '../components/new_tree_test/text_input.vue'
 import TextArea from '../components/new_tree_test/text_area.vue'
 import Slider from '../components/slider.vue'

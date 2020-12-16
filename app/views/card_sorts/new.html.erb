@@ -1,1 +1,1 @@
-<card-sort-new :data="<%= {logo_base_url: "https://#{ENV['LOGO_UPLOAD_ENDPOINT']}"}.to_json %>" />
+<card-sort-new :data="<%= @card_sort.to_json(include: [:card_sort_cards]) %>"/>

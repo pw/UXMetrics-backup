@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_13_135517) do
+ActiveRecord::Schema.define(version: 2020_12_16_072239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,17 +63,22 @@ ActiveRecord::Schema.define(version: 2020_12_13_135517) do
   end
 
   create_table "card_sorts", force: :cascade do |t|
-    t.string "name"
-    t.string "logo_key"
-    t.text "participant_instructions"
-    t.text "thank_you_message"
-    t.string "sort_type"
-    t.boolean "randomize_card_order"
+    t.string "name", default: ""
+    t.string "logo_key", default: ""
+    t.text "participant_instructions", default: "Thank you for agreeing to help us! This shouldn't take more than 5 minutes.\n\nThere are no right or wrong answers. Our goal is to learn how you think about, organize and label certain topics into groups."
+    t.text "thank_you_message", default: "Thanks for taking the time to help us!\n\nYour feedback is essential for us to deliver ongoing improvements."
+    t.string "sort_type", default: "open"
+    t.boolean "randomize_card_order", default: false
     t.string "auth_token"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status", default: "draft"
+    t.string "report_token"
+    t.string "password_digest"
+    t.boolean "shareable", default: true
+    t.integer "creation_step", default: 1
+    t.boolean "creation_wizard_complete", default: false
     t.index ["user_id"], name: "index_card_sorts_on_user_id"
   end
 
@@ -155,6 +160,10 @@ ActiveRecord::Schema.define(version: 2020_12_13_135517) do
     t.integer "current_tree_index"
     t.string "auth_token"
     t.string "logo_key"
+    t.string "report_token"
+    t.string "report_password"
+    t.string "password_digest"
+    t.boolean "shareable", default: true
     t.index ["auth_token"], name: "index_tree_tests_on_auth_token"
     t.index ["user_id"], name: "index_tree_tests_on_user_id"
   end

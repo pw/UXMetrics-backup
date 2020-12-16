@@ -65,5 +65,9 @@ Rails.application.routes.draw do
   get 'collect_cs/:auth_token', to: 'card_sort_participants#new', as: :card_sort_collect
   get 'collect_cs/:auth_token/:preview', to: 'card_sort_participants#new', as: :card_sort_collect_preview  
 
+  get '/tt_report/:token', to: 'reports#tree_tests', as: :tree_test_public_report
+  get '/tt_report/:token/login', to: 'reports#new_tt_login', as: :reports_new_tt_login
+  post '/tt_report/:token/login', to: 'reports#tt_login', as: :reports_tt_login
+
   get '/admin/password_reset', to: 'admin#password_reset'
 end
