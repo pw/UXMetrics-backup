@@ -136,8 +136,16 @@ export default {
     },
     completeStep3() {
       this.card_sort.creation_wizard_complete = true
-      this.saveProperty('creation_wizard_complete')
-      window.location = this.card_sort.edit_url
+      var data = new FormData 
+      data.append('card_sort[creation_wizard_complete]', this.card_sort.creation_wizard_complete)
+      Rails.ajax({
+        url: '/card_sorts/' + this.card_sort.id,
+        type: 'PATCH', 
+        data: data,
+        success: () => {
+          window.location = this.card_sort.edit_url
+        }
+      })      
     },
     back: function() {
       this.card_sort.creation_step -= 1

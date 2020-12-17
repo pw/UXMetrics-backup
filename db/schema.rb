@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_17_052121) do
+ActiveRecord::Schema.define(version: 2020_12_17_065052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -159,9 +159,8 @@ ActiveRecord::Schema.define(version: 2020_12_17_052121) do
     t.bigint "user_id"
     t.integer "current_tree_index"
     t.string "auth_token"
-    t.string "logo_key"
+    t.string "logo_key", default: ""
     t.string "report_token"
-    t.string "report_password"
     t.string "password_digest"
     t.boolean "shareable", default: true
     t.index ["auth_token"], name: "index_tree_tests_on_auth_token"

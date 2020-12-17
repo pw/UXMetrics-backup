@@ -207,12 +207,12 @@ import Participant from '../components/card_sort_report/participant.vue'
 export default {
   props: {
     data: {
-      type: Array
+      type: Object
     }
   },  
   data () {
     return {
-      card_sort: this.data[0],
+      card_sort: this.data,
       tab: 'cards',
       new_merge_group_modal_open: false,
       manage_merged_group_modal_open: false,
@@ -220,8 +220,8 @@ export default {
       merged_group_name: null,
       merged_group_id: null,
       merged_groups: [],
-      current_participant_id: this.data[0].participants[0][0],
-      current_participant_database_id: this.data[0].participants[0][1]
+      current_participant_id: this.data.participants[0][0],
+      current_participant_database_id: this.data.participants[0][1]
     }
   },
   mounted: function() {

@@ -69,5 +69,9 @@ Rails.application.routes.draw do
   get '/tt_report/:token/login', to: 'reports#new_tt_login', as: :reports_new_tt_login
   post '/tt_report/:token/login', to: 'reports#tt_login', as: :reports_tt_login
 
+  get '/cs_report/:token', to: 'reports#card_sorts', as: :card_sort_public_report
+  get '/cs_report/:token/login', to: 'reports#new_cs_login', as: :reports_new_cs_login
+  post '/cs_report/:token/login', to: 'reports#cs_login', as: :reports_cs_login
+
   get '/admin/password_reset', to: 'admin#password_reset'
 end

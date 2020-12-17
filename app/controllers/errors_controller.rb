@@ -1,4 +1,4 @@
-class ErrorsController < ApplicationController
+class ErrorsController < UnauthenticatedController
   def not_found
     render(status: 404)
   end

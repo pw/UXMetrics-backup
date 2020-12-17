@@ -79,12 +79,20 @@ class TreeTest < ApplicationRecord
     Rails.application.routes.url_helpers.tree_test_collect_url(auth_token: auth_token)
   end
 
+  def logo_url
+    if logo_key == '' 
+      ActionController::Base.helpers.asset_pack_path('media/images/uxmetrics-logo.svg')
+    else 
+      "https://#{ENV['LOGO_UPLOAD_ENDPOINT']}/#{logo_key}"
+    end   
+  end
+
   def as_json(*)
     super.tap do |hash|
       hash[:created_at_day] = created_at.strftime('%-m/%-d/%Y')
       hash[:collect_url] = collect_url
       hash[:logo_base_url] = "https://#{ENV['LOGO_UPLOAD_ENDPOINT']}"
-      hash[:logo_url] = (logo_key != 'undefined') ? "https://#{ENV['LOGO_UPLOAD_ENDPOINT']}/#{logo_key}" : ActionController::Base.helpers.asset_pack_path('media/images/uxmetrics-logo.svg')
+      hash[:logo_url] = logo_url
       hash[:test_results_count] = tree_test_participants.where(excluded: false).count
       hash[:percent_success] = percent_success_rounded
       hash[:median_time] = median_time_formatted
