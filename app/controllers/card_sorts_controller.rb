@@ -2,7 +2,17 @@ class CardSortsController < ApplicationController
   layout 'dashboard'
 
   def new
-    @card_sort = current_user.card_sorts.create
+    @card_sort = current_user.card_sorts.new
+  end
+
+  def create
+    @card_sort = current_user.card_sorts.new(card_sort_params)
+
+    if @card_sort.save
+      render json: @card_sort
+    else
+      head :internal_server_error
+    end
   end
 
   def index

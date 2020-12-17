@@ -36,7 +36,7 @@ const config = {
   apiKey: '853438db',
   environment: 'production'
 }
-Vue.use(HoneybadgerVue, config)
+//Vue.use(HoneybadgerVue, config)
 
 Vue.use(VueNestable)
 Vue.use(TurbolinksAdapter)

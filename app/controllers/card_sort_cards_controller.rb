@@ -1,29 +1,34 @@
 class CardSortCardsController < ApplicationController
   def create
-    if CardSort.find(params[:card_sort_card][:card_sort_id]).user == current_user
-      render json: CardSortCard.create(card_sort_card_params)
+    @card_sort_card = current_user.card_sorts.find(params[:card_sort_card][:card_sort_id]).card_sort_cards.new(card_sort_card_params)
+    if @card_sort_card.save
+      render json: @card_sort_card
     else
-      head :forbidden
+      head :internal_server_error
     end
   end
 
   def destroy
-    card = CardSortCard.find(params[:id])
+    @card = CardSortCard.find(params[:id])
 
-    if card.card_sort.user == current_user
-      render json: card.destroy
+    return head :forbidden unless @card.user == current_user
+
+    if @card.destroy
+      render json: @card
     else 
-      head :forbidden
+      head :internal_server_error
     end
   end
 
   def update
-    card = CardSortCard.find(params[:id])
+    @card = CardSortCard.find(params[:id])
 
-    if card.card_sort.user == current_user
-      render json: card.update(card_sort_card_params)
+    return head :forbidden unless @card.user == current_user
+
+    if @card.update(card_sort_card_params)
+      render json: @card
     else 
-      head :forbidden
+      head :internal_server_error
     end
   end
 

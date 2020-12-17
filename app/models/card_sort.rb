@@ -89,12 +89,12 @@ class CardSort < ApplicationRecord
   end
 
   def collect_url
-    Rails.application.routes.url_helpers.card_sort_collect_url(auth_token: auth_token)
+    Rails.application.routes.url_helpers.card_sort_collect_url(auth_token: auth_token) if auth_token
   end
 
   def as_json(*)
     super.tap do |hash| 
-      hash[:created_at_day] = created_at.strftime('%-m/%-d/%Y')
+      hash[:created_at_day] = created_at&.strftime('%-m/%-d/%Y')
       hash[:collect_url] = collect_url
       hash[:logo_base_url] = "https://#{ENV['LOGO_UPLOAD_ENDPOINT']}"
       hash[:logo_url] = (logo_key != 'undefined') ? "https://#{ENV['LOGO_UPLOAD_ENDPOINT']}/#{logo_key}" : ActionController::Base.helpers.asset_pack_path('media/images/uxmetrics-logo.svg')
@@ -105,7 +105,7 @@ class CardSort < ApplicationRecord
       hash[:card_sort_groups] = card_sort_groups.where.not(order: nil).order(:order)
       hash[:card_sort_cards] = card_sort_cards_randomized_or_not
       hash[:subscribed] = user.subscribed
-      hash[:edit_url] = Rails.application.routes.url_helpers.edit_card_sort_url(self)
+      hash[:edit_url] = Rails.application.routes.url_helpers.edit_card_sort_url(self) if id
       hash[:user_id] = user.id
     end
   end
