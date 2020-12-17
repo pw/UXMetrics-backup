@@ -7,7 +7,7 @@ class ReportsController < UnauthenticatedController
   def tree_tests    
     @tree_test = TreeTest.where(report_token: params[:token]).includes(tree_test_tasks: :tree_test_task_correct_choices)
     session["tt_#{params[:token]}"] = nil
-    render layout: 'dashboard'
+    render layout: 'public_report'
   end
 
   def new_tt_login
@@ -29,7 +29,7 @@ class ReportsController < UnauthenticatedController
   def card_sorts
     @card_sort = CardSort.where(report_token: params[:token]).first
     session["cs_#{params[:token]}"] = nil
-    render layout: 'dashboard'
+    render layout: 'public_report'
   end
 
   def cs_login
