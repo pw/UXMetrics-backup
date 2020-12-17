@@ -252,7 +252,8 @@
                         <Group 
                         v-for="group in groups"
                         ref="group_refs"
-                        v-model="group.name" 
+                        v-model="group.name"
+                        :ref="`group_${group.id}`"
                         :group_id="group.id" 
                         @remove="removeGroup" 
                         @nextGroup="nextGroup" 
@@ -316,7 +317,7 @@
                     </div>                    
                   </div>
                   <div class="">
-                    <Slider v-model="card_sort.randomize_card_order" @input="saveProperty('randomize_card_order')" :disabled="card_sort.status !== 'draft'" label="Randomize card order for each participant" />
+                    <Slider :value="card_sort.randomize_card_order" @input="saveProperty('randomize_card_order')" :disabled="card_sort.status !== 'draft'" label="Randomize card order for each participant" />
                   </div>                      
                 </div>
               </div>
@@ -345,11 +346,11 @@ import Nav from '../components/edit_tree_test/nav.vue'
 import Subscribe from '../components/subscribe.vue'
 import Rails from '@rails/ujs'
 
-import TextInput from '../components/new_tree_test/text_input.vue'
-import TextArea from '../components/new_tree_test/text_area.vue'
+import TextInput from '../components/text_input.vue'
+import TextArea from '../components/text_area.vue'
 import Slider from '../components/slider.vue'
-import Group from '../components/new_card_sort/group.vue'
-import Card from '../components/new_card_sort/card.vue'
+import Group from '../components/card_sort/group.vue'
+import Card from '../components/card_sort/card.vue'
 
 import draggable from 'vuedraggable'
 import * as filestack from 'filestack-js'
