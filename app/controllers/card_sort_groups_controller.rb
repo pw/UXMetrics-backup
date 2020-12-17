@@ -3,10 +3,12 @@ class CardSortGroupsController < ApplicationController
   skip_before_action :check_verification, only: :create_participant_designated_group
 
   def create
-    if CardSort.find(params[:card_sort_group][:card_sort_id]).user == current_user
-      render json: CardSortGroup.create(card_sort_group_params)
+    return head :forbidden unless CardSort.find(params[:card_sort_group][:card_sort_id]).user == current_user
+    @card_sort_group = CardSortGroup.new(card_sort_group_params)
+    if @card_sort_group.save
+      render json: @card_sort_group
     else
-      head :forbidden
+      head :internal_server_error
     end
   end
 

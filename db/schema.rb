@@ -10,24 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_16_072239) do
+ActiveRecord::Schema.define(version: 2020_12_17_052121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "card_sort_cards", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
+    t.string "title", default: ""
+    t.text "description", default: ""
     t.bigint "card_sort_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "order"
-    t.boolean "has_description"
+    t.boolean "has_description", default: false
     t.index ["card_sort_id"], name: "index_card_sort_cards_on_card_sort_id"
   end
 
   create_table "card_sort_groups", force: :cascade do |t|
-    t.string "name"
+    t.string "name", default: ""
     t.bigint "card_sort_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

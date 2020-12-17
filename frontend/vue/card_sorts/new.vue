@@ -35,21 +35,24 @@
       <div class="mb-6 pb-6 border-b border-gray-100">
         <TextInput id="name" ref="name" label="Name" instructions="This won't be visible to your participants" placeholder="Add a descriptive name for your study..." 
         v-model="card_sort.name"
+        @input="saveProperty('name')"
         />
       </div>
       <div class="mb-6 pb-6 border-b border-gray-100">
         <TextArea id="instructions" label="Participant Instructions" instructions="Greet your participants with an introduction" 
-        v-model="card_sort.participant_instructions" 
+        v-model="card_sort.participant_instructions"
+        @input="saveProperty('participant_instructions')" 
         />
       </div>
       <div class="mb-6 pb-6 border-b border-gray-100">
         <TextArea id="thanks" label="Thank You Message" instructions="Your participants will see this when they complete the study" 
-        v-model="card_sort.thank_you_message" 
+        v-model="card_sort.thank_you_message"
+        @input="saveProperty('thank_you_message')" 
         />
       </div>       
     </Step>
     
-    <Step v-show="card_sort.creation_step == 2" @next="next" instructions="Now let's choose your sort type and add your cards.">
+    <Step v-show="card_sort.creation_step == 2" @next="completeStep2" instructions="Now let's choose your sort type and add your cards.">
       <div :class="{'mb-6 pb-6 border-b border-gray-100': (card_sort.sort_type === 'closed') || (card_sort.sort_type === 'hybrid')}">
         <SortType 
         v-model="card_sort.sort_type"
@@ -62,9 +65,13 @@
       :card_sort_id="card_sort.id"
       v-show="(card_sort.sort_type === 'closed') || (card_sort.sort_type === 'hybrid')"
       />
+      <Cards
+      :value="cards"
+      :card_sort_id="card_sort.id"
+      />
     </Step>
 
-    <Step v-show="card_sort.creation_step == 3" @next="next" instructions="Enhance your study with some optional upgrades.">
+    <Step v-show="card_sort.creation_step == 3" @next="completeStep3" instructions="Enhance your study with some optional upgrades.">
       <div class="bg-purple-50 sm:rounded-md px-4 py-6 mb-6 flex items-end">
         <div>
           <h4 class="text-lg leading-7 font-medium mb-2">Upgrade to Pro for just $99/year (optional)</h4>
@@ -123,15 +130,14 @@ export default {
     }
   },
   methods: {
-    next: function() {
-      if(this.card_sort.creation_step === 1 && this.card_sort.name === '') {
-        this.flash_notice = 'Name cannot be blank'
-        this.showFlash()
-        this.$refs.name.$refs.input.focus()
-      } else {
-        this.card_sort.creation_step += 1
-        this.saveProperty('creation_step')
-      }
+    completeStep2() {
+      this.card_sort.creation_step += 1
+      this.saveProperty('creation_step')
+    },
+    completeStep3() {
+      this.card_sort.creation_wizard_complete = true
+      this.savePropery('creation_wizard_complete')
+      window.location = this.card_sort.edit_url
     },
     back: function() {
       this.card_sort.creation_step -= 1
@@ -147,30 +153,36 @@ export default {
         this.$refs.name.$refs.input.focus()      
         return
       } 
-      var data = new FormData
-      data.append('card_sort[name]', this.card_sort.name)
-      data.append('card_sort[participant_instructions]', this.card_sort.participant_instructions)
-      data.append('card_sort[thank_you_message]', this.card_sort.thank_you_message)      
-      Rails.ajax({
-        url: '/card_sorts',
-        type: 'POST', 
-        data: data,
-        dataType: 'json',
-        success: (response) => {
-          this.card_sort = response
-          this.card_sort.creation_step += 1
-          this.saveProperty('creation_step')
-        }
-      })      
+      if(!this.card_sort.id) {
+        var data = new FormData
+        data.append('card_sort[name]', this.card_sort.name)
+        data.append('card_sort[participant_instructions]', this.card_sort.participant_instructions)
+        data.append('card_sort[thank_you_message]', this.card_sort.thank_you_message)      
+        Rails.ajax({
+          url: '/card_sorts',
+          type: 'POST', 
+          data: data,
+          dataType: 'json',
+          success: (response) => {
+            this.card_sort = response
+            this.card_sort.creation_step += 1
+            this.saveProperty('creation_step')
+          }
+        })  
+      } else {
+        this.card_sort.creation_step += 1          
+      }
     },  
     saveProperty(property) {
-      var data = new FormData 
-      data.append('card_sort[' + property + ']', this.card_sort[property])
-      Rails.ajax({
-        url: '/card_sorts/' + this.card_sort.id,
-        type: 'PATCH', 
-        data: data
-      }) 
+      if(this.card_sort.id) {
+        var data = new FormData 
+        data.append('card_sort[' + property + ']', this.card_sort[property])
+        Rails.ajax({
+          url: '/card_sorts/' + this.card_sort.id,
+          type: 'PATCH', 
+          data: data
+        }) 
+      }
     }     
   },
   computed: {

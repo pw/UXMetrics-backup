@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-6 pb-6 border-b border-gray-100">
+  <div>
     <div class="sm:col-span-4">
       <label class="mb-2 block text-sm leading-5 font-medium text-gray-700">
         Cards
@@ -39,12 +39,14 @@
 </template>
 
 <script>
+import Rails from '@rails/ujs' 
 import Draggable from 'vuedraggable' 
 import Card from './card.vue'
+
 export default {
-  components: { Draggable },
+  components: { Draggable, Card },
   props: {
-    value: Boolean,
+    value: Array,
     card_sort_id: Number,
     enabled: {
       type: Boolean,
@@ -58,7 +60,7 @@ export default {
   },
   methods: {
     saveCards() {
-      if(!enabled) { return }
+      if(!this.enabled) { return }
 
       var data = new FormData
       this.cards.forEach((card, index) => {
@@ -75,7 +77,7 @@ export default {
       })
     },    
     removeCard(id) {
-      if(!enabled) { return }      
+      if(!this.enabled) { return }      
       var index = this.cards.findIndex(i => i.id == id)
       var data = new FormData
       Rails.ajax({
@@ -97,7 +99,7 @@ export default {
       }      
     },     
     addCard() {
-      if(!enabled) { return }
+      if(!this.enabled) { return }
 
       var index = this.cards.length
       var data = new FormData
@@ -116,7 +118,7 @@ export default {
       })
     }, 
     saveCard: function(card_id) {
-      if(!enabled) { return }
+      if(!this.enabled) { return }
             
       var card = this.cards.find(i => i.id == card_id)
       var data = new FormData

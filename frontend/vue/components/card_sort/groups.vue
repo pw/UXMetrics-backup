@@ -9,6 +9,8 @@
         v-model="groups"
         ghost-class="group-list-ghost-class"
         @change="saveGroups"
+        filter=".form-input"
+        :prevent-on-filter="false"
       >
         <Group 
         v-for="group in groups"
@@ -63,9 +65,7 @@ export default {
   },
   methods: {
     saveGroups() {
-      if(!enabled) {
-        return
-      }
+      if(!this.enabled) { return }
       var data = new FormData
       this.groups.forEach((group, index) => {
         data.append('card_sort[card_sort_groups_attributes][' + index + '][id]', group.id) 
@@ -78,6 +78,7 @@ export default {
       })              
     },
     removeGroup(id) {
+      if(!this.enabled) { return }
       var index = this.groups.findIndex(i => i.id == id)
       var data = new FormData
       data.append('card_sort_group[card_sort_id]', this.card_sort_id)
@@ -101,9 +102,9 @@ export default {
       }
     },  
     addGroup: function() {
+      if(!this.enabled) { return }
       var index = this.groups.length
       var data = new FormData
-      data.append('card_sort_group[name]', '')
       data.append('card_sort_group[order]', index)
       data.append('card_sort_group[card_sort_id]', this.card_sort_id)
       Rails.ajax({
@@ -111,8 +112,7 @@ export default {
         type: 'POST', 
         data: data,
         success:  (arg) => {
-          this.groups.push({id: arg.id, name: ''})
-          window.console.log(`group_${arg.id}`)
+          this.groups.push(arg)
           this.$nextTick(function() {
             this.$refs.group_refs[this.groups.length - 1].$refs.input.focus()
           })          
@@ -120,9 +120,9 @@ export default {
       })      
     }, 
     updateGroup(id) {
+      if(!this.enabled) { return }
       var index = this.groups.findIndex(i => i.id == id)
       var data = new FormData
-      data.append('card_sort_group[id]', id)
       data.append('card_sort_group[name]', this.groups[index].name)     
       Rails.ajax({
         url: '/card_sort_groups/' + id,
