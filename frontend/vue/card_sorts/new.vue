@@ -136,7 +136,7 @@ export default {
     },
     completeStep3() {
       this.card_sort.creation_wizard_complete = true
-      this.savePropery('creation_wizard_complete')
+      this.saveProperty('creation_wizard_complete')
       window.location = this.card_sort.edit_url
     },
     back: function() {
