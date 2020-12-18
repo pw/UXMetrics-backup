@@ -87,13 +87,39 @@
       class="mb-6 pb-6 border-b border-gray-100"
       v-model="card_sort.logo_key"
       @input="saveProperty('logo_key')"
-      instructions="Add branding to this study"
+      instructions="Add custom branding to this study"
       :logo_base_url="card_sort.logo_base_url"
       :enabled="card_sort.subscribed"
       />
       <Slider class="mb-6 pb-6 border-b border-gray-100" v-model="card_sort.randomize_card_order" input="saveProperty('randomize_card_order')" label="Randomize card order for each participant" description="This ensures that each card has a chance to be sorted earlier in the session" />
-      <Slider class="mb-6 pb-6 border-b border-gray-100" v-model="card_sort.shareable" :enabled="card_sort.subscribed" @input="saveProperty('shareable')" label="Shareable report" description="Your study report is publically available via an unlisted URL" />    
-      <Slider class="mb-6 pb-6" v-model="card_sort.randomize_card_order" :enabled="card_sort.subscribed" @input="saveProperty('shareable')" label="Password protect your reports" description="Keep reports private and securely share access with clients" />    
+      <Slider class="mb-6" v-model="card_sort.shareable" :enabled="card_sort.subscribed" @input="saveProperty('shareable')" label="Advanced Report Sharing" description="Your study results can be shared with an unlisted public URL by default" />
+      <div class="relative flex items-start mb-6">
+        <div class="flex items-center h-5">
+          <input id="private" name="private" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+        </div>
+        <div class="ml-3 text-sm">
+          <label for="private" class="font-medium text-gray-700">Keep my report private</label>
+          <p class="text-gray-500">Your results will not be available for sharing publicly</p>
+        </div>
+      </div>
+      <div class="relative flex items-start mb-6">
+        <div class="flex items-center h-5">
+          <input id="password" name="password" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+        </div>
+        <div class="ml-3 text-sm">
+          <label for="password" class="font-medium text-gray-700">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-gray-700 h-4 w-4 inline">
+              <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+            </svg>
+            Add password protection
+          </label>
+          <p class="text-gray-500 mb-6">Securely share your study results with your team and clients</p>
+          <TextInput id="password" ref="password" label="Report Password" instructions="Provide this to anyone you want to have access" 
+          v-model="card_sort.password"
+          @input="saveProperty('password')"
+          />
+        </div>
+      </div>
     </Step>
 
     <Flash v-show="show_flash" :show="show_flash" :notice="flash_notice">
