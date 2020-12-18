@@ -72,6 +72,7 @@
     </Step>
 
     <Step v-show="card_sort.creation_step == 3" @next="completeStep3" instructions="Enhance your study with some optional pro upgrades.">
+      <ProBadge></ProBadge>
       <LogoUpload
       class="mb-6 pb-6 border-b border-gray-100"
       v-model="card_sort.logo_key"
@@ -81,6 +82,7 @@
       :enabled="card_sort.subscribed"
       @attempt="subscribe_modal_open = true"
       />
+      <ProBadge></ProBadge>
       <Slider 
       class="mb-6 pb-6 border-b border-gray-100" 
       v-model="card_sort.randomize_card_order" 
@@ -88,6 +90,7 @@
       :toggleable="card_sort.subscribed" 
       @attempt="openSubscribeModal"
       label="Randomize card order for each participant" description="This ensures that each card has a chance to be sorted earlier in the session" />
+      <ProBadge></ProBadge>
       <Slider 
       class="mb-6" 
       :value="card_sort.subscribed" 
@@ -274,6 +277,6 @@ export default {
       }
     }
   },
-  components: { Nav, Step, TextInput, TextArea, Slider, Groups, Cards, Flash, SaveAndContinue, LogoUpload, SortType, Subscribe }
+  components: { Nav, Step, TextInput, TextArea, Slider, Groups, Cards, Flash, SaveAndContinue, LogoUpload, ProBadge, SortType, Subscribe }
 }
 </script>
