@@ -20,178 +20,129 @@
             </button>
           </div>
           <div>
-            <div class="mt-3 text-center sm:mt-5">
+            <div class="my-3 text-center sm:my-6">
               <h3 class="text-3xl leading-9 font-extrabold text-gray-900">
-                Ready to publish?
+                Ready to go pro?
               </h3>
               <div class="mt-2">
-                <p class="text-sm leading-5 text-gray-500">
-                  Choose your plan to continue.
+                <p class="text-xl text-gray-500 sm:text-center">
+                  Unlock unlimited access to all pro features for an entire year.
                 </p>
               </div>
             </div>
-          </div>
-          <div>
-            <div class="max-w-screen-xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-              <div class="max-w-3xl mx-auto lg:max-w-none">
-                <div class="my-4">
-                  <span class="relative z-0 inline-flex shadow-sm rounded-md">
-                    <button 
-                    @click="plan = 'annual'" 
-                    type="button" 
-                    class="relative inline-flex items-center px-4 py-2 rounded-l-md border text-sm leading-5 font-medium transition ease-in-out duration-150" 
-                    :class="{ 
-                    'border-transparent text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700': (plan === 'annual'),             
-                    'border-gray-300 bg-white text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700': (plan !== 'annual') }">
-                      Annual
-                    </button>
-                    <button 
-                    @click="plan = 'monthly'" 
-                    type="button" 
-                    class="-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border text-sm leading-5 font-medium transition ease-in-out duration-150" 
-                    :class="{ 
-                    'border-transparent text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700': (plan === 'monthly'), 
-                    'border-gray-300 bg-white text-gray-700 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700': (plan !== 'monthly') 
-                    }"
-                    >
-                      Monthly
-                    </button>
-                  </span>
+            <div class="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0">
+              <div class="border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-200">
+                <div class="p-6">
+                  <h2 class="text-lg leading-6 font-medium text-gray-900">Basic</h2>
+                  <p class="mt-4 text-sm text-gray-500">Do professional user research without limits.</p>
+                  <p class="mt-8">
+                    <span class="text-4xl font-extrabold text-gray-900">Free</span>
+                  </p>
                 </div>
-              </div>
-            </div>
+                <div class="pt-6 pb-8 px-6">
+                  <h3 class="text-xs font-medium text-gray-900 tracking-wide uppercase">What's included</h3>
+                  <ul class="mt-6 space-y-4">
+                    <li class="flex space-x-3">
+                      <!-- Heroicon name: check -->
+                      <svg class="flex-shrink-0 h-5 w-5 text-teal-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="text-sm text-gray-500"><strong>Unlimited</strong> studies</span>
+                    </li>
 
-            <div class="max-w-lg mx-auto rounded-lg bg-white shadow overflow-hidden lg:max-w-none lg:flex">
-              <div class="px-6 py-8 lg:p-12">
-                <div v-show="plan === 'annual'">
-                  <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium leading-5 bg-teal-100 text-teal-800">
-                    Save 20%
-                  </span>
-                  <h3 class="mt-2 text-2xl leading-9 font-extrabold text-gray-900">
-                    Annual Subscription 
-                  </h3>
-                  <p class="mt-6 text-base leading-6 text-gray-500">
-                    Maximum value for ongoing and frequent user research projects. Great for agencies, consultants and enterprise UXR teams.
-                  </p>
-                </div>
-                <div v-show="plan === 'monthly'">            
-                  <h3 class="mt-2 text-2xl leading-9 font-extrabold text-gray-900">
-                    Monthly Subscription 
-                  </h3>
-                  <p class="mt-6 text-base leading-6 text-gray-500">
-                    Maximum flexibility for occassional or one-time user research projects. Simply pause your subscription between studies and re-start it again when you need it.
-                  </p>
-                </div>            
-                <div class="mt-8">
-                  <div class="flex items-center">
-                    <h4 class="flex-shrink-0 pr-4 bg-white text-sm leading-5 tracking-wider font-semibold uppercase text-purple-600">
-                      What's included
-                    </h4>
-                    <div class="flex-1 border-t-2 border-gray-200"></div>
-                  </div>
-                  <ul class="mt-8 md:grid md:grid-cols-2 md:gap-4">
-                    <li class="flex items-start">
-                      <div class="flex-shrink-0">
-                        <svg class="h-6 w-6 text-teal-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                        </svg>
-                      </div>
-                      <p class="ml-3 text-base leading-6 text-gray-700">
-                        <strong>Unlimited studies</strong>
-                      </p>
+                    <li class="flex space-x-3">
+                      <!-- Heroicon name: check -->
+                      <svg class="flex-shrink-0 h-5 w-5 text-teal-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="text-sm text-gray-500"><strong>Unlimited</strong> participant results per study</span>
                     </li>
-                    <li class="flex items-start">
-                      <div class="flex-shrink-0">
-                        <svg class="h-6 w-6 text-teal-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                        </svg>
-                      </div>
-                      <p class="ml-3 text-base leading-6 text-gray-700">
-                      <strong>Unlimited participants</strong>
-                      </p>
+
+                    <li class="flex space-x-3">
+                      <!-- Heroicon name: check -->
+                      <svg class="flex-shrink-0 h-5 w-5 text-teal-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="text-sm text-gray-500">Great participant experience on any device (desktop or mobile)</span>
                     </li>
-                    <li class="flex items-start">
-                      <div class="flex-shrink-0">
-                        <svg class="h-6 w-6 text-teal-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                        </svg>
-                      </div>
-                      <p class="ml-3 text-base leading-6 text-gray-700">
-                        Remote or lab, moderated or unmoderated
-                      </p>
+
+                    <li class="flex space-x-3">
+                      <!-- Heroicon name: check -->
+                      <svg class="flex-shrink-0 h-5 w-5 text-teal-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="text-sm text-gray-500">Customizable greetings and thank you messages</span>
                     </li>
-                    <li class="flex items-start">
-                      <div class="flex-shrink-0">
-                        <svg class="h-6 w-6 text-teal-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                        </svg>
-                      </div>
-                      <p class="ml-3 text-base leading-6 text-gray-700">
-                        Custom branding
-                      </p>
+
+                    <li class="flex space-x-3">
+                      <!-- Heroicon name: check -->
+                      <svg class="flex-shrink-0 h-5 w-5 text-teal-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="text-sm text-gray-500">Remote or lab, moderated or unmoderated</span>
                     </li>
-                    <li class="flex items-start">
-                      <div class="flex-shrink-0">
-                        <svg class="h-6 w-6 text-teal-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                        </svg>
-                      </div>
-                      <p class="ml-3 text-base leading-6 text-gray-700">
-                        Detailed reporting and analysis
-                      </p>
-                    </li>
-                    <li class="flex items-start">
-                      <div class="flex-shrink-0">
-                        <svg class="h-6 w-6 text-teal-500" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                        </svg>
-                      </div>
-                      <p class="ml-3 text-base leading-6 text-gray-700">
-                        Great participant experience on any device
-                      </p>
+
+                    <li class="flex space-x-3">
+                      <!-- Heroicon name: check -->
+                      <svg class="flex-shrink-0 h-5 w-5 text-teal-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="text-sm text-gray-500">Detailed analysis tools to make sense of your results</span>
                     </li>
                   </ul>
                 </div>
               </div>
-              <div class="py-8 px-6 text-center bg-gray-50 lg:flex-shrink-0 lg:flex lg:flex-col lg:justify-center lg:p-12">
-                <div v-show="plan === 'annual'">
-                  <div class="mt-4 flex items-center justify-center text-5xl leading-none font-extrabold text-gray-900">
-                    <span>
-                      $79
-                    </span>
-                    <span class="ml-3 text-xl leading-7 font-medium text-gray-500">
-                      /mo
-                    </span>
-                  </div>
-                  <p class="mt-4 text-sm leading-5 font-medium text-gray-500">
-                    (Billed annually at $948)
+
+              <div class="border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-200">
+                <div class="p-6">
+                  <h2 class="text-lg leading-6 font-medium text-gray-900">Pro</h2>
+                  <p class="mt-4 text-sm text-gray-500">Premium features to enhance your studies.</p>
+                  <p class="mt-8">
+                    <span class="text-4xl font-extrabold text-gray-900">$99</span>
+                    <span class="text-base font-medium text-gray-500">/year</span>
                   </p>
-                  <div class="mt-6">
-                    <div class="rounded-md shadow">
-                      <a @click="subscribe" class="flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-teal-500 hover:bg-teal-400 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">Choose this plan</a>
-                    </div>
-                  </div>
                 </div>
-                <div v-show="plan === 'monthly'">
-                  <div class="mt-4 flex items-center justify-center text-5xl leading-none font-extrabold text-gray-900">
-                    <span>
-                      $99
-                    </span>
-                    <span class="ml-3 text-xl leading-7 font-medium text-gray-500">
-                      /mo
-                    </span>
-                  </div>
-                  <p class="mt-4 text-sm leading-5 font-medium text-gray-500">
-                    (Billed monthly)
-                  </p>              
-                  <div class="mt-6">
-                    <div class="rounded-md shadow">
-                      <a @click="subscribe" class="flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-teal-500 hover:bg-teal-400 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">Choose this plan</a>
-                    </div>
-                  </div>
-                </div>            
+                <div class="pt-6 pb-8 px-6">
+                  <h3 class="text-xs font-medium text-gray-900 tracking-wide uppercase">Everything in Basic, plus...</h3>
+                  <ul class="mt-6 space-y-4">
+                    <li class="flex space-x-3">
+                      <!-- Heroicon name: check -->
+                      <svg class="flex-shrink-0 h-5 w-5 text-teal-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="text-sm text-gray-500">Custom branding on your studies and reports</span>
+                    </li>
+
+                    <li class="flex space-x-3">
+                      <!-- Heroicon name: check -->
+                      <svg class="flex-shrink-0 h-5 w-5 text-teal-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="text-sm text-gray-500">Card and task randomization</span>
+                    </li>
+
+                    <li class="flex space-x-3">
+                      <!-- Heroicon name: check -->
+                      <svg class="flex-shrink-0 h-5 w-5 text-teal-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="text-sm text-gray-500">Advanced report sharing and password protection</span>
+                    </li>
+
+                    <li class="flex space-x-3">
+                      <!-- Heroicon name: check -->
+                      <svg class="flex-shrink-0 h-5 w-5 text-teal-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="text-sm text-gray-500">Priority email support</span>
+                    </li>
+
+                  </ul>
+                  <a @click="subscribe" class="mt-8 block w-full bg-teal-500 border border-transparent rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-teal-400 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out cursor-pointer">Upgrade to Pro</a>
+                </div>
               </div>
             </div>
+
           </div>
         </div>
       </transition>

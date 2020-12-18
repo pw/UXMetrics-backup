@@ -111,7 +111,7 @@
         </div>
         <div class="ml-3 text-sm">
           <label for="report_private" class="font-medium text-gray-700">Keep my report private</label>
-          <p class="text-gray-500">Your results will not be available for sharing publicly</p>
+          <p class="text-gray-500">Disable public access to your results</p>
         </div>
       </div>
       <div class="relative flex items-start mb-6">
