@@ -1,5 +1,6 @@
 <template>
   <div class="sm:col-span-4" :class="{'opacity-50': greyed_out}">
+    <ProBadge></ProBadge>
     <label for="logo" class="block text-sm leading-5 font-medium text-gray-700">
         Logo
     </label>

@@ -71,7 +71,7 @@
       />
     </Step>
 
-    <Step v-show="card_sort.creation_step == 3" @next="completeStep3" instructions="Enhance your study with some optional upgrades.">
+    <Step v-show="card_sort.creation_step == 3" @next="completeStep3" instructions="Enhance your study with some optional pro upgrades.">
       <LogoUpload
       class="mb-6 pb-6 border-b border-gray-100"
       v-model="card_sort.logo_key"
@@ -170,6 +170,7 @@ import Groups from '../components/card_sort/groups.vue'
 import Cards from '../components/card_sort/cards.vue'
 import Slider from '../components/slider.vue'
 import LogoUpload from '../components/logo_upload.vue'
+import ProBadge from '../components/pro_badge.vue'
 import SortType from '../components/sort_type_selector.vue'
 import Subscribe from '../components/subscribe.vue'
 
