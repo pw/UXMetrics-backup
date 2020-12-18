@@ -1,5 +1,5 @@
 <template>
-  <div class="sm:col-span-4" :class="{'opacity-50': !enabled}">
+  <div class="sm:col-span-4" :class="{'opacity-50': greyed_out}">
     <label for="logo" class="block text-sm leading-5 font-medium text-gray-700">
         Logo
     </label>
@@ -7,7 +7,7 @@
     <img v-show="value !== ''" :src="logo_base_url + '/' + value" class="mb-6 w-40">
     <div class="mt-2 flex items-center">
       <span class="rounded-md shadow-sm">
-        <button @click="openUpload" type="button" :class="{'cursor-default': !enabled, 'hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800': enabled}"" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 transition duration-150 ease-in-out">
+        <button @click="openUpload" type="button" :class="{'cursor-default': !enabled, 'hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800': !greyed_out}"" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 transition duration-150 ease-in-out">
             Choose File
         </button>
       </span>
@@ -27,16 +27,20 @@ export default {
     enabled: {
       type: Boolean,
       default: true
+    },
+    greyed_out: {
+      type: Boolean, 
+      default: false
     }
   },
   data() {
     return {
-
     }
   },
   methods: {
     openUpload() {
       if(!this.enabled) {
+        this.$emit('attempt')
         return
       }
       const options = {

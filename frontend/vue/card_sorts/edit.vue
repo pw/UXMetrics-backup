@@ -5,7 +5,6 @@
     <main class="py-6">   
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-wrap">
-
           <div class="w-full md:w-1/3 xl:w-2/5 md:pr-16 mb-6">
 
             <div v-show="card_sort.status == 'draft'" class="bg-white shadow sm:rounded-lg text-center mb-6">
@@ -13,9 +12,7 @@
                 <h3 class="text-lg leading-6 font-medium text-gray-900">
                   Your card sort has been created!
                 </h3>
-
                 <p class="text-sm text-center py-2 mb-4">Ready to publish? Just hit the button below.</p>
-
                 <button @click="publish" class="block w-full text-center px-6 py-3 rounded-md shadow-sm cursor-pointer border border-transparent text-base leading-6 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700  focus:shadow-outline-purple active:bg-purple-700 transition ease-in-out duration-150">
                   Publish
                 </button>
@@ -91,11 +88,11 @@
 
             <div class="bg-gray-200 overflow-hidden rounded-lg mb-6 text-center">
               <div class="px-4 py-5 sm:p-6">
-                <a @click="endTest" v-show="card_sort.status == 'published'" class="end-t mb-6 block text-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md shadow-sm text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150 cursor-pointer">End This Test</a>   
+                <a @click="endStudy" v-show="card_sort.status == 'published'" class="end-t mb-6 block text-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md shadow-sm text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150 cursor-pointer">End This Test</a>   
 
                 <p v-show="card_sort.status == 'ended'" class="mb-6 block text-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-gray-200">This test has been ended.</p>                       
                 <p class="text-sm">
-                  Need to <a @click="deleteTest" class="text-red-700 underline cursor-pointer">delete</a> this study?
+                  Need to <a @click="deleteStudy" class="text-red-700 underline cursor-pointer">delete</a> this study?
                 </p>
               </div>
             </div>
@@ -147,31 +144,21 @@
                             class="w-1/3 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm leading-5">
                             Cards
                           </button>
+                          <button 
+                            @click="tab = 'pro'"
+                            :class="{ 'border-purple-500 text-purple-600 focus:outline-none focus:text-purple-800 focus:border-purple-700': tab == 'pro' }"
+                            class="w-1/3 py-4 px-1 text-center border-b-2 border-transparent font-medium text-sm leading-5">
+                            Pro
+                          </button>                          
                         </nav>
                       </div>
                     </div>
                   </div>              
                 </div>
 
-                <div v-show="tab == 'settings'">
+                <div v-show="tab === 'settings'">
                   <div class="mb-6 pb-6 border-b border-gray-100">
                     <TextInput id="name" label="Name" instructions="This won't be visible to your participants" placeholder="Add a descriptive name for your card sort..." v-model="card_sort.name" @blur="saveProperty('name')" :disabled="card_sort.status != 'draft'" />
-                  </div>
-                  <div class="mb-6 pb-6 border-b border-gray-100">
-                    <div class="sm:col-span-4">
-                      <label for="logo" class="block text-sm leading-5 font-medium text-gray-700">
-                          Logo
-                      </label>
-                      <p class="mb-2 text-sm text-gray-500">Add your branding to this study (optional)</p>
-                      <img v-show="card_sort.logo_key !== 'undefined'" :src="card_sort.logo_base_url + '/' + card_sort.logo_key" class="w-40">
-                      <div class="mt-2 flex items-center">
-                        <span class="rounded-md shadow-sm">
-                          <button @click="openUpload" :disabled="card_sort.status !== 'draft'" :class="{'cursor-not-allowed opacity-50': (card_sort.status != 'draft')}" type="button" class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out">
-                              Choose File
-                          </button>
-                        </span>
-                      </div>
-                    </div>
                   </div>
                   <div class="mb-6 pb-6 border-b border-gray-100">
                     <TextArea id="instructions" label="Participant Instructions" instructions="Greet your participants with a custom introduction" :disabled="card_sort.status != 'draft'" v-model="card_sort.participant_instructions" @blur="saveProperty('participant_instructions')" />
@@ -181,144 +168,95 @@
                   </div>            
                 </div>
 
-                <div v-show="tab == 'cards'">  
-                  <div class="mb-6 pb-6 border-b border-gray-100">
-                    <div class="sm:col-span-4">
-                      <label for="sort_type" class="mb-2 block text-sm leading-5 font-medium text-gray-700">
-                          Sort Type
-                      </label>
-                      <div
-                      @click="changeSortType('open')"
-                      v-show="(card_sort.status === 'draft') || (card_sort.sort_type === 'open')" 
-                      :class="{'bg-purple-100  border border-purple-600': (card_sort.sort_type === 'open'), 'bg-gray-50 hover:bg-purple-100': (card_sort.sort_type !== 'open'), 'cursor-pointer hover:bg-purple-200': (card_sort.status === 'draft')}" 
-                      class="overflow-hidden shadow rounded-lg  mb-3 transition duration-150 ease-in-out">
-                        <div class="p-2 sm:p-3">
-                          <div class="flex items-center">
-                            <div class="flex-shrink-0 p-1">
-                              <input v-model="card_sort.sort_type" @change="saveProperty('sort_type')" :disabled="card_sort.status != 'draft'" id="open_sort" name="sort_type" value="open" aria-label="open" type="radio" checked class="h-4 w-4 border-gray-300 text-purple-600 focus:shadow-outline-purple focus:border-purple-300 transition duration-150 ease-in-out" />
-                            </div>
-                            <div class="ml-2 w-0 flex-1">
-                              <p class="text-sm leading-5 font-medium text-gray-700">Open</p>
-                              <p class="text-sm text-gray-500">Participants sort cards into groups they create and name</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div 
-                      @click="changeSortType('closed')"
-                      v-show="(card_sort.status === 'draft') || (card_sort.sort_type === 'closed')" :class="{'bg-purple-100 border border-purple-600': (card_sort.sort_type === 'closed'), 'bg-gray-50 hover:bg-purple-100': (card_sort.sort_type !== 'closed'), 'cursor-pointer hover:bg-purple-200': (card_sort.status === 'draft')}" class="overflow-hidden shadow rounded-lg mb-3 transition duration-150 ease-in-out">
-                        <div class="p-2 sm:p-3">
-                          <div class="flex items-center">
-                            <div class="flex-shrink-0 p-1">
-                              <input v-model="card_sort.sort_type" @change="saveProperty('sort_type')" :disabled="card_sort.status != 'draft'" id="closed_sort" name="sort_type" value="closed" aria-label="closed" type="radio" class="h-4 w-4 border-gray-300 text-purple-600 focus:shadow-outline-purple focus:border-purple-300 transition duration-150 ease-in-out" />
-                            </div>
-                            <div class="ml-2 w-0 flex-1">
-                              <p class="text-sm leading-5 font-medium text-gray-700">Closed</p>
-                              <p class="text-sm text-gray-500">Participants sort cards into groups pre-defined by you</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div 
-                      @click="changeSortType('hybrid')"
-                      v-show="(card_sort.status === 'draft') || (card_sort.sort_type === 'hybrid')" :class="{'bg-purple-100 border border-purple-600': (card_sort.sort_type === 'hybrid'), 'bg-gray-50 hover:bg-purple-100': (card_sort.sort_type !== 'hybrid'), 'cursor-pointer hover:bg-purple-200': (card_sort.status === 'draft')}" class="overflow-hidden shadow rounded-lg mb-3 transition duration-150 ease-in-out">
-                        <div class="p-2 sm:p-3">
-                          <div class="flex items-center">
-                            <div class="flex-shrink-0 p-1">
-                              <input v-model="card_sort.sort_type" @change="saveProperty('sort_type')" :disabled="card_sort.status != 'draft'" id="hybrid_sort" name="sort_type" value="hybrid" aria-label="hybrid" type="radio" class="h-4 w-4 border-gray-300 text-purple-600 focus:shadow-outline-purple focus:border-purple-300 transition duration-150 ease-in-out" />
-                            </div>
-                            <div class="ml-2 w-0 flex-1">
-                              <p class="text-sm leading-5 font-medium text-gray-700">Hybrid</p>
-                              <p class="text-sm text-gray-500">Participants sort cards into into pre-defined groups but can also create and name their own groups</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>  
-                  </div>
-            
-                  <div v-show="(card_sort.sort_type === 'closed') || (card_sort.sort_type === 'hybrid')" class="sm:col-span-4">
-                    <div class="mb-6 pb-6 border-b border-gray-100">
-                      <label for="logo" class="mb-2 block text-sm leading-5 font-medium text-gray-700">
-                        Pre-Defined Groups
-                      </label>
+                <div v-show="tab === 'cards'">  
+                  <SortType
+                  v-model="card_sort.sort_type"
+                  @input="saveProperty('sort_type')"
+                  :enabled="card_sort.status === 'draft'"
+                  />            
+                  <Groups 
+                  :value="groups"
+                  :card_sort_id="card_sort.id"
+                  v-show="(card_sort.sort_type === 'closed') || (card_sort.sort_type === 'hybrid')"
+                  :enabled="card_sort.status === 'draft'"
+                  />
+                  <Cards
+                  :value="cards"
+                  :card_sort_id="card_sort.id"
+                  :enabled="card_sort.status === 'draft'"
+                  />                     
+                </div>
 
-                      <draggable
-                        v-if="card_sort.status === 'draft'"
-                        v-model="groups"
-                        ghost-class="group-list-ghost-class"
-                        @change="saveGroups"
-                      >
-                        <Group 
-                        v-for="group in groups"
-                        ref="group_refs"
-                        v-model="group.name"
-                        :ref="`group_${group.id}`"
-                        :group_id="group.id" 
-                        @remove="removeGroup" 
-                        @nextGroup="nextGroup" 
-                        @updateGroup="updateGroup" 
-                        />
-                      </draggable>
-                      <Group
-                        v-else
-                        v-for="group in groups"
-                        :ref="`group_${group.id}`"
-                        v-model="group.name"
-                        :group_id="group.id"
-                        :disabled="true"
-                      />
-                      <span class="shadow-sm rounded-md">
-                        <button v-show="card_sort.status == 'draft'" @click="addGroup" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                            <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM11 7C11 6.44772 10.5523 6 10 6C9.44772 6 9 6.44772 9 7V9H7C6.44772 9 6 9.44771 6 10C6 10.5523 6.44772 11 7 11H9V13C9 13.5523 9.44772 14 10 14C10.5523 14 11 13.5523 11 13V11H13C13.5523 11 14 10.5523 14 10C14 9.44772 13.5523 9 13 9H11V7Z" />
-                            </svg>
-                            New Group
-                        </button>
-                      </span>
-                    </div>  
+                <div v-show="tab === 'pro'">
+                  <LogoUpload
+                  class="mb-6 pb-6 border-b border-gray-100"
+                  v-model="card_sort.logo_key"
+                  @input="saveProperty('logo_key')"
+                  instructions="Add custom branding to this study"
+                  :logo_base_url="card_sort.logo_base_url"
+                  :enabled="card_sort.subscribed"
+                  @attempt="subscribe_modal_open = true"
+                  />
+                  <Slider 
+                  class="mb-6 pb-6 border-b border-gray-100" 
+                  v-model="card_sort.randomize_card_order" 
+                  @input="saveProperty('randomize_card_order')" 
+                  :toggleable="card_sort.subscribed" 
+                  @attempt="openSubscribeModal"
+                  label="Randomize card order for each participant" description="This ensures that each card has a chance to be sorted earlier in the session" />
+                  <Slider 
+                  class="mb-6" 
+                  :value="card_sort.subscribed" 
+                  :toggleable="false"
+                  @attempt="openSubscribeModal" 
+                  label="Advanced Report Sharing" 
+                  description="Your study results can be shared with an unlisted public URL by default" />
+                  <div class="relative flex items-start mb-6">
+                    <div class="flex items-center h-5">
+                      <input 
+                      v-model="card_sort.report_private"
+                      @change="saveProperty('report_private')"
+                      @click="preventDefaultUnlessSubscriberAndOpenModal"
+                      id="report_private" 
+                      name="report_private" 
+                      type="checkbox" 
+                      class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                    </div>
+                    <div class="ml-3 text-sm">
+                      <label for="report_private" class="font-medium text-gray-700">Keep my report private</label>
+                      <p class="text-gray-500">Your results will not be available for sharing publicly</p>
+                    </div>
                   </div>
-
-                  <div class="mb-6 pb-6 border-b border-gray-100">
-                    <div class="sm:col-span-4">
-                      <label for="logo" class="mb-2 block text-sm leading-5 font-medium text-gray-700">
-                        Cards
+                  <div class="relative flex items-start mb-6">
+                    <div class="flex items-center h-5">
+                      <input 
+                      v-model="card_sort.password_protect_report"
+                      @change="saveProperty('password_protect_report')"
+                      @click="preventDefaultUnlessSubscriberAndOpenModal"
+                      id="password_protect_report"
+                      name="password_protect_report" 
+                      type="checkbox" 
+                      class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                    </div>
+                    <div class="ml-3 text-sm">
+                      <label for="password_protect_report" class="font-medium text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-gray-700 h-4 w-4 inline">
+                          <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                        </svg>
+                        Add password protection
                       </label>
-                      <draggable
-                        v-if="card_sort.status === 'draft'"
-                        v-model="cards" 
-                        @change="saveCards"
-                        ghost-class="group-list-ghost-class"
-                      >
-                        <Card 
-                        v-for="(card, index) in cards"
-                        ref="card_refs" 
-                        :value="card"
-                        @input="$set(cards, index, $event)"
-                        @removeCard="removeCard" 
-                        @nextCard="nextCard" 
-                        @saveCard="saveCard" 
-                        />
-                      </draggable>
-                      <Card 
-                        v-else
-                        v-for="card in cards"
-                        :value="card"
-                        :disabled="true" 
+                      <p class="text-gray-500 mb-6">Securely share your study results with your team and clients</p>
+                      <TextInput 
+                      id="report_password" 
+                      ref="report_password" 
+                      label="Report Password" 
+                      instructions="Provide this to anyone you want to have access"           
+                      v-show="card_sort.password_protect_report"
+                      v-model="card_sort.report_password"
+                      @input="saveProperty('report_password')"
                       />
-                      <span class="shadow-sm rounded-md">
-                        <button v-show="card_sort.status == 'draft'" @click="addCard" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                          <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM11 7C11 6.44772 10.5523 6 10 6C9.44772 6 9 6.44772 9 7V9H7C6.44772 9 6 9.44771 6 10C6 10.5523 6.44772 11 7 11H9V13C9 13.5523 9.44772 14 10 14C10.5523 14 11 13.5523 11 13V11H13C13.5523 11 14 10.5523 14 10C14 9.44772 13.5523 9 13 9H11V7Z" />
-                          </svg>
-                          New Card
-                        </button>
-                        </span>
-                    </div>                    
-                  </div>
-                  <div class="">
-                    <Slider :value="card_sort.randomize_card_order" @input="saveProperty('randomize_card_order')" :disabled="card_sort.status !== 'draft'" label="Randomize card order for each participant" />
-                  </div>                      
+                    </div>
+                  </div>                 
                 </div>
               </div>
             </div>
@@ -349,12 +287,10 @@ import Rails from '@rails/ujs'
 import TextInput from '../components/text_input.vue'
 import TextArea from '../components/text_area.vue'
 import Slider from '../components/slider.vue'
-import Group from '../components/card_sort/group.vue'
-import Card from '../components/card_sort/card.vue'
-
-import draggable from 'vuedraggable'
-import * as filestack from 'filestack-js'
-const filestack_client = filestack.init('AuALnf2VzTPqJAkEOLar1z');
+import Groups from '../components/card_sort/groups.vue'
+import Cards from '../components/card_sort/cards.vue'
+import LogoUpload from '../components/logo_upload.vue'
+import SortType from '../components/sort_type_selector.vue'
 
 export default {
   props: {
@@ -373,10 +309,6 @@ export default {
   },  
   methods: {
     publish() {
-      if(!this.card_sort.subscribed) {
-        this.subscribe_modal_open = true
-        return
-      }
       var r = confirm('Are you sure?')
       if(r == true) {
         var data = new FormData 
@@ -391,7 +323,7 @@ export default {
         })        
       }
     },
-    deleteTest() {
+    deleteStudy() {
       var r = confirm('Are you sure?')
       if(r == true) {
         Rails.ajax({
@@ -400,7 +332,7 @@ export default {
         })
       }
     },
-    endTest() {
+    endStudy() {
       var r = confirm('Are you sure?')
       if(r == true) {
         var data = new FormData 
@@ -415,196 +347,19 @@ export default {
         })        
       }      
     }, 
-    addGroup: function() {
-      var index = this.groups.length
-      var data = new FormData
-      data.append('card_sort_group[name]', '')
-      data.append('card_sort_group[order]', index)
-      data.append('card_sort_group[card_sort_id]', this.card_sort.id)
-      Rails.ajax({
-        url: '/card_sort_groups',
-        type: 'POST', 
-        data: data,
-        success:  (arg) => {
-          this.groups.push({id: arg.id, name: ''})
-          this.$nextTick(function() {
-            this.$refs[`group_${arg.id}`].$refs.input.focus()
-          })          
-        }
-      })      
+    openSubscribeModal() {
+      if(!this.card_sort.subscribed) {
+        this.subscribe_modal_open = true
+      }
     },
-    removeGroup: function(id) {
-      var index = this.groups.findIndex(i => i.id == id)
-      var data = new FormData
-      data.append('card_sort_group[card_sort_id]', this.card_sort.id)
-      Rails.ajax({
-        url: '/card_sort_groups/' + id,
-        type: 'DELETE',
-        data: data,
-        success:  (arg) => {
-          this.groups.splice(index, 1)
-        }
-      })              
-    },
-    updateGroup: function(id) {
-      var index = this.groups.findIndex(i => i.id == id)
-      var data = new FormData
-      data.append('card_sort_group[id]', id)
-      data.append('card_sort_group[name]', this.groups[index].name)     
-      Rails.ajax({
-        url: '/card_sort_groups/' + id,
-        type: 'PATCH', 
-        data: data
-      })              
+    preventDefaultUnlessSubscriberAndOpenModal(event) {
+      if(!this.card_sort.subscribed) {
+        event.preventDefault()  
+        this.openSubscribeModal()    
+      }
     },    
-    saveGroups: function() {
-      if(this.card_sort.status !== 'draft') {
-        return
-      }
-
-      var data = new FormData
-
-      this.groups.forEach((group, index) => {
-        data.append('card_sort[card_sort_groups_attributes][' + index + '][id]', group.id) 
-        data.append('card_sort[card_sort_groups_attributes][' + index + '][order]', index)       
-      })    
-      Rails.ajax({
-        url: '/card_sorts/' + this.card_sort.id,
-        type: 'PATCH', 
-        data: data
-      })              
-    },   
-    syncGroups: function() {
-      var data = new FormData
-      this.groups.forEach((group, index) => {
-        data.append(`card_sort[card_sort_groups_attributes][${index}][name]`, group.name)
-        data.append(`card_sort[card_sort_groups_attributes][${index}][order]`, index)
-        data.append(`card_sort[card_sort_groups_attributes][${index}][order]`, index)
-      })
-      Rails.ajax({
-        url: `/card_sorts/${this.card_sort.id}`,
-        type: 'PATCH',
-        data: data,
-        success: (arg) => {
-          arg.card_sort_groups.forEach((group, index) => {
-            this.groups[index].id = group.id
-          })
-        }
-      })
-    }, 
-    nextGroup: function(group_id) {
-      var index = this.groups.findIndex(i => i.id == group_id)
-      if(index === this.groups.length - 1) {
-        this.addGroup()       
-      } else {
-        this.$nextTick(function() {
-          this.$refs[`group_${this.groups[index + 1].id}`].$refs.input.focus()
-        })          
-      }
-    }, 
-    addCard: function() {
-      var index = this.cards.length
-      var data = new FormData
-      data.append('card_sort_card[title]', '')
-      data.append('card_sort_card[description]', '')
-      data.append('card_sort_card[has_description]', false)
-      data.append('card_sort_card[order]', index)
-      data.append('card_sort_card[card_sort_id]', this.card_sort.id)
-      Rails.ajax({
-        url: '/card_sort_cards',
-        type: 'POST',
-        data: data,
-        success: (arg) => {
-          this.cards.push({id: arg.id, title: '', description: '', has_description: false})
-          this.$nextTick(function() {
-            this.$refs.card_refs[this.cards.length - 1].$refs.title.focus()
-          })          
-        }
-      })
-    },
-    removeCard: function(id) {
-      var index = this.cards.findIndex(i => i.id == id)
-      var data = new FormData
-      data.append('card_sort_card[card_sort_id]', this.card_sort.id)
-      Rails.ajax({
-        url: '/card_sort_cards/' + id,
-        type: 'DELETE',
-        data: data,
-        success: (arg) => {
-          this.cards.splice(index, 1)
-        }
-      })
-    },  
-    saveCard: function(card_id) {
-      if(this.card_sort.status !== 'draft') {
-        return
-      }
-            
-      var card = this.cards.find(i => i.id == card_id)
-      var data = new FormData
-      data.append('card_sort_card[id]', card.id)
-      data.append('card_sort_card[title]', card.title)
-      data.append('card_sort_card[description]', card.description)
-      data.append('card_sort_card[has_description]', card.has_description)
-      Rails.ajax({
-        url: '/card_sort_cards/' + card_id,
-        type: 'PATCH',
-        data: data
-      })
-    },  
-    saveCards: function() {
-      var data = new FormData
-
-      this.cards.forEach((card, index) => {
-        data.append(`card_sort[card_sort_cards_attributes][${index}][id]`, card.id)
-        data.append(`card_sort[card_sort_cards_attributes][${index}][title]`, card.title)
-        data.append(`card_sort[card_sort_cards_attributes][${index}][description]`, card.description)        
-        data.append(`card_sort[card_sort_cards_attributes][${index}][has_description]`, card.has_description)        
-        data.append(`card_sort[card_sort_cards_attributes][${index}][order]`, index)        
-      })
-      Rails.ajax({
-        url: '/card_sorts/' + this.card_sort.id,
-        type: 'PATCH',
-        data: data
-      })
-    },
-    nextCard: function(card_id) {
-      var index = this.cards.findIndex(i => i.id == card_id)
-      if(index === this.cards.length - 1) {
-        this.addCard()       
-      } else {
-        this.$nextTick(function() {
-          this.$refs.card_refs[index + 1].$refs.title.focus()        
-        })
-      }      
-    },   
-    openUpload() {
-      if(this.card_sort.status !== 'draft') {
-        return 
-      }
-      const options = {
-        fromSources: ['local_file_system', 'url'],
-        transformations: {
-          crop: true, 
-          rotate: true
-        },
-        accept: ['image/*'],
-        onUploadDone: (arg) => {
-          this.card_sort.logo_key = arg.filesUploaded[0].key
-          this.saveProperty('logo_key')
-        }
-      }
-      filestack_client.picker(options).open()
-    },
-    changeSortType(type) {
-      var previous_sort_type = this.card_sort.sort_type
-      this.card_sort.sort_type = type
-      this.saveProperty('sort_type')  
-      if(previous_sort_type === 'open' && (type === 'closed' || type === 'hybrid')) {
-        this.syncGroups()
-      }          
-    },       
     saveProperty(property) {
+      if(this.card_sort.status !== 'draft') { return }
       var data = new FormData 
       data.append('card_sort[' + property + ']', this.card_sort[property])
       Rails.ajax({
@@ -614,6 +369,6 @@ export default {
       }) 
     } 
   },
-  components: { Nav, Subscribe, TextInput, TextArea, Slider, Group, Card, draggable }
+  components: { Nav, Subscribe, TextInput, TextArea, Slider, Groups, Cards, LogoUpload, SortType }
 }
 </script>

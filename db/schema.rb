@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_17_065052) do
+ActiveRecord::Schema.define(version: 2020_12_18_062926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,10 +75,11 @@ ActiveRecord::Schema.define(version: 2020_12_17_065052) do
     t.datetime "updated_at", null: false
     t.string "status", default: "draft"
     t.string "report_token"
-    t.string "password_digest"
-    t.boolean "shareable", default: true
     t.integer "creation_step", default: 1
     t.boolean "creation_wizard_complete", default: false
+    t.boolean "report_private", default: false
+    t.string "report_password", default: ""
+    t.boolean "password_protect_report", default: false
     t.index ["user_id"], name: "index_card_sorts_on_user_id"
   end
 
@@ -146,13 +147,13 @@ ActiveRecord::Schema.define(version: 2020_12_17_065052) do
   end
 
   create_table "tree_tests", force: :cascade do |t|
-    t.string "name"
-    t.text "participant_instructions"
-    t.text "thank_you_message"
-    t.boolean "randomize_tree_order"
+    t.string "name", default: ""
+    t.text "participant_instructions", default: "Thank you for agreeing to help us! This shouldn't take more than 5 minutes.\n\nThere are no right or wrong answers. Just do what makes sense to you."
+    t.text "thank_you_message", default: "Thanks for taking the time to help us!\n\nYour feedback is essential for us to deliver ongoing improvements."
+    t.boolean "randomize_tree_order", default: false
     t.jsonb "tree"
-    t.boolean "randomize_task_order"
-    t.boolean "allow_skip"
+    t.boolean "randomize_task_order", default: false
+    t.boolean "allow_skip", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status", default: "draft"
@@ -161,8 +162,9 @@ ActiveRecord::Schema.define(version: 2020_12_17_065052) do
     t.string "auth_token"
     t.string "logo_key", default: ""
     t.string "report_token"
-    t.string "password_digest"
-    t.boolean "shareable", default: true
+    t.boolean "report_private", default: false
+    t.boolean "password_protect_report", default: false
+    t.string "report_password", default: ""
     t.index ["auth_token"], name: "index_tree_tests_on_auth_token"
     t.index ["user_id"], name: "index_tree_tests_on_user_id"
   end

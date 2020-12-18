@@ -46,6 +46,6 @@ class CardSortsController < ApplicationController
   private
 
   def card_sort_params
-    params.require(:card_sort).permit(:name, :logo_key, :participant_instructions, :thank_you_message, :sort_type, :status, :randomize_card_order, :creation_step, :creation_wizard_complete, card_sort_groups_attributes: [:name, :order, :id, :_destroy], card_sort_cards_attributes: [:title, :description, :has_description, :order, :id])
+    params.require(:card_sort).permit(:name, :logo_key, :participant_instructions, :thank_you_message, :sort_type, :status, :randomize_card_order, :creation_step, :creation_wizard_complete, :report_private, :password_protect_report, :report_password, card_sort_groups_attributes: [:name, :order, :id, :_destroy], card_sort_cards_attributes: [:title, :description, :has_description, :order, :id])
   end
 end

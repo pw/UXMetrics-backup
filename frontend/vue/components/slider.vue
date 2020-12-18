@@ -2,7 +2,7 @@
   <div :class="{'opacity-50': !enabled}">
     <div class="flex items-center justify-between">
       <span class="flex-grow flex flex-col" id="toggleLabel">
-        <label for="randomize" class="text-sm font-medium leading-5 text-gray-700">
+        <label class="text-sm font-medium leading-5 text-gray-700">
           {{ label }}
         </label>
         <span class="text-sm leading-normal text-gray-500">
@@ -36,12 +36,18 @@ export default {
     enabled: {
       type: Boolean,
       default: true
+    },
+    toggleable: {
+      type: Boolean, 
+      default: true
     }
   },
   methods: {
     toggle() {
-      if(this.enabled) {
+      if(this.enabled && this.toggleable) {
         this.$emit('input', !this.value)
+      } else {
+        this.$emit('attempt')
       }
     } 
   }

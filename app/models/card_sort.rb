@@ -1,6 +1,4 @@
 class CardSort < ApplicationRecord
-  has_secure_password validations: false
-
   belongs_to :user
   has_many :card_sort_sorts, dependent: :destroy
   has_many :card_sort_groups, dependent: :destroy
@@ -14,6 +12,7 @@ class CardSort < ApplicationRecord
   before_update do 
     @publication = true if (status_changed? && status == 'published')
   end
+  before_update :gate_premium_features
   after_commit :send_publication_notice
 
   def median_time
@@ -137,6 +136,16 @@ class CardSort < ApplicationRecord
 
   def send_publication_notice
     PostmarkEmailJob.perform_later(user.email, 'published-study', {study_name: name, study_url: collect_url}) if @publication
+  end
+
+  def gate_premium_features
+    unless user.subscribed
+      self.randomize_card_order = false if randomize_card_order_changed?      
+      self.logo_key = '' if logo_key_changed?
+      self.report_private = false if report_private_changed?
+      self.password_protect_report = false if password_protect_report_changed?
+      self.report_password = nil if report_password_changed?
+    end
   end
 
 end

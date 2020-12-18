@@ -50,6 +50,6 @@ class TreeTestsController < ApplicationController
   private 
 
   def tree_test_params
-    params.require(:tree_test).permit(:name, :logo_key, :participant_instructions, :thank_you_message, :randomize_tree_order, :tree, :current_tree_index, :randomize_task_order, :allow_skip, :status, tree_test_tasks_attributes: [:instructions, :task_number, :id, :_destroy, tree_test_task_correct_choices_attributes: [:node, :path]])
+    params.require(:tree_test).permit(:name, :logo_key, :participant_instructions, :thank_you_message, :randomize_tree_order, :tree, :current_tree_index, :randomize_task_order, :allow_skip, :status, :report_private, :password_protect_report, :report_password, tree_test_tasks_attributes: [:instructions, :task_number, :id, :_destroy, tree_test_task_correct_choices_attributes: [:node, :path]])
   end
 end  
