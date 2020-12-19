@@ -85,7 +85,17 @@
               </button>
             </span>
           </div>
-          <div class="ml-4 mt-4 flex items-center">
+          <div v-if="playback" class="ml-4 mt-4 flex items-center">
+            <span class="shadow-sm rounded-md">
+              <button @click="replay(true)" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-green-500 hover:bg-green-400 focus:outline-none focus:shadow-outline-green focus:border-green-600 transition duration-150 ease-in-out">
+                <svg class="-ml-1 mr-2 h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM13.7071 8.70711C14.0976 8.31658 14.0976 7.68342 13.7071 7.29289C13.3166 6.90237 12.6834 6.90237 12.2929 7.29289L9 10.5858L7.70711 9.29289C7.31658 8.90237 6.68342 8.90237 6.29289 9.29289C5.90237 9.68342 5.90237 10.3166 6.29289 10.7071L8.29289 12.7071C8.68342 13.0976 9.31658 13.0976 9.70711 12.7071L13.7071 8.70711Z"/>
+                </svg>
+                Replay
+              </button>
+            </span>
+          </div>          
+          <div v-else class="ml-4 mt-4 flex items-center">
             <span class="invisible sm:visible flex-1 self-center mr-4 text-sm leading-5 font-medium">
                 All done?
             </span>
@@ -109,6 +119,11 @@
           :sort_type="card_sort.sort_type"
           v-model="groups[index]"
           @releaseCards="addCardsToDrawer"
+          ref="group_column"
+          :id="`groupcolumn_${index}`"
+          :column_index="index"
+          @cardMove="recordCardMove"
+          @saveGroupName="recordGroupNameChange"
         />
       </div>
       <div class="flex overflow-x-auto overflow-y-hidden bg-gray-200 px-6 pt-6 pb-4 sm:px-6 sm:pt-12 sm:pb-10">
@@ -117,9 +132,11 @@
         group="cards"
         ghost-class="draggable-new-group2"
         class="flex draggable w-full"
+        id="drawer"
+        @add="recordCardMove"
         >            
           <Card 
-          v-for="card in card_sort.card_sort_cards"
+          v-for="card in card_sort.card_sort_cards"          
           :key="card.id"
           :id="card.id"
           :title="card.title"
@@ -251,7 +268,12 @@
   export default {
     props: { 
       data: Object,
-      preview: Boolean
+      preview: Boolean,
+      playback: {
+        type: Boolean,
+        default: false
+      },
+      saved_recording: String
     },
     data: function() {
       return {
@@ -263,16 +285,16 @@
           [],
           []   
         ],
+        recording: this.saved_recording ? JSON.parse(this.saved_recording) : [],
         final_groups: undefined,
-        step: 'intro',
-        moving_card: undefined,
-        total_cards: this.data.card_sort_cards.length,
+        step: this.playback? 'sort' : 'intro',
         instructions_modal_open: false,
         error_modal_open: false,
         error_type: undefined,
         sort_start_time: undefined,
         sort_time_elapsed: undefined,
-        finished_saving_groups: undefined
+        finished_saving_groups: undefined,
+        last_card_move_time: undefined
       }
     },
     created() {
@@ -311,12 +333,84 @@
       }
     },
     methods: {
+      recordCardMove(event) {
+        var move = {
+          type: 'card_move',
+          from: event.from.id,
+          fromIndex: event.oldIndex,
+          to: event.to.id, 
+          toIndex: event.newIndex,
+        }        
+        this.recordAction(move)
+      },
+      recordGroupNameChange(event) {
+        window.console.log('abc')
+        var groupNameChange = {
+          type: 'group_name_change',
+          group: event.group,
+          name: event.name
+        }
+        this.recordAction(groupNameChange)
+      },
+      recordAction(action) {
+        var now = new Date
+        var time = this.last_card_move_time ? (now - this.last_card_move_time) : (now - this.sort_start_time)
+        this.last_card_move_time = now
+        action.time = time 
+        this.recording.push(action)       
+      },
+      replay(first, actionIndex = 0) {
+        var action = this.recording[actionIndex]
+        if(first) {
+          setTimeout(() => this.replay(false), this.recording[0].time)
+        } else {
+          this.replayAction(action)
+          if(this.recording[actionIndex + 1]) {
+            setTimeout(() => this.replay(false, actionIndex + 1), this.recording[actionIndex + 1].time)
+          }
+        }
+      },
+      replayAction(action) {
+        if(action.type === 'card_move') {
+          this.replayMove(action)
+        } else if(action.type === 'group_name_change') {
+          this.replayGroupNameChange(action)
+        }
+      },
+      replayGroupNameChange(action) {
+        var [_, group_column, group_index] = action.group.split('_')
+        this.$refs.group_column[group_column].groups[group_index].name = action.name
+      },
+      replayMove(action) {
+        var move = action
+        var card, from_group_column, from_group_index, _
+
+        if(move.from === 'drawer') {
+          card = this.card_sort.card_sort_cards[move.fromIndex]
+          this.card_sort.card_sort_cards.splice(move.fromIndex, 1)
+        } else if(move.from.includes('group_')) {
+          [_, from_group_column, from_group_index] = move.from.split('_')
+          card = this.$refs.group_column[from_group_column].$refs.group[from_group_index].cards[move.fromIndex]
+          this.$refs.group_column[from_group_column].$refs.group[from_group_index].cards.splice(move.fromIndex, 1)
+        }
+
+        var to_group_column, to_group_index
+        if(move.to.includes('groupcolumn_')) {
+          to_group_column = move.to.split('_')[1]
+          this.$refs.group_column[to_group_column].groups.splice(move.toIndex, 0, card)
+        } else if(move.to.includes('group_')) {
+          [_, to_group_column, to_group_index] = move.to.split('_')
+          this.$refs.group_column[to_group_column].$refs.group[to_group_index].cards.splice(move.toIndex, 0, card)
+        } else if(move.to === 'drawer') {
+          this.card_sort.card_sort_cards.splice(move.toIndex, 0, card)
+        }
+      },      
       addCardsToDrawer(cards) {
         this.card_sort.card_sort_cards = this.card_sort.card_sort_cards.concat(cards)
       },
       startSort() {
         this.step = 'sort'
-        this.sort_start_time = new Date
+        this.sort_start_time = new Date        
       },
       saveGroups() {
         this.final_groups = this.groups.flat()
@@ -342,6 +436,7 @@
         var data = new FormData
         data.append('card_sort_participant[card_sort_id]', this.card_sort.id)
         data.append('card_sort_participant[time]', this.sort_time_elapsed)
+        data.append('card_sort_participant[recording]', JSON.stringify(this.recording))
         var index = -1 
         this.final_groups.forEach((group) => {
           group.cards.forEach((card) => {

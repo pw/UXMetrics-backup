@@ -7,11 +7,15 @@
   :sort="(sort_type === 'closed') ? false : true"
   ghost-class="container-ghost-class"    
   @updateCards="updateCards"  
+  @add="cardMove"
   >
     <Group
-    v-for="group in groups"
+    v-for="(group, index) in groups"
     :key="group.id"
     :id="group.id"
+    :index="index"
+    ref="group"    
+    :group_column_index="column_index" 
     :draggable="sort_type !== 'closed'"
     :can_edit_name="group.can_edit_name"
     :can_delete="group.can_delete"
@@ -19,6 +23,8 @@
     :initial_cards="group.cards"
     @deleteGroup="deleteGroup"
     @updateCards="updateCards"
+    @cardMove="cardMove"
+    @saveGroupName="saveGroupName"
     />
   </draggable>
 
@@ -31,7 +37,8 @@
   export default {
     props: {
       value: Array,
-      sort_type: String
+      sort_type: String,
+      column_index: Number
     },
     data() {
       return {
@@ -58,10 +65,13 @@
         }
       }
     },
-    methods: {
-      addGroup() {
-        this.groups = this.groups.concat(this.newGroup())        
-      },   
+    methods: { 
+      cardMove(event) {
+        this.$emit('cardMove', event)
+      },
+      saveGroupName(event) {
+        this.$emit('saveGroupName', event)
+      },
       deleteGroup(id) {
         var index = this.groups.findIndex(i => i.id == id)
         var deleted_cards = this.groups[index].cards
@@ -74,7 +84,7 @@
         } else {
           return ['groups', 'cards']
         }
-      },     
+      },           
       newGroup() {
         return {
           id: (Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)),

@@ -20,11 +20,15 @@ class CardSortParticipantsController < ApplicationController
 
   def show
     @card_sort_participant = CardSortParticipant.find(params[:id])
-    if @card_sort_participant.card_sort.user == current_user
-      render json: @card_sort_participant
-    else
-      head :forbidden
-    end    
+    return head :forbidden unless @card_sort_participant.card_sort.user == current_user
+    respond_to do |format|
+      format.html {
+        render 
+      }
+      format.json {
+        render json: @card_sort_participant
+      }
+    end
   end
 
   def update
@@ -56,6 +60,7 @@ class CardSortParticipantsController < ApplicationController
       params.require(:card_sort_participant).permit(:card_sort_id,  
         :excluded,
         :time,
+        :recording,
         card_sort_sorts_attributes: [:card_sort_id, :card_sort_group_id, :card_sort_card_id])
     end
 end

@@ -5,12 +5,12 @@
         <div v-show="editing_name" class="-ml-4 -mt-2 flex items-center justify-between flex-wrap">
           <div class="flex-1 ml-4 mt-2">
             <div class="rounded-md shadow-sm">
-              <input class="form-input px-2 py-1 block w-full transition duration-150 ease-in-out text-base font-medium leading-5 text-gray-700" ref="name" :value="value" @input="$emit('input', $event.target.value)" @keyup.enter="editing_name = false" placeholder="Group Name" />
+              <input class="form-input px-2 py-1 block w-full transition duration-150 ease-in-out text-base font-medium leading-5 text-gray-700" ref="name" :value="value" @input="$emit('input', $event.target.value)" @keyup.enter="saveGroupName" placeholder="Group Name" />
             </div>
           </div>
           <div class="ml-2 mt-2 flex-shrink-0">
             <span class="inline-flex rounded-md shadow-sm">
-              <button @click="editing_name = false" type="button" class="inline-flex items-center px-2 py-1 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-green-500 hover:bg-green-400 focus:outline-none focus:shadow-outline-green focus:border-green-600 transition duration-150 ease-in-out">
+              <button @click="saveGroupName" type="button" class="inline-flex items-center px-2 py-1 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-green-500 hover:bg-green-400 focus:outline-none focus:shadow-outline-green focus:border-green-600 transition duration-150 ease-in-out">
                 <svg class="-ml-1 mr-2 h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM13.7071 8.70711C14.0976 8.31658 14.0976 7.68342 13.7071 7.29289C13.3166 6.90237 12.6834 6.90237 12.2929 7.29289L9 10.5858L7.70711 9.29289C7.31658 8.90237 6.68342 8.90237 6.29289 9.29289C5.90237 9.68342 5.90237 10.3166 6.29289 10.7071L8.29289 12.7071C8.68342 13.0976 9.31658 13.0976 9.70711 12.7071L13.7071 8.70711Z"/>
                 </svg>
@@ -37,14 +37,18 @@
         </div>
       </div>
       <draggable 
-      v-model="cards"          
+      v-model="cards"
+      :id="`group_${group_column_index}_${index}`"         
       group="cards"
       class="p-4"      
       style="min-height: 6rem;"  
       ghost-class="card-draggable-ghost-class"
+      @add="cardMove"
+      @update="cardMove"
       >            
         <Card 
         v-for="card in cards"
+        :id="card.id"
         :key="card.id"
         :title="card.title"
         :description="card.description"
@@ -61,6 +65,8 @@
   export default {
     props: {
       id: String,
+      index: Number,
+      group_column_index: Number,
       draggable: Boolean,
       can_edit_name: Boolean,
       can_delete: Boolean,
@@ -88,6 +94,14 @@
       }
     },
     methods: {
+      cardMove(event) {
+        this.$emit('cardMove', event)
+      },
+      saveGroupName() {
+        this.editing_name = false
+        var event = { group: `group_${this.group_column_index}_${this.index}`, name: this.value }        
+        this.$emit('saveGroupName', event)
+      },
       toggleNameEdit() {
         if(this.can_edit_name) {
           this.editing_name = true
