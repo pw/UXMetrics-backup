@@ -158,7 +158,7 @@
               </h3>
               <div class="max-w-xl text-md leading-5 text-gray-500">
                 <p>
-                Thanks for taking the time to help us. Your contribution is essential in our journey to deliver improvements!
+                  Thanks for taking the time to help us. Your contribution is essential in our journey to deliver improvements!
                 </p>
               </div>
             </div>
@@ -177,7 +177,7 @@
           <div v-show="instructions_modal_open" class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-7xl sm:w-full max-h-full overflow-y-auto">
             <div class="flex items-center justify-between flex-wrap sm:flex-no-wrap border-b border-gray-200 px-4 py-5 sm:px-6">
               <h2 class="text-lg leading-6 font-medium text-gray-900">
-                  Instructions
+                Instructions
               </h2>
               <button @click="instructions_modal_open = false" type="button" class="text-gray-400 hover:text-gray-500 focus:outline-none focus:text-gray-500 transition ease-in-out duration-150">
                 <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -190,20 +190,20 @@
                 <div class="sm:col-span-1">
                   <div class="mb-6">
                     <p class="mb-3">
-                        We'd like you to categorize the cards at the bottom of the screen cards into groups that make sense to you. You can do this by dragging and dropping them into the area above.
+                      We'd like you to categorize the cards at the bottom of the screen cards into groups that make sense to you. You can do this by dragging and dropping them into the area above.
                     </p>
                     <p class="mb-3">
                         There are no right or wrong answers, just do what makes sense to you!
                     </p>
                     <p>
-                        When you're finished, click the green "Submit" button at the top right.
+                      When you're finished, click the green "Submit" button at the top right.
                     </p>
                   </div>
                 </div>
                 <div class="sm:col-span-1">
                   <div class="bg-gray-200 overflow-hidden rounded-lg text-center h-full">
                     <div class="px-4 py-5 sm:p-6">
-                        Demo GIF will go here
+                      Demo GIF will go here
                     </div>
                   </div>
                 </div>
@@ -212,7 +212,7 @@
               <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                 <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
                   <button @click="instructions_modal_open = false" type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-                      Close
+                    Close
                   </button>
                 </span>
               </div>
@@ -238,17 +238,17 @@
                   </svg>
                 </div>
                 <p v-show="error_type == 'cards'" class="text-center">
-                    Please sort all the cards from the bottom of the screen.
+                  Please sort all the cards from the bottom of the screen.
                 </p>
                 <p v-show="error_type == 'group names'" class="text-center">
-                    Please create names for all your groups.
+                  Please create names for all your groups.
                 </p>
               </div>
             </div>
             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
               <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
                 <button @click="error_type = undefined; error_modal_open = false" type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-                    OK
+                  OK
                 </button>
               </span>
             </div>

@@ -1,25 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <% if request.host != 'localhost' && request.host != 'ux-card-staging.herokuapp.com' %>
-  <!-- Fathom - simple website analytics - https://usefathom.com -->
-  <script>
-  (function(f, a, t, h, o, m){
-  a[h]=a[h]||function(){
-  (a[h].q=a[h].q||[]).push(arguments)
-  };
-  o=f.createElement('script'),
-  m=f.getElementsByTagName('script')[0];
-  o.async=1; o.src=t; o.id='fathom-script';
-  m.parentNode.insertBefore(o,m)
-  })(document, window, 'https://cdn.usefathom.com/tracker.js', 'fathom');
-  fathom('set', 'siteId', 'ACHWXXOI');
-  fathom('trackPageview');
-  </script>
-  <!-- / Fathom -->
-  <% end %>
-
-
 
   <title><%= content_for?(:page_title)? yield(:page_title) : "#{Rails.configuration.application_name}" %></title>
   <meta name="description" content="<%= content_for?(:page_description)? yield(:page_description) : "UX Research Tools - Card Sorting" %>" />
