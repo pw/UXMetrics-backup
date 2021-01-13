@@ -79,14 +79,14 @@ export default {
     },
     removeGroup(id) {
       if(!this.enabled) { return }
-      var index = this.groups.findIndex(i => i.id == id)
+      var index = this.groups.findIndex(i => i.id === id)
       var data = new FormData
       data.append('card_sort_group[card_sort_id]', this.card_sort_id)
       Rails.ajax({
         url: '/card_sort_groups/' + id,
         type: 'DELETE',
         data: data,
-        success:  (arg) => {
+        success: (arg) => {
           this.groups.splice(index, 1)
         }
       })              

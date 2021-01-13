@@ -2,12 +2,13 @@ class TreeTestsController < ApplicationController
   layout 'dashboard'
 
   def new 
+    @tree_test = current_user.tree_tests.new
   end
 
   def create
     @tree_test = current_user.tree_tests.new(tree_test_params)
     if @tree_test.save
-      redirect_to edit_tree_test_path(@tree_test)
+      render json: @tree_test.to_json(include: {tree_test_tasks: {include: :tree_test_task_correct_choices}})
     else 
       head :internal_server_error
     end
@@ -18,7 +19,12 @@ class TreeTestsController < ApplicationController
   end
 
   def edit
-    @tree_test = current_user.tree_tests.where(id: params[:id]).includes(tree_test_tasks: :tree_test_task_correct_choices)
+    @tree_test = current_user.tree_tests.where(id: params[:id]).includes(tree_test_tasks: :tree_test_task_correct_choices).first
+    if @tree_test.creation_wizard_complete
+      render
+    else 
+      render 'new'
+    end
   end
 
   def update
@@ -50,6 +56,6 @@ class TreeTestsController < ApplicationController
   private 
 
   def tree_test_params
-    params.require(:tree_test).permit(:name, :logo_key, :participant_instructions, :thank_you_message, :randomize_tree_order, :tree, :current_tree_index, :randomize_task_order, :allow_skip, :status, :report_private, :password_protect_report, :report_password, tree_test_tasks_attributes: [:instructions, :task_number, :id, :_destroy, tree_test_task_correct_choices_attributes: [:node, :path]])
+    params.require(:tree_test).permit(:name, :logo_key, :participant_instructions, :thank_you_message, :randomize_tree_order, :tree, :creation_step, :creation_wizard_complete, :randomize_task_order, :allow_skip, :status, :report_private, :password_protect_report, :report_password, tree_test_tasks_attributes: [:instructions, :task_number, :id, :_destroy, tree_test_task_correct_choices_attributes: [:node, :path]])
   end
 end  

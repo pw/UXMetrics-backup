@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_19_013319) do
+ActiveRecord::Schema.define(version: 2021_01_12_054754) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,9 +141,9 @@ ActiveRecord::Schema.define(version: 2020_12_19_013319) do
     t.text "instructions", default: "Task instructions (e.g. \"Imagine that you want to update your credit card details. Where would you find that?\")"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "task_number"
     t.integer "correct_choice"
     t.string "correct_path"
+    t.integer "order"
     t.index ["tree_test_id"], name: "index_tree_test_tasks_on_tree_test_id"
   end
 
@@ -152,20 +152,21 @@ ActiveRecord::Schema.define(version: 2020_12_19_013319) do
     t.text "participant_instructions", default: "Thank you for agreeing to help us! This shouldn't take more than 5 minutes.\n\nThere are no right or wrong answers. Just do what makes sense to you."
     t.text "thank_you_message", default: "Thanks for taking the time to help us!\n\nYour feedback is essential for us to deliver ongoing improvements."
     t.boolean "randomize_tree_order", default: false
-    t.jsonb "tree"
+    t.text "tree", default: "[{\"id\":0,\"text\":\"Home\",\"placeholder_text\":\"Home\",\"children\":[{\"id\":1,\"text\":\"Child\",\"placeholder_text\":\"Child\",\"children\":[{\"id\":2,\"text\":\"Child of Child\",\"placeholder_text\":\"Child of Child\",\"children\":[]}]}]}]"
     t.boolean "randomize_task_order", default: false
     t.boolean "allow_skip", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status", default: "draft"
     t.bigint "user_id"
-    t.integer "current_tree_index"
     t.string "auth_token"
     t.string "logo_key", default: ""
     t.string "report_token"
     t.boolean "report_private", default: false
     t.boolean "password_protect_report", default: false
     t.string "report_password", default: ""
+    t.integer "creation_step", default: 1
+    t.boolean "creation_wizard_complete", default: false
     t.index ["auth_token"], name: "index_tree_tests_on_auth_token"
     t.index ["user_id"], name: "index_tree_tests_on_user_id"
   end

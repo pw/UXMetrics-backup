@@ -10,6 +10,9 @@ class TreeTest < ApplicationRecord
     @publication = true if (status_changed? && status == 'published')
   end
   before_update :gate_premium_features
+  before_create do 
+    self.tree_test_tasks.build(order: 0)
+  end
   after_commit :send_publication_notice
 
   def participants(offset = 0)
@@ -76,7 +79,7 @@ class TreeTest < ApplicationRecord
   end
 
   def collect_url
-    Rails.application.routes.url_helpers.tree_test_collect_url(auth_token: auth_token)
+    Rails.application.routes.url_helpers.tree_test_collect_url(auth_token: auth_token) if auth_token
   end
 
   def logo_url
@@ -89,7 +92,7 @@ class TreeTest < ApplicationRecord
 
   def as_json(*)
     super.tap do |hash|
-      hash[:created_at_day] = created_at.strftime('%-m/%-d/%Y')
+      hash[:created_at_day] = created_at&.strftime('%-m/%-d/%Y')
       hash[:collect_url] = collect_url
       hash[:logo_base_url] = "https://#{ENV['LOGO_UPLOAD_ENDPOINT']}"
       hash[:logo_url] = logo_url
@@ -104,8 +107,9 @@ class TreeTest < ApplicationRecord
       hash[:percent_skipped_indirectly] = percent_skipped_indirectly && (percent_skipped_indirectly * 100).round(1)
       hash[:total_participants] = tree_test_participants.count 
       hash[:subscribed] = user.subscribed
-      hash[:edit_url] = Rails.application.routes.url_helpers.edit_tree_test_url(self)
-      hash[:user_id] = user.id      
+      hash[:edit_url] = Rails.application.routes.url_helpers.edit_tree_test_url(self) if id
+      hash[:user_id] = user.id
+      hash[:tree_test_tasks] = tree_test_tasks.order(:order)
     end
   end
 

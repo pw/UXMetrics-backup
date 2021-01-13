@@ -4,7 +4,7 @@
       <div class="flex items-center justify-between">
         <span>Task {{ index + 1 }}</span>
         <span v-show="!disabled" class="inline-flex rounded-md shadow-sm">
-          <button @click="$emit('removeTask', index)" type="button" class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs leading-4 font-medium rounded text-red-700 bg-red-100 hover:bg-red-50 focus:outline-none focus:border-red-300 focus:shadow-outline-red active:bg-red-200 transition ease-in-out duration-150">
+          <button @click="$emit('removeTask', id)" type="button" class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs leading-4 font-medium rounded text-red-700 bg-red-100 hover:bg-red-50 focus:outline-none focus:border-red-300 focus:shadow-outline-red active:bg-red-200 transition ease-in-out duration-150">
             -
           </button>
         </span>

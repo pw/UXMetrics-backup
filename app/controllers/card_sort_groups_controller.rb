@@ -4,7 +4,9 @@ class CardSortGroupsController < ApplicationController
 
   def create
     return head :forbidden unless CardSort.find(params[:card_sort_group][:card_sort_id]).user == current_user
+
     @card_sort_group = CardSortGroup.new(card_sort_group_params)
+    
     if @card_sort_group.save
       render json: @card_sort_group
     else

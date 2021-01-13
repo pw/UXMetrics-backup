@@ -1,35 +1,11 @@
 <template>
   <div>
     <Nav :title="title" :step="card_sort.creation_step" @back="back"/>
-    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
-      <ul class="space-y-4 md:flex md:space-y-0 md:space-x-8">
-        <li class="md:flex-1">
-          <div class="group pl-4 py-2 block border-l-4 border-purple-600 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4">
-            <h3 class="text-xs leading-4 text-purple-600 font-semibold uppercase">Step 1</h3>
-            <p class="text-sm leading-5 font-medium">Study Setup</p>
-          </div>
-        </li>
-
-        <li class="md:flex-1">
-          <div 
-          class="group pl-4 py-2 block border-l-4 border-gray-200 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4"
-          :class="{'border-purple-600': (card_sort.creation_step >= 2)}">
-            <h3 class="text-xs leading-4 text-gray-500 font-semibold uppercase">Step 2</h3>
-            <p class="text-sm leading-5 font-medium">Add Cards</p>
-          </div>
-        </li>
-
-        <li class="md:flex-1">
-          <div class="group pl-4 py-2 block border-l-4 border-gray-200 md:pl-0 md:pt-4 md:pb-0 md:border-l-0 md:border-t-4"
-          :class="{'border-purple-600': (card_sort.creation_step >= 3)}">
-            <h3 class="text-xs leading-4 text-gray-500 font-semibold uppercase">Step 3</h3>
-            <p class="text-sm leading-5 font-medium">Advanced Options</p>
-          </div>
-        </li>
-      </ul>
-    </nav>
+    <SetupSteps
+    :current_step="card_sort.creation_step"
+    :steps="['Study Setup', 'Add Cards', 'Advanced Options']" />
     <Step 
-    v-show="card_sort.creation_step == 1"
+    v-show="card_sort.creation_step === 1"
     @next="create"
     instructions="Let's start with the basics to set up your study. Then we'll create your cards.">    
       <div class="mb-6 pb-6 border-b border-gray-100">
@@ -52,7 +28,7 @@
       </div>       
     </Step>
     
-    <Step v-show="card_sort.creation_step == 2" @next="completeStep2" instructions="Now let's choose your sort type and add your cards.">
+    <Step v-show="card_sort.creation_step === 2" @next="completeStep2" instructions="Now let's choose your sort type and add your cards.">
       <div :class="{'mb-6 pb-6 border-b border-gray-100': (card_sort.sort_type === 'closed') || (card_sort.sort_type === 'hybrid')}">
         <SortType 
         v-model="card_sort.sort_type"
@@ -71,7 +47,11 @@
       />
     </Step>
 
-    <Step v-show="card_sort.creation_step == 3" @next="completeStep3" instructions="Enhance your study with some optional pro upgrades.">
+    <Step 
+    v-show="card_sort.creation_step === 3" 
+    @next="completeStep3" 
+    instructions="Enhance your study with some optional pro upgrades."
+    >
       <ProBadge></ProBadge>
       <LogoUpload
       class="mb-6 pb-6 border-b border-gray-100"
@@ -80,7 +60,7 @@
       instructions="Add custom branding to this study"
       :logo_base_url="card_sort.logo_base_url"
       :enabled="card_sort.subscribed"
-      @attempt="subscribe_modal_open = true"
+      @attempt="openSubscribeModal"
       />
       <ProBadge></ProBadge>
       <Slider 
@@ -176,6 +156,7 @@ import LogoUpload from '../components/logo_upload.vue'
 import ProBadge from '../components/pro_badge.vue'
 import SortType from '../components/sort_type_selector.vue'
 import Subscribe from '../components/subscribe.vue'
+import SetupSteps from '../components/study_setup_steps.vue'
 
 import Rails from '@rails/ujs'
 
@@ -270,13 +251,13 @@ export default {
   },
   computed: {
     title: function() {
-      if(this.card_sort.name) {
+      if(this.card_sort.name !== '') {
         return this.card_sort.name
       } else {
         return 'New Card Sort'
       }
     }
   },
-  components: { Nav, Step, TextInput, TextArea, Slider, Groups, Cards, Flash, SaveAndContinue, LogoUpload, ProBadge, SortType, Subscribe }
+  components: { Nav, Step, TextInput, TextArea, Slider, Groups, Cards, Flash, SaveAndContinue, LogoUpload, ProBadge, SortType, Subscribe, SetupSteps }
 }
 </script>

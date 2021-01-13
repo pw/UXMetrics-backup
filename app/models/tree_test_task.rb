@@ -5,6 +5,12 @@ class TreeTestTask < ApplicationRecord
 
   accepts_nested_attributes_for :tree_test_task_correct_choices
 
+  def as_json(*)
+    super.tap do |hash|
+      hash[:tree_test_task_correct_choices] = tree_test_task_correct_choices
+    end
+  end
+
   def correct_choices
     tree_test_task_correct_choices.map{|i| i.node}
   end

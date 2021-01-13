@@ -189,52 +189,13 @@
                   </form>              
                 </div>
 
-                <div v-show="tab == 'tree'">
-                  <vue-nestable v-model="tree" :hooks="{ 'beforeMove': beforeMove }" @change="saveTree">
-                    <div class="flex" slot-scope="{ item }">
-                      <vue-nestable-handle v-if="!(item.id == tree[0].id && tree.length == 1) && tree_test.status === 'draft'" :item="item">
-                        <div class="py-1">
-                          <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24" stroke="none">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M10 3C10.2652 3 10.5196 3.10536 10.7071 3.29289L13.7071 6.29289C14.0976 6.68342 14.0976 7.31658 13.7071 7.70711C13.3166 8.09763 12.6834 8.09763 12.2929 7.70711L10 5.41421L7.70711 7.70711C7.31658 8.09763 6.68342 8.09763 6.29289 7.70711C5.90237 7.31658 5.90237 6.68342 6.29289 6.29289L9.29289 3.29289C9.48043 3.10536 9.73478 3 10 3ZM6.29289 12.2929C6.68342 11.9024 7.31658 11.9024 7.70711 12.2929L10 14.5858L12.2929 12.2929C12.6834 11.9024 13.3166 11.9024 13.7071 12.2929C14.0976 12.6834 14.0976 13.3166 13.7071 13.7071L10.7071 16.7071C10.3166 17.0976 9.68342 17.0976 9.29289 16.7071L6.29289 13.7071C5.90237 13.3166 5.90237 12.6834 6.29289 12.2929Z"/>
-                          </svg> 
-                        </div>                    
-                      </vue-nestable-handle>
-                      <TreeNode @remove="remove" @add="add" @blur="saveTree" :item="item" v-model="item.text" :tree="tree" :placeholder_text="item.placeholder_text" :disabled="tree_test.status !== 'draft'" />
-                    </div>                    
-                  </vue-nestable>              
+                <div v-show="tab == 'tree'">         
                 </div>
 
                 <div v-show="tab == 'tasks'">
-                  <div class="mb-6 pb-6 border-b border-gray-100">
-                    <Task 
-                    v-for="(task, index) in tree_test.tree_test_tasks" 
-                    :key="task.id" 
-                    :id="task.id" 
-                    :index="index" 
-                    :tree="tree" 
-                    v-model="task.instructions" 
-                    :correctChoice="task.tree_test_task_correct_choices" 
-                    :disabled="tree_test.status !== 'draft'" 
-                    @removeTask="removeTask" 
-                    @saveCorrectChoice="saveCorrectChoice" 
-                    @saveTask="saveTask" 
-                    />
-                    <span class="shadow-sm rounded-md" v-show="tree_test.status == 'draft'">
-                      <button @click="addTask" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
-                        <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM11 7C11 6.44772 10.5523 6 10 6C9.44772 6 9 6.44772 9 7V9H7C6.44772 9 6 9.44771 6 10C6 10.5523 6.44772 11 7 11H9V13C9 13.5523 9.44772 14 10 14C10.5523 14 11 13.5523 11 13V11H13C13.5523 11 14 10.5523 14 10C14 9.44772 13.5523 9 13 9H11V7Z" />
-                        </svg>
-                        Add Task
-                      </button>
-                    </span>
-                  </div>
-                  <div class="mb-6 pb-6 border-b border-gray-100">
-                    <Slider v-model="tree_test.randomize_task_order" @input="saveProperty('randomize_task_order')" :disabled="tree_test.status != 'draft'" label="Randomize task order for participants" description="This ensures that each task has a chance to be presented earlier in the session"/>
-                  </div>
-                  <div class="">
-                    <Slider v-model="tree_test.allow_skip" @input="saveProperty('allow_skip')" :disabled="tree_test.status != 'draft'" label="Allow participants to skip tasks if they get stuck" description="This can reduce abandonment rates and skips are tracked for you"/>
-                  </div>
+                  
                 </div>
+
               </div>
             </div>
           </div>
@@ -264,8 +225,7 @@ import Rails from '@rails/ujs'
 import TextInput from '../components/text_input.vue'
 import TextArea from '../components/text_area.vue'
 import Slider from '../components/slider.vue'
-import TreeNode from '../components/new_tree_test/tree_node.vue'
-import Task from '../components/new_tree_test/task.vue'
+
 import * as filestack from 'filestack-js'
 const filestack_client = filestack.init('AuALnf2VzTPqJAkEOLar1z');
 
@@ -277,18 +237,12 @@ export default {
   },
   data () {
     return {
-      tree_test: this.data[0],
-      tree: JSON.parse(this.data[0].tree),
+      tree_test: this.data,
+      tree: JSON.parse(this.data.tree),
       tab: 'settings',
       subscribe_modal_open: false   
     }
-  },  
-  computed: {
-    tasks_index: function() {
-      var task_indices = this.data[0].tree_test_tasks.map(task => task.task_number)
-      return (Math.max(...task_indices) + 1)
-    }
-  },
+  },    
   methods: {
     publish() {
       if(!this.tree_test.subscribed) {
@@ -465,6 +419,6 @@ export default {
       }
     } 
   },
-  components: { Nav, Subscribe, TextInput, TextArea, Slider, TreeNode, Task }
+  components: { Nav, Subscribe, TextInput, TextArea, Slider }
 }
 </script>
