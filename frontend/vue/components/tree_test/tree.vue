@@ -21,7 +21,9 @@
       :item="item" 
       v-model="item.text" 
       :tree="tree" 
-      :placeholder_text="item.placeholder_text"/>
+      :placeholder_text="item.placeholder_text"
+      :disabled="disabled"
+      />
     </div>
   </VueNestable>
 </template>
@@ -32,7 +34,11 @@ import Rails from '@rails/ujs'
 export default {
   props: {
     value: String,
-    tree_test_id: Number
+    tree_test_id: Number,
+    disabled: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {

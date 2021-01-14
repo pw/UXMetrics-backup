@@ -1,5 +1,5 @@
 <template>
-  <div class="sm:col-span-4">
+  <div class="sm:col-span-4 mb-6 pb-6 border-b border-gray-100">
     <label for="sort_type" class="mb-2 block text-sm leading-5 font-medium text-gray-700">
         Sort Type
     </label>

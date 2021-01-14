@@ -17,19 +17,25 @@
         instructions="This won't be visible to your participants" 
         placeholder="Add a descriptive name for your study..." 
         v-model="tree_test.name"
-        @input="saveProperty('name')"
+        @blur="saveProperty('name')"
         />
       </div>
       <div class="mb-6 pb-6 border-b border-gray-100">
-        <TextArea id="instructions" label="Participant Instructions" instructions="Greet your participants with an introduction" 
+        <TextArea 
+        id="instructions" 
+        label="Participant Instructions" 
+        instructions="Greet your participants with an introduction" 
         v-model="tree_test.participant_instructions" 
-        @input="saveProperty('participant_instructions')"
+        @blur="saveProperty('participant_instructions')"
         />
       </div>
       <div>
-        <TextArea id="thanks" label="Thank You Message" instructions="Your participants will see this when they complete the study" 
+        <TextArea 
+        id="thanks" 
+        label="Thank You Message" 
+        instructions="Your participants will see this when they complete the study" 
         v-model="tree_test.thank_you_message"
-        @input="saveProperty('thank_you_message')" />
+        @blur="saveProperty('thank_you_message')" />
       </div>
     </Step>
 
