@@ -119,6 +119,7 @@
         <% end %>
       </div>      
     </div>
+    <% if @billing_portal_url %>
     <div x-show="tab === 'billing'" class="md:grid md:grid-cols-3 md:gap-6">
       <div class="md:col-span-1">
         <div class="px-4 sm:px-0">
@@ -157,6 +158,7 @@
           </div>
       </div> 
     </div> 
+    <% end %>
     <div x-show="tab === 'billing'" class="md:grid md:grid-cols-3 md:gap-6 mt-4 md:mt-0">
       <div class="md:col-span-1">
         <div class="px-4 sm:px-0">

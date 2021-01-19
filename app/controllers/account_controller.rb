@@ -2,7 +2,7 @@ class AccountController < ApplicationController
   layout 'dashboard'
 
   def show
-    @billing_portal_url = Stripe::BillingPortal::Session.create({customer: current_user.stripe_customer_id}).url    
+    @billing_portal_url = Stripe::BillingPortal::Session.create({customer: current_user.stripe_customer_id}).url if current_user.stripe_customer_id 
     @tab = params[:tab] || 'profile'
   end
 
