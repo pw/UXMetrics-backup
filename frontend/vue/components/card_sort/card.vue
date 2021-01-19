@@ -42,7 +42,7 @@
         class="mt-2 text-sm font-medium leading-5 text-right">
         <a 
           @click="removeDescription" 
-          class="text-red-500">Remove Description</a>
+          class="text-red-500 cursor-pointer">Remove Description</a>
       </p>      
     </div>
     <div v-show="!disabled" class="flex ml-2">
