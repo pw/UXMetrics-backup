@@ -86,7 +86,7 @@ class TreeTest < ApplicationRecord
     if logo_key == '' 
       ActionController::Base.helpers.asset_pack_path('media/images/uxmetrics-logo-full.svg')
     else 
-      "https://#{ENV['LOGO_UPLOAD_ENDPOINT']}/#{logo_key}"
+      "https://#{ENV['LOGO_UPLOAD_ENDPOINT']}/#{logo_key}?auto=compress"
     end   
   end
 
