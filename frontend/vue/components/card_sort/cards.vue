@@ -7,8 +7,10 @@
       <Draggable
         v-if="enabled"
         v-model="cards"
-        @change="saveCards"
+        @change="saveCards"        
         ghost-class="group-list-ghost-class"
+        filter="input"
+        :prevent-on-filter="false"
       >
         <Card 
           v-for="(card, index) in cards"
