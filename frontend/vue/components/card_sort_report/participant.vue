@@ -92,7 +92,7 @@ export default {
   methods: {
     load_participant_data() {
       Rails.ajax({
-        url: '/card_sort_participants/' + this.participant_database_id,
+        url: `/card_sort_participants/${this.participant_database_id}.json`,
         type: 'GET',
         success: (arg) => {
           this.excluded = arg.excluded
