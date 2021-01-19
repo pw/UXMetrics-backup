@@ -41,7 +41,7 @@
         v-show="value.has_description && !disabled"
         class="mt-2 text-sm font-medium leading-5 text-right">
         <a 
-          @click="updateValue('has_description', false); $emit('saveCard', value.id)" 
+          @click="removeDescription" 
           class="text-red-500">Remove Description</a>
       </p>      
     </div>
@@ -83,12 +83,18 @@
     },
     data () {
       return {
-
       }
     },
     methods: {
       updateValue(key, value) {
         this.$emit('input', { ...this.value, [key]: value })
+      },
+      removeDescription() {                
+        this.updateValue('description', '')
+        this.$nextTick(() => {
+          this.updateValue('has_description', false)
+          this.$emit('saveCard', this.value.id)
+        })
       }
     }
   }
