@@ -8,8 +8,6 @@
 
 @import url('https://rsms.me/inter/inter.css');
 
-@import "animate.css/animate.min.css";
-
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;
 }
@@ -183,4 +181,13 @@
 }
 .group-enter-to, .group-leave {
   opacity: 1;
+}
+.slide-in-enter {
+  transform: translateX(100%);
+}
+.slide-in-enter-active {
+  transition: all 0.5s;
+}
+.slide-in-enter-to {
+  transform: translateX(0%);
 }
