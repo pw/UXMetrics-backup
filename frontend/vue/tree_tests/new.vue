@@ -85,6 +85,14 @@
       label="Randomize task order for participants" description="This ensures that each task has a chance to be presented earlier in the session" />
       <ProBadge></ProBadge>
       <Slider 
+      class="mb-6 pb-6 border-b border-gray-100"
+      v-model="tree_test.allow_skip"
+      @input="saveProperty('allow_skip')"
+      :toggleable="tree_test.subscribed"
+      @attempt="openSubscribeModal"
+      label="Allow participants to skip tasks if they get stuck" description="This can reduce abandonment rates and skips are tracked for you" />      
+      <ProBadge></ProBadge>
+      <Slider 
       class="mb-6" 
       :value="tree_test.subscribed" 
       :toggleable="false"
