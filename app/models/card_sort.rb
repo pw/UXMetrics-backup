@@ -76,7 +76,7 @@ class CardSort < ApplicationRecord
   end
 
   def participants
-    card_sort_participants.map{|i| [i.participant_id, i.id]}
+    card_sort_participants.order(:participant_id).map{|i| [i.participant_id, i.id]}
   end
 
   def card_sort_cards_randomized_or_not
