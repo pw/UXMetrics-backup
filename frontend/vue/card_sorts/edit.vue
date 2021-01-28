@@ -106,6 +106,7 @@
                     <div class="flex items-center h-5">
                       <input 
                       v-model="card_sort.password_protect_report"
+                      :disabled="card_sort.subscribed ? (card_sort.report_private ? false : true) : false"
                       @change="saveProperty('password_protect_report')"
                       @click="preventDefaultUnlessSubscriberAndOpenModal"
                       id="password_protect_report"
@@ -128,7 +129,7 @@
                       instructions="Provide this to anyone you want to have access"           
                       v-show="card_sort.password_protect_report"
                       v-model="card_sort.report_password"
-                      @input="saveProperty('report_password')"
+                      @blur="saveProperty('report_password')"
                       />
                     </div>
                   </div>                 
@@ -173,14 +174,13 @@ import ParticipantPreview from '../components/participant_preview.vue'
 
 export default {
   props: {
-    data: {
-      type: Object
-    }
+    data: Object,
+    starting_tab: String
   },
   data () {
     return {
       card_sort: this.data,
-      tab: 'Settings',
+      tab: this.starting_tab,
       groups: this.data.card_sort_groups.sort((a,b) => a.order - b.order),
       cards: this.data.card_sort_cards.sort((a,b) => a.order - b.order),
       subscribe_modal_open: false
@@ -202,7 +202,7 @@ export default {
       }
     },    
     saveProperty(property) {
-      if(this.card_sort.status !== 'draft') { return }
+      if(this.card_sort.status !== 'draft' && !['report_private', 'password_protect_report', 'report_password'].includes(property)) { return }
       var data = new FormData 
       data.append('card_sort[' + property + ']', this.card_sort[property])
       Rails.ajax({

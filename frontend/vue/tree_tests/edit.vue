@@ -147,7 +147,7 @@
                       instructions="Provide this to anyone you want to have access"           
                       v-show="tree_test.password_protect_report"
                       v-model="tree_test.report_password"
-                      @input="saveProperty('report_password')"
+                      @blur="saveProperty('report_password')"
                       />
                     </div>
                   </div>                           
@@ -192,14 +192,13 @@ import LogoUpload from '../components/logo_upload.vue'
 
 export default {
   props: {
-    data: {
-      type: Object
-    }
+    data: Object,
+    starting_tab: String
   },
   data () {
     return {
       tree_test: this.data,
-      tab: 'Settings',
+      tab: this.starting_tab,
       subscribe_modal_open: false   
     }
   },    
@@ -208,6 +207,7 @@ export default {
       this.tab = name
     },    
     saveProperty(property) {
+      if(this.tree_test.status !== 'draft' && !['report_private', 'password_protect_report', 'report_password'].includes(property)) { return }      
       var data = new FormData 
       data.append('tree_test[' + property + ']', this.tree_test[property])
       Rails.ajax({

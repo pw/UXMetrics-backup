@@ -56,7 +56,7 @@ class TreeTestParticipant < ApplicationRecord
   end
 
   def results_sorted
-    tree_test_participant_results.joins(:tree_test_task).order('tree_test_tasks.task_number')
+    tree_test_participant_results.joins(:tree_test_task).order('tree_test_tasks.order')
   end
 
   def as_json(*)

@@ -106,7 +106,6 @@ class CardSort < ApplicationRecord
       hash[:logo_base_url] = "https://#{ENV['LOGO_UPLOAD_ENDPOINT']}"
       hash[:logo_url] = logo_url
       hash[:results_count] = card_sort_participants.where(excluded: false).count
-      hash[:test_results_count] = card_sort_participants.where(excluded: false).count
       hash[:median_time] = median_time_formatted
       hash[:total_groups] = card_sort_groups.count
       hash[:card_sort_groups] = card_sort_groups.where.not(order: nil).order(:order)
@@ -114,6 +113,12 @@ class CardSort < ApplicationRecord
       hash[:subscribed] = user.subscribed
       hash[:edit_url] = Rails.application.routes.url_helpers.edit_card_sort_url(self) if id
       hash[:user_id] = user.id
+      hash[:report_url] = Rails.application.routes.url_helpers.card_sort_report_url(report_token) if id
+      hash[:card_results] = card_results
+      hash[:group_results] = group_results
+      hash[:participants] = participants
+      hash[:distribution_of_groups_created_per_participant] = distribution_of_groups_created_per_participant
+      hash[:sankey_data] = sankey_data
     end
   end
 

@@ -38,7 +38,7 @@ class TreeTestsController < ApplicationController
   end
 
   def report
-    @tree_test = current_user.tree_tests.where(id: params[:id]).includes(tree_test_tasks: :tree_test_task_correct_choices)
+    @tree_test = current_user.tree_tests.find(params[:id])
   end
 
   def participants

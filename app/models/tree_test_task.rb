@@ -8,6 +8,16 @@ class TreeTestTask < ApplicationRecord
   def as_json(*)
     super.tap do |hash|
       hash[:tree_test_task_correct_choices] = tree_test_task_correct_choices
+      hash[:percent_success_formatted] = percent_success_formatted
+      hash[:directness_formatted] = directness_formatted
+      hash[:median_time_formatted] = median_time_formatted
+      hash[:percent_navigated_directly_to_correct_rounded] = percent_navigated_directly_to_correct_rounded
+      hash[:percent_navigated_indirectly_to_correct_rounded] = percent_navigated_indirectly_to_correct_rounded
+      hash[:percent_navigated_directly_to_incorrect_rounded] = percent_navigated_directly_to_incorrect_rounded
+      hash[:percent_navigated_indirectly_to_incorrect_rounded] = percent_navigated_indirectly_to_incorrect_rounded
+      hash[:percent_navigated_indirectly_to_incorrect_rounded] = percent_navigated_indirectly_to_incorrect_rounded
+      hash[:percent_skipped_directly_rounded] = percent_skipped_directly_rounded
+      hash[:percent_skipped_indirectly_rounded] = percent_skipped_indirectly_rounded
     end
   end
 

@@ -5,7 +5,16 @@
     :created_at="tree_test.created_at_day" 
     :id="tree_test.id" 
     test_type="tree_tests"
-    :show_back="!public_report" />
+    :show_back="!shared_report" 
+    />
+
+    <ReportBanner
+      :report_private="tree_test.report_private"
+      :password_protect_report="tree_test.password_protect_report"
+      :report_url="tree_test.report_url"
+      :edit_url="tree_test.edit_url + '?tab=Pro'"
+      :shared_report="shared_report"
+    />
 
     <main class="py-6">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -46,7 +55,7 @@
 
             <div v-show="tab === 'tasks'">
               <Task
-              v-for="(task, index) in tasks"
+              v-for="(task, index) in tree_test.tree_test_tasks"
               :key="task.id"
               :task="task"
               :index="index"
@@ -61,7 +70,7 @@
               :total_participants="total_participants"
               :tree_test_id="tree_test.id"
               @open="openParticipantModal"
-              :editable="!public_report"
+              :editable="!shared_report"
               />        
             </div>
 
@@ -105,29 +114,28 @@ import Participants from '../components/tree_test_report/participants.vue'
 import Task from '../components/tree_test_report/task.vue'
 import TaskOutcomeDetailsModal from '../components/tree_test_report/task_outcome_details_modal.vue'
 import ParticipantDetails from '../components/tree_test_report/participant_details_modal.vue'
+import ReportBanner from '../components/report_banner.vue'
 
 export default {
   props: {
-    data: {
-      type: Array
-    },
-    public_report: {
+    data: Object,
+    shared_report: {
       type: Boolean,
       default: false
     }
   },  
   data () {
     return {
-      tree_test: this.data[0],
+      tree_test: this.data,
       tab: 'tasks',     
       task_modal_open: false,
       modal_task_index: 0,
       modal_outcome: 'indirect_correct',
       task_outcome_summary: [],
-      participants: this.data[0].participants,
-      total_participants: this.data[0].total_participants,
+      participants: this.data.participants,
+      total_participants: this.data.total_participants,
       participant_modal_open: false,
-      participant: this.data[0].participants[0],
+      participant: this.data.participants[0],
       participant_index: 1
     }
   },
@@ -153,6 +161,6 @@ export default {
       this.participant_modal_open = true
     }
   },
-  components: { Nav, Sidebar, Chart, Task,  TaskOutcomeDetailsModal, Participants, ParticipantDetails }
+  components: { Nav, Sidebar, Chart, Task,  TaskOutcomeDetailsModal, Participants, ParticipantDetails, ReportBanner }
 }  
 </script>

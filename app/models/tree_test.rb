@@ -96,7 +96,8 @@ class TreeTest < ApplicationRecord
       hash[:collect_url] = collect_url
       hash[:logo_base_url] = "https://#{ENV['LOGO_UPLOAD_ENDPOINT']}"
       hash[:logo_url] = logo_url
-      hash[:test_results_count] = tree_test_participants.where(excluded: false).count
+      hash[:results_count] = tree_test_participants.where(excluded: false).count
+      hash[:participants] = participants
       hash[:percent_success] = percent_success_rounded
       hash[:median_time] = median_time_formatted
       hash[:percent_navigated_directly_to_correct] = percent_navigated_directly_to_correct && (percent_navigated_directly_to_correct * 100).round(1)      
@@ -110,6 +111,7 @@ class TreeTest < ApplicationRecord
       hash[:edit_url] = Rails.application.routes.url_helpers.edit_tree_test_url(self) if id
       hash[:user_id] = user.id
       hash[:tree_test_tasks] = tree_test_tasks.order(:order)
+      hash[:report_url] = Rails.application.routes.url_helpers.tree_test_report_url(report_token) if id 
     end
   end
 

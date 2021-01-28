@@ -11,7 +11,7 @@ Bundler.require(*Rails.groups)
 
 module UXMetrics
   class Application < Rails::Application
-    config.application_naked_domain = ENV['NAKED_APP_DOMAIN']
+    config.application_naked_domain = ENV['FULL_APP_DOMAIN_WITHOUT_PROTOCOL']
     config.application_domain = ENV['FULL_APP_DOMAIN']
     config.application_name = ENV['APP_NAME']
     config.load_defaults 5.2

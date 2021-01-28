@@ -40,7 +40,7 @@ class CardSortsController < ApplicationController
   end
 
   def report
-    @card_sort = current_user.card_sorts.where(id: params[:id]).first
+    @card_sort = current_user.card_sorts.find(params[:id])
   end
 
   private

@@ -1,6 +1,6 @@
 class AuthenticationController < UnauthenticatedController
   layout 'authentication'
-  skip_before_action :check_for_login, only: :logout
+  before_action :check_for_login, except: :logout
 
   def signup        
     user = User.create(email: params[:email], password: params[:password])
@@ -70,5 +70,8 @@ class AuthenticationController < UnauthenticatedController
     cookies.encrypted[:user_id] = user.id
   end
 
+  def check_for_login
+    redirect_to dashboard_path if (session[:user_id] || cookies.encrypted[:user_id])
+  end
 
 end
