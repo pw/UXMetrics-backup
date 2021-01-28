@@ -9,7 +9,7 @@
         v-model="cards"
         @change="saveCards"        
         ghost-class="group-list-ghost-class"
-        filter="input"
+        filter="input, textarea"
         :prevent-on-filter="false"
       >
         <Card 
