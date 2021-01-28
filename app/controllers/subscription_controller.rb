@@ -27,11 +27,6 @@ class SubscriptionController < ApplicationController
     user = User.find(reference_data['user_id'])
     user.update(stripe_customer_id: params[:data][:object][:customer])
     user.update(subscribed: true)
-    if(reference_data['feature'] == 'card_sort')
-      user.card_sorts.find(reference_data['feature_instance_id']).update(status: 'published')
-    elsif(reference_data['feature'] == 'tree_test')
-      user.tree_tests.find(reference_data['feature_instance_id']).update(status: 'published')
-    end
     head :ok
   end
 end
