@@ -1,5 +1,4 @@
 class EmailVerificationController < UnauthenticatedController
-  skip_before_action :check_for_login
   
   def verify
     email_verification = EmailVerification.find_by(token: params[:token])
