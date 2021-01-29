@@ -72,7 +72,7 @@
       @input="saveProperty('logo_key')"
       instructions="Add custom branding to this study"
       :logo_base_url="tree_test.logo_base_url"
-      :enabled="tree_test.subscribed"
+      :allowed="tree_test.subscribed"
       @attempt="subscribe_modal_open = true"
       />   
       <ProBadge></ProBadge>
@@ -81,7 +81,7 @@
       v-model="tree_test.randomize_task_order"
       @input="saveProperty('randomize_task_order')"
       :toggleable="tree_test.subscribed"
-      @attempt="openSubscribeModal"
+      @attempt="subscribe_modal_open = true"
       label="Randomize task order for participants" description="This ensures that each task has a chance to be presented earlier in the session" />
       <ProBadge></ProBadge>
       <Slider 
@@ -89,14 +89,14 @@
       v-model="tree_test.allow_skip"
       @input="saveProperty('allow_skip')"
       :toggleable="tree_test.subscribed"
-      @attempt="openSubscribeModal"
+      @attempt="subscribe_modal_open = true"
       label="Allow participants to skip tasks if they get stuck" description="This can reduce abandonment rates and skips are tracked for you" />      
       <ProBadge></ProBadge>
       <Slider 
       class="mb-6" 
       :value="tree_test.subscribed" 
       :toggleable="false"
-      @attempt="openSubscribeModal" 
+      @attempt="subscribe_modal_open = true" 
       label="Advanced Report Sharing" 
       description="Your study results can be shared with an unlisted public URL by default" />
       <div class="relative flex items-start mb-6">
@@ -147,7 +147,7 @@
       </div>          
     </Step>
 
-    <Flash v-show="show_flash" :show="show_flash" :notice="flash_notice">
+    <Flash v-show="show_flash" v-model="show_flash" :notice="flash_notice">
     </Flash>
     <transition name="modal-component">
       <Subscribe
@@ -224,26 +224,17 @@ export default {
           window.location = this.tree_test.edit_url
         }
       })
-    },  
-    showFlash: function() {
-      this.show_flash = true
-      setTimeout(() => this.show_flash = false, 5000)
-    },  
-    openSubscribeModal() {
-      if(!this.tree_test.subscribed) {
-        this.subscribe_modal_open = true
-      }
-    },  
+    },   
     preventDefaultUnlessSubscriberAndOpenModal(event) {
       if(!this.tree_test.subscribed) {
         event.preventDefault()  
-        this.openSubscribeModal()    
+        this.subscribe_modal_open = true    
       }
     },      
     create() {
       if(this.tree_test.name === '') {
-        this.flash_notice = 'Name cannot be blank'
-        this.showFlash()
+        this.flash_notice = 'Name cannot be blank.'
+        this.show_flash = true
         this.$refs.name.$refs.input.focus()      
         return
       } 

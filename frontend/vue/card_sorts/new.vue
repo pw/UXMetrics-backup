@@ -126,7 +126,7 @@
       </div>
     </Step>
 
-    <Flash v-show="show_flash" :show="show_flash" :notice="flash_notice">
+    <Flash v-show="show_flash" v-model="show_flash" :notice="flash_notice">
     </Flash>
     <transition name="modal-component">
       <Subscribe
@@ -195,14 +195,10 @@ export default {
     back: function() {
       this.card_sort.creation_step -= 1
     },
-    showFlash: function() {
-      this.show_flash = true
-      setTimeout(() => this.show_flash = false, 5000)
-    },
     create() {
       if(this.card_sort.name === '') {
-        this.flash_notice = 'Name cannot be blank'
-        this.showFlash()
+        this.flash_notice = 'Name cannot be blank.'
+        this.show_flash = true
         this.$refs.name.$refs.input.focus()      
         return
       } 
