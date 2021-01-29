@@ -7,6 +7,7 @@
     <div class="flex" slot-scope="{ item }">
       <VueNestableHandle 
       v-if="!(item.id == tree[0].id && tree.length == 1)" 
+      v-show="!disabled"
       :item="item">   
         <div class="py-1">
           <svg class="h-6 w-6 text-gray-700" fill="currentColor" viewBox="0 0 24 24" stroke="none">
