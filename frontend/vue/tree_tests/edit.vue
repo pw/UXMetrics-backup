@@ -86,7 +86,7 @@
                   @input="saveProperty('logo_key')"
                   instructions="Add custom branding to this study"
                   :logo_base_url="tree_test.logo_base_url"
-                  :enabled="tree_test.subscribed"
+                  :allowed="tree_test.subscribed"
                   @attempt="subscribe_modal_open = true"
                   />   
                   <ProBadge></ProBadge>
@@ -94,7 +94,7 @@
                   class="mb-6 pb-6 border-b border-gray-100"
                   v-model="tree_test.randomize_task_order"
                   @input="saveProperty('randomize_task_order')"
-                  :toggleable="tree_test.subscribed"
+                  :toggleable="tree_test.subscribed && (tree_test.status === 'draft')"
                   @attempt="openSubscribeModal"
                   label="Randomize task order for participants" description="This ensures that each task has a chance to be presented earlier in the session" />
                   <ProBadge></ProBadge>
@@ -102,7 +102,7 @@
                   class="mb-6 pb-6 border-b border-gray-100"
                   v-model="tree_test.allow_skip"
                   @input="saveProperty('allow_skip')"
-                  :toggleable="tree_test.subscribed"
+                  :toggleable="tree_test.subscribed && (tree_test.status === 'draft')"
                   @attempt="openSubscribeModal"
                   label="Allow participants to skip tasks if they get stuck" description="This can reduce abandonment rates and skips are tracked for you" />
                   <ProBadge></ProBadge>
@@ -178,7 +178,9 @@
       feature="tree_test"
       :feature_instance_id="tree_test.id"
       />
-    </transition>    
+    </transition>   
+    <Flash v-show="show_flash" :show="show_flash" :notice="flash_notice">
+    </Flash>     
   </div>
 </template>
 
@@ -197,6 +199,7 @@ import Tree from '../components/tree_test/tree.vue'
 import Tasks from '../components/tree_test/tasks.vue'
 import Sidebar from '../components/edit_sidebar.vue'
 import LogoUpload from '../components/logo_upload.vue'
+import Flash from '../components/flash.vue'
 
 export default {
   props: {
@@ -207,7 +210,9 @@ export default {
     return {
       tree_test: this.data,
       tab: this.starting_tab,
-      subscribe_modal_open: false   
+      subscribe_modal_open: false,
+      show_flash: false,
+      flash_notice: ''   
     }
   },    
   methods: {  
@@ -225,8 +230,13 @@ export default {
       }) 
     },
     openSubscribeModal() {
-      if(!this.tree_test.subscribed) {
-        this.subscribe_modal_open = true
+      if(this.tree_test.status === 'draft') {
+        if(!this.tree_test.subscribed) {
+          this.subscribe_modal_open = true
+        }
+      } else {
+        this.flash_notice = "This feature can't be changed after a study is published because it would impact the integrity of your results."
+        this.show_flash = true
       }
     },  
     preventDefaultUnlessSubscriberAndOpenModal(event) {
@@ -236,6 +246,6 @@ export default {
       }
     },    
   },
-  components: { Nav, Subscribe, TextInput, TextArea, Slider, Tabs, ProBadge, ParticipantPreview, Tree, Tasks, Sidebar, LogoUpload }
+  components: { Nav, Subscribe, TextInput, TextArea, Slider, Tabs, ProBadge, ParticipantPreview, Tree, Tasks, Sidebar, LogoUpload, Flash }
 }
 </script>
