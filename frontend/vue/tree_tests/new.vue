@@ -51,7 +51,7 @@
    
     <Step 
     v-show="tree_test.creation_step === 3" 
-    @next="next"
+    @next="goToStep4"
     instructions="Finally, let's define the tasks you want participants to complete, and set the correct choice(s) for each.">  
       <Tasks
         v-model="tree_test.tree_test_tasks"
@@ -211,7 +211,20 @@ export default {
     },
     back() {
       this.tree_test.creation_step -= 1
+      this.saveProperty('creation_step')
     }, 
+    goToStep4() {
+      if(this.tree_test.tree_test_tasks.some(task => task.instructions === '')) {
+        this.flash_notice = "Please include instructions for all tasks."
+        this.show_flash = true        
+      } else if(this.tree_test.tree_test_tasks.some(task => task.tree_test_task_correct_choices.length === 0)) {
+        this.flash_notice = "Please set correct choice(s) for all tasks."
+        this.show_flash = true        
+      } else {
+        this.tree_test.creation_step += 1
+        this.saveProperty('creation_step')
+      }
+    },
     finish() {
       this.tree_test.creation_wizard_complete = true
       var data = new FormData 
