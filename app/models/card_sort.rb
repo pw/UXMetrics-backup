@@ -107,7 +107,6 @@ class CardSort < ApplicationRecord
       hash[:logo_url] = logo_url
       hash[:results_count] = card_sort_participants.where(excluded: false).count
       hash[:median_time] = median_time_formatted
-      hash[:total_groups] = card_sort_groups.count
       hash[:card_sort_groups] = card_sort_groups.where.not(order: nil).order(:order)
       hash[:card_sort_cards] = card_sort_cards_randomized_or_not
       hash[:subscribed] = user.subscribed
