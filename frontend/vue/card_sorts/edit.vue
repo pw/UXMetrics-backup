@@ -67,7 +67,7 @@
                   @input="saveProperty('logo_key')"
                   instructions="Add custom branding to this study"
                   :logo_base_url="card_sort.logo_base_url"
-                  :enabled="card_sort.subscribed"
+                  :allowed="card_sort.subscribed"
                   @attempt="subscribe_modal_open = true"
                   />
                   <ProBadge></ProBadge>
@@ -75,15 +75,15 @@
                   class="mb-6 pb-6 border-b border-gray-100" 
                   v-model="card_sort.randomize_card_order" 
                   @input="saveProperty('randomize_card_order')" 
-                  :toggleable="card_sort.subscribed" 
-                  @attempt="openSubscribeModal"
+                  :toggleable="card_sort.subscribed && (card_sort.status === 'draft')" 
+                  @attempt="attemptOnUnallowedAndPublicationRestrictedFeature"
                   label="Randomize card order for each participant" description="This ensures that each card has a chance to be sorted earlier in the session" />
                   <ProBadge></ProBadge>
                   <Slider 
                   class="mb-6" 
                   :value="card_sort.subscribed" 
                   :toggleable="false"
-                  @attempt="openSubscribeModal" 
+                  @attempt="attemptOnLockedFeature" 
                   label="Advanced Report Sharing" 
                   description="Your study results can be shared with an unlisted public URL by default" />
                   <div class="relative flex items-start mb-6">
@@ -91,7 +91,7 @@
                       <input 
                       v-model="card_sort.report_private"
                       @change="saveProperty('report_private')"
-                      @click="preventDefaultUnlessSubscriberAndOpenModal"
+                      @click="preventDefaultAndOpenSubscribeModalUnlessSubscribed"
                       id="report_private" 
                       name="report_private" 
                       type="checkbox" 
@@ -108,7 +108,7 @@
                       v-model="card_sort.password_protect_report"
                       :disabled="card_sort.subscribed ? (card_sort.report_private ? false : true) : false"
                       @change="saveProperty('password_protect_report')"
-                      @click="preventDefaultUnlessSubscriberAndOpenModal"
+                      @click="preventDefaultAndOpenSubscribeModalUnlessSubscribed"
                       id="password_protect_report"
                       name="password_protect_report" 
                       type="checkbox" 
@@ -141,6 +141,9 @@
       </div> 
     </main>
 
+    <Flash v-show="show_flash" :show="show_flash" :notice="flash_notice">
+    </Flash> 
+
     <transition name="modal-component">
       <Subscribe
       v-show="subscribe_modal_open"
@@ -171,6 +174,7 @@ import Sidebar from '../components/edit_sidebar.vue'
 import Tabs from '../components/tabs.vue'
 import ProBadge from '../components/pro_badge.vue'
 import ParticipantPreview from '../components/participant_preview.vue'
+import Flash from '../components/flash.vue'
 
 export default {
   props: {
@@ -183,26 +187,17 @@ export default {
       tab: this.starting_tab,
       groups: this.data.card_sort_groups.sort((a,b) => a.order - b.order),
       cards: this.data.card_sort_cards.sort((a,b) => a.order - b.order),
-      subscribe_modal_open: false
+      subscribe_modal_open: false,
+      show_flash: false,
+      flash_notice: ''
     }
   },  
   methods: {
     changeTab(name) {
       this.tab = name
     },
-    openSubscribeModal() {
-      if(!this.card_sort.subscribed) {
-        this.subscribe_modal_open = true
-      }
-    },
-    preventDefaultUnlessSubscriberAndOpenModal(event) {
-      if(!this.card_sort.subscribed) {
-        event.preventDefault()  
-        this.openSubscribeModal()    
-      }
-    },    
     saveProperty(property) {
-      if(this.card_sort.status !== 'draft' && !['report_private', 'password_protect_report', 'report_password'].includes(property)) { return }
+      if(this.card_sort.status !== 'draft' && !['logo_key', 'report_private', 'password_protect_report', 'report_password'].includes(property)) { return } 
       var data = new FormData 
       data.append('card_sort[' + property + ']', this.card_sort[property])
       Rails.ajax({
@@ -210,8 +205,27 @@ export default {
         type: 'PATCH', 
         data: data
       }) 
-    } 
+    },    
+    attemptOnUnallowedAndPublicationRestrictedFeature() {
+      if(this.card_sort.status === 'draft') {
+        this.subscribe_modal_open = true
+      } else {
+        this.flash_notice = "This feature can't be changed after a study is published because it would impact the integrity of your results."
+        this.show_flash = true
+      }
+    },
+    attemptOnLockedFeature() {
+      if(!this.card_sort.subscribed){
+        this.subscribe_modal_open = true  
+      }
+    }, 
+    preventDefaultAndOpenSubscribeModalUnlessSubscribed(event) {
+      if(!this.card_sort.subscribed) {
+        event.preventDefault()  
+        this.subscribe_modal_open = true   
+      }
+    }
   },
-  components: { Nav, Subscribe, TextInput, TextArea, Slider, Groups, Cards, LogoUpload, SortType, Sidebar, Tabs, ProBadge, ParticipantPreview }
+  components: { Nav, Subscribe, TextInput, TextArea, Slider, Groups, Cards, LogoUpload, SortType, Sidebar, Tabs, ProBadge, ParticipantPreview, Flash }
 }
 </script>

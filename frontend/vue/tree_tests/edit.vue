@@ -95,7 +95,7 @@
                   v-model="tree_test.randomize_task_order"
                   @input="saveProperty('randomize_task_order')"
                   :toggleable="tree_test.subscribed && (tree_test.status === 'draft')"
-                  @attempt="openSubscribeModal"
+                  @attempt="attemptOnUnallowedAndPublicationRestrictedFeature"
                   label="Randomize task order for participants" description="This ensures that each task has a chance to be presented earlier in the session" />
                   <ProBadge></ProBadge>
                   <Slider 
@@ -103,14 +103,14 @@
                   v-model="tree_test.allow_skip"
                   @input="saveProperty('allow_skip')"
                   :toggleable="tree_test.subscribed && (tree_test.status === 'draft')"
-                  @attempt="openSubscribeModal"
+                  @attempt="attemptOnUnallowedAndPublicationRestrictedFeature"
                   label="Allow participants to skip tasks if they get stuck" description="This can reduce abandonment rates and skips are tracked for you" />
                   <ProBadge></ProBadge>
                   <Slider 
                   class="mb-6" 
                   :value="tree_test.subscribed" 
                   :toggleable="false"
-                  @attempt="openSubscribeModal" 
+                  @attempt="attemptOnLockedFeature" 
                   label="Advanced Report Sharing" 
                   description="Your study results can be shared with an unlisted public URL by default" />
                   <div class="relative flex items-start mb-6">
@@ -118,7 +118,7 @@
                       <input 
                       v-model="tree_test.report_private"
                       @change="saveProperty('report_private')"
-                      @click="preventDefaultUnlessSubscriberAndOpenModal"
+                      @click="preventDefaultAndOpenSubscribeModalUnlessSubscribed"
                       id="report_private" 
                       name="report_private" 
                       type="checkbox" 
@@ -133,8 +133,9 @@
                     <div class="flex items-center h-5">
                       <input 
                       v-model="tree_test.password_protect_report"
+                      :disabled="tree_test.subscribed ? (tree_test.report_private ? false : true) : false"
                       @change="saveProperty('password_protect_report')"
-                      @click="preventDefaultUnlessSubscriberAndOpenModal"
+                      @click="preventDefaultAndOpenSubscribeModalUnlessSubscribed"
                       id="password_protect_report"
                       name="password_protect_report" 
                       type="checkbox" 
@@ -220,7 +221,7 @@ export default {
       this.tab = name
     },    
     saveProperty(property) {
-      if(this.tree_test.status !== 'draft' && !['report_private', 'password_protect_report', 'report_password'].includes(property)) { return }      
+      if(this.tree_test.status !== 'draft' && !['logo_key', 'report_private', 'password_protect_report', 'report_password'].includes(property)) { return }      
       var data = new FormData 
       data.append('tree_test[' + property + ']', this.tree_test[property])
       Rails.ajax({
@@ -229,22 +230,25 @@ export default {
         data: data
       }) 
     },
-    openSubscribeModal() {
+    attemptOnUnallowedAndPublicationRestrictedFeature() {
       if(this.tree_test.status === 'draft') {
-        if(!this.tree_test.subscribed) {
-          this.subscribe_modal_open = true
-        }
+        this.subscribe_modal_open = true
       } else {
         this.flash_notice = "This feature can't be changed after a study is published because it would impact the integrity of your results."
         this.show_flash = true
       }
-    },  
-    preventDefaultUnlessSubscriberAndOpenModal(event) {
+    },
+    attemptOnLockedFeature() {
+      if(!this.tree_test.subscribed){
+        this.subscribe_modal_open = true  
+      }
+    }, 
+    preventDefaultAndOpenSubscribeModalUnlessSubscribed(event) {
       if(!this.tree_test.subscribed) {
         event.preventDefault()  
-        this.openSubscribeModal()    
+        this.subscribe_modal_open = true   
       }
-    },    
+    }    
   },
   components: { Nav, Subscribe, TextInput, TextArea, Slider, Tabs, ProBadge, ParticipantPreview, Tree, Tasks, Sidebar, LogoUpload, Flash }
 }
