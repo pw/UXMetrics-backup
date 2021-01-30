@@ -15,7 +15,7 @@ class ReportsController < UnauthenticatedController
       redirect_to @login_path, notice: 'Incorrect password.' and return if @study.report_password == ''
       if @study.report_password == params[:password] 
         session[@session_id] = 1
-        cookies.encrypted[@session_id] = 1 if (params[:remember_me] == 1)
+        cookies.encrypted[@session_id] = 1 if (params[:remember_me] == '1')
         redirect_to @report_path and return
       end
     else 
