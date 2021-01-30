@@ -26,10 +26,10 @@ class CardSort < ApplicationRecord
 
     if (minutes = median_time.to_i / 60000) != 0
       result << "#{minutes}m " 
-    else
-      seconds = ((median_time % 60000) / 1000).round
-      result << "#{seconds}s"
     end
+    
+    seconds = ((median_time % 60000) / 1000).round
+    result << "#{seconds}s"
 
     result
   end  

@@ -29,10 +29,10 @@ class CardSortParticipant < ApplicationRecord
 
     if (minutes = time.to_i / 60000) != 0
       result << "#{minutes}m " 
-    else
-      seconds = ((time % 60000) / 1000).round
-      result << "#{seconds}s"
     end
+    
+    seconds = ((time % 60000) / 1000).round
+    result << "#{seconds}s"
 
     result    
   end
