@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_12_054754) do
+ActiveRecord::Schema.define(version: 2021_01_30_044310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,8 +141,6 @@ ActiveRecord::Schema.define(version: 2021_01_12_054754) do
     t.text "instructions", default: "Task instructions (e.g. \"Imagine that you want to update your credit card details. Where would you find that?\")"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "correct_choice"
-    t.string "correct_path"
     t.integer "order"
     t.index ["tree_test_id"], name: "index_tree_test_tasks_on_tree_test_id"
   end
