@@ -7,12 +7,8 @@
         <div class="flex flex-wrap">
           <Sidebar
             study_type="tree test"
-            :study_id="tree_test.id"
-            :status="tree_test.status"
-            :results_count="tree_test.results_count"
-            :report_url="'/tree_tests/' + tree_test.id + '/report'"
-            :collect_url="tree_test.collect_url"
-            @published="tree_test.status = 'published'"
+            :study="tree_test"
+            @publish="publish"
             @ended="tree_test.status = 'ended'"            
           />
           <div class="w-full md:w-2/3 xl:w-3/5">
@@ -230,6 +226,29 @@ export default {
         data: data
       }) 
     },
+    publish() {
+      if(this.tree_test.tree_test_tasks.some(task => task.instructions === '')) {
+        this.flash_notice = "Please include instructions for all tasks."
+        this.show_flash = true        
+      } else if(this.tree_test.tree_test_tasks.some(task => task.tree_test_task_correct_choices.length === 0)) {
+        this.flash_notice = "Please set correct choice(s) for all tasks."
+        this.show_flash = true 
+      } else {
+        var r = confirm('Are you sure?')
+        if(r == true) {
+          var data = new FormData 
+          data.append('tree_test[status]', 'published')
+          Rails.ajax({
+            url: `/tree_tests/${ this.tree_test.id }`,
+            type: 'PATCH', 
+            data: data,
+            success: () => {
+              this.tree_test.status = 'published'
+            } 
+          })        
+        }
+      }
+    },    
     attemptOnUnallowedAndPublicationRestrictedFeature() {
       if(this.tree_test.status === 'draft') {
         this.subscribe_modal_open = true

@@ -7,11 +7,7 @@
         <div class="flex flex-wrap">
           <Sidebar
             study_type="card sort"
-            :study_id="card_sort.id"
-            :status="card_sort.status"
-            :results_count="card_sort.results_count"
-            :report_url="'/card_sorts/' + card_sort.id + '/report'"
-            :collect_url="card_sort.collect_url"
+            :study="card_sort"
             @published="card_sort.status = 'published'"
             @ended="card_sort.status = 'ended'"
           />  
