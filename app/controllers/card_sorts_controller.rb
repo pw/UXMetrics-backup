@@ -19,6 +19,11 @@ class CardSortsController < ApplicationController
     @card_sorts = current_user.card_sorts.all.order(updated_at: :desc)
   end
 
+  def show
+    @card_sort = current_user.card_sorts.find(params[:id])
+    render json: @card_sort
+  end
+
   def edit
     @card_sort = current_user.card_sorts.where(id: params[:id]).includes(:card_sort_groups, :card_sort_cards).first
     if @card_sort.creation_wizard_complete
