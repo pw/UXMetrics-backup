@@ -1,6 +1,6 @@
 class CardSortParticipantsController < ApplicationController
-  skip_before_action :authenticate, only: [:new, :create]
-  skip_before_action :check_verification, only: [:new, :create]
+  skip_before_action :authenticate, only: [:new, :create, :show]
+  skip_before_action :check_verification, only: [:new, :create, :show]
   layout 'participants'
 
   def new
@@ -20,7 +20,6 @@ class CardSortParticipantsController < ApplicationController
 
   def show
     @card_sort_participant = CardSortParticipant.find(params[:id])
-    return head :forbidden unless @card_sort_participant.card_sort.user == current_user
     respond_to do |format|
       format.html {
         render 
