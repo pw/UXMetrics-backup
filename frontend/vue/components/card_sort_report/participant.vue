@@ -10,7 +10,7 @@
               Time to complete: {{ time_to_complete }}
           </p>
         </div>
-        <div class="ml-4 mt-4 flex-shrink-0">
+        <div v-show="editable" class="ml-4 mt-4 flex-shrink-0">
           <span v-show="excluded" class="inline-flex rounded-md shadow-sm mr-2">
             <button @click="include_participant" type="button" class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 text-xs leading-4 font-medium rounded text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150">
               <svg class="-ml-0.5 mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
@@ -72,7 +72,8 @@ export default {
   props: {
     participant_id: Number,
     participant_database_id: Number,
-    card_sort_id: Number
+    card_sort_id: Number,
+    editable: Boolean
   },
   data () {
     return {

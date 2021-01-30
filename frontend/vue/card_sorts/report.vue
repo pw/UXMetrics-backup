@@ -88,7 +88,7 @@
             </div>
 
             <div v-show="tab === 'groups'"> 
-              <div class="md:flex md:items-center md:justify-between mb-4">
+              <div v-show="!shared_report" class="md:flex md:items-center md:justify-between mb-4">
                 <div class="flex-1 min-w-0">
                   <p class="mt-4 flex items-center">
                     <svg class="inline mr-1 h-6 w-6 text-purple-700" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -129,6 +129,7 @@
                       :created_by="result[1].created_by"
                       :merged_groups="result[1].merged_groups"
                       :row_index="index"
+                      :show_merge_checkboxes="!shared_report"
                       @manageMergedGroup="manageMergedGroup"
                       @toggleSelectedGroup="toggleSelectedGroup"
                       />
@@ -157,6 +158,7 @@
                 :participant_id="current_participant_id"
                 :participant_database_id="current_participant_database_id"
                 :card_sort_id="card_sort.id"
+                :editable="!shared_report"
                 @dataChange="update_card_sort_data"
               />             
             </div>            
@@ -284,6 +286,9 @@ export default {
       });
     },
     manageMergedGroup(id, name, merged_groups) {
+      if(this.shared_report) {
+        return
+      }
       this.merged_group_name = name
       this.merged_group_id = id
       this.merged_groups = merged_groups

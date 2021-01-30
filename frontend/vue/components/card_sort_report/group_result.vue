@@ -1,7 +1,7 @@
 <template>
   <tr class="bg-white align-top" :class="{'bg-white' : (row_index % 2 === 0), 'bg-gray-50': (row_index % 2 === 1)}">
     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
-      <input v-if="merged_groups.length === 0" @click="$emit('toggleSelectedGroup', group_id, name)" type="checkbox">
+      <input v-show="show_merge_checkboxes" v-if="merged_groups.length === 0" @click="$emit('toggleSelectedGroup', group_id, name)" type="checkbox">
     </td>
     <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-900">
       {{ name }}
@@ -44,7 +44,8 @@ export default {
     cards: Array,
     created_by: Number,
     merged_groups: Array,
-    row_index: Number
+    row_index: Number,
+    show_merge_checkboxes: Boolean
   }
 }
 </script>
