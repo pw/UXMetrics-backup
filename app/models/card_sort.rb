@@ -110,14 +110,15 @@ class CardSort < ApplicationRecord
       hash[:card_sort_groups] = card_sort_groups.where.not(order: nil).order(:order)
       hash[:card_sort_cards] = card_sort_cards_randomized_or_not
       hash[:subscribed] = user.subscribed
-      hash[:edit_url] = Rails.application.routes.url_helpers.edit_card_sort_url(self) if id
       hash[:user_id] = user.id
-      hash[:report_url] = Rails.application.routes.url_helpers.card_sort_report_url(report_token) if id
       hash[:card_results] = card_results
       hash[:group_results] = group_results
       hash[:participants] = participants
       hash[:distribution_of_groups_created_per_participant] = distribution_of_groups_created_per_participant
       hash[:sankey_data] = sankey_data
+      hash[:edit_url] = Rails.application.routes.url_helpers.edit_card_sort_url(self) if id    
+      hash[:dashboard_report_url] = Rails.application.routes.url_helpers.report_card_sort_url(self) if id    
+      hash[:report_url] = Rails.application.routes.url_helpers.card_sort_report_url(report_token) if id      
     end
   end
 

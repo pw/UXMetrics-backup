@@ -108,10 +108,11 @@ class TreeTest < ApplicationRecord
       hash[:percent_skipped_indirectly] = percent_skipped_indirectly && (percent_skipped_indirectly * 100).round(1)
       hash[:total_participants] = tree_test_participants.count 
       hash[:subscribed] = user.subscribed
-      hash[:edit_url] = Rails.application.routes.url_helpers.edit_tree_test_url(self) if id
       hash[:user_id] = user.id
       hash[:tree_test_tasks] = tree_test_tasks.order(:order)
-      hash[:report_url] = Rails.application.routes.url_helpers.tree_test_report_url(report_token) if id 
+      hash[:edit_url] = Rails.application.routes.url_helpers.edit_tree_test_url(self) if id
+      hash[:dashboard_report_url] = Rails.application.routes.url_helpers.report_tree_test_url(self) if id
+      hash[:shared_report_url] = Rails.application.routes.url_helpers.tree_test_report_url(report_token) if id 
     end
   end
 

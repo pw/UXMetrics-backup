@@ -11,7 +11,7 @@
     <ReportBanner
       :report_private="card_sort.report_private"
       :password_protect_report="card_sort.password_protect_report"
-      :report_url="card_sort.report_url"
+      :report_url="card_sort.shared_report_url"
       :edit_url="card_sort.edit_url + '?tab=Pro'"
       :shared_report="shared_report"
     />

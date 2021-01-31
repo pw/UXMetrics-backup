@@ -11,7 +11,7 @@
     <ReportBanner
       :report_private="tree_test.report_private"
       :password_protect_report="tree_test.password_protect_report"
-      :report_url="tree_test.report_url"
+      :report_url="tree_test.shared_report_url"
       :edit_url="tree_test.edit_url + '?tab=Pro'"
       :shared_report="shared_report"
     />
