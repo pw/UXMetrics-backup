@@ -118,7 +118,7 @@ class CardSort < ApplicationRecord
       hash[:sankey_data] = sankey_data
       hash[:edit_url] = Rails.application.routes.url_helpers.edit_card_sort_url(self) if id    
       hash[:dashboard_report_url] = Rails.application.routes.url_helpers.report_card_sort_url(self) if id    
-      hash[:report_url] = Rails.application.routes.url_helpers.card_sort_report_url(report_token) if id      
+      hash[:shared_report_url] = Rails.application.routes.url_helpers.card_sort_report_url(report_token) if id      
     end
   end
 
