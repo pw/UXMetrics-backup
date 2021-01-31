@@ -143,26 +143,25 @@
               <div class="sm:block mb-6 overflow-x-auto">
                 <nav class="flex">
                   <a 
-                  v-for="participant in card_sort.participants" 
+                  v-for="(participant, index) in card_sort.participants" 
                   :key="participant[1]" 
                   class="flex-shrink-0 px-3 py-2 font-medium text-sm leading-5 rounded-md cursor-pointer" 
-                  :class="{ 'text-purple-700 bg-purple-100 focus:outline-none focus:text-purple-800 focus:bg-purple-200': (participant[0] === current_participant_id), 'text-gray-500 hover:text-gray-700 focus:outline-none focus:text-purple-600 focus:bg-purple-50': (participant[0] !== current_participant_id)}"
+                  :class="{ 'text-purple-700 bg-purple-100 focus:outline-none focus:text-purple-800 focus:bg-purple-200': (current_participant_index === index), 'text-gray-500 hover:text-gray-700 focus:outline-none focus:text-purple-600 focus:bg-purple-50': (current_participant_index !== index)}"
                   aria-current="page"
-                  @click="current_participant_id = participant[0]; current_participant_database_id = participant[1]"
+                  @click="current_participant_index = index"
                   >
                       Participant {{ participant[0] }}
                   </a>                    
                 </nav>               
               </div>  
               <Participant
-                :participant_id="current_participant_id"
-                :participant_database_id="current_participant_database_id"
-                :card_sort_id="card_sort.id"
+                :card_sort="card_sort"
+                :participant_index="current_participant_index"
                 :editable="!shared_report"
-                @dataChange="update_card_sort_data"
+                @participantDeleted="participantDeleted"
+                @participantIncludedOrExcluded="update_card_sort_data"
               />             
             </div>            
-
           </div>         
         </div>
 
@@ -239,8 +238,7 @@ export default {
       merged_group_name: null,
       merged_group_id: null,
       merged_groups: [],
-      current_participant_id: this.data.participants[0][0],
-      current_participant_database_id: this.data.participants[0][1]
+      current_participant_index: 0
     }
   },
   mounted: function() {
@@ -305,14 +303,18 @@ export default {
     clearSelectedGroups() {
       this.selected_groups = []
     },
+    participantDeleted() {
+      if(this.current_participant_index !== 0) {
+        this.current_participant_index -= 1
+      }
+      this.update_card_sort_data()
+    },
     update_card_sort_data() {
       Rails.ajax({
         url: '/card_sorts/' + this.card_sort.id,
         type: 'GET',
         success: (arg) => {
           this.card_sort = arg
-          this.current_participant_id = this.card_sort.participants[0][0],
-          this.current_participant_database_id = this.card_sort.participants[0][1]
           this.draw_chart()
         }
       })

@@ -70,9 +70,8 @@ import Rails from '@rails/ujs'
 
 export default {
   props: {
-    participant_id: Number,
-    participant_database_id: Number,
-    card_sort_id: Number,
+    card_sort: Object,
+    participant_index: Number,
     editable: Boolean
   },
   data () {
@@ -86,9 +85,17 @@ export default {
     this.load_participant_data()
   },
   watch: {
-    participant_database_id: function (val) {
+    participant_index: function (val) {
       this.load_participant_data()
     }
+  },
+  computed: {
+    participant_id() {
+      return this.card_sort.participants[this.participant_index][0]
+    },
+    participant_database_id() {
+      return this.card_sort.participants[this.participant_index][1]
+    }  
   },
   methods: {
     load_participant_data() {
@@ -103,13 +110,16 @@ export default {
       })
     },
     delete_participant() {
-      Rails.ajax({
-        url: '/card_sort_participants/' + this.participant_database_id,
-        type: 'DELETE',
-        success: (arg) => {
-          this.$emit('dataChange')
-        } 
-      })
+      var r = confirm('Are you sure?')
+      if(r == true) {
+        Rails.ajax({
+          url: '/card_sort_participants/' + this.participant_database_id,
+          type: 'DELETE',
+          success: (arg) => {
+            this.$emit('participantDeleted')
+          } 
+        })
+      }
     },
     exclude_participant() {
       var data = new FormData
@@ -119,7 +129,8 @@ export default {
         type: 'PATCH',
         data: data,
         success: () => {
-          this.$emit('dataChange')
+          this.$emit('participantIncludedOrExcluded')
+          this.load_participant_data()
         } 
       })
     },    
@@ -131,7 +142,8 @@ export default {
         type: 'PATCH',
         data: data,
         success: () => {
-          this.$emit('dataChange')
+          this.$emit('participantIncludedOrExcluded')
+          this.load_participant_data()
         } 
       })
     }
