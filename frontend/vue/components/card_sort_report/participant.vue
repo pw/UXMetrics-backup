@@ -45,7 +45,7 @@
       class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-2 mb-4">
         <div 
           v-for="group in column"
-          class="bg-gray-200 overflow-hidden rounded-lg">
+          class="bg-gray-200 overflow-hidden rounded-lg mb-4">
           <div class="p-4">
             <span class="block w-full text-base font-medium leading-5 text-gray-700">
               {{ group.name }}
