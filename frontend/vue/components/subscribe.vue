@@ -157,29 +157,20 @@ export default {
   props: {
     show: Boolean,
     redirect_url: String,
-    user_id: Number, 
-    feature: String,
-    feature_instance_id: Number
+    user_id: Number
   },
   data () {
     return {
-      plan: 'annual'
     }
   },
   methods: {
     subscribe() {
       var reference_id = {
         user_id: this.user_id,
-        feature: this.feature,
-        feature_instance_id: this.feature_instance_id
       }
       var data = new FormData
       data.append('redirect_url', this.redirect_url)
-      if(this.plan === 'annual') {
-        data.append('price_id', 'price_1Hxt7BBkaUHJfABO8yjDxT7Y')
-      } else if(this.plan === 'monthly') {
-        data.append('price_id', 'price_1Hxt7BBkaUHJfABONF8MEJRn')
-      }
+      data.append('price_1IFtBkBkaUHJfABOCIgf5MTW')
       data.append('reference_id', JSON.stringify(reference_id))
       Rails.ajax({
         url: '/subscription/new',

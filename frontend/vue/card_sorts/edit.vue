@@ -147,8 +147,6 @@
       :show="subscribe_modal_open"
       :redirect_url="card_sort.edit_url"
       :user_id="card_sort.user_id"
-      feature="card_sort"
-      :feature_instance_id="card_sort.id"
       />
     </transition>
   </div>

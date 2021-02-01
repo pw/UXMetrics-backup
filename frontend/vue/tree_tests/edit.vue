@@ -172,8 +172,6 @@
       :show="subscribe_modal_open"
       :redirect_url="tree_test.edit_url"
       :user_id="tree_test.user_id"
-      feature="tree_test"
-      :feature_instance_id="tree_test.id"
       />
     </transition>   
     <Flash v-show="show_flash" :show="show_flash" :notice="flash_notice">
