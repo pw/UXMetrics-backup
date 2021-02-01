@@ -29,7 +29,7 @@
     </Step>
     
     <Step v-show="card_sort.creation_step === 2" @next="completeStep2" instructions="Now let's choose your sort type and add your cards.">
-      <div :class="{'mb-6 pb-6 border-b border-gray-100': (card_sort.sort_type === 'closed') || (card_sort.sort_type === 'hybrid')}">
+      <div>
         <SortType 
         v-model="card_sort.sort_type"
         @input="saveProperty('sort_type')"
@@ -38,11 +38,13 @@
       </div>
       <Groups 
       :value="groups"
+      ref="groups"
       :card_sort_id="card_sort.id"
       v-show="(card_sort.sort_type === 'closed') || (card_sort.sort_type === 'hybrid')"
       />
       <Cards
       :value="cards"
+      ref="cards"
       :card_sort_id="card_sort.id"
       />
     </Step>
@@ -174,6 +176,23 @@ export default {
   },
   methods: {
     completeStep2() {
+      if(this.card_sort.sort_type === 'open') {
+        if(this.$refs.cards.cards.length === 0) {
+          this.flash_notice = "Please add cards to your sort."
+          this.show_flash = true
+          return
+        } 
+      } else {
+        if(this.$refs.groups.groups.length === 0) {
+          this.flash_notice = "Please add groups to your sort."
+          this.show_flash = true
+          return          
+        } else if(this.$refs.cards.cards.length === 0) {
+          this.flash_notice = "Please add cards to your sort."
+          this.show_flash = true
+          return
+        }
+      }
       this.card_sort.creation_step += 1
       this.saveProperty('creation_step')
     },
