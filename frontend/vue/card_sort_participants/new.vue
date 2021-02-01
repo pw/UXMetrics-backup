@@ -478,6 +478,7 @@
         var data = new FormData
         data.append('card_sort_participant[card_sort_id]', this.card_sort.id)
         data.append('card_sort_participant[time]', this.sort_time_elapsed)
+        data.append('card_sort_participant[sort]', JSON.stringify({'columns': this.groups}))
         data.append('card_sort_participant[recording]', JSON.stringify(this.recording))
         var index = -1 
         this.final_groups.forEach((group) => {

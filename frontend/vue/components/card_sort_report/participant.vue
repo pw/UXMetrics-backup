@@ -40,21 +40,22 @@
     </div>
     <div class="flex flex-wrap -mx-2">
       <div 
-      v-for="group in sorting"
-      :key="group[0]"
-      class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4">
-        <div class="bg-gray-200 overflow-hidden rounded-lg">
+      v-for="(column, index) in sort.columns"
+      :key="index"
+      class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 px-2 mb-4">
+        <div 
+          v-for="group in column"
+          class="bg-gray-200 overflow-hidden rounded-lg">
           <div class="p-4">
             <span class="block w-full text-base font-medium leading-5 text-gray-700">
-              {{ group[0] }}
+              {{ group.name }}
             </span>
             <div 
-            v-for="card in group[1]"
-            :key="card"
+            v-for="card in group.cards"
             class="flex items-top justify-between bg-white overflow-hidden shadow rounded-md p-2 mt-2">
               <div class="flex-1 min-w-0">
                 <span class="px-2 py-1 block w-full text-sm font-medium leading-5 text-gray-700">
-                  {{ card }}
+                  {{ card.title }}
                 </span>
               </div>
             </div>
@@ -105,7 +106,7 @@ export default {
         success: (arg) => {
           this.excluded = arg.excluded
           this.time_to_complete = arg.time_to_complete
-          this.sorting = arg.sorting
+          this.sort = JSON.parse(arg.sort)
         }
       })
     },

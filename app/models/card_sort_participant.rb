@@ -40,7 +40,7 @@ class CardSortParticipant < ApplicationRecord
   def as_json(*)
     super.tap do |hash|
       hash[:time_to_complete] = time_to_complete
-      hash[:sorting] = sorting.to_a
+      hash[:sort] = sort
     end
   end
 

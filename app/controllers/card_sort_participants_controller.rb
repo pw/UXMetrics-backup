@@ -59,6 +59,7 @@ class CardSortParticipantsController < ApplicationController
       params.require(:card_sort_participant).permit(:card_sort_id,  
         :excluded,
         :time,
+        :sort,
         :recording,
         card_sort_sorts_attributes: [:card_sort_id, :card_sort_group_id, :card_sort_card_id])
     end
