@@ -170,7 +170,7 @@ export default {
       }
       var data = new FormData
       data.append('redirect_url', this.redirect_url)
-      data.append('price_1IFtBkBkaUHJfABOCIgf5MTW')
+      data.append('price_id', 'price_1IFtBkBkaUHJfABOCIgf5MTW')
       data.append('reference_id', JSON.stringify(reference_id))
       Rails.ajax({
         url: '/subscription/new',

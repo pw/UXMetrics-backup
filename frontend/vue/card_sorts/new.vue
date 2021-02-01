@@ -61,7 +61,7 @@
       @input="saveProperty('logo_key')"
       instructions="Add custom branding to this study"
       :logo_base_url="card_sort.logo_base_url"
-      :enabled="card_sort.subscribed"
+      :allowed="card_sort.subscribed"
       @attempt="openSubscribeModal"
       />
       <ProBadge></ProBadge>
