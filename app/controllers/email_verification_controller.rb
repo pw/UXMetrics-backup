@@ -7,7 +7,7 @@ class EmailVerificationController < UnauthenticatedController
       user.update(verified: true)
       email_verification.destroy
       EmailVerificationChannel.broadcast_to(user, path: dashboard_url)
-      redirect_to root_path, notice: 'Email verified.'
+      redirect_to dashboard_path, notice: 'Email verified.'
     else 
     end
   end
