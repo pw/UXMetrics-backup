@@ -4,7 +4,7 @@ services:
 - type: web
   name: rails
   env: ruby
-  buildCommand: bundle install; bundle exec rake assets:precompile; bundle exec rake assets:clean; bundle exec rails db:migrate;
+  buildCommand: ./build.sh
   startCommand: bundle exec puma -t 5:5 -p ${PORT:-3000} -e ${RACK_ENV:-development}
   branch: prod
   autoDeploy: true
@@ -78,5 +78,9 @@ envVarGroups:
     sync: false
   - key: STRIPE_API_KEY
     sync: false 
+    previewValue: sk_test_51HTwIfBkaUHJfABOBlK2Do7IxaHVcDaAz84b3vRLqnerrYy2TZ883tyU6povBKUlVoTuKZPzWAaA3eFRL0lLcOAD00yFP9u5He
   - key: SECRET_KEY_BASE
     sync: false   
+  - key: PREVIEW_BUILD
+    value: false
+    previewValue: true
