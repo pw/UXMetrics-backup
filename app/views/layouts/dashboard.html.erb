@@ -2,13 +2,10 @@
 <html class="w-full sm:h-full">
 <head>
 
-  <title><%= content_for?(:page_title)? yield(:page_title) : "#{Rails.configuration.application_name}" %></title>
-  <meta name="description" content="<%= content_for?(:page_description)? yield(:page_description) : "UX Research Tools - Card Sorting" %>" />
+  <title><%= "#{Rails.configuration.application_name}" %></title>
 
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-
-  <%= render "shared/social_media_meta_tags" %>
 
   <%= javascript_pack_tag "dashboard", "data-turbolinks-track": "reload" %>
 
@@ -16,9 +13,11 @@
 
   <%= stylesheet_pack_tag "dashboard", "data-turbolinks-track": "reload" %>
 
-  <script src="https://js.stripe.com/v3/"></script>
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script async defer data-domain="uxmetrics.com" src="https://analytics.uxmetrics.com/js/index.js"></script>
+  
+  <script src="https://js.stripe.com/v3/"></script>
 
 </head>
 
