@@ -52,7 +52,7 @@ services:
   disk: 
     name: redis-data
     mountPath: /var/lib/redis
-    sizeGB: 5
+    sizeGB: 10
 
 databases:
 - name: postgres
