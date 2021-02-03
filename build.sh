@@ -10,3 +10,4 @@ then
   bundle exec rails db:schema:load  
 fi
 bundle exec rails db:migrate
+
