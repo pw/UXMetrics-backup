@@ -4,8 +4,8 @@ services:
 - type: web
   name: rails
   env: ruby
-  buildCommand: ./build.sh
-  startCommand: bundle exec puma -t 5:5 -p ${PORT:-3000} -e ${RACK_ENV:-development}
+  buildCommand: "./build.sh"
+  startCommand: "bundle exec puma -C config/puma.rb"
   branch: prod
   autoDeploy: true
   plan: starter plus
@@ -75,12 +75,13 @@ envVarGroups:
   - key: FULL_APP_DOMAIN_WITHOUT_PROTOCOL_OR_PORT
     sync: false            
   - key: POSTMARK_SERVER_TOKEN
-    sync: false
+    value: 0acc429f-194e-4572-8c9b-cd5a2504d6c9
   - key: STRIPE_API_KEY
     sync: false 
     previewValue: sk_test_51HTwIfBkaUHJfABOBlK2Do7IxaHVcDaAz84b3vRLqnerrYy2TZ883tyU6povBKUlVoTuKZPzWAaA3eFRL0lLcOAD00yFP9u5He
   - key: SECRET_KEY_BASE
     sync: false   
+    previewValue: 342ce8ad7075d3447ce7ad5eb7ea326a691bd3bb31cf11e537bf97f34067a5345a48cc002a56c5f84c28c8d684cfb779bb435eee7e2908b3409f87cb73527c0
   - key: PREVIEW_BUILD
     value: false
     previewValue: true
