@@ -49,11 +49,6 @@ services:
       name: redis
       type: pserv
       property: hostport  
-  - key: RAILS_HOST
-    fromService: 
-      name: rails
-      type: web
-      property: host
 
 - type: pserv
   name: redis
