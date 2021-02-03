@@ -5,7 +5,7 @@ services:
   name: rails
   env: ruby
   buildCommand: "./build.sh"
-  startCommand: "bundle exec puma -C config/puma.rb"
+  startCommand: "./start.sh"
   afterFirstDeployCommand: "./preview_build_initialization.sh"
   branch: prod
   autoDeploy: true
@@ -24,6 +24,11 @@ services:
       name: redis
       type: pserv
       property: hostport
+  - key: RAILS_HOST
+    fromService: 
+      name: rails
+      type: web
+      property: host      
 
 - type: worker
   name: sidekiq

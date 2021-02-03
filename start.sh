@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# exit on error
 set -o errexit
 
-rails db:schema:load 
+bundle exec puma -C config/puma.rb
+
+
 
 
