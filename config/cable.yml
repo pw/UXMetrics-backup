@@ -3,5 +3,5 @@ development:
 
 production:
   adapter: redis
-  url: <%= "redis://#{ENV("REDIS_HOSTPORT")}" %>
+  url: <%= "redis://#{ENV["REDIS_HOSTPORT"]}" %>
   channel_prefix: uxmetrics
