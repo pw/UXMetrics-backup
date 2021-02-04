@@ -144,7 +144,7 @@
         </div>
       </div>
       <div 
-      class="px-12 sm:px-6 py-6 flex-grow flex overflow-y-scroll h-full" 
+      class="p-6 lg:flex flex-grow overflow-y-scroll" 
       >   
         <GroupColumn          
           v-for="(group, index) in groups"
@@ -167,7 +167,7 @@
           </svg>
         </div> 
         <transition name="slide-in">     
-          <div v-show="step === 'sort'" class="flex overflow-x-auto bg-gray-200 px-6 py-12 m:px-6 sm:py-12 shadow-inner">
+          <div v-show="step === 'sort'" class="flex overflow-x-auto bg-gray-200 px-6 py-12 m:px-6 sm:py-12 border-t-2">
             <draggable 
             v-model="card_sort.card_sort_cards"
             group="cards"
