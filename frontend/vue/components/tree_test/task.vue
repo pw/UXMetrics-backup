@@ -15,7 +15,7 @@
         <textarea rows="3" class="form-textarea block w-full h-20 transition duration-150 ease-in-out sm:text-sm sm:leading-5" :class="{ 'opacity-50 cursor-not-allowed': disabled}" :disabled="disabled" :value="value" @input="$emit('input', $event.target.value)" @blur="$emit('saveTask', id)">
         </textarea>
       </div>
-      <div :class="{flex: (!treeVisible && correctSelected), 'items-center': (!treeVisible && correctSelected), 'justify-between': (!treeVisible && correctSelected)}">
+      <div :class="{flex: (!treeVisible && correctSelected), 'items-start': (!treeVisible && correctSelected), 'justify-between': (!treeVisible && correctSelected)}">
 
         <span class="inline-flex rounded-md shadow-sm mr-2" v-show="!treeVisible && correctSelected && !disabled" @click="treeVisible = true">
           <button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs leading-4 font-medium rounded text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition ease-in-out duration-150">
@@ -46,7 +46,7 @@
 
         <div v-show="!treeVisible && correctSelected" class="flex flex-wrap">        
           <div 
-          class="flex items-center justify-between w-full bg-gray-100 overflow-x-auto rounded-md h-8 px-2 py-1" 
+          class="flex items-center justify-between w-full bg-gray-100 overflow-x-auto rounded-md h-8 px-2 py-1 mb-2" 
           v-for="choice in correctChoiceLocal"
           >
             <span class="ml-2 block text-sm leading-5 text-gray-700">
