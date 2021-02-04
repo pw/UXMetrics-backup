@@ -1,1 +1,80 @@
-<svg height="80" viewBox="0 0 80 80" width="80" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><circle cx="40" cy="40" fill="#f6f5ff" r="40"/><g transform="translate(15 1)"><path d="m31 0h16c2.209139 0 4 1.790861 4 4v34c0 2.209139-1.790861 4-4 4h-16c-2.209139 0-4-1.790861-4-4v-34c0-2.209139 1.790861-4 4-4z" fill="#d6bcfa"/><path d="m4 0h16c2.209139 0 4 1.790861 4 4v34c0 2.209139-1.790861 4-4 4h-16c-2.209139 0-4-1.790861-4-4v-34c0-2.209139 1.790861-4 4-4z" fill="#d6bcfa"/><g fill="#fff" stroke="#805ad5" stroke-width="2"><rect height="10" rx="2" width="18" x="3" y="16"/><rect height="10" rx="2" width="18" x="3" y="3"/></g></g><g fill="#fff" stroke="#805ad5" stroke-width="2" transform="translate(27 34)"><rect height="10" rx="2" width="18" y="27"/><rect height="10" rx="2" width="18" x="4" y="23"/><rect height="10" rx="2" width="18" x="8" y="19"/><rect height="10" rx="2" transform="matrix(.96592583 .25881905 -.25881905 .96592583 2.990555 -6.715521)" width="18" x="18" y="3"/></g></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="138px" height="138px" viewBox="0 0 138 138" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>closed-sort-icon</title>
+    <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="closed-sort-icon" transform="translate(1.000000, 0.000000)">
+            <g id="open-group" transform="translate(0.000000, 9.000000)" fill="#E9D8FD" stroke="#805AD5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <rect x="0" y="0" width="55" height="89" rx="4"></rect>
+            </g>
+            <rect id="Rectangle" fill-opacity="0.5" fill="#000000" x="5" y="19" width="30" height="3" rx="1.5"></rect>
+            <g id="open-group-copy" transform="translate(74.000000, 9.000000)" fill="#E9D8FD" stroke="#805AD5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <rect id="open-group" x="0" y="0" width="55" height="31" rx="4"></rect>
+            </g>
+            <g id="Group" transform="translate(1.000000, 32.000000)">
+                <path d="M74.6659433,0.811822048 L114.558362,11.4807248 C115.62543,11.7661033 116.259114,12.8624774 115.973735,13.9295448 C115.972887,13.9327173 115.972031,13.9358878 115.971167,13.9390561 L112.136636,27.9990022 C112.047031,28.3275536 111.875015,28.6277829 111.63689,28.8712398 L45,97 L45,97 L0,97 L0,80 L72.6806757,1.38620792 C73.1845711,0.841178164 73.9488725,0.620047306 74.6659433,0.811822048 Z" id="card-shadow" fill-opacity="0.5" fill="#805AD5"></path>
+                <g transform="translate(75.585980, 86.000000)" id="card-copy-5">
+                    <g transform="translate(22.500000, 8.500000) rotate(-3.000000) translate(-22.500000, -8.500000) " id="card">
+                        <rect stroke="#805AD5" stroke-width="2" fill="#FFFFFF" x="0" y="0" width="45" height="17" rx="2"></rect>
+                        <rect id="Rectangle" fill-opacity="0.5" fill="#000000" x="5" y="5" width="30" height="3" rx="1.5"></rect>
+                        <rect id="Rectangle-Copy" fill-opacity="0.5" fill="#000000" x="5" y="9" width="15" height="3" rx="1.5"></rect>
+                    </g>
+                </g>
+                <g transform="translate(49.454899, 84.000000)" id="card-copy-4">
+                    <g transform="translate(22.500000, 8.500000) rotate(-2.000000) translate(-22.500000, -8.500000) " id="card">
+                        <rect stroke="#805AD5" stroke-width="2" fill="#FFFFFF" x="0" y="0" width="45" height="17" rx="2"></rect>
+                        <rect id="Rectangle" fill-opacity="0.5" fill="#000000" x="5" y="5" width="30" height="3" rx="1.5"></rect>
+                        <rect id="Rectangle-Copy" fill-opacity="0.5" fill="#000000" x="5" y="9" width="15" height="3" rx="1.5"></rect>
+                    </g>
+                </g>
+                <g id="card-copy-3" transform="translate(0.171960, 80.000000)" fill="#805AD5" stroke="#805AD5" stroke-width="2">
+                    <g id="card">
+                        <rect x="0" y="0" width="45" height="17" rx="2"></rect>
+                    </g>
+                </g>
+                <g transform="translate(25.316878, 82.000000)" id="card-copy-3">
+                    <g transform="translate(22.500000, 8.500000) rotate(-1.000000) translate(-22.500000, -8.500000) " id="card">
+                        <rect stroke="#805AD5" stroke-width="2" fill="#FFFFFF" x="0" y="0" width="45" height="17" rx="2"></rect>
+                        <rect id="Rectangle" fill-opacity="0.5" fill="#000000" x="5" y="5" width="30" height="3" rx="1.5"></rect>
+                        <rect id="Rectangle-Copy" fill-opacity="0.5" fill="#000000" x="5" y="9" width="15" height="3" rx="1.5"></rect>
+                    </g>
+                </g>
+                <g transform="translate(70.171960, 6.000000)" id="card-copy-2">
+                    <g transform="translate(22.500000, 8.500000) rotate(15.000000) translate(-22.500000, -8.500000) " id="card">
+                        <rect stroke="#805AD5" stroke-width="2" fill="#FFFFFF" x="0" y="0" width="45" height="17" rx="2"></rect>
+                        <rect id="Rectangle" fill-opacity="0.5" fill="#000000" x="5" y="5" width="30" height="3" rx="1.5"></rect>
+                        <rect id="Rectangle-Copy" fill-opacity="0.5" fill="#000000" x="5" y="9" width="15" height="3" rx="1.5"></rect>
+                    </g>
+                </g>
+                <g transform="translate(104.000000, 25.000000)" fill="#FFFFFF" id="Icon/Hands/Hand-Paper-(Outline)">
+                    <g transform="translate(8.000000, 8.000000) rotate(-15.000000) translate(-8.000000, -8.000000) ">
+                        <path d="M12.6428125,3.52003122 L12.6428125,3.18174997 C12.6428125,1.81887496 11.3765625,0.785156205 10.0478438,1.13343746 C9.24693751,-0.413437553 7.10753124,-0.349375052 6.36090624,1.15678121 C5.07090623,0.826749955 3.78574997,1.81078121 3.78574997,3.18749997 L3.78574997,7.12906249 C3.16221872,6.89696874 2.43237497,6.97068749 1.84565621,7.40628125 C0.928312456,8.08740625 0.727093705,9.38543751 1.39096871,10.3173125 L5.13999998,15.5802813 C5.32764075,15.8436537 5.63105831,16.0000313 5.95443749,16.0000313 L12.9199688,16.0000313 C13.3857188,16.0000313 13.7898125,15.6785 13.8944063,15.224625 L14.8376563,11.1321875 C14.9454504,10.6641506 15,10.1854147 15,9.70512501 L15,5.59374998 C15,4.32437498 13.8899063,3.34399997 12.6428125,3.52003122 Z M13.4999063,9.70509376 C13.4999063,10.0716875 13.4582188,10.4385 13.376,10.7952813 L12.5220938,14.5 L6.21209374,14.5 L2.61221872,9.44696876 C2.16099996,8.81353126 3.08168747,8.11021875 3.53078122,8.7405625 L4.37853123,9.93053126 C4.65962498,10.3250938 5.28574998,10.127 5.28574998,9.64043751 L5.28574998,3.18749997 C5.28574998,2.38609371 6.42859374,2.41218747 6.42859374,3.20909372 L6.42859374,8 C6.42859374,8.27615625 6.65243749,8.5 6.92859374,8.5 L7.14284374,8.5 C7.419,8.5 7.64284375,8.27615625 7.64284375,8 L7.64284375,2.09374996 C7.64284375,1.29178121 8.7856875,1.31843746 8.7856875,2.11534371 L8.7856875,8 C8.7856875,8.27615625 9.00953126,8.5 9.28568751,8.5 L9.49993751,8.5 C9.77609376,8.5 9.99993751,8.27615625 9.99993751,8 L9.99993751,3.16015622 C9.99993751,2.35790621 11.14275,2.38484371 11.14275,3.18174997 L11.14275,8 C11.14275,8.27615625 11.3665938,8.5 11.64275,8.5 L11.8570313,8.5 C12.1331875,8.5 12.3570313,8.27615625 12.3570313,8 L12.3570313,5.61534374 C12.3570313,4.79528123 13.4999063,4.81409373 13.4999063,5.59374998 L13.4999063,9.70509376 L13.4999063,9.70509376 Z"></path>
+                    </g>
+                </g>
+            </g>
+            <rect id="Rectangle" fill-opacity="0.5" fill="#000000" x="79" y="19" width="30" height="3" rx="1.5"></rect>
+            <g id="card" transform="translate(5.000000, 27.000000)">
+                <rect stroke="#805AD5" stroke-width="2" fill="#FFFFFF" x="0" y="0" width="45" height="17" rx="2"></rect>
+                <rect id="Rectangle" fill-opacity="0.5" fill="#000000" x="5" y="5" width="30" height="3" rx="1.5"></rect>
+                <rect id="Rectangle-Copy" fill-opacity="0.5" fill="#000000" x="5" y="9" width="15" height="3" rx="1.5"></rect>
+            </g>
+            <g id="card" transform="translate(5.000000, 49.000000)">
+                <rect stroke="#805AD5" stroke-width="2" fill="#FFFFFF" x="0" y="0" width="45" height="17" rx="2"></rect>
+                <rect id="Rectangle" fill-opacity="0.5" fill="#000000" x="5" y="5" width="30" height="3" rx="1.5"></rect>
+                <rect id="Rectangle-Copy" fill-opacity="0.5" fill="#000000" x="5" y="9" width="15" height="3" rx="1.5"></rect>
+            </g>
+            <g id="card" transform="translate(5.000000, 71.000000)">
+                <rect stroke="#805AD5" stroke-width="2" fill="#FFFFFF" x="0" y="0" width="45" height="17" rx="2"></rect>
+                <rect id="Rectangle" fill-opacity="0.5" fill="#000000" x="5" y="5" width="30" height="3" rx="1.5"></rect>
+                <rect id="Rectangle-Copy" fill-opacity="0.5" fill="#000000" x="5" y="9" width="15" height="3" rx="1.5"></rect>
+            </g>
+            <g id="Group" transform="translate(46.000000, 0.000000)">
+                <circle id="Oval" fill="#805AD5" cx="9" cy="9" r="9"></circle>
+                <path d="M11.9453125,8.88937495 L11.5285937,8.88937495 L11.5285937,7.6392187 C11.5285937,6.18417573 10.3444179,4.99999995 8.88937496,4.99999995 C7.43433199,4.99999995 6.25015621,6.18417573 6.25015621,7.6392187 L6.25015621,8.88937495 L5.83343746,8.88937495 C5.3733105,8.88937495 4.99999996,9.2626855 4.99999996,9.72281245 L4.99999996,13.0565624 C4.99999996,13.5166894 5.3733105,13.8899999 5.83343746,13.8899999 L11.9453125,13.8899999 C12.4054394,13.8899999 12.77875,13.5166894 12.77875,13.0565624 L12.77875,9.72281245 C12.77875,9.2626855 12.4054394,8.88937495 11.9453125,8.88937495 Z M10.1395312,8.88937495 L7.63921871,8.88937495 L7.63921871,7.6392187 C7.63921871,6.94989643 8.20005269,6.38906245 8.88937496,6.38906245 C9.57869722,6.38906245 10.1395312,6.94989643 10.1395312,7.6392187 L10.1395312,8.88937495 Z" id="Icon/Security/Lock" fill="#FFFFFF"></path>
+            </g>
+            <g id="Group" transform="translate(119.000000, 0.000000)">
+                <circle id="Oval" fill="#805AD5" cx="9" cy="9" r="9"></circle>
+                <path d="M11.9453125,8.88937495 L11.5285937,8.88937495 L11.5285937,7.6392187 C11.5285937,6.18417573 10.3444179,4.99999995 8.88937496,4.99999995 C7.43433199,4.99999995 6.25015621,6.18417573 6.25015621,7.6392187 L6.25015621,8.88937495 L5.83343746,8.88937495 C5.3733105,8.88937495 4.99999996,9.2626855 4.99999996,9.72281245 L4.99999996,13.0565624 C4.99999996,13.5166894 5.3733105,13.8899999 5.83343746,13.8899999 L11.9453125,13.8899999 C12.4054394,13.8899999 12.77875,13.5166894 12.77875,13.0565624 L12.77875,9.72281245 C12.77875,9.2626855 12.4054394,8.88937495 11.9453125,8.88937495 Z M10.1395312,8.88937495 L7.63921871,8.88937495 L7.63921871,7.6392187 C7.63921871,6.94989643 8.20005269,6.38906245 8.88937496,6.38906245 C9.57869722,6.38906245 10.1395312,6.94989643 10.1395312,7.6392187 L10.1395312,8.88937495 Z" id="Icon/Security/Lock" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
