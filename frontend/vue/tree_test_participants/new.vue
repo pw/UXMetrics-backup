@@ -5,7 +5,7 @@
         <div class="bg-white rounded-lg shadow mb-6">
           <div class="px-4 py-5 sm:p-6">
             <div v-show="step == 'intro'">
-              <img :src="tree_test.logo_url" class="w-1/5 mb-6">
+              <img :src="tree_test.logo_url" class="mb-6 w-40">
               <h3 class="text-xl leading-6 font-medium text-gray-900 mb-4">
                 Welcome!
               </h3> 
@@ -23,7 +23,7 @@
               </div>    
             </div>   
             <div v-show="step == 'instructions'" >
-              <img :src="tree_test.logo_url" class="w-1/5 mb-6">
+              <img :src="tree_test.logo_url" class="mb-6 w-40">
               <h3 class="text-xl leading-6 font-medium text-gray-900 mb-6">
                 Instructions
               </h3>     
