@@ -19,20 +19,14 @@
     <main class="py-6">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div class="flex flex-wrap items-end mb-16">
-          <div class="w-full md:w-1/3 xl:w-2/5 md:pr-16 self-center">
+        <div class="flex flex-wrap items-end mb-8">
+          <div class="w-full">
             <Sidebar :test="card_sort" middle_box_description="Unique groups created" :middle_box_value="card_sort.group_results.length" />
-          </div>
-          <div class="w-full md:w-2/3 xl:w-3/5 self-center">
-            <h2 @click="draw_chart" class="text-2xl mb-4">Groups Created</h2>
-            <canvas id="bar-chart"></canvas>
           </div>
         </div>
 
         <div class="flex flex-wrap">
           <div class="w-full mb-16"> 
-            <h2 class="text-2xl mb-4">Detailed Analysis</h2>
-
             <div class="mb-6">
               <div class="block">
                 <div class="border-b border-gray-200 text-gray-500">
@@ -167,13 +161,16 @@
 
         <div class="flex flex-wrap">
           <div class="w-full mb-16">
-            <h2 class="text-2xl mb-4">Grouping Visualization</h2>
             <GChart 
               :settings="{ packages: ['sankey'] }"
               type="Sankey"
               :data="card_sort.sankey_data"
             />
           </div>
+        </div>
+        <div class="flex flex-wrap">
+          <h2 @click="draw_chart" class="text-2xl mb-4">Groups Created</h2>
+          <canvas id="bar-chart"></canvas>
         </div>
 
       </div>

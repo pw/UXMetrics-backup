@@ -1,5 +1,5 @@
 <template>
-    <div class="py-6 border-b bg-orange-50 text-gray-900">
+    <div class="py-6 bg-gray-900 text-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="lg:flex lg:items-center lg:justify-between">
           <div class="flex justify-between">
@@ -10,20 +10,20 @@
               <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
             </svg>            
             <h5 v-show="!report_private" class="flex-1 text-sm mb-6 lg:mb-0">
-              This report is public. It can be viewed by anyone with the link. <span v-if="!shared_report">(<a :href="edit_url" class="text-purple-600 hover:text-purple-500 transition ease-in-out duration-150">Edit</a>)</span>
+              This report is public. It can be viewed by anyone with the link. <span v-if="!shared_report">(<a :href="edit_url" class="text-white hover:text-gray-100 underline transition ease-in-out duration-150">Edit</a>)</span>
             </h5>
             <h5 v-show="report_private && !password_protect_report" class="flex-1 text-sm">
-              This report is private. Only you can view it. <span v-if="!shared_report">(<a :href="edit_url" class="text-purple-600 hover:text-purple-500 transition ease-in-out duration-150">Edit</a>)</span>
+              This report is private. Only you can view it. <span v-if="!shared_report">(<a :href="edit_url" class="text-white hover:text-gray-100 underline transition ease-in-out duration-150">Edit</a>)</span>
             </h5>              
             <h5 v-show="report_private && password_protect_report" class="flex-1 text-sm mb-6 lg:mb-0">
-              This report is private. Only you and those with the password can view it. <span v-if="!shared_report">(<a :href="edit_url" class="text-purple-600 hover:text-purple-500 transition ease-in-out duration-150">Edit</a>)</span>
+              This report is private. Only you and those with the password can view it. <span v-if="!shared_report">(<a :href="edit_url" class="text-white hover:text-gray-100 underline transition ease-in-out duration-150">Edit</a>)</span>
             </h5>            
           </div>
           <div class="md:flex md:items-center md:justify-between">
             <h5 class="text-sm mr-2 font-bold">Share:</h5>
             <div class="flex rounded-md shadow-sm w-full">
               <div class="relative flex-grow focus-within:z-10">
-                <input class="form-input block w-full rounded-none rounded-l-md transition ease-in-out duration-150 sm:text-sm sm:leading-5" :value="report_url" />
+                <input class="form-input block w-full text-gray-900 rounded-none rounded-l-md transition ease-in-out duration-150 sm:text-sm sm:leading-5" :value="report_url" />
               </div>
               <button v-clipboard:copy="report_url" class="-ml-px relative inline-flex items-center px-4 py-2 text-sm leading-5 font-medium rounded-r-md text-white bg-purple-600 hover:bg-purple-500 focus:outline-none focus:border-purple-700 focus:shadow-outline-purple active:bg-purple-700 transition ease-in-out duration-150">
                 <svg class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
