@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="w-full mb-6 h-2">
+    <div class="w-full mb-8 h-2">
       <div class="h-2 bg-green-500" :style="{ width: Math.floor(tree_test.percent_navigated_directly_to_correct) + '%'}" style="width: %; display: inline-block; float: left;"></div>
       <div class="h-2 bg-green-300" :style="{ width: Math.floor(tree_test.percent_navigated_indirectly_to_correct) + '%'}" style="display: inline-block; float: left;"></div>   
       <div class="h-2 bg-red-500" :style="{ width: Math.floor(tree_test.percent_navigated_directly_to_incorrect) + '%'}" style="display: inline-block; float: left;"></div>   
@@ -8,7 +8,7 @@
       <div class="h-2 bg-gray-500" :style="{ width: Math.floor(tree_test.percent_skipped_directly) + '%'}" style="display: inline-block; float: left;"></div>
       <div class="h-2 bg-gray-300" :style="{ width: Math.floor(tree_test.percent_skipped_indirectly) + '%'}" style="display: inline-block; float: left;"></div>              
     </div>
-    <div class="w-full mb-6">
+    <div class="w-full mb-8">
       <ul class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         <li class="col-span-1 flex shadow-sm rounded-md">
           <div class="flex-shrink-0 flex items-center justify-center w-16 bg-green-500 text-white text-sm font-medium rounded-l-md">
