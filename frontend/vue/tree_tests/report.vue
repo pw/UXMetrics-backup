@@ -19,18 +19,21 @@
     <main class="py-6">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div class="flex flex-wrap items-end mb-16">
-          <div class="w-full md:w-1/3 xl:w-2/5 md:pr-16 self-center">
+        <div class="flex flex-wrap items-end mb-8">
+          <div class="w-full">
             <Sidebar :test="tree_test" middle_box_description="Average success score" :middle_box_value="tree_test.percent_success + '%'" />
           </div>
-          <div class="w-full md:w-2/3 xl:w-3/5 self-center">
-            <Chart :tree_test="tree_test" />
+        </div>
+        <div class="flex flex-wrap">
+          <div class="w-full mb-16"> 
+            <div class="w-full">
+              <Chart :tree_test="tree_test" />
+            </div>
           </div>
         </div>
 
         <div class="flex flex-wrap">
-          <div class="w-full mb-16"> 
-            <h2 class="text-2xl mb-4">Detailed Analysis</h2>
+          <div class="w-full mb-16">
 
             <div class="mb-6">
               <div class="block">
