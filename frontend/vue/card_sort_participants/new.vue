@@ -1,111 +1,52 @@
 <template>
   <div class="h-full">
     <div v-show="step  === 'intro'" class="min-h-screen bg-gray-50">
-      <div v-show="preview" class="bg-orange-100 text-orange-800 text-center py-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="inline-flex items-center">
-            <svg class="-ml-1 mr-2 h-5 w-5 text-orange-800" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10 12C11.1046 12 12 11.1046 12 10C12 8.89543 11.1046 8 10 8C8.89544 8 8.00001 8.89543 8.00001 10C8.00001 11.1046 8.89544 12 10 12Z"/>
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M0.457764 10C1.73202 5.94291 5.52232 3 9.99997 3C14.4776 3 18.2679 5.94288 19.5422 9.99996C18.2679 14.0571 14.4776 17 9.99995 17C5.52232 17 1.73204 14.0571 0.457764 10ZM14 10C14 12.2091 12.2091 14 10 14C7.79087 14 6.00001 12.2091 6.00001 10C6.00001 7.79086 7.79087 6 10 6C12.2091 6 14 7.79086 14 10Z"/>
-            </svg>
-            <h5 class="text-sm">This is a preview of your card sort. Results will not be saved.</h5>
-          </div>
-        </div>
-      </div>      
-      <main class="py-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="bg-white sm:rounded-lg shadow mb-6">
-            <div class="px-4 py-5 sm:p-6">
-              <img v-if="card_sort.logo_key !== 'undefined'" :src="card_sort.logo_url" class="mb-6 w-40">
-              <img v-else :src="card_sort.logo_url" class="mb-6" width="76" height="39">
-              <h3 class="text-xl leading-6 font-medium text-gray-900 mb-4">
-                Welcome!
-              </h3>
-              <div class="max-w-xl text-md leading-5 text-gray-700"> {{ card_sort.participant_instructions }}
-              </div>
-              <div class="mt-5">
-                <span class="shadow-sm rounded-md">
-                  <a @click="step = 'instructions'" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-green-500 hover:bg-green-400 focus:outline-none focus:shadow-outline-green focus:border-green-600 transition duration-150 ease-in-out cursor-pointer">
-                    Continue
-                    <svg class="ml-3 -mr-1 h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10.2929 3.29289C10.6834 2.90237 11.3166 2.90237 11.7071 3.29289L17.7071 9.29289C18.0976 9.68342 18.0976 10.3166 17.7071 10.7071L11.7071 16.7071C11.3166 17.0976 10.6834 17.0976 10.2929 16.7071C9.90237 16.3166 9.90237 15.6834 10.2929 15.2929L14.5858 11L3 11C2.44772 11 2 10.5523 2 10C2 9.44772 2.44772 9 3 9H14.5858L10.2929 4.70711C9.90237 4.31658 9.90237 3.68342 10.2929 3.29289Z"/>
-                    </svg>
-                  </a>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
+      <PreviewBanner v-show="preview" study_type="card sort">        
+      </PreviewBanner>
+      <InfoBox
+        :logo_url="card_sort.logo_url"
+        heading="Welcome!"
+        button_label="Continue"
+        @buttonClick="step = 'instructions'"
+      >
+        <div class="max-w-xl text-md leading-5 text-gray-700"> {{ card_sort.participant_instructions }}
+        </div>        
+      </InfoBox>
     </div>
-    <div v-show="step === 'instructions'" class="min-h-screen bg-gray-50">
-      <div v-show="preview" class="bg-orange-100 text-orange-800 text-center py-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="inline-flex items-center">
-            <svg class="-ml-1 mr-2 h-5 w-5 text-orange-800" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10 12C11.1046 12 12 11.1046 12 10C12 8.89543 11.1046 8 10 8C8.89544 8 8.00001 8.89543 8.00001 10C8.00001 11.1046 8.89544 12 10 12Z"/>
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M0.457764 10C1.73202 5.94291 5.52232 3 9.99997 3C14.4776 3 18.2679 5.94288 19.5422 9.99996C18.2679 14.0571 14.4776 17 9.99995 17C5.52232 17 1.73204 14.0571 0.457764 10ZM14 10C14 12.2091 12.2091 14 10 14C7.79087 14 6.00001 12.2091 6.00001 10C6.00001 7.79086 7.79087 6 10 6C12.2091 6 14 7.79086 14 10Z"/>
-            </svg>
-            <h5 class="text-sm">This is a preview of your card sort. Results will not be saved.</h5>
+    <div v-show="step === 'instructions'" class="min-h-screen bg-gray-50"> 
+      <PreviewBanner v-show="preview" study_type="card sort">        
+      </PreviewBanner>
+      <InfoBox
+        :logo_url="card_sort.logo_url"
+        heading="Instructions"
+        button_label="Get Started"
+        @buttonClick="startSort()"
+      >
+        <div class="grid grid-cols-1 col-gap-4 row-gap-8 md:grid-cols-2">
+          <div class="sm:col-span-1">
+            <div class="mb-6 text-md leading-5 text-gray-700">
+              <p class="mb-3">
+                  We're going to show you some cards at the bottom of the screen. 
+                  We'd like you to categorize these cards into groups that make sense to you. You can do this by dragging and dropping them into the area above.
+              </p>
+              <p>
+                  There are no right or wrong answers, just do what makes sense to you!
+              </p>
+            </div>
           </div>
-        </div>
-      </div>      
-      <main class="py-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="bg-white sm:rounded-lg shadow mb-6">
-            <div class="px-4 py-5 sm:p-6">
-              <img v-if="card_sort.logo_key !== 'undefined'" :src="card_sort.logo_url" class="mb-6 w-40">
-              <img v-else :src="card_sort.logo_url" class="mb-6" width="76" height="39">
-              <h3 class="text-xl leading-6 font-medium text-gray-900 mb-4">
-                Instructions
-              </h3>
-              <div class="grid grid-cols-1 col-gap-4 row-gap-8 md:grid-cols-2">
-                <div class="sm:col-span-1">
-                  <div class="mb-6 text-md leading-5 text-gray-700">
-                    <p class="mb-3">
-                        We're going to show you some cards at the bottom of the screen. 
-                        We'd like you to categorize these cards into groups that make sense to you. You can do this by dragging and dropping them into the area above.
-                    </p>
-                    <p>
-                        There are no right or wrong answers, just do what makes sense to you!
-                    </p>
-                  </div>
-                </div>
-                <div class="sm:col-span-1">
-                  <div class="bg-gray-200 overflow-hidden rounded-lg text-center h-full">
-                    <div class="px-4 py-5 sm:p-6">
-                      <img :src="card_sort_gif_url">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="mt-5">
-                <span class="shadow-sm rounded-md">
-                  <a @click="startSort()" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-green-500 hover:bg-green-400 focus:outline-none focus:shadow-outline-green focus:border-green-600 transition duration-150 ease-in-out cursor-pointer">
-                    Get Started
-                    <svg class="ml-3 -mr-1 h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10.2929 3.29289C10.6834 2.90237 11.3166 2.90237 11.7071 3.29289L17.7071 9.29289C18.0976 9.68342 18.0976 10.3166 17.7071 10.7071L11.7071 16.7071C11.3166 17.0976 10.6834 17.0976 10.2929 16.7071C9.90237 16.3166 9.90237 15.6834 10.2929 15.2929L14.5858 11L3 11C2.44772 11 2 10.5523 2 10C2 9.44772 2.44772 9 3 9H14.5858L10.2929 4.70711C9.90237 4.31658 9.90237 3.68342 10.2929 3.29289Z"/>
-                    </svg>
-                  </a>
-                </span>
+          <div class="sm:col-span-1">
+            <div class="bg-gray-200 overflow-hidden rounded-lg text-center h-full">
+              <div class="px-4 py-5 sm:p-6">
+                <img :src="card_sort_gif_url">
               </div>
             </div>
           </div>
-        </div>
-      </main>
+        </div>        
+      </InfoBox>               
     </div>  
     <div class="h-full flex flex-col" v-show="step === 'sort'">
-      <div v-show="preview" class="bg-orange-100 text-orange-800 text-center py-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="inline-flex items-center">
-            <svg class="-ml-1 mr-2 h-5 w-5 text-orange-800" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10 12C11.1046 12 12 11.1046 12 10C12 8.89543 11.1046 8 10 8C8.89544 8 8.00001 8.89543 8.00001 10C8.00001 11.1046 8.89544 12 10 12Z"/>
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M0.457764 10C1.73202 5.94291 5.52232 3 9.99997 3C14.4776 3 18.2679 5.94288 19.5422 9.99996C18.2679 14.0571 14.4776 17 9.99995 17C5.52232 17 1.73204 14.0571 0.457764 10ZM14 10C14 12.2091 12.2091 14 10 14C7.79087 14 6.00001 12.2091 6.00001 10C6.00001 7.79086 7.79087 6 10 6C12.2091 6 14 7.79086 14 10Z"/>
-            </svg>
-            <h5 class="text-sm">This is a preview of your card sort. Results will not be saved.</h5>
-          </div>
-        </div>
-      </div>       
+      <PreviewBanner v-show="preview" study_type="card sort">        
+      </PreviewBanner>       
       <div class="bg-white shadow-sm px-4 py-5 sm:px-6">
         <div class="-ml-4 -mt-4 flex justify-between items-center flex-wrap sm:flex-no-wrap">
           <div class="ml-4 mt-4">
@@ -190,115 +131,32 @@
       </div>
     </div>  
     <div v-show="step === 'thanks'" class="min-h-screen bg-gray-50">
-      <main class="py-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="bg-white sm:rounded-lg shadow mb-6">
-            <div class="px-4 py-5 sm:p-6">
-              <img v-if="card_sort.logo_key !== 'undefined'" :src="card_sort.logo_url" class="mb-6 w-40">
-              <img v-else :src="card_sort.logo_url" class="mb-6" width="76" height="39">
-              <h3 class="text-xl leading-6 font-medium text-gray-900 mb-4">
-                Thank you!
-              </h3>
-              <div class="max-w-xl text-md leading-5 text-gray-500">
-                <p>
-                  Thanks for taking the time to help us. Your contribution is essential in our journey to deliver improvements!
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>      
+      <PreviewBanner v-show="preview" study_type="card sort">        
+      </PreviewBanner>  
+      <InfoBox
+        :logo_url="card_sort.logo_url"
+        heading="Thank you!"
+        @buttonClick="step = 'instructions'"
+        :show_button="false"
+      >
+        <div class="max-w-xl text-md leading-5 text-gray-500">
+          <p>
+            Thanks for taking the time to help us. Your contribution is essential in our journey to deliver improvements!
+          </p>
+        </div>      
+      </InfoBox>                
     </div>
-    <transition name="modal-component">
-      <div v-show="instructions_modal_open" class="fixed bottom-0 inset-x-0 px-4 pb-4 sm:inset-0 sm:flex sm:items-center sm:justify-center">
-        <transition name="overlay">
-          <div v-show="instructions_modal_open" class="fixed inset-0 transition-opacity">
-            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-          </div>
-        </transition>
-        <transition name="modal">
-          <div v-show="instructions_modal_open" class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-7xl sm:w-full max-h-full overflow-y-auto">
-            <div class="flex items-center justify-between flex-wrap sm:flex-no-wrap border-b border-gray-200 px-4 py-5 sm:px-6">
-              <h2 class="text-lg leading-6 font-medium text-gray-900">
-                Instructions
-              </h2>
-              <button @click="instructions_modal_open = false" type="button" class="text-gray-400 hover:text-gray-500 focus:outline-none focus:text-gray-500 transition ease-in-out duration-150">
-                <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-              </button>
-            </div>
-            <div class="px-4 py-5 sm:p-6">
-              <div class="grid grid-cols-1 col-gap-4 row-gap-8 md:grid-cols-2">
-                <div class="sm:col-span-1">
-                  <div class="mb-6">
-                    <p class="mb-3">
-                      We'd like you to categorize the cards at the bottom of the screen cards into groups that make sense to you. You can do this by dragging and dropping them into the area above.
-                    </p>
-                    <p class="mb-3">
-                        There are no right or wrong answers, just do what makes sense to you!
-                    </p>
-                    <p>
-                      When you're finished, click the green "Submit" button at the top right.
-                    </p>
-                  </div>
-                </div>
-                <div class="sm:col-span-1">
-                  <div class="bg-gray-200 overflow-hidden rounded-lg text-center h-full">
-                    <div class="px-4 py-5 sm:p-6">
-                      Demo GIF will go here
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-              <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
-                  <button @click="instructions_modal_open = false" type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-                    Close
-                  </button>
-                </span>
-              </div>
-          </div>
-        </transition>
-      </div> 
-    </transition>
-    <transition name="modal-component">
-      <div v-show="error_modal_open" class="fixed bottom-0 inset-x-0 px-4 pb-4 sm:inset-0 sm:flex sm:items-center sm:justify-center">
-        <transition name="overlay">
-          <div v-show="error_modal_open" class="fixed inset-0 transition-opacity">
-            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-          </div>
-        </transition>
-
-        <transition name="modal">
-          <div v-show="error_modal_open" class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-xl sm:w-full max-h-full overflow-y-auto">
-            <div class="px-4 py-5 sm:p-6">
-              <div>
-                <div class="mb-6 mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
-                  <svg class="h-6 w-6 text-red-600" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
-                  </svg>
-                </div>
-                <p v-show="error_type == 'cards'" class="text-center">
-                  Please sort all the cards from the bottom of the screen.
-                </p>
-                <p v-show="error_type == 'group names'" class="text-center">
-                  Please create names for all your groups.
-                </p>
-              </div>
-            </div>
-            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-              <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
-                <button @click="error_type = undefined; error_modal_open = false" type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-                  OK
-                </button>
-              </span>
-            </div>
-          </div>
-        </transition>
-      </div>       
-    </transition>
+    <InstructionsModal
+      :show="instructions_modal_open"
+      @close="instructions_modal_open = false"
+    >
+    </InstructionsModal>
+    <ErrorModal
+      :show="error_modal_open"
+      :error_message="error_message"
+      @close="error_message = undefined; error_modal_open = false"
+    >
+    </ErrorModal>
   </div>
 </template>
 
@@ -307,6 +165,10 @@
   import draggable from 'vuedraggable'
   import Card from '../components/card_sort_participants/card.vue'
   import GroupColumn from '../components/card_sort_participants/group_column.vue'
+  import PreviewBanner from '../components/study_preview_banner.vue'
+  import InfoBox from '../components/participant_view_information_box.vue'
+  import ErrorModal from '../components/participant_view_error_modal.vue'
+  import InstructionsModal from '../components/participant_view_instructions_modal.vue'
 
   export default {
     props: { 
@@ -335,7 +197,7 @@
         step: this.playback? 'sort' : 'intro',
         instructions_modal_open: false,
         error_modal_open: false,
-        error_type: undefined,
+        error_message: undefined,
         sort_start_time: undefined,
         sort_time_elapsed: undefined,
         finished_saving_groups: undefined,
@@ -503,10 +365,10 @@
       },
       submit() {
         if(this.card_sort.card_sort_cards.length != 0) {
-          this.error_type = 'cards'
+          this.error_message = 'Please sort all the cards from the bottom of the screen.'
           this.error_modal_open = true
         } else if(this.groups.flat().findIndex(group => group.name === undefined) !== -1) {
-          this.error_type = 'group names'
+          this.error_message = 'Please create names for all your groups.'
           this.error_modal_open = true
         } else if(this.preview) {
           this.step = 'thanks'
@@ -518,6 +380,6 @@
         }
       }
     },
-    components: { draggable, Card, GroupColumn }
+    components: { draggable, Card, GroupColumn, PreviewBanner, InfoBox, ErrorModal, InstructionsModal }
   }
 </script>
