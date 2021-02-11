@@ -19,14 +19,14 @@
     <main class="py-6">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div class="flex flex-wrap items-end mb-8">
-          <div class="w-full">
+        <div class="flex flex-wrap items-end">
+          <div class="w-full mb-6">
             <Sidebar :test="card_sort" middle_box_description="Unique groups created" :middle_box_value="card_sort.group_results.length" />
           </div>
         </div>
 
         <div class="flex flex-wrap">
-          <div class="w-full mb-16"> 
+          <div class="w-full mb-6"> 
             <div class="mb-6">
               <div class="block">
                 <div class="border-b border-gray-200 text-gray-500">
@@ -160,7 +160,7 @@
         </div>
 
         <div class="flex flex-wrap">
-          <div class="w-full mb-16">
+          <div class="w-full">
             <GChart 
               :settings="{ packages: ['sankey'] }"
               type="Sankey"
@@ -168,10 +168,10 @@
             />
           </div>
         </div>
-        <div class="flex flex-wrap">
+        <!-- <div class="flex flex-wrap">
           <h2 @click="draw_chart" class="text-2xl mb-4">Groups Created</h2>
           <canvas id="bar-chart"></canvas>
-        </div>
+        </div> -->
 
       </div>
     </main>
