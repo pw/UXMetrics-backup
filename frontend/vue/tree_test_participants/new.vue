@@ -107,7 +107,7 @@
               </div>                         
             </div>    
             <div v-show="step == 'thanks'">
-              <img :src="tree_test.logo_url" class="w-1/5 mb-6">
+              <img :src="tree_test.logo_url" class="mb-6 w-40">
               <h3 class="text-xl leading-6 font-medium text-gray-900 mb-4">
                 Thank you!
               </h3>
