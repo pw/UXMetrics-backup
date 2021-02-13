@@ -22,7 +22,17 @@
   margin-bottom: 1rem;  
   width: 100%; 
 }
+.container-ghost-class-mobile {
+  border-width: 4px;
+  border-style: dashed;
+  border-radius: 0.5rem;
+  border-color: #d2d6dc;
+  margin-bottom: 1rem;  
+}
 .container-ghost-class * {
+  opacity: 0;
+}
+.container-ghost-class-mobile * {
   opacity: 0;
 }
 .groups-ghost-class {

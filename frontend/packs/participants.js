@@ -11,7 +11,7 @@ import TurbolinksAdapter from 'vue-turbolinks'
 import Vue from 'vue/dist/vue.esm'
 import VueWindowSize from 'vue-window-size'
 import NewTreeTestParticipant from '../vue/tree_test_participants/new.vue'
-import NewCardSortParticipant from '../vue/card_sort_participants/new.vue'
+import NewCardSortParticipant from '../vue/card_sort_participants/new_mobile.vue'
 
 import HoneybadgerVue from '@honeybadger-io/vue'
 const config = {
