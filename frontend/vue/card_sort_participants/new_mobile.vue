@@ -44,7 +44,7 @@
         </div>        
       </InfoBox>               
     </div>  
-    <div style="height: -webkit-fill-available" class="flex flex-col" v-show="step === 'sort'">
+    <div class="h-screen flex flex-col" v-show="step === 'sort'">
       <PreviewBanner v-show="preview" study_type="card sort">        
       </PreviewBanner>       
       <div class="bg-white shadow-sm px-4 py-5 sm:px-6">
