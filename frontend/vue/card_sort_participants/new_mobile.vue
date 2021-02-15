@@ -85,7 +85,7 @@
         </div>
       </div>
       <div 
-      class="px-6 pt-6 flex-1 flex overflow-y-auto" 
+      class="flex-1 flex overflow-y-auto" 
       > 
         <Groups          
           :sort_type="card_sort.sort_type"
