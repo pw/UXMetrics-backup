@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="h-screen">
     <div v-show="step  === 'intro'" class="min-h-screen bg-gray-50">
       <PreviewBanner v-show="preview" study_type="card sort">        
       </PreviewBanner>
@@ -85,7 +85,7 @@
         </div>
       </div>
       <div 
-      class="px-6 pt-6 flex-grow flex overflow-y-auto" 
+      class="px-6 pt-6 flex-1 flex overflow-y-auto" 
       > 
         <Groups          
           :sort_type="card_sort.sort_type"
@@ -102,26 +102,28 @@
             <path fill-rule="evenodd" clip-rule="evenodd" d="M5.29289 7.70711C4.90237 7.31658 4.90237 6.68342 5.29289 6.29289L9.29289 2.29289C9.68342 1.90237 10.3166 1.90237 10.7071 2.29289L14.7071 6.29289C15.0976 6.68342 15.0976 7.31658 14.7071 7.70711C14.3166 8.09763 13.6834 8.09763 13.2929 7.70711L11 5.41421L11 17C11 17.5523 10.5523 18 10 18C9.44772 18 9 17.5523 9 17L9 5.41421L6.70711 7.70711C6.31658 8.09763 5.68342 8.09763 5.29289 7.70711Z"/>
           </svg>
         </div> 
-        <transition name="slide-in">     
-          <div v-show="step === 'sort'" class="flex overflow-x-auto bg-gray-200 px-6 py-12 m:px-6 sm:py-12 border-t-2">
-            <draggable 
-            v-model="card_sort.card_sort_cards"
-            group="cards"
-            ghost-class="draggable-new-group2"
-            class="flex draggable w-full"
-            id="drawer"
-            @add="recordCardMove"
-            >            
-              <Card 
-              v-for="card in card_sort.card_sort_cards"          
-              :key="card.id"
-              :id="card.id"
-              :title="card.title"
-              :description="card.description"
-              classes="flex-shrink-0 w-64 mr-2"
-              />
-            </draggable>
-          </div>      
+        <transition name="slide-in">
+          <div class=""> 
+            <div v-show="step === 'sort'" class="flex overflow-x-auto bg-gray-200 px-6 py-12 m:px-6 sm:py-12 border-t-4">
+              <draggable 
+              v-model="card_sort.card_sort_cards"
+              group="cards"
+              ghost-class="draggable-new-group2"
+              class="flex draggable w-full"
+              id="drawer"
+              @add="recordCardMove"
+              >            
+                <Card 
+                v-for="card in card_sort.card_sort_cards"          
+                :key="card.id"
+                :id="card.id"
+                :title="card.title"
+                :description="card.description"
+                classes="flex-shrink-0 w-64 mr-2"
+                />
+              </draggable>
+            </div>
+          </div>  
         </transition>
       </div>
     </div>  
