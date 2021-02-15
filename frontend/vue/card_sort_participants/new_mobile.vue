@@ -85,7 +85,7 @@
         </div>
       </div>
       <div 
-      class="flex-1 flex overflow-y-auto" 
+      class="mt-6 flex-1 flex overflow-y-auto" 
       > 
         <Groups          
           :sort_type="card_sort.sort_type"
