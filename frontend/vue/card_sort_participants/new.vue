@@ -85,7 +85,7 @@
         </div>
       </div>
       <div 
-      class="p-6 lg:flex flex-grow overflow-y-scroll" 
+      class="p-6 flex-grow flex overflow-y-scroll" 
       >   
         <GroupColumn          
           v-for="(group, index) in groups"
@@ -100,7 +100,7 @@
           @saveGroupName="recordGroupNameChange"
         />
       </div>
-      <div class="fixed inset-x-0 bottom-0">
+      <div>
         <div v-show="card_sort.card_sort_cards.length === total_cards" class="mx-auto mb-12 px-6 py-6 text-center">
           <p class="mb-12">Drag all the cards below into groups that makes sense to you.</p>
           <svg class="mb-12 m-auto h-12 w-12 text-gray-500 animate-bounce" fill="currentColor" viewBox="0 0 24 24" stroke="none">
