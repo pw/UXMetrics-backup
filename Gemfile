@@ -14,6 +14,7 @@ gem 'postmark'
 gem 'sidekiq'
 gem 'stripe'
 gem "honeybadger", "~> 4.0"
+gem 'browser'
 
 group :development do
   gem 'web-console'

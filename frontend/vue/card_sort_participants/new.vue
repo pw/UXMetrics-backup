@@ -219,17 +219,7 @@
     },
     computed: {
       columns: function() {
-        if(this.windowWidth < 640) {
-          return 1
-        } else if(this.windowWidth < 768) {
-          return 2
-        } else if(this.windowWidth < 1024) {
-          return 3
-        } else if(this.windowWidth < 1280) {
-          return 4
-        } else {
           return 5
-        }
       }
     },
     watch: {

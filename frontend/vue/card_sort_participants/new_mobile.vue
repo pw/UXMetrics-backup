@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen">
+  <div class="h-screen" :style="ios ? 'height: -webkit-fill-available' : ''">
     <div v-show="step  === 'intro'" class="min-h-screen bg-gray-50">
       <PreviewBanner v-show="preview" study_type="card sort">        
       </PreviewBanner>
@@ -44,7 +44,7 @@
         </div>        
       </InfoBox>               
     </div>  
-    <div class="h-screen flex flex-col" v-show="step === 'sort'">
+    <div class="h-screen flex flex-col" :style="ios ? 'height: -webkit-fill-available' : ''" v-show="step === 'sort'">
       <PreviewBanner v-show="preview" study_type="card sort">        
       </PreviewBanner>       
       <div class="bg-white shadow-sm px-4 py-5 sm:px-6">
@@ -171,6 +171,7 @@
     props: { 
       data: Object,
       preview: Boolean,
+      ios: Boolean,
       card_sort_gif_url: String,
       playback: {
         type: Boolean,
@@ -185,7 +186,7 @@
         total_cards: this.data.card_sort_cards.length,
         recording: this.saved_recording ? JSON.parse(this.saved_recording) : [],
         final_groups: undefined,
-        step: this.playback? 'sort' : 'sort',
+        step: this.playback? 'sort' : 'intro',
         instructions_modal_open: false,
         error_modal_open: false,
         error_message: undefined,
@@ -206,8 +207,6 @@
         }
         this.groups.push(groupObject)
       })
-    },
-    computed: {
     },
     watch: {
       finished_saving_groups: function(val) {
@@ -297,7 +296,7 @@
         this.sort_start_time = new Date        
       },
       saveGroups() {
-        this.final_groups = this.groups.flat()
+        this.final_groups = this.groups
         this.finished_saving_groups = this.final_groups.filter(group => group.can_delete).length
         this.final_groups.forEach((group, index) => {
           if(group.can_delete) {

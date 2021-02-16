@@ -1,1 +1,1 @@
-<card-sort-participant-new :data="<%= @card_sort.to_json() %>" :preview="<%= params[:preview] ? 'true' : 'false' %>" :card_sort_gif_url="'<%= asset_pack_path('media/images/cardsort.gif') %>'" />
+<new-card-sort-participant :data="<%= @card_sort.to_json() %>" :preview="<%= params[:preview] ? 'true' : 'false' %>" :card_sort_gif_url="'<%= asset_pack_path('media/images/cardsort.gif') %>'" />

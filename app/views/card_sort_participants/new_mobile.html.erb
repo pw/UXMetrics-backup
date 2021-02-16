@@ -1,0 +1,1 @@
+<new-card-sort-participant-mobile :data="<%= @card_sort.to_json() %>" :preview="<%= params[:preview] ? 'true' : 'false' %>" :card_sort_gif_url="'<%= asset_pack_path('media/images/cardsort.gif') %>'" :ios="<%= browser.platform.ios? ? 'true' : 'false' %>" />

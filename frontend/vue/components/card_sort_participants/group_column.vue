@@ -1,6 +1,6 @@
 <template>
   <draggable 
-  class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 h-full"     
+  class="w-1/5 h-full"     
   v-model="groups"
   swap-threshold="0.65"
   :group="{ name: 'groups', pull: ['groups'], put: draggablePut() }"
