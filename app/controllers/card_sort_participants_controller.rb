@@ -7,12 +7,6 @@ class CardSortParticipantsController < ApplicationController
     @card_sort = CardSort.find_by(auth_token: params[:auth_token])
 
     redirect_to :not_found if @card_sort.status != 'published' && !params[:preview]
-
-    if browser.device.mobile? || browser.device.tablet? 
-      render 'new_mobile'
-    else
-      render
-    end
   end
 
   def create

@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full">
+  <div class="h-screen" :style="ios ? 'height: -webkit-fill-available' : ''">
     <div v-show="step  === 'intro'" class="min-h-screen bg-gray-50">
       <PreviewBanner v-show="preview" study_type="card sort">        
       </PreviewBanner>
@@ -44,7 +44,7 @@
         </div>        
       </InfoBox>               
     </div>  
-    <div class="h-full flex flex-col" v-show="step === 'sort'">
+    <div class="h-screen flex flex-col" :style="ios ? 'height: -webkit-fill-available' : ''" v-show="step === 'sort'">
       <PreviewBanner v-show="preview" study_type="card sort">        
       </PreviewBanner>       
       <div class="bg-white shadow-sm px-4 py-5 sm:px-6">
@@ -84,7 +84,20 @@
           </div>
         </div>
       </div>
+      <div
+      v-if="mobile" 
+      class="mt-6 flex-1 flex overflow-y-auto" 
+      > 
+        <Groups          
+          :sort_type="card_sort.sort_type"
+          v-model="groups"
+          @releaseCards="addCardsToDrawer"
+          @cardMove="recordCardMove"
+          @saveGroupName="recordGroupNameChange"
+        />
+      </div>      
       <div 
+      v-else
       class="p-6 flex-grow flex overflow-y-scroll" 
       >   
         <GroupColumn          
@@ -101,14 +114,15 @@
         />
       </div>
       <div>
-        <div v-show="card_sort.card_sort_cards.length === total_cards" class="mx-auto mb-12 px-6 py-6 text-center">
+        <div v-show="card_sort.card_sort_cards.length === total_cards" class="mx-auto px-6 py-6 text-center" :class="{ 'mb-12' : !mobile }">
           <p class="mb-12">Drag all the cards below into groups that makes sense to you.</p>
           <svg class="mb-12 m-auto h-12 w-12 text-gray-500 animate-bounce" fill="currentColor" viewBox="0 0 24 24" stroke="none">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M5.29289 7.70711C4.90237 7.31658 4.90237 6.68342 5.29289 6.29289L9.29289 2.29289C9.68342 1.90237 10.3166 1.90237 10.7071 2.29289L14.7071 6.29289C15.0976 6.68342 15.0976 7.31658 14.7071 7.70711C14.3166 8.09763 13.6834 8.09763 13.2929 7.70711L11 5.41421L11 17C11 17.5523 10.5523 18 10 18C9.44772 18 9 17.5523 9 17L9 5.41421L6.70711 7.70711C6.31658 8.09763 5.68342 8.09763 5.29289 7.70711Z"/>
           </svg>
         </div> 
-        <transition name="slide-in">     
-          <div v-show="step === 'sort'" class="flex overflow-x-auto bg-gray-200 px-6 py-12 m:px-6 sm:py-12 border-t-2">
+        <transition name="slide-in">
+          <div>   
+          <div v-show="step === 'sort'" class="flex overflow-x-auto bg-gray-200 px-6 py-12 m:px-6 sm:py-12" :class="{ 'border-t-4': mobile, 'border-t-2': !mobile }">
             <draggable 
             v-model="card_sort.card_sort_cards"
             group="cards"
@@ -126,7 +140,8 @@
               classes="flex-shrink-0 w-64 mr-2"
               />
             </draggable>
-          </div>      
+          </div>   
+          </div>   
         </transition>
       </div>
     </div>  
@@ -165,6 +180,7 @@
   import draggable from 'vuedraggable'
   import Card from '../components/card_sort_participants/card.vue'
   import GroupColumn from '../components/card_sort_participants/group_column.vue'
+  import Groups from '../components/card_sort_participants/mobile/groups.vue'
   import PreviewBanner from '../components/study_preview_banner.vue'
   import InfoBox from '../components/participant_view_information_box.vue'
   import ErrorModal from '../components/participant_view_error_modal.vue'
@@ -174,6 +190,7 @@
     props: { 
       data: Object,
       preview: Boolean,
+      ios: Boolean,
       card_sort_gif_url: String,
       playback: {
         type: Boolean,
@@ -184,13 +201,8 @@
     data: function() {
       return {
         card_sort: this.data,
-        groups: [
-          [],
-          [],
-          [],
-          [],
-          []   
-        ],
+        groups: undefined,
+        mobile: undefined,
         total_cards: this.data.card_sort_cards.length,
         recording: this.saved_recording ? JSON.parse(this.saved_recording) : [],
         final_groups: undefined,
@@ -204,7 +216,21 @@
         last_card_move_time: undefined
       }
     },
-    created() {
+    mounted() {
+      this.mobile = window.innerWidth <= 768
+
+      if(this.mobile) {
+        this.groups = []
+      } else {
+        this.groups = [
+          [],
+          [],
+          [],
+          [],
+          []
+        ]
+      }
+
       this.card_sort.card_sort_groups.forEach((group, index) => {        
         var groupObject = {
           id: group.id.toString(),
@@ -213,8 +239,14 @@
           can_edit_name: false,
           cards: []
         }
-        var column = index % this.columns
-        this.groups[column].push(groupObject)
+        
+        if(this.mobile) {
+          //this.groups.push(groupObject)
+        } else {
+          var column = index % this.columns
+          this.groups[column].push(groupObject)
+        }
+
       })
     },
     computed: {
@@ -370,6 +402,6 @@
         }
       }
     },
-    components: { draggable, Card, GroupColumn, PreviewBanner, InfoBox, ErrorModal, InstructionsModal }
+    components: { draggable, Card, GroupColumn, Groups, PreviewBanner, InfoBox, ErrorModal, InstructionsModal }
   }
 </script>

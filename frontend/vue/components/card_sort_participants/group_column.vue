@@ -73,7 +73,7 @@
         this.$emit('saveGroupName', event)
       },
       deleteGroup(id) {
-        var index = this.groups.findIndex(i => i.id == id)
+        var index = this.groups.findIndex(i => i.id === id)
         var deleted_cards = this.groups[index].cards
         this.groups.splice(index, 1)
         this.$emit('releaseCards', deleted_cards)
